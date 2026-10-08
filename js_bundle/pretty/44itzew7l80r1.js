@@ -1,0 +1,1182 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "a79b81ce-f889-09ab-a72e-071822bc48bc")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 138577, 233644, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099),
+    a = e.i(519172),
+    l = e.i(345717),
+    i = e.i(576680),
+    r = e.i(370911),
+    s = e.i(621545),
+    c = e.i(648386),
+    o = e.i(767838),
+    d = e.i(200388),
+    u = e.i(39299),
+    f = e.i(941960),
+    h = e.i(176048),
+    p = e.i(646361),
+    m = e.i(731714),
+    x = e.i(980933),
+    g = e.i(820646),
+    b = e.i(374785),
+    _ = e.i(745427),
+    y = e.i(960607),
+    N = e.i(129499),
+    v = e.i(174714),
+    k = e.i(978424);
+
+  function w(e) {
+    let a, i, r = (0, n.c)(3),
+      {
+        duration: s
+      } = e;
+    return r[0] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)("span", {
+      className: "sr-only",
+      children: l.fbt._("Travel time", null, {
+        hk: "3oluhm"
+      })
+    }), r[0] = a) : a = r[0], r[1] !== s ? (i = (0, t.jsxs)("span", {
+      "data-testid": "flight-slice-duration",
+      className: "bg-fill-secondary text-caption-2 text-text-secondary min-w-16 shrink-0 rounded-full px-2 py-0.5 text-center tabular-nums",
+      children: [a, s]
+    }), r[1] = s, r[2] = i) : i = r[2], i
+  }
+
+  function I(e) {
+    let a, l, i, r, s, c, o, d = (0, n.c)(14),
+      {
+        slice: u,
+        fallbackDuration: f
+      } = e,
+      h = u.duration ?? f;
+    return d[0] !== u.depart.short ? (a = (0, t.jsx)("span", {
+      className: "shrink-0 whitespace-nowrap",
+      children: u.depart.short
+    }), d[0] = u.depart.short, d[1] = a) : a = d[1], d[2] === Symbol.for("react.memo_cache_sentinel") ? (l = (0, t.jsx)("span", {
+      "aria-hidden": "true",
+      "data-testid": "flight-slice-rule",
+      className: "border-fill-divider h-0 min-w-2 flex-1 border-t"
+    }), d[2] = l) : l = d[2], d[3] !== a ? (i = (0, t.jsxs)("span", {
+      className: "flex min-w-0 flex-1 basis-0 items-center gap-0.5",
+      children: [a, l]
+    }), d[3] = a, d[4] = i) : i = d[4], d[5] !== h ? (r = null != h ? (0, t.jsx)(w, {
+      duration: h
+    }) : null, d[5] = h, d[6] = r) : r = d[6], d[7] === Symbol.for("react.memo_cache_sentinel") ? (s = (0, t.jsx)("span", {
+      "aria-hidden": "true",
+      "data-testid": "flight-slice-rule",
+      className: "border-fill-divider h-0 min-w-2 flex-1 border-t"
+    }), d[7] = s) : s = d[7], d[8] !== u.arrive.short ? (c = (0, t.jsxs)("span", {
+      className: "flex min-w-0 flex-1 basis-0 items-center gap-0.5",
+      children: [s, (0, t.jsx)("span", {
+        className: "shrink-0 whitespace-nowrap",
+        children: u.arrive.short
+      })]
+    }), d[8] = u.arrive.short, d[9] = c) : c = d[9], d[10] !== i || d[11] !== r || d[12] !== c ? (o = (0, t.jsxs)("span", {
+      className: "text-footnote text-text-secondary flex min-w-0 items-center gap-1",
+      children: [i, r, c]
+    }), d[10] = i, d[11] = r, d[12] = c, d[13] = o) : o = d[13], o
+  }
+
+  function C(e) {
+    let a, l, i, r, s, c, o, d, u, f, h, p, m, x = (0, n.c)(37),
+      {
+        offer: g,
+        iconUrls: b
+      } = e;
+    x[0] !== g ? (l = (a = (0, k.flightOfferCarriers)(g)).join(" + "), x[0] = g, x[1] = a, x[2] = l) : (a = x[1], l = x[2]);
+    let _ = l;
+    x[3] !== b || x[4] !== g ? (i = b.length > 0 ? b : (0, k.flightOfferIconUrls)(g), x[3] = b, x[4] = g, x[5] = i) : i = x[5];
+    let y = i,
+      N = g.slices.length > 1,
+      w = 1 === g.slices.length ? g.slices[0] : void 0,
+      C = null != w && (w.duration ?? g.duration) === g.duration ? void 0 : g.duration;
+    x[6] !== a[0] || x[7] !== y ? (r = (0, t.jsx)(v.HatchAirlineLogo, {
+      iconUrls: y,
+      carrier: a[0],
+      size: 40
+    }), x[6] = a[0], x[7] = y, x[8] = r) : r = x[8];
+    let T = _.length > 0 ? _ : void 0;
+    if (x[9] !== _ || x[10] !== T ? (s = (0, t.jsx)("span", {
+        className: "min-w-0 truncate",
+        title: T,
+        children: _
+      }), x[9] = _, x[10] = T, x[11] = s) : s = x[11], x[12] !== g.price ? (c = null != g.price ? (0, t.jsx)("span", {
+        className: "shrink-0 whitespace-pre",
+        children: ` \xb7 ${g.price}`
+      }) : null, x[12] = g.price, x[13] = c) : c = x[13], x[14] !== s || x[15] !== c ? (o = (0, t.jsxs)("span", {
+        className: "text-subheadline-medium text-text-primary flex min-w-0",
+        children: [s, c]
+      }), x[14] = s, x[15] = c, x[16] = o) : o = x[16], x[17] !== N || x[18] !== g.duration || x[19] !== g.slices) {
+      let e;
+      x[21] !== N || x[22] !== g.duration ? (e = (e, n) => (0, t.jsx)(I, {
+        slice: e,
+        fallbackDuration: N ? void 0 : g.duration
+      }, `${e.from}-${e.to}-${n}`), x[21] = N, x[22] = g.duration, x[23] = e) : e = x[23], d = g.slices.map(e), x[17] = N, x[18] = g.duration, x[19] = g.slices, x[20] = d
+    } else d = x[20];
+    return x[24] !== d ? (u = (0, t.jsx)("span", {
+      className: "flex min-w-0 flex-col gap-2",
+      children: d
+    }), x[24] = d, x[25] = u) : u = x[25], x[26] !== o || x[27] !== u ? (f = (0, t.jsxs)("span", {
+      className: "flex min-w-0 flex-col gap-1.5",
+      children: [o, u]
+    }), x[26] = o, x[27] = u, x[28] = f) : f = x[28], x[29] !== C ? (h = null != C ? (0, t.jsx)("span", {
+      className: "text-caption-1 text-text-tertiary min-w-0 truncate",
+      children: C
+    }) : null, x[29] = C, x[30] = h) : h = x[30], x[31] !== f || x[32] !== h ? (p = (0, t.jsxs)("span", {
+      className: "flex min-w-0 flex-1 flex-col gap-0.5 text-start",
+      children: [f, h]
+    }), x[31] = f, x[32] = h, x[33] = p) : p = x[33], x[34] !== p || x[35] !== r ? (m = (0, t.jsxs)(t.Fragment, {
+      children: [r, p]
+    }), x[34] = p, x[35] = r, x[36] = m) : m = x[36], m
+  }
+  var T = e.i(664871),
+    j = e.i(169640),
+    A = e.i(664661),
+    L = e.i(829051),
+    E = e.i(453481),
+    S = e.i(221988),
+    H = e.i(863641),
+    R = e.i(346577),
+    P = e.i(94763),
+    O = e.i(51726),
+    U = e.i(367767),
+    D = e.i(175286),
+    M = e.i(334186),
+    G = e.i(488435),
+    $ = e.i(288119),
+    z = e.i(393401),
+    K = e.i(224520),
+    q = e.i(931821),
+    B = e.i(880162),
+    F = e.i(710913);
+  let W = [11.6503, .08853, 12.55505, .11307, 13.4434, .29582, 14.32893, .49262, 15.21446, .68942, 16.09999, .88623, 16.98552, 1.08303, 17.87105, 1.27983, 18.75658, 1.47663, 19.6394, 1.68494, 20.48687, 2.00248, 21.19685, 2.56078, 21.70547, 3.30776, 21.95301, 4.17608, 21.99863, 5.08156, 21.9999, 5.98869, 21.9999, 6.89582, 21.9999, 7.80296, 21.9999, 8.71009, 21.9999, 9.61723, 21.9999, 10.52437, 21.99974, 11.4315, 21.99556, 12.33862, 21.9779, 13.24557, 21.93046, 14.15139, 21.82728, 15.05239, 21.63491, 15.93834, 21.33726, 16.79479, 20.95369, 17.61642, 20.48943, 18.3953, 19.94921, 19.12355, 19.33468, 19.79006, 18.64475, 20.37836, 17.90595, 20.90443, 17.14105, 21.392, 16.36363, 21.85944, 15.58116, 22.31838, 14.79751, 22.77532, 14.01386, 23.23226, 13.21736, 23.66558, 12.34916, 23.91407, 11.44601, 23.88288, 10.59628, 23.57502, 9.80714, 23.12788, 9.02342, 22.67107, 8.23986, 22.21397, 7.4581, 21.75383, 6.68273, 21.28302, 5.92227, 20.78857, 5.19225, 20.25046, 4.51752, 19.64489, 3.92089, 18.96219, 3.39754, 18.22172, 2.95129, 17.43237, 2.58679, 16.60211, 2.31152, 15.73831, 2.14239, 14.84755, 2.05473, 13.94486, 2.016, 13.03861, 2.00255, 12.13158, 1.99992, 11.22445, 1.99991, 10.31732, 1.99991, 9.41018, 1.99991, 8.50305, 1.99991, 7.59591, 1.99991, 6.68877, 1.99991, 5.78164, 2.00401, 4.87453, 2.07852, 3.9715, 2.39016, 3.12427, 2.94899, 2.41408, 3.69858, 1.91094, 4.56094, 1.63348, 5.44533, 1.43171, 6.33086, 1.23491, 7.21639, 1.03811, 8.10192, .8413, 8.98745, .6445, 9.87298, .4477, 10.75851, .2509],
+    V = [12, 1, 12.86317, 1.0337, 13.7211, 1.13432, 14.56847, 1.30199, 15.39995, 1.53604, 16.21033, 1.83508, 16.99458, 2.19716, 17.7479, 2.61985, 18.46575, 3.10032, 19.14386, 3.63544, 19.77817, 4.22183, 20.36456, 4.85614, 20.89968, 5.53425, 21.38015, 6.2521, 21.80284, 7.00542, 22.16492, 7.78967, 22.46397, 8.60005, 22.69801, 9.43153, 22.86568, 10.2789, 22.9663, 11.13683, 23, 12, 22.9663, 12.86317, 22.86568, 13.7211, 22.698, 14.56847, 22.46396, 15.39995, 22.16492, 16.21033, 21.80283, 16.99458, 21.38015, 17.7479, 20.89968, 18.46575, 20.36456, 19.14386, 19.77816, 19.77816, 19.14385, 20.36456, 18.46575, 20.89968, 17.74789, 21.38015, 16.99457, 21.80284, 16.21032, 22.16492, 15.39995, 22.46396, 14.56846, 22.69801, 13.72109, 22.86568, 12.86317, 22.9663, 11.99999, 23, 11.13682, 22.9663, 10.27889, 22.86568, 9.43152, 22.69801, 8.60004, 22.46396, 7.78966, 22.16492, 7.00542, 21.80284, 6.2521, 21.38015, 5.53424, 20.89968, 4.85613, 20.36456, 4.22183, 19.77816, 3.63543, 19.14386, 3.10031, 18.46575, 2.61985, 17.74789, 2.19716, 16.99457, 1.83508, 16.21033, 1.53603, 15.39995, 1.30199, 14.56846, 1.13432, 13.72109, 1.0337, 12.86317, 1, 11.99999, 1.0337, 11.13682, 1.13432, 10.27889, 1.30199, 9.43152, 1.53603, 8.60004, 1.83508, 7.78966, 2.19716, 7.00542, 2.61985, 6.2521, 3.10031, 5.53424, 3.63543, 4.85613, 4.22183, 4.22182, 4.85614, 3.63543, 5.53424, 3.10031, 6.2521, 2.61984, 7.00542, 2.19716, 7.78967, 1.83507, 8.60005, 1.53603, 9.43153, 1.30199, 10.2789, 1.13432, 11.13683, 1.0337],
+    Y = [11.8251, 2.08072, 11.0898, 2.22675, 10.35757, 2.38935, 9.62535, 2.55195, 8.89312, 2.71455, 8.1609, 2.87715, 7.42867, 3.03975, 6.69645, 3.20235, 5.96422, 3.36495, 5.23235, 3.5291, 4.51291, 3.73772, 4.05199, 4.30183, 4.00145, 5.04903, 3.99991, 5.79909, 3.99991, 6.54915, 3.99991, 7.29921, 3.99991, 8.04927, 3.99991, 8.79934, 3.99991, 9.5494, 3.99991, 10.29946, 4.00004, 11.04952, 4.00182, 11.79958, 4.00846, 12.54961, 4.02606, 13.29945, 4.06696, 14.04834, 4.15531, 14.79294, 4.32796, 15.52223, 4.59269, 16.22363, 4.93096, 16.89269, 5.33885, 17.52172, 5.81166, 18.10352, 6.35493, 18.61979, 6.95374, 19.07108, 7.58008, 19.48365, 8.21893, 19.87663, 8.86346, 20.26026, 9.51045, 20.63972, 10.15834, 21.01766, 10.80636, 21.39537, 11.45761, 21.76741, 12.17406, 21.91879, 12.84749, 21.59612, 13.4959, 21.21908, 14.14392, 20.84137, 14.7915, 20.46291, 15.43761, 20.08194, 16.08004, 19.69482, 16.71426, 19.29443, 17.33036, 18.86683, 17.90739, 18.38827, 18.41659, 17.8383, 18.85973, 17.23359, 19.23566, 16.58495, 19.54008, 15.89983, 19.76519, 15.18491, 19.89384, 14.4464, 19.95606, 13.69905, 19.98394, 12.94954, 19.99536, 12.19957, 19.99919, 11.44952, 19.9999, 10.69946, 19.9999, 9.9494, 19.9999, 9.19934, 19.9999, 8.44927, 19.9999, 7.69921, 19.9999, 6.94915, 19.9999, 6.19909, 19.99988, 5.44903, 19.99019, 4.69908, 19.79073, 3.99192, 19.15559, 3.62573, 18.42607, 3.45173, 17.69386, 3.28905, 16.96163, 3.12645, 16.22941, 2.96385, 15.49718, 2.80126, 14.76496, 2.63866, 14.03273, 2.47606, 13.30051, 2.31346, 12.56818, 2.1513],
+    X = [12, 3, 11.29377, 3.02757, 10.59182, 3.1099, 9.89852, 3.24708, 9.21822, 3.43857, 8.55518, 3.68324, 7.91352, 3.97949, 7.29717, 4.32533, 6.70983, 4.71844, 6.15502, 5.15626, 5.63604, 5.63604, 5.15626, 6.15502, 4.71843, 6.70984, 4.32532, 7.29718, 3.97949, 7.91353, 3.68324, 8.55519, 3.43857, 9.21823, 3.24708, 9.89853, 3.1099, 10.59183, 3.02757, 11.29377, 3, 12.00001, 3.02757, 12.70624, 3.1099, 13.40818, 3.24708, 14.10149, 3.43857, 14.78179, 3.68324, 15.44483, 3.97949, 16.08649, 4.32532, 16.70284, 4.71843, 17.29018, 5.15626, 17.84499, 5.63604, 18.36397, 6.15502, 18.84375, 6.70983, 19.28158, 7.29717, 19.67468, 7.91353, 20.02052, 8.55519, 20.31677, 9.21823, 20.56143, 9.89853, 20.75292, 10.59183, 20.8901, 11.29377, 20.97243, 12.00001, 21, 12.70624, 20.97243, 13.40818, 20.8901, 14.10149, 20.75292, 14.78179, 20.56143, 15.44483, 20.31676, 16.08649, 20.02052, 16.70284, 19.67468, 17.29018, 19.28158, 17.845, 18.84375, 18.36398, 18.36397, 18.84376, 17.84499, 19.28158, 17.29018, 19.67469, 16.70284, 20.02052, 16.08648, 20.31677, 15.44482, 20.56144, 14.78178, 20.75292, 14.10148, 20.8901, 13.40818, 20.97243, 12.70623, 21, 12, 20.97243, 11.29377, 20.8901, 10.59182, 20.75292, 9.89852, 20.56143, 9.21822, 20.31676, 8.55518, 20.02051, 7.91352, 19.67468, 7.29717, 19.28157, 6.70983, 18.84375, 6.15501, 18.36397, 5.63603, 17.84499, 5.15625, 17.29017, 4.71843, 16.70283, 4.32532, 16.08648, 3.97949, 15.44482, 3.68324, 14.78178, 3.43857, 14.10148, 3.24708, 13.40818, 3.1099, 12.70623, 3.02757],
+    Z = {
+      x: 6.97,
+      y: 12.68
+    },
+    J = {
+      x: 10.43,
+      y: 16.24
+    },
+    Q = {
+      x: 16.52,
+      y: 8.07
+    },
+    ee = Math.round(1440.0000000000002),
+    et = Math.round(384),
+    en = (.53 - .22) / .42 * Math.PI * 1.35;
+
+  function ea(e) {
+    return Math.min(Math.max(e, 0), 1)
+  }
+
+  function el(e, t, n) {
+    let a = ea((n - e) / (t - e));
+    return a * a * (3 - 2 * a)
+  }
+
+  function ei(e) {
+    return e < .5 ? 4 * e * e * e : 1 - Math.pow(-2 * e + 2, 3) / 2
+  }
+
+  function er(e) {
+    let t = `M${e[0]} ${e[1]}`;
+    for (let n = 2; n < e.length; n += 2) t += `L${e[n]} ${e[n+1]}`;
+    return `${t}Z`
+  }
+
+  function es(e, t, n) {
+    let a = "";
+    for (let l = 0; l < e.length; l += 2) {
+      let i = e[l] + (t[l] - e[l]) * n,
+        r = e[l + 1] + (t[l + 1] - e[l + 1]) * n;
+      a += `${0===l?"M":"L"}${i.toFixed(3)} ${r.toFixed(3)}`
+    }
+    return `${a}Z`
+  }
+  let ec = `${er([11.9999,5.99966,12.51297,6.04352,13.01097,6.1744,13.479,6.38911,13.9033,6.68088,14.27175,7.04061,14.57362,7.45778,14.79966,7.92043,14.94277,8.41505,14.99894,8.92691,14.9999,9.44247,14.9999,9.95804,14.9999,10.4736,15.3568,10.76886,15.72145,11.12974,15.94056,11.5934,15.99917,12.10422,15.9999,12.61979,15.9999,13.13536,15.9999,13.65092,15.9999,14.16649,15.9999,14.68206,15.9999,15.19763,15.97905,15.71236,15.82567,16.20171,15.51148,16.6073,15.07899,16.88309,14.57744,16.99226,14.06202,16.9997,13.54645,16.9997,13.03088,16.9997,12.51532,16.9997,11.99975,16.9997,11.48418,16.9997,10.96861,16.9997,10.45304,16.9997,9.93748,16.9997,9.42206,16.99224,8.92054,16.88294,8.48809,16.60706,8.17397,16.20143,8.0207,15.71204,7.99991,15.1973,7.99991,14.68173,7.99991,14.16617,7.99991,13.6506,7.99991,13.13503,7.99991,12.61946,8.00064,12.1039,8.05894,11.59302,8.2784,11.12964,8.64283,10.76852,8.99991,10.47363,8.99991,9.95807,8.99991,9.4425,9.00087,8.92694,9.05703,8.41508,9.20013,7.92046,9.42618,7.45781,9.72806,7.04065,10.09651,6.68092,10.52081,6.38915,10.98884,6.17443,11.48683,6.04353])}${er([11.9999,7.99966,11.74818,8.0317,11.51275,8.1263,11.30875,8.27719,11.14902,8.47436,11.04404,8.70537,11.0009,8.95542,10.9999,9.20983,10.9999,9.46427,10.9999,9.7187,10.9999,9.97313,10.9999,10.22756,10.9999,10.48199,11.23662,10.4997,11.49105,10.4997,11.74549,10.4997,11.99992,10.4997,12.25435,10.4997,12.50878,10.4997,12.76321,10.4997,12.9999,10.48196,12.9999,10.22752,12.9999,9.97309,12.9999,9.71866,12.9999,9.46423,12.9999,9.2098,12.99889,8.95538,12.95576,8.70533,12.85079,8.47432,12.69107,8.27715,12.48706,8.12626,12.25162,8.03168])}`;
+
+  function eo(e) {
+    return `translate(12 12) scale(${e}) translate(-12 -12)`
+  }
+
+  function ed(e) {
+    let l, i, r, s, c, o, d, u, f, h, p, m, x, g, _, y, N, v, k, w = (0, n.c)(47),
+      {
+        isAdded: I
+      } = e,
+      C = !0 === (0, B.useReducedMotion)(),
+      T = I && !C,
+      [j, A] = (0, a.useState)(+!!I);
+    if (w[0] !== I || w[1] !== T ? (l = () => {
+        if (!T) return void A(+!!I);
+        let e = (0, q.animate)(0, 1, {
+          duration: 3.2,
+          ease: "linear",
+          onUpdate: A
+        });
+        return () => e.stop()
+      }, i = [I, T], w[0] = I, w[1] = T, w[2] = l, w[3] = i) : (l = w[2], i = w[3]), (0, a.useEffect)(l, i), w[4] !== I || w[5] !== j || w[6] !== T) {
+      var L;
+      let e, n, a, l, i, y, N, v, k, C, A, E, S, H, R, P;
+      e = ea(j), n = ea((e - .12) / .66), a = ei(ea(n / .72)), l = ei(ea(n / .26)), L = ea((n - .2) / .1), y = (i = ea(L)) * i * i * (i * (6 * i - 15) + 10), N = ei(ea((n - .28) / .39)), k = ei(v = ea((n - .7) / .2)), C = el(.2, .3, n), A = N * (2 * Math.PI + en), E = 2.25 * y, H = (S = (e, t) => ({
+        x: 12 + Math.cos(e) * t,
+        y: 12 + Math.sin(e) * t * .65
+      }))(en, 2.25), R = S(en + Math.PI, 2.25), P = (e, t, n) => {
+        var a, l, i, r;
+        return `M${(a=e.x,a+(t.x-a)*k).toFixed(3)} ${(l=e.y,l+(t.y-l)*k).toFixed(3)}L${(i=e.x,i+(n.x-i)*k).toFixed(3)} ${(r=e.y,r+(n.y-r)*k).toFixed(3)}`
+      }, r = {
+        beadOpacity: v <= 0 ? C : 0,
+        beads: [S(A, E), S(A + Math.PI, E)],
+        checkOpacity: v > 0 ? C : 0,
+        checkPath: P(H, Z, J) + P(R, J, Q),
+        lockOpacity: 1 - el(.18, .29, n),
+        lockScale: Math.max(.03, 1 - l),
+        outlinePath: es(W, V, a) + es(Y, X, a),
+        pulseScale: 1 + .018 * Math.sin(n * Math.PI)
+      }, s = "true", c = I ? "added" : "pending", o = "secure-storage-icon";
+      let O = I ? "text-text-success" : "text-text-secondary",
+        U = T && "transition-colors";
+      w[20] !== O || w[21] !== U ? (d = (0, b.cn)(F.HATCH_ACTIVITY_TILE_GLYPH_CLASS, "relative overflow-hidden", O, U), w[20] = O, w[21] = U, w[22] = d) : d = w[22], w[23] !== T ? (u = T ? {
+        transitionDelay: `${ee}ms`,
+        transitionDuration: `${et}ms`
+      } : void 0, w[23] = T, w[24] = u) : u = w[24], x = "0 0 24 24", w[25] === Symbol.for("react.memo_cache_sentinel") ? (g = (0, b.cn)("absolute", "inset-2.5 size-5"), w[25] = g) : g = w[25], _ = "currentColor", f = eo(r.pulseScale), h = (0, t.jsx)("path", {
+        d: r.outlinePath,
+        fillRule: "evenodd"
+      }), p = r.lockOpacity > 0 && (0, t.jsx)("path", {
+        d: ec,
+        fillRule: "evenodd",
+        opacity: r.lockOpacity,
+        transform: eo(r.lockScale)
+      }), m = r.beadOpacity > 0 && r.beads.map((e, n) => (0, t.jsx)("circle", {
+        cx: e.x,
+        cy: e.y,
+        r: .925,
+        opacity: r.beadOpacity
+      }, n)), w[4] = I, w[5] = j, w[6] = T, w[7] = r, w[8] = s, w[9] = c, w[10] = o, w[11] = d, w[12] = u, w[13] = f, w[14] = h, w[15] = p, w[16] = m, w[17] = x, w[18] = g, w[19] = _
+    } else r = w[7], s = w[8], c = w[9], o = w[10], d = w[11], u = w[12], f = w[13], h = w[14], p = w[15], m = w[16], x = w[17], g = w[18], _ = w[19];
+    return w[26] !== r.checkOpacity || w[27] !== r.checkPath ? (y = r.checkOpacity > 0 && (0, t.jsx)("path", {
+      d: r.checkPath,
+      fill: "none",
+      stroke: "currentColor",
+      strokeWidth: 2,
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      opacity: r.checkOpacity
+    }), w[26] = r.checkOpacity, w[27] = r.checkPath, w[28] = y) : y = w[28], w[29] !== y || w[30] !== f || w[31] !== h || w[32] !== p || w[33] !== m ? (N = (0, t.jsxs)("g", {
+      transform: f,
+      children: [h, p, m, y]
+    }), w[29] = y, w[30] = f, w[31] = h, w[32] = p, w[33] = m, w[34] = N) : N = w[34], w[35] !== N || w[36] !== x || w[37] !== g || w[38] !== _ ? (v = (0, t.jsx)("svg", {
+      viewBox: x,
+      className: g,
+      fill: _,
+      children: N
+    }), w[35] = N, w[36] = x, w[37] = g, w[38] = _, w[39] = v) : v = w[39], w[40] !== s || w[41] !== c || w[42] !== o || w[43] !== d || w[44] !== u || w[45] !== v ? (k = (0, t.jsx)("div", {
+      "aria-hidden": s,
+      "data-state": c,
+      "data-testid": o,
+      className: d,
+      style: u,
+      children: v
+    }), w[40] = s, w[41] = c, w[42] = o, w[43] = d, w[44] = u, w[45] = v, w[46] = k) : k = w[46], k
+  }
+  var eu = e.i(359783),
+    ef = e.i(871157),
+    eh = e.i(925301);
+  let ep = (0, eu.createClientLogger)("OnePasswordCapture");
+  var em = e.i(848048),
+    ex = e.i(281539),
+    eg = e.i(823173),
+    eb = e.i(905156),
+    e_ = e.i(771995);
+
+  function ey(e, t, l) {
+    let i, r, s, c = (0, n.c)(9),
+      o = (0, eb.useHatchChatThreadLoggingMetadataFromContext)();
+    c[0] !== e ? (i = () => (0, e_.claimWidgetImpression)(e), c[0] = e, c[1] = i) : i = c[1];
+    let [d] = (0, a.useState)(i);
+    return c[2] !== l || c[3] !== t || c[4] !== e || c[5] !== o ? (r = {
+      eventName: eg.HatchImpressionEvent.CHAT_WIDGET_IMPRESSION,
+      actionTarget: "chat_widget",
+      metadata: {
+        surface: "chat",
+        subsurface: "message_list",
+        ...o,
+        widget_kind: t,
+        widget_template: "unknown",
+        widget_id: e,
+        ...l
+      }
+    }, c[2] = l, c[3] = t, c[4] = e, c[5] = o, c[6] = r) : r = c[6], c[7] !== d ? (s = {
+      enabled: d,
+      threshold: "50%"
+    }, c[7] = d, c[8] = s) : s = c[8], (0, em.useTrackedImpressionRef)(r, s)
+  }
+
+  function eN(e, t, a) {
+    let l, i = (0, n.c)(5),
+      r = (0, eb.useHatchChatThreadLoggingMetadataFromContext)();
+    return i[0] !== a || i[1] !== t || i[2] !== e || i[3] !== r ? (l = {
+      eventName: ex.HatchClickEvent.CHAT_WIDGET_CLICK,
+      actionTarget: "chat_widget",
+      actionType: "click",
+      metadata: {
+        surface: "chat",
+        subsurface: "message_list",
+        ...r,
+        widget_kind: t,
+        widget_template: "unknown",
+        widget_id: e,
+        ...a
+      }
+    }, i[0] = a, i[1] = t, i[2] = e, i[3] = r, i[4] = l) : l = i[4], (0, em.useTrackedClickRef)(l)
+  }
+
+  function ev(e) {
+    let a, l = (0, n.c)(5),
+      {
+        presentation: i,
+        isCredentialAdded: r
+      } = e;
+    if ("connector" === i.data.action.type || "connector_add_account" === i.data.action.type || "connector_scope" === i.data.action.type) {
+      let e;
+      return l[0] !== i.data.action.connectorId || l[1] !== i.data.imageUrl ? (e = (0, t.jsx)(x.ConnectorIcon, {
+        service: i.data.action.connectorId,
+        iconUrl: i.data.imageUrl,
+        size: 40,
+        className: "bg-fill-secondary-elevated !rounded-10 [&_img]:!rounded-10 !shadow-none"
+      }), l[0] = i.data.action.connectorId, l[1] = i.data.imageUrl, l[2] = e) : e = l[2], e
+    }
+    return l[3] !== r ? (a = (0, t.jsx)("div", {
+      className: "size-10 shrink-0 [&>*]:!shadow-none",
+      children: (0, t.jsx)(ed, {
+        isAdded: r
+      })
+    }), l[3] = r, l[4] = a) : a = l[4], a
+  }
+
+  function ek(e) {
+    let i, r, s, c, o, d, u, f, h, p, m, x, g, _, y, N, v, k, w, I, C, T, j, A, E = (0, n.c)(79),
+      {
+        presentation: H
+      } = e,
+      q = (0, O.useHatchSettingsControl)(),
+      B = (0, K.useMcBool)("fab1356c"),
+      F = (0, K.useMcBool)("6d51a173"),
+      [W, V] = (0, a.useState)(null),
+      Y = "credentials_vault" === H.data.action.type,
+      X = Y && (W === H.presentationId || H.state?.data.credential_capture_completed === !0),
+      Z = "credentials_vault" === H.data.action.type && "1password" === H.data.action.grantRequestType ? (0, U.parseBrowserCredentialCaptureUrl)(H.data.action.url)?.captureAuthorization ?? null : null;
+    E[0] !== H.presentationId ? (i = () => V(H.presentationId), E[0] = H.presentationId, E[1] = i) : i = E[1];
+    let J = function(e, t, n) {
+      let {
+        sendRequest: i,
+        isReady: r,
+        gatewayUrl: s,
+        vmName: c
+      } = (0, D.useHatchRpc)(), [o, d] = (0, a.useState)(null), [u, f] = (0, a.useState)(null), [h, p] = (0, a.useState)(!1), [m, x] = (0, a.useState)(null), g = (0, a.useRef)(null), b = (0, a.useRef)(null), _ = null != u, y = null != o && null == m && !_, N = {
+        pending: l.fbs._("Waiting for 1Password approval", null, {
+          hk: "2gIFlp"
+        }),
+        denied: l.fbs._("The 1Password request was denied. You can try again.", null, {
+          hk: "2lhTUE"
+        }),
+        failed: l.fbs._("The 1Password request failed. You can try again.", null, {
+          hk: "3qV6sr"
+        }),
+        unavailable: l.fbs._("This capture is no longer available. Request a new capture.", null, {
+          hk: "V0hTJ"
+        }),
+        error: l.fbs._("Could not complete the 1Password request. Try again.", null, {
+          hk: "1KMdwo"
+        })
+      }, v = (0, a.useCallback)(() => {
+        b.current = "opening", p(!1), x(null)
+      }, []), k = (0, a.useCallback)(async () => {
+        if (!n || null == e || !r || null != g.current || "unavailable" === m) return;
+        let a = new AbortController;
+        g.current = a, b.current = null, p(!1), f(null == o ? "request" : "fulfill"), x(null);
+        let l = {
+            capture_authorization: e,
+            auth_provider: "1password"
+          },
+          u = {
+            signal: a.signal,
+            expectedGatewayTargetKey: (0, ef.gatewayTargetKey)(s, c)
+          };
+        try {
+          if (null == o) {
+            let e = await i("credentials.capture.external_provider.request", l, u);
+            if (a.signal.aborted) return;
+            if ("string" != typeof e?.grant_request || 0 === e.grant_request.trim().length) throw Error("Invalid 1Password capture request response");
+            let t = new URL(e.deeplink);
+            if ("onepassword:" !== t.protocol || "grant-brokered-access" !== t.hostname || "" !== t.username || "" !== t.password || !t.searchParams.get("access_request_reference")) throw Error("Invalid 1Password capture deeplink");
+            d(e), v(), window.open(e.deeplink, "_self", "noopener,noreferrer")
+          } else {
+            let e = await i("credentials.capture.external_provider.fulfill", {
+              ...l,
+              grant_request: o.grant_request
+            }, u);
+            if (a.signal.aborted) return;
+            if (null != e && "id" in e && "string" == typeof e.id && e.id.length > 0) d(null), t();
+            else if (null != e && "status" in e && ("pending" === e.status || "denied" === e.status || "failed" === e.status)) x(e.status), "pending" !== e.status && d(null);
+            else throw Error("Invalid 1Password capture fulfillment response")
+          }
+        } catch (e) {
+          if (a.signal.aborted) return;
+          b.current = null, p(!1), (0, eh.isGatewayNotFoundError)(e) ? (x("unavailable"), d(null)) : (x("error"), ep.error({
+            error: Error("1Password capture request failed"),
+            operation: null == o ? "request" : "fulfill",
+            httpStatus: (0, eh.isGatewayRequestError)(e) ? e.httpStatus : void 0
+          }, "1Password capture request failed"))
+        } finally {
+          a.signal.aborted || (g.current = null, f(null))
+        }
+      }, [v, e, n, s, r, m, t, o, i, c]);
+      return (0, a.useLayoutEffect)(() => () => {
+        b.current = null, g.current?.abort(), g.current = null
+      }, [e, n]), (0, a.useEffect)(() => {
+        if (!n || null == e) {
+          d(null), f(null), p(!1), x(null);
+          return
+        }
+        let t = () => {
+            "opening" === b.current && (b.current = "away")
+          },
+          a = () => {
+            "away" !== b.current || document.hidden || (b.current = null, p(!0))
+          },
+          l = () => {
+            document.hidden ? t() : a()
+          };
+        return window.addEventListener("blur", t), window.addEventListener("focus", a), document.addEventListener("visibilitychange", l), () => {
+          window.removeEventListener("blur", t), window.removeEventListener("focus", a), document.removeEventListener("visibilitychange", l)
+        }
+      }, [e, n]), (0, a.useEffect)(() => {
+        h && n && r && !_ && null != o && k()
+      }, [n, h, r, _, o, k]), {
+        submit: k,
+        prepareToOpen: () => !!n && null != o && null == g.current && (v(), !0),
+        isSubmitting: _,
+        isBusy: _ || y || h,
+        isRetrieving: "fulfill" === u || h,
+        isWaitingForReturn: y,
+        isDisabled: !n || !r || _ || "unavailable" === m,
+        isPrepared: null != o,
+        deeplink: o?.deeplink ?? null,
+        message: null == m ? null : N[m]
+      }
+    }(Z, i, B && F && !X);
+    E[2] !== J.isPrepared || E[3] !== J.isRetrieving || E[4] !== J.isWaitingForReturn ? (r = J.isRetrieving ? l.fbs._("Retrieving", null, {
+      hk: "2aiwJ1"
+    }) : J.isPrepared && !J.isWaitingForReturn ? l.fbs._("1Password (fulfill)", null, {
+      hk: "38X9fq"
+    }) : l.fbs._("1Password", null, {
+      hk: "1yfs58"
+    }), E[2] = J.isPrepared, E[3] = J.isRetrieving, E[4] = J.isWaitingForReturn, E[5] = r) : r = E[5];
+    let Q = r,
+      ee = J.isPrepared ? "fulfill" : "request";
+    E[6] !== ee ? (s = {
+      action_type: "credentials_vault",
+      provider: "1password",
+      operation: ee
+    }, E[6] = ee, E[7] = s) : s = E[7];
+    let {
+      ref: et,
+      onClick: en
+    } = eN(H.presentationId, S.HATCH_PRESENTATION_KIND_INTERNAL_LINK_ACTION_CARD, s);
+    E[8] === Symbol.for("react.memo_cache_sentinel") ? (c = {
+      action_type: "credentials_vault",
+      provider: "1password",
+      operation: "open"
+    }, E[8] = c) : c = E[8];
+    let {
+      ref: ea,
+      onClick: el
+    } = eN(H.presentationId, S.HATCH_PRESENTATION_KIND_INTERNAL_LINK_ACTION_CARD, c), ei = "connector" === H.data.action.type ? H.data.action : null;
+    E[9] === Symbol.for("react.memo_cache_sentinel") ? (o = {
+      forceRefetchOnMount: !1
+    }, E[9] = o) : o = E[9];
+    let {
+      data: er
+    } = (0, G.useHatchConnectorsQuery)(null != ei, o);
+    E[10] !== ei || E[11] !== er?.connectors ? (d = null != ei && (er?.connectors ?? []).some(e => (0, M.connectorIdsMatch)(e.id, ei.connectorId) && e.connected), E[10] = ei, E[11] = er?.connectors, E[12] = d) : d = E[12];
+    let es = d,
+      ec = X || es;
+    E[13] !== H.data.action.type ? (u = {
+      action_type: H.data.action.type
+    }, E[13] = H.data.action.type, E[14] = u) : u = E[14];
+    let {
+      ref: eo
+    } = ey(H.presentationId, S.HATCH_PRESENTATION_KIND_INTERNAL_LINK_ACTION_CARD, u);
+    E[15] !== H.data.action.type ? (f = {
+      action_type: H.data.action.type
+    }, E[15] = H.data.action.type, E[16] = f) : f = E[16];
+    let {
+      ref: ed,
+      onClick: eu
+    } = eN(H.presentationId, S.HATCH_PRESENTATION_KIND_INTERNAL_LINK_ACTION_CARD, f);
+    if (("connector" === H.data.action.type || "connector_add_account" === H.data.action.type) && (0, $.isRetiredConnectorAuthId)(H.data.action.connectorId)) return null;
+    E[17] !== es || E[18] !== X || E[19] !== H.data.action.type ? (h = X ? l.fbs._("Added", null, {
+      hk: "dwXHz"
+    }) : es ? l.fbs._("Connected", null, {
+      hk: "4vKobQ"
+    }) : "connector" === H.data.action.type ? l.fbs._("Connect", null, {
+      hk: "4GDSPi"
+    }) : "connector_add_account" === H.data.action.type ? l.fbs._("Add account", null, {
+      hk: "1qvrsj"
+    }) : "connector_scope" === H.data.action.type ? l.fbs._("Add", null, {
+      hk: "295i01"
+    }) : l.fbs._("Add", null, {
+      hk: "39yGCo"
+    }), E[17] = es, E[18] = X, E[19] = H.data.action.type, E[20] = h) : h = E[20];
+    let em = h;
+    E[21] !== X || E[22] !== H.data.subtitle ? (p = X ? l.fbs._("Login details saved", null, {
+      hk: "1kGv67"
+    }) : H.data.subtitle, E[21] = X, E[22] = H.data.subtitle, E[23] = p) : p = E[23];
+    let ex = p;
+    E[24] !== H.data.action.type || E[25] !== H.data.title ? (m = "connector_scope" === H.data.action.type ? l.fbs._("Add access for {connector}", [l.fbs._param("connector", H.data.title)], {
+      hk: "31RfjZ"
+    }) : void 0, E[24] = H.data.action.type, E[25] = H.data.title, E[26] = m) : m = E[26];
+    let eg = m,
+      eb = Y ? "shadow-none" : "gap-3 p-2.5";
+    E[27] !== eb ? (x = (0, b.cn)(L.BUBBLE_BG_CLASS, L.HATCH_CHAT_AGENT_ACTION_CARD_WIDTH_CLASS, "flex flex-col", eb), E[27] = eb, E[28] = x) : x = E[28];
+    let e_ = Y ? "px-4 pt-4 pb-3" : "px-0.5";
+    E[29] !== e_ ? (g = (0, b.cn)("flex min-w-0 items-center gap-2.5", e_), E[29] = e_, E[30] = g) : g = E[30], E[31] !== X || E[32] !== H ? (_ = (0, t.jsx)(ev, {
+      presentation: H,
+      isCredentialAdded: X
+    }), E[31] = X, E[32] = H, E[33] = _) : _ = E[33], E[34] !== H.data.title ? (y = (0, t.jsx)("h3", {
+      className: "text-subheadline-emphasized text-text-primary truncate",
+      title: H.data.title,
+      children: H.data.title
+    }), E[34] = H.data.title, E[35] = y) : y = E[35], E[36] !== ex ? (N = null != ex ? (0, t.jsx)("p", {
+      className: "text-caption-1 text-text-secondary truncate",
+      title: ex,
+      children: ex
+    }) : null, E[36] = ex, E[37] = N) : N = E[37], E[38] !== y || E[39] !== N ? (v = (0, t.jsxs)("div", {
+      className: "flex min-w-0 flex-1 flex-col",
+      children: [y, N]
+    }), E[38] = y, E[39] = N, E[40] = v) : v = E[40], E[41] !== g || E[42] !== _ || E[43] !== v ? (k = (0, t.jsxs)("div", {
+      className: g,
+      children: [_, v]
+    }), E[41] = g, E[42] = _, E[43] = v, E[44] = k) : k = E[44];
+    let ek = Y ? "px-4 pb-4" : void 0;
+    E[45] !== Z || E[46] !== ec || E[47] !== en || E[48] !== el || E[49] !== J || E[50] !== et || E[51] !== B || E[52] !== Q || E[53] !== F || E[54] !== ea ? (w = B && null != Z && !ec ? (0, t.jsxs)("div", {
+      className: "mb-2",
+      children: [(0, t.jsxs)("button", {
+        ref: et,
+        type: "button",
+        disabled: J.isDisabled,
+        "aria-disabled": J.isDisabled,
+        "aria-busy": J.isBusy,
+        className: (0, b.cn)((0, z.buttonVariants)({
+          radius: "rounded",
+          size: "36",
+          variant: "flat"
+        }), "bg-fill-tertiary text-text-primary w-full disabled:cursor-not-allowed disabled:opacity-50"),
+        onClick: () => {
+          en(), J.submit()
+        },
+        children: [Q, J.isBusy ? (0, t.jsx)(R.HatchSpinner, {
+          size: 12,
+          color: "currentColor",
+          isDecorative: !0
+        }) : null]
+      }), F && !J.isSubmitting && null != J.deeplink ? (0, t.jsx)("a", {
+        ref: ea,
+        href: J.deeplink,
+        rel: "noreferrer",
+        onClick: e => {
+          J.prepareToOpen() ? el() : e.preventDefault()
+        },
+        className: "text-caption-1 text-text-primary-link mt-1 block text-center underline",
+        children: l.fbs._("Open 1Password", null, {
+          hk: "ofFc8"
+        })
+      }) : null, (0, t.jsx)("p", {
+        role: "status",
+        className: "text-caption-1 text-text-secondary mt-1 empty:hidden",
+        children: J.message
+      })]
+    }) : null, E[45] = Z, E[46] = ec, E[47] = en, E[48] = el, E[49] = J, E[50] = et, E[51] = B, E[52] = Q, E[53] = F, E[54] = ea, E[55] = w) : w = E[55];
+    let ew = ec ? void 0 : ed,
+      eI = ec ? void 0 : eu;
+    return E[56] === Symbol.for("react.memo_cache_sentinel") ? (I = (0, b.cn)("focus-within:ring-hatch-accent/40 focus-within:ring-2 [&>a]:block [&>a]:w-full [&>a]:no-underline [&>a:hover]:!no-underline [&>button]:block [&>button]:w-full [&>button]:no-underline [&>button:hover]:!no-underline [&>span]:block [&>span]:w-full [&>span]:no-underline [&>span:hover]:!no-underline", "rounded-full"), E[56] = I) : I = E[56], E[57] !== eg || E[58] !== em || E[59] !== ec || E[60] !== Y || E[61] !== J.isSubmitting || E[62] !== H.data.action.url || E[63] !== H.presentationId || E[64] !== q ? (C = ec ? (0, t.jsx)("div", {
+      className: "w-full",
+      children: (0, t.jsx)("span", {
+        role: "status",
+        className: (0, b.cn)((0, z.buttonVariants)({
+          radius: "rounded",
+          size: "36",
+          variant: "flat"
+        }), "bg-fill-tertiary text-text-primary w-full opacity-50"),
+        children: em
+      })
+    }) : J.isSubmitting ? (0, t.jsx)("button", {
+      type: "button",
+      disabled: !0,
+      "aria-disabled": "true",
+      className: (0, b.cn)((0, z.buttonVariants)({
+        radius: "rounded",
+        size: "36",
+        variant: "flat"
+      }), "bg-fill-tertiary text-text-primary w-full cursor-not-allowed opacity-50"),
+      children: em
+    }) : (0, t.jsx)(P.HatchChatActionLink, {
+      href: H.data.action.url,
+      artifactOpenOrigin: "chat",
+      "aria-label": eg,
+      className: "block w-full no-underline hover:!no-underline",
+      settingsControl: q,
+      onCredentialAdded: Y ? () => V(H.presentationId) : void 0,
+      children: (0, t.jsx)("span", {
+        className: Y ? (0, b.cn)((0, z.buttonVariants)({
+          radius: "rounded",
+          size: "36",
+          variant: "flat"
+        }), "bg-fill-tertiary text-text-primary w-full hover:brightness-95 active:brightness-90 dark:hover:brightness-110 dark:active:brightness-95") : "bg-fill-tertiary text-subheadline-medium text-text-primary flex h-9 w-full items-center justify-center rounded-full px-4 hover:brightness-95 active:brightness-90 dark:hover:brightness-110 dark:active:brightness-95",
+        children: em
+      })
+    }, H.data.action.url), E[57] = eg, E[58] = em, E[59] = ec, E[60] = Y, E[61] = J.isSubmitting, E[62] = H.data.action.url, E[63] = H.presentationId, E[64] = q, E[65] = C) : C = E[65], E[66] !== ew || E[67] !== eI || E[68] !== C ? (T = (0, t.jsx)("div", {
+      ref: ew,
+      onClick: eI,
+      className: I,
+      children: C
+    }), E[66] = ew, E[67] = eI, E[68] = C, E[69] = T) : T = E[69], E[70] !== ek || E[71] !== w || E[72] !== T ? (j = (0, t.jsxs)("div", {
+      className: ek,
+      children: [w, T]
+    }), E[70] = ek, E[71] = w, E[72] = T, E[73] = j) : j = E[73], E[74] !== eo || E[75] !== x || E[76] !== k || E[77] !== j ? (A = (0, t.jsxs)("section", {
+      ref: eo,
+      className: x,
+      children: [k, j]
+    }), E[74] = eo, E[75] = x, E[76] = k, E[77] = j, E[78] = A) : A = E[78], A
+  }
+
+  function ew(e) {
+    let l, i, r, s, c = (0, n.c)(12),
+      {
+        imageUrl: o,
+        layout: d
+      } = e,
+      {
+        src: f,
+        isError: m
+      } = (0, N.useExploreMediaBlobUrl)(o, H.HATCH_SENTRY_SURFACES.CHAT_FEED),
+      [x, g] = (0, a.useState)(!1);
+    c[0] !== f ? (l = null == f || (0, y.isHatchVmMediaUrl)(f) ? null : f, c[0] = f, c[1] = l) : l = c[1];
+    let _ = l,
+      v = null != _ && !x,
+      k = null == o || m || x || null != f && null == _,
+      w = !v && "bg-fill-secondary";
+    return c[2] !== d.leadingClassName || c[3] !== w ? (i = (0, b.cn)("relative flex size-10 shrink-0 items-center justify-center", d.leadingClassName, w), c[2] = d.leadingClassName, c[3] = w, c[4] = i) : i = c[4], c[5] !== _ || c[6] !== k || c[7] !== v ? (r = v ? (0, t.jsx)(h.EctoGracefulImage, {
+      src: _,
+      alt: "",
+      width: 40,
+      height: 40,
+      fade: !1,
+      className: "size-10 object-contain",
+      onError: () => g(!0)
+    }) : k ? (0, t.jsx)(p.HatchIcon, {
+      icon: u.default,
+      size: 20,
+      className: "text-text-primary",
+      "data-testid": "generic-list-send-message-artwork-fallback"
+    }) : null, c[5] = _, c[6] = k, c[7] = v, c[8] = r) : r = c[8], c[9] !== i || c[10] !== r ? (s = (0, t.jsx)("span", {
+      "aria-hidden": "true",
+      className: i,
+      children: r
+    }), c[9] = i, c[10] = r, c[11] = s) : s = c[11], s
+  }
+
+  function eI(e) {
+    let a, l, s, u, f = (0, n.c)(28),
+      {
+        item: h,
+        layout: m
+      } = e;
+    if ("send_message" === h.kind) {
+      let e;
+      return f[0] !== h.imageUrl || f[1] !== m ? (e = (0, t.jsx)(ew, {
+        imageUrl: h.imageUrl,
+        layout: m
+      }), f[0] = h.imageUrl, f[1] = m, f[2] = e) : e = f[2], e
+    }
+    f[3] !== h ? (a = (0, A.resolveGenericListItemLink)(h), f[3] = h, f[4] = a) : a = f[4];
+    let {
+      connector: g
+    } = a;
+    if (!m.hasHeader && null != g) {
+      let e;
+      return f[5] !== g.id || f[6] !== h.imageUrl ? (e = (0, t.jsx)(x.ConnectorIcon, {
+        service: g.id,
+        iconUrl: h.imageUrl,
+        size: 40,
+        className: "!rounded-10 [&_img]:!rounded-10 !shadow-none"
+      }), f[5] = g.id, f[6] = h.imageUrl, f[7] = e) : e = f[7], e
+    }
+    if (null != h.imageUrl) {
+      let e, n, a, l, i;
+      return f[8] !== m.leadingClassName ? (e = (0, b.cn)("bg-fill-secondary relative flex size-10 shrink-0 items-center justify-center overflow-hidden", m.leadingClassName), f[8] = m.leadingClassName, f[9] = e) : e = f[9], f[10] !== h.title ? (n = h.title.charAt(0).toUpperCase(), f[10] = h.title, f[11] = n) : n = f[11], f[12] !== n ? (a = (0, t.jsx)("span", {
+        className: "text-body-emphasized text-text-secondary",
+        children: n
+      }), f[12] = n, f[13] = a) : a = f[13], f[14] !== h.imageUrl ? (l = (0, t.jsx)(j.HatchProxiedImage, {
+        src: h.imageUrl,
+        alt: "",
+        className: "absolute inset-0 size-full object-cover"
+      }), f[14] = h.imageUrl, f[15] = l) : l = f[15], f[16] !== e || f[17] !== a || f[18] !== l ? (i = (0, t.jsxs)("div", {
+        "aria-hidden": "true",
+        className: e,
+        children: [a, l]
+      }), f[16] = e, f[17] = a, f[18] = l, f[19] = i) : i = f[19], i
+    }
+    let _ = "calendar" === h.kind ? r.default : "email" === h.kind ? o.default : "flight" === h.kind ? i.default : "link" === h.kind ? d.default : "file" === h.kind ? c.default : null;
+    return f[20] !== m.leadingClassName ? (l = (0, b.cn)("bg-fill-secondary text-text-secondary flex size-10 shrink-0 items-center justify-center", m.leadingClassName), f[20] = m.leadingClassName, f[21] = l) : l = f[21], f[22] !== _ || f[23] !== h.title ? (s = null != _ ? (0, t.jsx)(p.HatchIcon, {
+      icon: _,
+      size: 20
+    }) : (0, t.jsx)("span", {
+      className: "text-body-emphasized",
+      children: h.title.charAt(0).toUpperCase()
+    }), f[22] = _, f[23] = h.title, f[24] = s) : s = f[24], f[25] !== l || f[26] !== s ? (u = (0, t.jsx)("div", {
+      "aria-hidden": "true",
+      className: l,
+      children: s
+    }), f[25] = l, f[26] = s, f[27] = u) : u = f[27], u
+  }
+
+  function eC(e) {
+    let a, l, i, r, c, o, d, u, f, h, m = (0, n.c)(30),
+      {
+        item: x,
+        showLeading: g,
+        layout: _,
+        selected: y
+      } = e,
+      N = void 0 !== y && y;
+    m[0] !== x ? (a = (0, A.resolveGenericListItemLink)(x), m[0] = x, m[1] = a) : a = m[1];
+    let {
+      domain: v
+    } = a;
+    return m[2] !== x || m[3] !== _ || m[4] !== g ? (l = (0, A.shouldShowGenericListItemLeading)(x, g) ? (0, t.jsx)(eI, {
+      item: x,
+      layout: _
+    }) : null, m[2] = x, m[3] = _, m[4] = g, m[5] = l) : l = m[5], m[6] !== _.titleClassName ? (i = (0, b.cn)(_.titleClassName, "line-clamp-2"), m[6] = _.titleClassName, m[7] = i) : i = m[7], m[8] !== x.title || m[9] !== i ? (r = (0, t.jsx)("span", {
+      className: i,
+      title: x.title,
+      children: x.title
+    }), m[8] = x.title, m[9] = i, m[10] = r) : r = m[10], m[11] !== x.kind || m[12] !== x.subtitle || m[13] !== _.subtitleClassName ? (c = null != x.subtitle ? (0, t.jsx)("span", {
+      className: (0, b.cn)(_.subtitleClassName, "line-clamp-2", "send_message" === x.kind && "text-text-primary"),
+      title: x.subtitle,
+      children: x.subtitle
+    }) : null, m[11] = x.kind, m[12] = x.subtitle, m[13] = _.subtitleClassName, m[14] = c) : c = m[14], m[15] !== v ? (o = null != v ? (0, t.jsx)("span", {
+      className: "text-caption-2 text-text-secondary line-clamp-1",
+      title: v,
+      children: v
+    }) : null, m[15] = v, m[16] = o) : o = m[16], m[17] !== x.tertiaryTitle ? (d = null != x.tertiaryTitle ? (0, t.jsx)("span", {
+      className: "text-caption-2 text-text-secondary line-clamp-2",
+      title: x.tertiaryTitle,
+      children: x.tertiaryTitle
+    }) : null, m[17] = x.tertiaryTitle, m[18] = d) : d = m[18], m[19] !== r || m[20] !== c || m[21] !== o || m[22] !== d ? (u = (0, t.jsxs)("span", {
+      className: "flex min-w-0 flex-1 flex-col text-start",
+      children: [r, c, o, d]
+    }), m[19] = r, m[20] = c, m[21] = o, m[22] = d, m[23] = u) : u = m[23], m[24] !== N ? (f = N ? (0, t.jsx)(p.HatchIcon, {
+      icon: s.default,
+      size: 20,
+      className: "text-text-primary shrink-0 self-center",
+      "aria-hidden": "true",
+      "data-testid": "generic-list-send-message-selected-indicator"
+    }) : null, m[24] = N, m[25] = f) : f = m[25], m[26] !== f || m[27] !== l || m[28] !== u ? (h = (0, t.jsxs)(t.Fragment, {
+      children: [l, u, f]
+    }), m[26] = f, m[27] = l, m[28] = u, m[29] = h) : h = m[29], h
+  }
+
+  function eT(e) {
+    let a, l, i, r, s, c = (0, n.c)(26),
+      {
+        item: o,
+        sendText: d,
+        index: u,
+        presentationId: f,
+        showLeading: h,
+        layout: p,
+        selected: m,
+        selectionLocked: x,
+        onSelect: g
+      } = e;
+    c[0] !== u || c[1] !== o.kind ? (a = {
+      item_index: u,
+      item_kind: o.kind
+    }, c[0] = u, c[1] = o.kind, c[2] = a) : a = c[2];
+    let {
+      ref: _,
+      onClick: y
+    } = eN(f, S.HATCH_PRESENTATION_KIND_GENERIC_LIST, a), N = x || void 0, v = m ? "true" : void 0, k = m && "bg-fill-secondary", w = x && "cursor-default";
+    return c[3] !== p.rowClassName || c[4] !== k || c[5] !== w ? (l = (0, b.cn)("hover:bg-fill-secondary active:bg-fill-secondary focus-visible:ring-hatch-accent/40 rounded-10 flex min-w-0 items-start gap-3 no-underline focus-visible:ring-2 focus-visible:outline-none", p.rowClassName, "w-full cursor-pointer text-start", k, w), c[3] = p.rowClassName, c[4] = k, c[5] = w, c[6] = l) : l = c[6], c[7] !== u || c[8] !== y || c[9] !== g || c[10] !== x || c[11] !== d ? (i = () => {
+      x || (y(), g(u, d))
+    }, c[7] = u, c[8] = y, c[9] = g, c[10] = x, c[11] = d, c[12] = i) : i = c[12], c[13] !== o || c[14] !== p || c[15] !== m || c[16] !== h ? (r = (0, t.jsx)(eC, {
+      item: o,
+      showLeading: h,
+      layout: p,
+      selected: m
+    }), c[13] = o, c[14] = p, c[15] = m, c[16] = h, c[17] = r) : r = c[17], c[18] !== _ || c[19] !== m || c[20] !== N || c[21] !== v || c[22] !== l || c[23] !== i || c[24] !== r ? (s = (0, t.jsx)("button", {
+      ref: _,
+      type: "button",
+      "aria-disabled": N,
+      "aria-pressed": m,
+      "data-selected": v,
+      className: l,
+      onClick: i,
+      children: r
+    }), c[18] = _, c[19] = m, c[20] = N, c[21] = v, c[22] = l, c[23] = i, c[24] = r, c[25] = s) : s = c[25], s
+  }
+
+  function ej(e) {
+    let a, l, i, r = (0, n.c)(25),
+      {
+        item: s,
+        index: c,
+        presentationId: o,
+        showLeading: d,
+        layout: u,
+        selectedIndex: f,
+        selectionLocked: h,
+        onSelectSendMessage: p
+      } = e;
+    if ("send_message" === s.kind && null != s.sendText && null != p) {
+      let e, n = f === c;
+      return r[0] !== c || r[1] !== s || r[2] !== u || r[3] !== p || r[4] !== o || r[5] !== h || r[6] !== d || r[7] !== n ? (e = (0, t.jsx)(eT, {
+        item: s,
+        sendText: s.sendText,
+        index: c,
+        presentationId: o,
+        showLeading: d,
+        layout: u,
+        selected: n,
+        selectionLocked: h,
+        onSelect: p
+      }), r[0] = c, r[1] = s, r[2] = u, r[3] = p, r[4] = o, r[5] = h, r[6] = d, r[7] = n, r[8] = e) : e = r[8], e
+    }
+    r[9] !== s ? (a = (0, A.resolveGenericListItemLink)(s), r[9] = s, r[10] = a) : a = r[10];
+    let {
+      connector: m
+    } = a;
+    r[11] !== s || r[12] !== u || r[13] !== d ? (l = (0, t.jsx)(eC, {
+      item: s,
+      showLeading: d,
+      layout: u
+    }), r[11] = s, r[12] = u, r[13] = d, r[14] = l) : l = r[14];
+    let x = l;
+    if ("link" === s.kind && null != s.url) {
+      let e;
+      return r[15] !== m || r[16] !== x || r[17] !== c || r[18] !== s || r[19] !== u || r[20] !== o ? (e = (0, t.jsx)(eE, {
+        item: s,
+        url: s.url,
+        index: c,
+        presentationId: o,
+        connectorDeepLink: m,
+        layout: u,
+        children: x
+      }), r[15] = m, r[16] = x, r[17] = c, r[18] = s, r[19] = u, r[20] = o, r[21] = e) : e = r[21], e
+    }
+    return r[22] !== x || r[23] !== u.rowClassName ? (i = (0, t.jsx)("div", {
+      className: u.rowClassName,
+      children: x
+    }), r[22] = x, r[23] = u.rowClassName, r[24] = i) : i = r[24], i
+  }
+
+  function eA(e) {
+    let a, l, i, r, s, c, o, d = (0, n.c)(24),
+      {
+        item: u,
+        offer: f,
+        index: h,
+        presentationId: p
+      } = e,
+      m = (0, _.useOptionalHatchFlightPanel)();
+    d[0] !== h || d[1] !== u.kind || d[2] !== f.slices.length ? (a = {
+      item_index: h,
+      item_kind: u.kind,
+      slice_count: f.slices.length
+    }, d[0] = h, d[1] = u.kind, d[2] = f.slices.length, d[3] = a) : a = d[3];
+    let {
+      ref: x,
+      onClick: g
+    } = eN(p, S.HATCH_PRESENTATION_KIND_GENERIC_LIST, a);
+    d[4] !== f ? (l = (0, k.flightOfferIconUrls)(f), d[4] = f, d[5] = l) : l = d[5];
+    let y = l;
+    d[6] !== y || d[7] !== u.imageUrl ? (i = y.length > 0 ? y : null != u.imageUrl ? [u.imageUrl] : [], d[6] = y, d[7] = u.imageUrl, d[8] = i) : i = d[8], d[9] !== f || d[10] !== i ? (r = (0, t.jsx)(C, {
+      offer: f,
+      iconUrls: i
+    }), d[9] = f, d[10] = i, d[11] = r) : r = d[11];
+    let N = r;
+    if (null == m) {
+      let e;
+      return d[12] !== N ? (e = (0, t.jsx)("div", {
+        className: "flex min-w-0 items-start gap-3",
+        children: N
+      }), d[12] = N, d[13] = e) : e = d[13], e
+    }
+    return d[14] === Symbol.for("react.memo_cache_sentinel") ? (s = (0, b.cn)(eL, "flex w-full min-w-0 cursor-pointer items-start gap-3 bg-transparent"), d[14] = s) : s = d[14], d[15] !== m || d[16] !== g || d[17] !== f || d[18] !== p ? (c = () => {
+      g(), m.openDetails({
+        offer: f,
+        presentationId: p
+      })
+    }, d[15] = m, d[16] = g, d[17] = f, d[18] = p, d[19] = c) : c = d[19], d[20] !== x || d[21] !== N || d[22] !== c ? (o = (0, t.jsx)("button", {
+      ref: x,
+      type: "button",
+      className: s,
+      onClick: c,
+      children: N
+    }), d[20] = x, d[21] = N, d[22] = c, d[23] = o) : o = d[23], o
+  }
+  e.s(["HatchInternalLinkActionCardPresentation", 0, function(e) {
+    let a, l, i = (0, n.c)(9),
+      {
+        presentation: r
+      } = e,
+      {
+        gatewayScopeKey: s,
+        gatewayUrl: c,
+        vmName: o
+      } = (0, D.useHatchRpc)();
+    return i[0] !== s || i[1] !== c || i[2] !== r.data.action.url || i[3] !== r.presentationId || i[4] !== o ? (a = JSON.stringify([s, c, o, r.presentationId, r.data.action.url]), i[0] = s, i[1] = c, i[2] = r.data.action.url, i[3] = r.presentationId, i[4] = o, i[5] = a) : a = i[5], i[6] !== r || i[7] !== a ? (l = (0, t.jsx)(ek, {
+      presentation: r
+    }, a), i[6] = r, i[7] = a, i[8] = l) : l = i[8], l
+  }], 233644);
+  let eL = "focus-visible:ring-hatch-accent/40 rounded-10 focus-visible:ring-2 focus-visible:outline-none";
+
+  function eE(e) {
+    let a, i, r = (0, n.c)(18),
+      {
+        item: s,
+        url: c,
+        index: o,
+        presentationId: d,
+        connectorDeepLink: u,
+        layout: h,
+        children: p
+      } = e,
+      m = (0, b.cn)("hover:bg-fill-secondary-elevated-hover active:bg-fill-secondary-elevated-pressed focus-visible:ring-hatch-accent/40 rounded-10 flex min-w-0 items-start gap-3 p-1.5 no-underline transition-colors focus-visible:ring-2 focus-visible:outline-none", h.rowClassName, !h.hasHeader && "hover:bg-fill-secondary active:bg-fill-secondary transition-none");
+    r[0] !== o || r[1] !== s.kind ? (a = {
+      item_index: o,
+      item_kind: s.kind
+    }, r[0] = o, r[1] = s.kind, r[2] = a) : a = r[2];
+    let {
+      ref: x,
+      onClick: _
+    } = eN(d, S.HATCH_PRESENTATION_KIND_GENERIC_LIST, a);
+    if (null != u) {
+      let e, n, a;
+      r[3] !== s.subtitle || r[4] !== s.tertiaryTitle || r[5] !== s.title ? (e = [s.title, s.subtitle, s.tertiaryTitle].filter(eS), r[3] = s.subtitle, r[4] = s.tertiaryTitle, r[5] = s.title, r[6] = e) : e = r[6];
+      let i = e.join(", ");
+      r[7] !== i || r[8] !== u.action ? (n = "connect" === u.action ? l.fbs._("Connect {row text}", [l.fbs._param("row text", i)], {
+        hk: "3CCMPb"
+      }) : "add_account" === u.action ? l.fbs._("Add account to {row text}", [l.fbs._param("row text", i)], {
+        hk: "3vzZof"
+      }) : l.fbs._("Disconnect {row text}", [l.fbs._param("row text", i)], {
+        hk: "d7ay5"
+      }), r[7] = i, r[8] = u.action, r[9] = n) : n = r[9];
+      let c = n;
+      r[10] !== _ ? (a = e => {
+        e.currentTarget.contains(e.target) && _()
+      }, r[10] = _, r[11] = a) : a = r[11];
+      let o = a;
+      return (0, t.jsx)("div", {
+        ref: x,
+        onClick: o,
+        children: (0, t.jsx)(g.HatchConnectorDeepLinkBoundary, {
+          action: u.action,
+          id: u.id,
+          ariaLabel: c,
+          className: (0, b.cn)(m, "w-full cursor-pointer text-start"),
+          deferPrewarm: !0,
+          children: p
+        })
+      })
+    }
+    return r[12] !== p || r[13] !== x || r[14] !== _ || r[15] !== m || r[16] !== c ? (i = (0, t.jsx)(f.EctoAnchor, {
+      ref: x,
+      href: c,
+      onClick: _,
+      className: m,
+      children: p
+    }), r[12] = p, r[13] = x, r[14] = _, r[15] = m, r[16] = c, r[17] = i) : i = r[17], i
+  }
+
+  function eS(e) {
+    return null != e && e.length > 0
+  }
+
+  function eH(e) {
+    return "flight" === e.kind
+  }
+
+  function eR(e) {
+    return null != e.flight
+  }
+  e.s(["HatchExternalLinkPresentation", 0, function(e) {
+    let a, l, i, r = (0, n.c)(10),
+      {
+        presentation: s
+      } = e,
+      {
+        ref: c
+      } = ey(s.presentationId, S.HATCH_PRESENTATION_KIND_EXTERNAL_LINK),
+      {
+        ref: o,
+        onClick: d
+      } = eN(s.presentationId, S.HATCH_PRESENTATION_KIND_EXTERNAL_LINK),
+      u = (0, m.useMergeRefs)(c, o);
+    r[0] !== s.data.url || r[1] !== s.displayText ? (a = function(e, t) {
+      let n = e?.trim(),
+        a = n?.match(/^\[([^\]]+)\]\(<?[^)]+>?\)$/),
+        l = a?.[1]?.trim();
+      if (null != l && l.length > 0 && l !== t) return l;
+      try {
+        return new URL(t).hostname.replace(/^www\./, "")
+      } catch {
+        return t
+      }
+    }(s.displayText, s.data.url), r[0] = s.data.url, r[1] = s.displayText, r[2] = a) : a = r[2];
+    let f = a;
+    return r[3] !== f || r[4] !== s.data.url ? (l = (0, t.jsx)(T.HatchChatLinkPreview, {
+      variant: "url",
+      url: s.data.url,
+      fallbackTitle: f,
+      appearance: "standalone"
+    }, s.data.url), r[3] = f, r[4] = s.data.url, r[5] = l) : l = r[5], r[6] !== d || r[7] !== l || r[8] !== u ? (i = (0, t.jsx)("div", {
+      ref: u,
+      onClick: d,
+      className: L.HATCH_CHAT_AGENT_LINK_WIDTH_CLASS,
+      children: l
+    }), r[6] = d, r[7] = l, r[8] = u, r[9] = i) : i = r[9], i
+  }, "HatchGenericListPresentation", 0, function(e) {
+    let l, i, r, s, c, o, d, u, f, h, p, m, x, g, _, y, N, v = (0, n.c)(64),
+      {
+        presentation: k,
+        onSendMessage: w
+      } = e,
+      [I, C] = (0, a.useState)(null),
+      T = (0, a.useRef)(null);
+    v[0] !== k.data.items ? (l = k.data.items.filter(E.canRenderHatchGenericListItem), v[0] = k.data.items, v[1] = l) : l = v[1];
+    let j = l;
+    e: {
+      let e;
+      if (0 === j.length || !j.every(eR)) {
+        i = null;
+        break e
+      }
+      if (v[2] !== j) {
+        let t = new Set;
+        e = j.filter(e => {
+          let n = e.flight?.id;
+          return !(null == n || t.has(n)) && (t.add(n), !0)
+        }), v[2] = j, v[3] = e
+      } else e = v[3];i = e
+    }
+    let H = i,
+      R = k.presentationId,
+      P = j.length;
+    v[4] !== j ? (r = j.filter(eH), v[4] = j, v[5] = r) : r = v[5];
+    let O = null != H ? "flight" : "generic";
+    v[6] !== r.length || v[7] !== O || v[8] !== j.length ? (s = {
+      item_count: P,
+      flight_item_count: r.length,
+      list_treatment: O
+    }, v[6] = r.length, v[7] = O, v[8] = j.length, v[9] = s) : s = v[9];
+    let {
+      ref: U
+    } = ey(R, S.HATCH_PRESENTATION_KIND_GENERIC_LIST, s);
+    v[10] !== j ? (c = (0, S.shouldShowGenericListLeading)(j), v[10] = j, v[11] = c) : c = v[11];
+    let D = c,
+      M = H ?? j;
+    if (v[12] !== H || v[13] !== U || v[14] !== w || v[15] !== k.data || v[16] !== k.presentationId || v[17] !== k.state || v[18] !== M.length || v[19] !== I || v[20] !== j) {
+      x = Symbol.for("react.early_return_sentinel");
+      t: {
+        let e, n, a;d = (0, A.resolveGenericListPresentationLayout)(k.data),
+        v[30] !== k.state || v[31] !== j ? (e = (0, S.normalizeGenericListSelectionState)(k.state, j), v[30] = k.state, v[31] = j, v[32] = e) : e = v[32];
+        let {
+          selectedText: l
+        } = e;v[33] !== l || v[34] !== j ? (n = null == l ? null : j.findIndex(e => "send_message" === e.kind && e.sendText === l), v[33] = l, v[34] = j, v[35] = n) : n = v[35];
+        let i = n,
+          r = I?.presentationId === k.presentationId ? I.index : null;
+        if (u = null != i && i >= 0 ? i : r, v[36] !== w || v[37] !== i || v[38] !== k.presentationId ? (a = null == w ? null : (e, t) => {
+            if (null != i || T.current?.presentationId === k.presentationId) return;
+            let n = {
+              presentationId: k.presentationId,
+              index: e
+            };
+            T.current = n, C(n);
+            let a = () => {
+              T.current?.presentationId === k.presentationId && T.current.index === e && (T.current = null), C(t => t?.presentationId === k.presentationId && t.index === e ? null : t)
+            };
+            w(t).then(e => {
+              e || a()
+            }, a)
+          }, v[36] = w, v[37] = i, v[38] = k.presentationId, v[39] = a) : a = v[39], o = a, 0 === M.length) {
+          x = null;
+          break t
+        }
+        h = U,
+        p = (0, b.cn)(L.BUBBLE_BG_CLASS, L.HATCH_CHAT_AGENT_LINK_WIDTH_CLASS, null != H ? "flex flex-col gap-4 px-4 pt-3 pb-4" : d.contentClassName),
+        m = d.hasHeader ? (0, t.jsxs)("header", {
+          className: null != H ? "flex flex-col gap-0.5" : A.HATCH_GENERIC_LIST_HEADER_CLASS,
+          children: [null != k.data.title ? (0, t.jsx)("h3", {
+            className: (0, b.cn)("text-text-primary", null != H ? "text-subheadline-medium truncate" : "text-subheadline-emphasized"),
+            title: k.data.title,
+            children: k.data.title
+          }) : null, null != k.data.subtitle ? (0, t.jsx)("p", {
+            className: (0, b.cn)("text-text-secondary", null != H ? "text-footnote" : "text-caption-1 mt-0.5"),
+            title: k.data.subtitle,
+            children: k.data.subtitle
+          }) : null]
+        }) : null,
+        g = "list",
+        f = (0, b.cn)("m-0 list-none p-0", null != H ? "flex flex-col gap-4" : d.rowsClassName)
+      }
+      v[12] = H, v[13] = U, v[14] = w, v[15] = k.data, v[16] = k.presentationId, v[17] = k.state, v[18] = M.length, v[19] = I, v[20] = j, v[21] = o, v[22] = d, v[23] = u, v[24] = f, v[25] = h, v[26] = p, v[27] = m, v[28] = x, v[29] = g
+    } else o = v[21], d = v[22], u = v[23], f = v[24], h = v[25], p = v[26], m = v[27], x = v[28], g = v[29];
+    if (x !== Symbol.for("react.early_return_sentinel")) return x;
+    if (v[40] !== H || v[41] !== o || v[42] !== d || v[43] !== k.presentationId || v[44] !== M || v[45] !== u || v[46] !== D) {
+      let e;
+      v[48] !== H || v[49] !== o || v[50] !== d || v[51] !== k.presentationId || v[52] !== u || v[53] !== D ? (e = (e, n) => (0, t.jsx)("li", {
+        children: null != H && null != e.flight ? (0, t.jsx)(eA, {
+          item: e,
+          offer: e.flight,
+          index: n,
+          presentationId: k.presentationId
+        }) : (0, t.jsx)(ej, {
+          item: e,
+          index: n,
+          presentationId: k.presentationId,
+          showLeading: D,
+          layout: d,
+          selectedIndex: u,
+          selectionLocked: null != u,
+          onSelectSendMessage: o
+        })
+      }, `${k.presentationId}:${n}:${e.title}:${e.imageUrl??""}:${e.url??""}`), v[48] = H, v[49] = o, v[50] = d, v[51] = k.presentationId, v[52] = u, v[53] = D, v[54] = e) : e = v[54], _ = M.map(e), v[40] = H, v[41] = o, v[42] = d, v[43] = k.presentationId, v[44] = M, v[45] = u, v[46] = D, v[47] = _
+    } else _ = v[47];
+    return v[55] !== f || v[56] !== _ || v[57] !== g ? (y = (0, t.jsx)("ul", {
+      role: g,
+      className: f,
+      children: _
+    }), v[55] = f, v[56] = _, v[57] = g, v[58] = y) : y = v[58], v[59] !== h || v[60] !== p || v[61] !== m || v[62] !== y ? (N = (0, t.jsxs)("section", {
+      ref: h,
+      className: p,
+      children: [m, y]
+    }), v[59] = h, v[60] = p, v[61] = m, v[62] = y, v[63] = N) : N = v[63], N
+  }], 138577)
+}]);
+
+//# debugId=a79b81ce-f889-09ab-a72e-071822bc48bc
+//# sourceMappingURL=2lc_b5birmpx9.js.map

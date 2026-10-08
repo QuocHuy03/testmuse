@@ -1,0 +1,2747 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "1f6bb088-ff8b-6d65-0eff-f651f85db14f")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 203320, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099),
+    l = e.i(519172),
+    i = e.i(396817),
+    a = e.i(397240),
+    r = e.i(374785),
+    s = e.i(44698);
+  let o = l.createContext({
+    isMobile: !1,
+    open: !1
+  });
+
+  function d({
+    containerRef: e,
+    ...n
+  }) {
+    return (0, t.jsx)(i.Portal, {
+      "data-slot": "content-area-dialog-portal",
+      container: e.current ?? void 0,
+      ...n
+    })
+  }
+
+  function c(e) {
+    let a, s, d, c, u = (0, n.c)(9);
+    u[0] !== e ? ({
+      className: a,
+      ...s
+    } = e, u[0] = e, u[1] = a, u[2] = s) : (a = u[1], s = u[2]);
+    let {
+      open: f
+    } = l.useContext(o), h = f ? "open" : "closed";
+    return u[3] !== a ? (d = (0, r.cn)("bg-fill-dialog-overlay absolute inset-0 z-40 duration-1000 data-[state=closed]:pointer-events-none data-[state=open]:pointer-events-auto motion-reduce:animate-none", "data-[state=open]:animate-in data-[state=closed]:animate-out", "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0", a), u[3] = a, u[4] = d) : d = u[4], u[5] !== s || u[6] !== h || u[7] !== d ? (c = (0, t.jsx)(i.Close, {
+      asChild: !0,
+      children: (0, t.jsx)("div", {
+        "data-slot": "content-area-dialog-overlay",
+        "data-state": h,
+        "aria-hidden": "true",
+        className: d,
+        ...s
+      })
+    }), u[5] = s, u[6] = h, u[7] = d, u[8] = c) : c = u[8], c
+  }
+  e.s(["ContentAreaDialog", 0, function(e) {
+    let r, s, d, c, u, f, h, m, C = (0, n.c)(19),
+      p = (0, a.useIsMobileBreakpoint)();
+    C[0] !== e ? ({
+      open: r,
+      defaultOpen: s,
+      onOpenChange: d,
+      ...c
+    } = e, C[0] = e, C[1] = r, C[2] = s, C[3] = d, C[4] = c) : (r = C[1], s = C[2], d = C[3], c = C[4]);
+    let [g, x] = l.useState(s ?? !1), y = void 0 !== r, _ = y ? r : g;
+    C[5] !== y || C[6] !== d ? (u = e => {
+      d?.(e), y || x(e)
+    }, C[5] = y, C[6] = d, C[7] = u) : u = C[7];
+    let b = u;
+    return C[8] !== p || C[9] !== _ ? (f = {
+      isMobile: p,
+      open: _
+    }, C[8] = p, C[9] = _, C[10] = f) : f = C[10], C[11] !== b || C[12] !== p || C[13] !== _ || C[14] !== c ? (h = (0, t.jsx)(i.Root, {
+      "data-slot": "content-area-dialog",
+      modal: p,
+      open: _,
+      onOpenChange: b,
+      ...c
+    }), C[11] = b, C[12] = p, C[13] = _, C[14] = c, C[15] = h) : h = C[15], C[16] !== f || C[17] !== h ? (m = (0, t.jsx)(o.Provider, {
+      value: f,
+      children: h
+    }), C[16] = f, C[17] = h, C[18] = m) : m = C[18], m
+  }, "ContentAreaDialogContent", 0, function(e) {
+    let a, u, f, h, m, C, p, g, x, y, _, b, v, I, S, k = (0, n.c)(49);
+    k[0] !== e ? ({
+      containerRef: f,
+      className: u,
+      children: a,
+      variant: p,
+      onPointerDownOutside: m,
+      onInteractOutside: h,
+      ...C
+    } = e, k[0] = e, k[1] = a, k[2] = u, k[3] = f, k[4] = h, k[5] = m, k[6] = C, k[7] = p) : (a = k[1], u = k[2], f = k[3], h = k[4], m = k[5], C = k[6], p = k[7]);
+    let j = void 0 === p ? "floating" : p,
+      {
+        isMobile: w
+      } = l.useContext(o),
+      L = "fullscreen" === j;
+    if (w && !L) {
+      let e, n, l, i, o;
+      return k[8] !== u ? (e = (0, r.cn)("flex max-h-[85vh] flex-col gap-0 overflow-hidden pb-8", "[&>div:first-child]:absolute [&>div:first-child]:inset-x-0 [&>div:first-child]:top-0 [&>div:first-child]:z-10", u), k[8] = u, k[9] = e) : e = k[9], k[10] === Symbol.for("react.memo_cache_sentinel") ? (n = (0, t.jsx)("div", {
+        "aria-hidden": "true",
+        className: "pointer-events-none absolute inset-x-0 top-0 z-10 h-8"
+      }), k[10] = n) : n = k[10], k[11] !== a ? (l = (0, t.jsx)("div", {
+        className: "relative flex min-h-0 flex-1 flex-col overflow-hidden",
+        children: a
+      }), k[11] = a, k[12] = l) : l = k[12], k[13] !== l || k[14] !== j ? (i = (0, t.jsxs)("div", {
+        "data-slot": "content-area-dialog-content",
+        "data-variant": j,
+        "data-mode": "sheet",
+        className: "relative flex min-h-0 flex-1 flex-col overflow-hidden",
+        children: [n, l]
+      }), k[13] = l, k[14] = j, k[15] = i) : i = k[15], k[16] !== h || k[17] !== m || k[18] !== C || k[19] !== e || k[20] !== i ? (o = (0, t.jsx)(s.SheetContent, {
+        side: "bottom",
+        showCloseButton: !1,
+        className: e,
+        onPointerDownOutside: m,
+        onInteractOutside: h,
+        ...C,
+        children: i
+      }), k[16] = h, k[17] = m, k[18] = C, k[19] = e, k[20] = i, k[21] = o) : o = k[21], o
+    }
+    k[22] !== f ? (g = e => {
+      let t = e.target,
+        n = f.current;
+      null != n && t instanceof Node && !n.contains(t) && e.preventDefault()
+    }, k[22] = f, k[23] = g) : g = k[23];
+    let H = g;
+    return k[24] !== L ? (x = !L && (0, t.jsx)(c, {}), k[24] = L, k[25] = x) : x = k[25], k[26] !== u || k[27] !== L ? (y = (0, r.cn)("group/content-area-dialog absolute z-50 flex flex-col outline-none", "data-[state=open]:animate-in data-[state=closed]:animate-out", "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0", !L && ["duration-300 motion-reduce:animate-none", "inset-0 md:inset-[72px] md:mx-auto md:max-w-[960px]"], L && "bg-bg-primary inset-0 duration-200", u), k[26] = u, k[27] = L, k[28] = y) : y = k[28], k[29] !== H || k[30] !== m ? (_ = e => {
+      m?.(e), e.defaultPrevented || H(e)
+    }, k[29] = H, k[30] = m, k[31] = _) : _ = k[31], k[32] !== H || k[33] !== h ? (b = e => {
+      h?.(e), e.defaultPrevented || H(e)
+    }, k[32] = H, k[33] = h, k[34] = b) : b = k[34], k[35] !== a || k[36] !== L ? (v = L ? (0, t.jsx)("div", {
+      className: "relative flex min-h-0 flex-1 flex-col overflow-hidden",
+      children: a
+    }) : (0, t.jsx)("div", {
+      "data-slot": "content-area-dialog-surface",
+      className: "squircle-32 bg-bg-primary dark:bg-fill-primary shadow-blur-elevation-03 group-data-[state=open]/content-area-dialog:animate-in group-data-[state=closed]/content-area-dialog:animate-out group-data-[state=closed]/content-area-dialog:zoom-out-95 group-data-[state=open]/content-area-dialog:zoom-in-95 relative flex min-h-0 flex-auto flex-col overflow-hidden duration-200 motion-reduce:animate-none",
+      children: a
+    }), k[35] = a, k[36] = L, k[37] = v) : v = k[37], k[38] !== C || k[39] !== y || k[40] !== _ || k[41] !== b || k[42] !== v || k[43] !== j ? (I = (0, t.jsx)(i.Content, {
+      "data-slot": "content-area-dialog-content",
+      "data-variant": j,
+      className: y,
+      onPointerDownOutside: _,
+      onInteractOutside: b,
+      ...C,
+      children: v
+    }), k[38] = C, k[39] = y, k[40] = _, k[41] = b, k[42] = v, k[43] = j, k[44] = I) : I = k[44], k[45] !== f || k[46] !== x || k[47] !== I ? (S = (0, t.jsxs)(d, {
+      containerRef: f,
+      children: [x, I]
+    }), k[45] = f, k[46] = x, k[47] = I, k[48] = S) : S = k[48], S
+  }])
+}, 675952, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099);
+  let l = "-10 -10 340 340",
+    i = "M210.573 102.122C214.371 96.9227 221.672 95.7773 226.875 99.5703C232.076 103.368 233.22 110.669 229.427 115.872L148.372 226.875C146.261 229.767 142.94 231.528 139.362 231.654C135.786 231.779 132.348 230.26 130.039 227.526L87.7474 177.396C83.5952 172.471 84.218 165.105 89.1406 160.95C94.0649 156.798 101.431 157.421 105.586 162.344L138.281 201.107L210.573 102.122Z",
+    a = "M201.328 21.6666C216.07 21.6666 227.839 21.6604 237.318 22.4349C246.929 23.2205 255.218 24.8679 262.838 28.75C275.069 34.9817 285.018 44.9309 291.25 57.1614C295.132 64.7821 296.779 73.0712 297.565 82.6822C298.34 92.161 298.333 103.93 298.333 118.672V201.328C298.333 216.07 298.34 227.839 297.565 237.318C296.779 246.929 295.132 255.218 291.25 262.838C285.018 275.069 275.069 285.018 262.838 291.25C255.218 295.132 246.929 296.779 237.318 297.565C227.839 298.34 216.07 298.333 201.328 298.333H118.672C103.93 298.333 92.161 298.34 82.6822 297.565C73.0712 296.779 64.7821 295.132 57.1614 291.25C44.9309 285.018 34.9817 275.069 28.75 262.838C24.8679 255.218 23.2205 246.929 22.4349 237.318C21.6604 227.839 21.6666 216.07 21.6666 201.328V118.672C21.6666 103.93 21.6604 92.161 22.4349 82.6822C23.2205 73.0712 24.8679 64.7821 28.75 57.1614C34.9817 44.9309 44.9309 34.9817 57.1614 28.75C64.7821 24.8679 73.0712 23.2205 82.6822 22.4349C92.161 21.6604 103.93 21.6666 118.672 21.6666H201.328Z";
+
+  function r(e) {
+    let r, s, o, d, c, u = (0, n.c)(10);
+    return u[0] !== e.title ? (r = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), u[0] = e.title, u[1] = r) : r = u[1], u[2] !== e.children ? (s = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), u[2] = e.children, u[3] = s) : s = u[3], u[4] === Symbol.for("react.memo_cache_sentinel") ? (o = (0, t.jsx)("path", {
+      d: i,
+      fill: "currentColor"
+    }), d = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: `${a}M118.672 45C103.545 45 92.8915 45.0113 84.5833 45.6901C76.4139 46.3578 71.5322 47.6157 67.7474 49.5442C59.9101 53.5385 53.5385 59.9101 49.5442 67.7474C47.6157 71.5322 46.3578 76.4139 45.6901 84.5833C45.0113 92.8915 45 103.545 45 118.672V201.328C45 216.455 45.0113 227.108 45.6901 235.417C46.3578 243.586 47.6157 248.468 49.5442 252.253C53.5385 260.09 59.9101 266.461 67.7474 270.456C71.5322 272.384 76.4139 273.642 84.5833 274.31C92.8915 274.989 103.545 275 118.672 275H201.328C216.455 275 227.108 274.989 235.417 274.31C243.586 273.642 248.468 272.384 252.253 270.456C260.09 266.461 266.461 260.09 270.456 252.253C272.384 248.468 273.642 243.586 274.31 235.417C274.989 227.108 275 216.455 275 201.328V118.672C275 103.545 274.989 92.8915 274.31 84.5833C273.642 76.4139 272.384 71.5322 270.456 67.7474C266.461 59.9101 260.09 53.5385 252.253 49.5442C248.468 47.6157 243.586 46.3578 235.417 45.6901C227.108 45.0113 216.455 45 201.328 45H118.672Z`,
+      fill: "currentColor"
+    }), u[4] = o, u[5] = d) : (o = u[4], d = u[5]), u[6] !== e || u[7] !== r || u[8] !== s ? (c = (0, t.jsxs)("svg", {
+      viewBox: l,
+      fill: "none",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [r, s, o, d]
+    }), u[6] = e, u[7] = r, u[8] = s, u[9] = c) : c = u[9], c
+  }
+
+  function s(e) {
+    let r, s, o, d, c = (0, n.c)(9);
+    return c[0] !== e.title ? (r = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), c[0] = e.title, c[1] = r) : r = c[1], c[2] !== e.children ? (s = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), c[2] = e.children, c[3] = s) : s = c[3], c[4] === Symbol.for("react.memo_cache_sentinel") ? (o = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: `${a}${i}`,
+      fill: "currentColor"
+    }), c[4] = o) : o = c[4], c[5] !== e || c[6] !== r || c[7] !== s ? (d = (0, t.jsxs)("svg", {
+      viewBox: l,
+      fill: "none",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [r, s, o]
+    }), c[5] = e, c[6] = r, c[7] = s, c[8] = d) : d = c[8], d
+  }
+  r._isSVG = !0, s._isSVG = !0, e.s(["HatchGoalsFilledIcon", 0, s, "HatchGoalsIcon", 0, r])
+}, 942761, 98469, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099),
+    l = e.i(519172),
+    i = e.i(848048),
+    a = e.i(345717),
+    r = e.i(832815),
+    s = e.i(867545),
+    o = e.i(623336),
+    d = e.i(178794),
+    c = e.i(646398),
+    u = e.i(18516),
+    f = e.i(440802),
+    h = e.i(813280),
+    m = e.i(731714),
+    C = e.i(47247),
+    p = e.i(374785),
+    g = e.i(359783),
+    x = e.i(224520),
+    y = e.i(867258),
+    _ = e.i(999498),
+    b = e.i(947643),
+    v = e.i(175286),
+    I = e.i(281539),
+    S = e.i(823173),
+    k = e.i(75280),
+    j = e.i(863641);
+  r.default._isSVG = !0, s.default._isSVG = !0, o.default._isSVG = !0, d.default._isSVG = !0, c.default._isSVG = !0;
+  let w = (0, g.createClientLogger)("HatchIdeaActionsMenu");
+
+  function L(e) {
+    return e.stopPropagation()
+  }
+
+  function H(e) {
+    return e.stopPropagation()
+  }
+
+  function E(e) {
+    return e.stopPropagation()
+  }
+
+  function R(e) {
+    return e.stopPropagation()
+  }
+  e.s(["HatchIdeaActionsMenu", 0, function(e) {
+    let g, N, A, M, D, T, P, Q, K, V, F, G, z, U, B, Z, q, O, W, Y, $, X, J, ee, et, en, el, ei, ea, er = (0, n.c)(91),
+      {
+        idea: es,
+        surface: eo,
+        subsurface: ed,
+        metadata: ec,
+        onLetsDoIt: eu,
+        letsDoItDisabled: ef,
+        letsDoItTracking: eh,
+        onShare: em,
+        onNotInterested: eC,
+        appearance: ep,
+        className: eg,
+        triggerRef: ex
+      } = e,
+      ey = void 0 !== ef && ef,
+      e_ = void 0 === ep ? "bubble" : ep,
+      [eb, ev] = (0, l.useState)(!1),
+      eI = (0, l.useRef)(null),
+      eS = (0, l.useRef)(!1),
+      ek = (0, _.useHatchIdeaShare)(),
+      ej = (0, _.useIsHatchIdeaShareRetired)(es.id, es.sharing);
+    er[0] !== es.sharing ? (g = (0, b.hatchIdeaShareRevision)(es.sharing), er[0] = es.sharing, er[1] = g) : g = er[1];
+    let ew = g,
+      eL = (0, x.useMcBool)("5e1fb489", !1),
+      eH = ("chat" === eo || eL) && null != ek && null != ew && !ej,
+      {
+        sendRequest: eE
+      } = (0, v.useHatchRpc)(),
+      eR = (0, k.useHatchIdeaEngagement)("chat" === eo ? "chat" : "explore_feed"),
+      eN = "chat" === eo ? j.HATCH_SENTRY_SURFACES.CHAT_FEED : j.HATCH_SENTRY_SURFACES.IDEAS;
+    er[2] !== ec || er[3] !== es.id || er[4] !== ed || er[5] !== eo ? (N = {
+      idea_id: es.id,
+      surface: eo,
+      subsurface: ed,
+      ...ec
+    }, er[2] = ec, er[3] = es.id, er[4] = ed, er[5] = eo, er[6] = N) : N = er[6];
+    let eA = N;
+    er[7] !== eA ? (A = {
+      eventName: I.HatchClickEvent.IDEA_MENU_CLICK,
+      actionTarget: "idea_menu",
+      actionType: "click",
+      metadata: eA
+    }, er[7] = eA, er[8] = A) : A = er[8];
+    let {
+      ref: eM,
+      onClick: eD
+    } = (0, i.useTrackedClickRef)(A), eT = (0, m.useMergeRefs)(eM, eI, ex);
+    er[9] !== eA ? (M = {
+      eventName: S.HatchImpressionEvent.IDEA_MENU_IMPRESSION,
+      actionTarget: "idea_menu",
+      metadata: eA
+    }, er[9] = eA, er[10] = M) : M = er[10];
+    let {
+      ref: eP
+    } = (0, i.useTrackedImpressionRef)(M);
+    er[11] !== eh || er[12] !== eA ? (D = {
+      eventName: I.HatchClickEvent.IDEA_ACTION_CLICK,
+      actionTarget: "idea_action_button",
+      actionType: "click",
+      metadata: eA,
+      ...eh
+    }, er[11] = eh, er[12] = eA, er[13] = D) : D = er[13];
+    let {
+      ref: eQ,
+      onClick: eK
+    } = (0, i.useTrackedClickRef)(D);
+    er[14] !== eA ? (T = {
+      eventName: I.HatchClickEvent.IDEA_SHARE_CLICK,
+      actionTarget: "idea_share",
+      actionType: "click",
+      metadata: eA
+    }, er[14] = eA, er[15] = T) : T = er[15];
+    let {
+      ref: eV,
+      onClick: eF
+    } = (0, i.useTrackedClickRef)(T);
+    er[16] !== eA ? (P = {
+      eventName: I.HatchClickEvent.IDEA_FEEDBACK_CLICK,
+      actionTarget: "idea_feedback_up",
+      actionType: "click",
+      metadata: eA
+    }, er[16] = eA, er[17] = P) : P = er[17];
+    let {
+      ref: eG,
+      onClick: ez
+    } = (0, i.useTrackedClickRef)(P);
+    er[18] !== eA ? (Q = {
+      eventName: I.HatchClickEvent.IDEA_FEEDBACK_CLICK,
+      actionTarget: "idea_feedback_down",
+      actionType: "click",
+      metadata: eA
+    }, er[18] = eA, er[19] = Q) : Q = er[19];
+    let {
+      ref: eU,
+      onClick: eB
+    } = (0, i.useTrackedClickRef)(Q);
+    er[20] === Symbol.for("react.memo_cache_sentinel") ? (K = a.fbs._("Thanks for the feedback.", null, {
+      hk: "exYLQ"
+    }), er[20] = K) : K = er[20];
+    let eZ = K;
+    er[21] === Symbol.for("react.memo_cache_sentinel") ? (V = a.fbs._("Couldn't save feedback. Try again.", null, {
+      hk: "47r6G1"
+    }), er[21] = V) : V = er[21];
+    let eq = V;
+    er[22] !== es.id || er[23] !== eB || er[24] !== ez || er[25] !== eC || er[26] !== eE || er[27] !== eN || er[28] !== eo ? (F = e => {
+      if ("up" === e ? ez() : eB(), "down" === e && null != eC) return void eC();
+      let t = (0, C.captureHatchToast)();
+      (0, y.recordExploreIdeaFeedback)(es.id, e, eE, {
+        source: "web_menu",
+        surface: "chat" === eo ? "chat" : "explore_feed"
+      }).then(() => t.success(eZ), n => {
+        w.error({
+          error: n instanceof Error ? n : Error(String(n)),
+          tags: {
+            surface: eN
+          },
+          ideaId: es.id,
+          feedback: e
+        }, "Failed to save Idea feedback"), t.error(eq)
+      })
+    }, er[22] = es.id, er[23] = eB, er[24] = ez, er[25] = eC, er[26] = eE, er[27] = eN, er[28] = eo, er[29] = F) : F = er[29];
+    let eO = F;
+    er[30] !== eg ? (G = (0, p.cn)("relative z-10 shrink-0", eg), er[30] = eg, er[31] = G) : G = er[31], er[32] !== eD ? (z = e => {
+      e && eD(), ev(e)
+    }, er[32] = eD, er[33] = z) : z = er[33], er[34] !== es.title ? (U = a.fbs._("More options for {ideaTitle}", [a.fbs._param("ideaTitle", es.title)], {
+      hk: "ou8lz"
+    }), er[34] = es.title, er[35] = U) : U = er[35];
+    let eW = "row" === e_ ? "borderless" : "elevated",
+      eY = "row" === e_ ? "24" : "32",
+      e$ = "bubble" === e_ ? "size-11" : void 0;
+    er[36] !== eT || er[37] !== U || er[38] !== eW || er[39] !== eY || er[40] !== e$ ? (B = (0, t.jsx)(u.DropdownMenuTrigger, {
+      asChild: !0,
+      children: (0, t.jsx)(f.IconButton, {
+        ref: eT,
+        icon: s.default,
+        label: U,
+        variant: eW,
+        size: eY,
+        className: e$,
+        onClick: R,
+        onKeyDown: E
+      })
+    }), er[36] = eT, er[37] = U, er[38] = eW, er[39] = eY, er[40] = e$, er[41] = B) : B = er[41];
+    let eX = "row" === e_ ? "end" : "start";
+    return er[42] === Symbol.for("react.memo_cache_sentinel") ? (Z = e => {
+      eS.current && (e.preventDefault(), eS.current = !1)
+    }, er[42] = Z) : Z = er[42], er[43] !== ey || er[44] !== eQ || er[45] !== eK || er[46] !== eu ? (q = null != eu && (0, t.jsx)(u.DropdownMenuItem, {
+      ref: eQ,
+      leadingIcon: c.default,
+      label: a.fbs._("Let's do it", null, {
+        hk: "4hN1V0"
+      }),
+      disabled: ey,
+      onSelect: () => {
+        eK(), eu()
+      }
+    }), er[43] = ey, er[44] = eQ, er[45] = eK, er[46] = eu, er[47] = q) : q = er[47], er[48] !== eH || er[49] !== eR || er[50] !== es.id || er[51] !== eF || er[52] !== em || er[53] !== ew || er[54] !== ek || er[55] !== eV ? (O = eH && (0, t.jsx)(u.DropdownMenuItem, {
+      ref: eV,
+      leadingIcon: r.default,
+      label: a.fbs._("Share", null, {
+        hk: "37Rbw1"
+      }),
+      onSelect: () => {
+        null != ew && (eF(), eR.recordClick(es.id), eS.current = !0, null != em ? em(ew, eI.current) : ek(es.id, ew, {
+          returnFocus: eI.current ?? void 0
+        }))
+      }
+    }), er[48] = eH, er[49] = eR, er[50] = es.id, er[51] = eF, er[52] = em, er[53] = ew, er[54] = ek, er[55] = eV, er[56] = O) : O = er[56], er[57] !== eH || er[58] !== eu ? (W = (null != eu || eH) && (0, t.jsx)(u.DropdownMenuSeparator, {}), er[57] = eH, er[58] = eu, er[59] = W) : W = er[59], er[60] === Symbol.for("react.memo_cache_sentinel") ? (Y = a.fbs._("More like this", null, {
+      hk: "3macHb"
+    }), er[60] = Y) : Y = er[60], er[61] !== eO ? ($ = () => eO("up"), er[61] = eO, er[62] = $) : $ = er[62], er[63] !== $ || er[64] !== eG ? (X = (0, t.jsx)(u.DropdownMenuItem, {
+      ref: eG,
+      leadingIcon: d.default,
+      label: Y,
+      onSelect: $
+    }), er[63] = $, er[64] = eG, er[65] = X) : X = er[65], er[66] === Symbol.for("react.memo_cache_sentinel") ? (J = a.fbs._("Not interested", null, {
+      hk: "1l41CE"
+    }), er[66] = J) : J = er[66], er[67] !== eO ? (ee = () => eO("down"), er[67] = eO, er[68] = ee) : ee = er[68], er[69] !== eU || er[70] !== ee ? (et = (0, t.jsx)(u.DropdownMenuItem, {
+      ref: eU,
+      leadingIcon: o.default,
+      label: J,
+      onSelect: ee
+    }), er[69] = eU, er[70] = ee, er[71] = et) : et = er[71], er[72] !== eN || er[73] !== q || er[74] !== O || er[75] !== W || er[76] !== X || er[77] !== et ? (en = (0, t.jsxs)(h.HatchErrorBoundary, {
+      surface: eN,
+      children: [q, O, W, X, et]
+    }), er[72] = eN, er[73] = q, er[74] = O, er[75] = W, er[76] = X, er[77] = et, er[78] = en) : en = er[78], er[79] !== eP || er[80] !== eX || er[81] !== en ? (el = (0, t.jsx)(u.DropdownMenuContent, {
+      ref: eP,
+      align: eX,
+      onClick: H,
+      onKeyDown: L,
+      onCloseAutoFocus: Z,
+      children: en
+    }), er[79] = eP, er[80] = eX, er[81] = en, er[82] = el) : el = er[82], er[83] !== eb || er[84] !== z || er[85] !== B || er[86] !== el ? (ei = (0, t.jsxs)(u.DropdownMenu, {
+      open: eb,
+      mobilePresentation: "menu",
+      onOpenChange: z,
+      children: [B, el]
+    }), er[83] = eb, er[84] = z, er[85] = B, er[86] = el, er[87] = ei) : ei = er[87], er[88] !== G || er[89] !== ei ? (ea = (0, t.jsx)("div", {
+      className: G,
+      children: ei
+    }), er[88] = G, er[89] = ei, er[90] = ea) : ea = er[90], ea
+  }], 942761), e.s(["deriveHatchIdeaReviewContent", 0, function(e, t) {
+    let n = e.title.trim(),
+      l = e.description.trim(),
+      i = l.length > 0 && l !== n ? l : "",
+      a = (t?.activityItems ?? []).map(e => ({
+        item: e,
+        summary: e.buildSummary?.trim() || e.body?.trim() || ""
+      })).filter(e => e.summary.length > 0 && e.summary !== i),
+      r = (t?.buildSummary ?? e.buildSummary)?.trim() ?? "",
+      s = r.length > 0 ? r : a.map(e => e.summary).join("\n\n");
+    return {
+      summary: i,
+      fitReason: t?.fitReason ?? null,
+      includedItems: a,
+      howItWorks: s
+    }
+  }], 98469)
+}, 342847, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(345717),
+    l = e.i(722099),
+    i = e.i(519172),
+    a = e.i(396817),
+    r = e.i(848048),
+    s = e.i(621545),
+    o = e.i(592240),
+    d = e.i(181959),
+    c = e.i(203320),
+    u = e.i(325814),
+    f = e.i(646361),
+    h = e.i(440802),
+    m = e.i(813280),
+    C = e.i(397240),
+    p = e.i(731714),
+    g = e.i(374785),
+    x = e.i(514540),
+    y = e.i(870228),
+    _ = e.i(581386),
+    b = e.i(318023),
+    v = e.i(916981),
+    I = e.i(281539),
+    S = e.i(823173),
+    k = e.i(170525),
+    j = e.i(942761),
+    w = e.i(98469),
+    L = e.i(996835),
+    H = e.i(75280),
+    E = e.i(863641);
+
+  function R(e) {
+    let {
+      error: l,
+      reset: i
+    } = e;
+    return (0, t.jsxs)(t.Fragment, {
+      children: [(0, t.jsx)(a.Title, {
+        className: "sr-only",
+        children: n.fbs._("Idea preview", null, {
+          hk: "2ehLqU"
+        })
+      }), (0, t.jsx)(y.HatchContentErrorFallback, {
+        error: l,
+        onRetry: i
+      })]
+    })
+  }
+
+  function N(e) {
+    let s, o, d, c, u, f, h, m, C, y, _, b, v, R, N, P, Q, K, V, G, z, U, B, Z, q, O, W, Y, $ = (0, l.c)(103),
+      {
+        idea: X,
+        actionState: J,
+        detailOverride: ee,
+        forceError: et,
+        showDoItButton: en,
+        onAction: el,
+        onNotInterested: ei,
+        surface: ea,
+        isDeepLink: er,
+        openContext: es,
+        contentRegionRef: eo,
+        menuTriggerRef: ed,
+        onShare: ec
+      } = e;
+    if (void 0 !== et && et) throw Error(`Debug: forced idea preview error for ${X.id}.`);
+    $[0] !== es ? (s = null != es ? {
+      section_id: es.sectionId,
+      position: es.position
+    } : {}, $[0] = es, $[1] = s) : s = $[1];
+    let eu = s;
+    $[2] !== er ? (o = er ? {
+      entry_point: "deeplink"
+    } : {}, $[2] = er, $[3] = o) : o = $[3];
+    let ef = o;
+    $[4] !== ef || $[5] !== X.id || $[6] !== eu || $[7] !== ea ? (d = {
+      eventName: S.HatchImpressionEvent.IDEA_PREVIEW_DIALOG_IMPRESSION,
+      actionTarget: "idea_preview_dialog",
+      metadata: {
+        idea_id: X.id,
+        surface: ea,
+        ...eu,
+        ...ef
+      }
+    }, $[4] = ef, $[5] = X.id, $[6] = eu, $[7] = ea, $[8] = d) : d = $[8];
+    let {
+      ref: eh
+    } = (0, r.useTrackedImpressionRef)(d), em = (0, H.useHatchIdeaEngagement)("explore_feed");
+    $[9] !== ef || $[10] !== X.id || $[11] !== eu || $[12] !== ea ? (c = {
+      eventName: I.HatchClickEvent.IDEA_PREVIEW_ACTION_CLICK,
+      actionTarget: "idea_preview_action_button",
+      actionType: "click",
+      metadata: {
+        idea_id: X.id,
+        surface: ea,
+        action: "cta",
+        ...eu,
+        ...ef
+      }
+    }, $[9] = ef, $[10] = X.id, $[11] = eu, $[12] = ea, $[13] = c) : c = $[13];
+    let eC = c,
+      {
+        ref: ep,
+        onClick: eg
+      } = (0, r.useTrackedClickRef)(eC),
+      ex = (0, i.useId)(),
+      ey = (0, p.useMergeRefs)(eh, eo),
+      e_ = "chat" === ea ? E.HATCH_SENTRY_SURFACES.CHAT_FEED : E.HATCH_SENTRY_SURFACES.IDEAS;
+    $[14] !== e_ ? (u = {
+      sentrySurface: e_
+    }, $[14] = e_, $[15] = u) : u = $[15];
+    let eb = (0, x.useHatchExploreIdeaDetailQuery)(null == ee ? X.id : null, u),
+      ev = ee ?? eb.data ?? null,
+      eI = null == ee && eb.isLoading;
+    $[16] !== ev?.activityItems ? (f = ev?.activityItems ?? [], $[16] = ev?.activityItems, $[17] = f) : f = $[17];
+    let eS = f,
+      ek = ev?.fitReason ?? null;
+    e: {
+      if (null != ev) {
+        if ((0, k.isHatchIdeaBuildInstalled)(ev.buildStatus)) {
+          h = "installed";
+          break e
+        }
+        if ("in_progress" === ev.buildStatus) {
+          h = "pending";
+          break e
+        }
+      }
+      h = J
+    }
+    let ej = h,
+      [ew, eL] = (0, i.useState)(null),
+      eH = (0, i.useRef)(!1);
+    $[18] !== eS || $[19] !== ev || $[20] !== ej ? (m = () => {
+      if (null == ev) return;
+      let e = "available" === ej;
+      eL(t => e && eH.current && null != t ? t : new Set(eS.map(D)))
+    }, C = [ev, eS, ej], $[18] = eS, $[19] = ev, $[20] = ej, $[21] = m, $[22] = C) : (m = $[21], C = $[22]), (0, i.useEffect)(m, C), $[23] !== eS ? (y = e => {
+      let t = eS.find(t => t.id === e);
+      (null == t || t.selectable) && (eH.current = !0, eL(t => {
+        let n = new Set(t ?? new Set);
+        return n.has(e) ? n.delete(e) : n.add(e), n
+      }))
+    }, $[23] = eS, $[24] = y) : y = $[24];
+    let eE = y;
+    $[25] !== ej || $[26] !== em || $[27] !== X || $[28] !== el || $[29] !== ew ? (_ = () => {
+      "available" !== ej || (em.recordClick(X.id), el(X, null != ew ? [...ew] : void 0))
+    }, $[25] = ej, $[26] = em, $[27] = X, $[28] = el, $[29] = ew, $[30] = _) : _ = $[30];
+    let eR = _;
+    $[31] !== eS ? (b = eS.some(M), $[31] = eS, $[32] = b) : b = $[32];
+    let eN = b;
+    $[33] !== eS ? (v = eS.some(A), $[33] = eS, $[34] = v) : v = $[34];
+    let eA = v;
+    $[35] !== eS || $[36] !== eA || $[37] !== eN || $[38] !== ew ? (R = eN && !eA && null != ew && !eS.some(e => e.selectable && ew.has(e.id)), $[35] = eS, $[36] = eA, $[37] = eN, $[38] = ew, $[39] = R) : R = $[39];
+    let eM = R,
+      eD = eI || null != ek,
+      eT = eI || eS.length > 0;
+    $[40] !== ev || $[41] !== X ? (N = (0, w.deriveHatchIdeaReviewContent)(X, ev), $[40] = ev, $[41] = X, $[42] = N) : N = $[42];
+    let eP = N,
+      eQ = eP.summary.length > 0,
+      eK = eP.howItWorks,
+      eV = eK.length > 0,
+      eF = eD || eT || eV;
+    $[43] !== X.title || $[44] !== ex ? (P = (0, t.jsx)("span", {
+      id: ex,
+      children: X.title
+    }), $[43] = X.title, $[44] = ex, $[45] = P) : P = $[45], $[46] !== X.title || $[47] !== P ? (Q = (0, t.jsx)(a.Title, {
+      title: X.title,
+      className: "text-text-primary text-title-3-emphasized line-clamp-2 pe-8 text-pretty",
+      children: P
+    }), $[46] = X.title, $[47] = P, $[48] = Q) : Q = $[48];
+    let eG = !eQ && "sr-only";
+    $[49] !== eG ? (K = (0, g.cn)("text-text-secondary text-body", eG), $[49] = eG, $[50] = K) : K = $[50], $[51] !== X.description || $[52] !== K ? (V = (0, t.jsx)(a.Description, {
+      className: K,
+      children: X.description
+    }), $[51] = X.description, $[52] = K, $[53] = V) : V = $[53], $[54] !== eS || $[55] !== eI || $[56] !== ej || $[57] !== ek || $[58] !== eK || $[59] !== X.description || $[60] !== ew || $[61] !== eF || $[62] !== eD || $[63] !== eV || $[64] !== eT || $[65] !== eE ? (G = eF && (0, t.jsxs)("section", {
+      className: "flex flex-col gap-4",
+      "aria-busy": eI,
+      children: [eD && (null != ek ? (0, t.jsx)("p", {
+        className: "text-text-secondary text-body whitespace-pre-wrap",
+        children: ek
+      }) : (0, t.jsx)(F, {})), eT && (0, t.jsx)(T, {
+        isLoading: eI && 0 === eS.length,
+        items: eS,
+        selectedItemIds: ew,
+        onToggleItemId: eE,
+        ideaDescription: X.description,
+        actionState: ej
+      }), eV && (0, t.jsxs)("div", {
+        className: "flex flex-col gap-1.5",
+        "aria-labelledby": "hatch-idea-how-it-works-heading",
+        children: [(0, t.jsx)("h4", {
+          id: "hatch-idea-how-it-works-heading",
+          className: "text-text-primary text-body-emphasized",
+          children: n.fbt._("How it works", null, {
+            hk: "4vpRG8"
+          })
+        }), (0, t.jsx)("p", {
+          className: "text-text-secondary text-body whitespace-pre-wrap",
+          children: eK
+        })]
+      })]
+    }), $[54] = eS, $[55] = eI, $[56] = ej, $[57] = ek, $[58] = eK, $[59] = X.description, $[60] = ew, $[61] = eF, $[62] = eD, $[63] = eV, $[64] = eT, $[65] = eE, $[66] = G) : G = $[66], $[67] !== V || $[68] !== G ? (z = (0, t.jsxs)("div", {
+      className: "flex flex-col gap-5",
+      children: [V, G]
+    }), $[67] = V, $[68] = G, $[69] = z) : z = $[69], $[70] !== Q || $[71] !== z ? (U = (0, t.jsxs)("div", {
+      className: "flex flex-col gap-4 px-6 py-5",
+      children: [Q, z]
+    }), $[70] = Q, $[71] = z, $[72] = U) : U = $[72], $[73] !== ey || $[74] !== U || $[75] !== ex ? (B = (0, t.jsx)("div", {
+      ref: ey,
+      tabIndex: -1,
+      role: "group",
+      "aria-labelledby": ex,
+      className: "scrollbar-hide relative flex min-h-0 flex-1 flex-col overflow-y-auto focus:not-focus-visible:outline-none",
+      children: U
+    }), $[73] = ey, $[74] = U, $[75] = ex, $[76] = B) : B = $[76], $[77] !== ef || $[78] !== eu ? (Z = {
+      ...eu,
+      ...ef
+    }, $[77] = ef, $[78] = eu, $[79] = Z) : Z = $[79];
+    let ez = en && "available" === ej ? eR : void 0;
+    return $[80] !== eC || $[81] !== X || $[82] !== ed || $[83] !== eM || $[84] !== ei || $[85] !== ec || $[86] !== ea || $[87] !== Z || $[88] !== ez ? (q = (0, t.jsx)(j.HatchIdeaActionsMenu, {
+      idea: X,
+      surface: ea,
+      subsurface: "idea_preview_dialog",
+      metadata: Z,
+      triggerRef: ed,
+      onLetsDoIt: ez,
+      letsDoItDisabled: eM,
+      letsDoItTracking: eC,
+      onShare: ec,
+      onNotInterested: ei
+    }), $[80] = eC, $[81] = X, $[82] = ed, $[83] = eM, $[84] = ei, $[85] = ec, $[86] = ea, $[87] = Z, $[88] = ez, $[89] = q) : q = $[89], $[90] !== ep || $[91] !== ej || $[92] !== eR || $[93] !== eg || $[94] !== eM || $[95] !== en ? (O = en && (0, t.jsx)("div", {
+      ref: ep,
+      className: "min-w-0 flex-1",
+      children: (0, t.jsx)(L.HatchIdeaActionButton, {
+        state: ej,
+        className: "h-11 w-full",
+        onClick: () => {
+          "available" === ej && (eg(), eR())
+        },
+        disabled: eM
+      })
+    }), $[90] = ep, $[91] = ej, $[92] = eR, $[93] = eg, $[94] = eM, $[95] = en, $[96] = O) : O = $[96], $[97] !== q || $[98] !== O ? (W = (0, t.jsxs)("div", {
+      className: "bg-fill-primary flex shrink-0 items-center gap-2 px-6 pt-2 pb-5",
+      children: [q, O]
+    }), $[97] = q, $[98] = O, $[99] = W) : W = $[99], $[100] !== B || $[101] !== W ? (Y = (0, t.jsxs)(t.Fragment, {
+      children: [B, W]
+    }), $[100] = B, $[101] = W, $[102] = Y) : Y = $[102], Y
+  }
+
+  function A(e) {
+    return !e.selectable
+  }
+
+  function M(e) {
+    return e.selectable
+  }
+
+  function D(e) {
+    return e.id
+  }
+
+  function T(e) {
+    let i, a, r, s = (0, l.c)(16),
+      {
+        isLoading: o,
+        items: d,
+        selectedItemIds: c,
+        onToggleItemId: u,
+        ideaDescription: f,
+        actionState: h
+      } = e,
+      m = "available" === h;
+    if (o) {
+      let e;
+      return s[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(G, {}), s[0] = e) : e = s[0], e
+    }
+    if (0 === d.length) return null;
+    if (s[1] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("h4", {
+        id: "hatch-idea-included-heading",
+        className: "text-text-primary text-body-emphasized",
+        children: n.fbt._("What's included", null, {
+          hk: "1RJXwi"
+        })
+      }), s[1] = i) : i = s[1], s[2] !== m || s[3] !== f || s[4] !== d || s[5] !== u || s[6] !== c) {
+      let e;
+      s[8] !== m || s[9] !== f || s[10] !== d.length || s[11] !== u || s[12] !== c ? (e = e => {
+        let l = "" !== e.title.trim() ? e.title : function(e) {
+            switch (e) {
+              case "space":
+                return String(n.fbs._("Artifact", null, {
+                  hk: "1AoZXm"
+                }));
+              case "reminder":
+                return String(n.fbs._("Automation that runs for you", null, {
+                  hk: "11GVi7"
+                }));
+              case "skill":
+                return String(n.fbs._("Skill", null, {
+                  hk: "4m9cdk"
+                }));
+              case "task":
+                return String(n.fbs._("Task", null, {
+                  hk: "2hcD5i"
+                }));
+              case "image":
+                return String(n.fbs._("Image", null, {
+                  hk: "4mRxUY"
+                }));
+              case "goal":
+                return String(n.fbs._("Goal", null, {
+                  hk: "ecKkT"
+                }));
+              case "document":
+                return String(n.fbs._("Document", null, {
+                  hk: "Cdp5A"
+                }));
+              case "data_source":
+                return String(n.fbs._("Connected data source", null, {
+                  hk: "29qZCp"
+                }));
+              case "search":
+                return String(n.fbs._("Search", null, {
+                  hk: "39Qhh5"
+                }));
+              case "idea":
+                return String(n.fbs._("Idea", null, {
+                  hk: "4nxau5"
+                }));
+              default:
+                return String(n.fbs._("Activity", null, {
+                  hk: "4sDV22"
+                }))
+            }
+          }(e.kind),
+          i = e.body ?? f,
+          a = m && e.selectable,
+          r = m ? c?.has(e.id) ?? !0 : e.isSelected,
+          s = d.length > 1 && (a || !m);
+        return (0, t.jsx)(P, {
+          item: e,
+          displayTitle: l,
+          displaySubtitle: i,
+          isSelected: r,
+          onToggle: () => u(e.id),
+          showCheckbox: s,
+          interactive: a
+        }, e.id)
+      }, s[8] = m, s[9] = f, s[10] = d.length, s[11] = u, s[12] = c, s[13] = e) : e = s[13], a = d.map(e), s[2] = m, s[3] = f, s[4] = d, s[5] = u, s[6] = c, s[7] = a
+    } else a = s[7];
+    return s[14] !== a ? (r = (0, t.jsxs)("div", {
+      className: "flex flex-col gap-1.5",
+      "aria-labelledby": "hatch-idea-included-heading",
+      children: [i, (0, t.jsx)("div", {
+        className: "flex flex-col",
+        children: a
+      })]
+    }), s[14] = a, s[15] = r) : r = s[15], r
+  }
+
+  function P(e) {
+    let i, a, r, s, o, d, c, u, f, h = (0, l.c)(31),
+      {
+        item: m,
+        displayTitle: C,
+        displaySubtitle: p,
+        isSelected: x,
+        onToggle: y,
+        showCheckbox: _,
+        interactive: b
+      } = e,
+      v = _ && b;
+    h[0] !== m ? (i = (0, t.jsx)(V, {
+      item: m
+    }), h[0] = m, h[1] = i) : i = h[1], h[2] !== C ? (a = (0, t.jsx)("div", {
+      className: "text-text-primary text-subheadline-emphasized",
+      children: C
+    }), h[2] = C, h[3] = a) : a = h[3], h[4] !== p ? (r = "" !== p.trim() && (0, t.jsx)("div", {
+      className: "text-text-secondary text-subheadline line-clamp-2",
+      children: p
+    }), h[4] = p, h[5] = r) : r = h[5], h[6] !== a || h[7] !== r ? (s = (0, t.jsxs)("div", {
+      className: "min-w-0 flex-1",
+      children: [a, r]
+    }), h[6] = a, h[7] = r, h[8] = s) : s = h[8], h[9] !== C || h[10] !== b || h[11] !== x || h[12] !== y || h[13] !== v || h[14] !== _ ? (o = _ && (0, t.jsx)("span", {
+      className: "flex shrink-0 items-center",
+      onClick: v ? Q : void 0,
+      children: (0, t.jsx)(K, {
+        checked: x,
+        onToggle: y,
+        interactive: b,
+        label: String(n.fbs._("Include {itemTitle} in this pack", [n.fbs._param("itemTitle", C)], {
+          hk: "2x77Bc"
+        }))
+      })
+    }), h[9] = C, h[10] = b, h[11] = x, h[12] = y, h[13] = v, h[14] = _, h[15] = o) : o = h[15], h[16] !== i || h[17] !== s || h[18] !== o ? (d = (0, t.jsxs)(t.Fragment, {
+      children: [i, s, o]
+    }), h[16] = i, h[17] = s, h[18] = o, h[19] = d) : d = h[19];
+    let I = d;
+    h[20] !== v ? (c = v && ["hover:bg-fill-secondary active:bg-fill-secondary cursor-pointer", "hover:after:opacity-0 [&:has(+*:hover)]:after:opacity-0"], h[20] = v, h[21] = c) : c = h[21], h[22] !== c ? (u = (0, g.cn)("squircle-20 relative -mx-3 flex items-center gap-3 px-3 py-2.5 text-start", "after:bg-fill-divider after:absolute after:start-[68px] after:end-3 after:bottom-0 after:h-px after:content-['']", "last:after:hidden", c), h[22] = c, h[23] = u) : u = h[23];
+    let S = v ? y : void 0,
+      k = _ ? "checkbox" : void 0,
+      j = _ ? x : void 0,
+      w = !!_ && !b || void 0;
+    return h[24] !== I || h[25] !== k || h[26] !== j || h[27] !== w || h[28] !== u || h[29] !== S ? (f = (0, t.jsx)("div", {
+      className: u,
+      onClick: S,
+      role: k,
+      "aria-checked": j,
+      "aria-disabled": w,
+      children: I
+    }), h[24] = I, h[25] = k, h[26] = j, h[27] = w, h[28] = u, h[29] = S, h[30] = f) : f = h[30], f
+  }
+
+  function Q(e) {
+    return e.stopPropagation()
+  }
+
+  function K(e) {
+    let n, i, a, r, d, c = (0, l.c)(16),
+      {
+        checked: u,
+        onToggle: h,
+        interactive: m,
+        label: C
+      } = e,
+      p = !m;
+    c[0] !== m || c[1] !== h ? (n = () => {
+      m && h()
+    }, c[0] = m, c[1] = h, c[2] = n) : n = c[2], c[3] !== u || c[4] !== C || c[5] !== p || c[6] !== n ? (i = (0, t.jsx)("input", {
+      type: "checkbox",
+      checked: u,
+      disabled: p,
+      "aria-label": C,
+      onChange: n,
+      className: "absolute inset-0 size-full cursor-pointer appearance-none rounded-full disabled:cursor-default"
+    }), c[3] = u, c[4] = C, c[5] = p, c[6] = n, c[7] = i) : i = c[7];
+    let x = u ? s.default : o.default,
+      y = u ? "text-text-success" : "text-text-tertiary";
+    return c[8] !== y ? (a = (0, g.cn)("pointer-events-none", y), c[8] = y, c[9] = a) : a = c[9], c[10] !== x || c[11] !== a ? (r = (0, t.jsx)(f.HatchIcon, {
+      "aria-hidden": "true",
+      icon: x,
+      size: 20,
+      iconSize: 20,
+      className: a
+    }), c[10] = x, c[11] = a, c[12] = r) : r = c[12], c[13] !== i || c[14] !== r ? (d = (0, t.jsxs)("span", {
+      className: "relative inline-flex size-5 shrink-0 items-center justify-center",
+      children: [i, r]
+    }), c[13] = i, c[14] = r, c[15] = d) : d = c[15], d
+  }
+
+  function V(e) {
+    let n, i = (0, l.c)(3),
+      {
+        item: a
+      } = e;
+    return i[0] !== a.kind || i[1] !== a.tone ? (n = (0, t.jsx)(L.HatchIdeaActivityItemIcon, {
+      kind: a.kind,
+      tone: a.tone
+    }), i[0] = a.kind, i[1] = a.tone, i[2] = n) : n = i[2], n
+  }
+
+  function F() {
+    let e, i, a = (0, l.c)(2);
+    return a[0] === Symbol.for("react.memo_cache_sentinel") ? (e = n.fbs._("Loading activity library", null, {
+      hk: "xhpb"
+    }), a[0] = e) : e = a[0], a[1] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsxs)("div", {
+      className: "flex flex-col gap-2",
+      role: "status",
+      "aria-label": String(e),
+      children: [(0, t.jsx)("div", {
+        className: "bg-fill-tertiary h-[18px] w-full rounded motion-safe:animate-pulse"
+      }), (0, t.jsx)("div", {
+        className: "bg-fill-tertiary h-[18px] w-11/12 rounded motion-safe:animate-pulse"
+      }), (0, t.jsx)("div", {
+        className: "bg-fill-tertiary h-[18px] w-3/4 rounded motion-safe:animate-pulse"
+      })]
+    }), a[1] = i) : i = a[1], i
+  }
+
+  function G() {
+    let e, n, i = (0, l.c)(2);
+    return i[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)("div", {
+      className: "bg-fill-tertiary h-[22px] w-1/3 rounded motion-safe:animate-pulse"
+    }), i[0] = e) : e = i[0], i[1] === Symbol.for("react.memo_cache_sentinel") ? (n = (0, t.jsxs)("div", {
+      className: "flex flex-col gap-1.5",
+      "aria-hidden": "true",
+      children: [e, (0, t.jsx)("div", {
+        className: "flex flex-col",
+        children: [0, 1].map(z)
+      })]
+    }), i[1] = n) : n = i[1], n
+  }
+
+  function z(e) {
+    return (0, t.jsxs)("div", {
+      className: "flex items-center gap-3 py-2.5",
+      children: [(0, t.jsx)("div", {
+        className: "bg-fill-tertiary size-11 shrink-0 rounded-full motion-safe:animate-pulse"
+      }), (0, t.jsxs)("div", {
+        className: "flex min-w-0 flex-1 flex-col gap-1",
+        children: [(0, t.jsx)("div", {
+          className: "bg-fill-tertiary h-[18px] w-2/5 rounded motion-safe:animate-pulse"
+        }), (0, t.jsx)("div", {
+          className: "bg-fill-tertiary h-[18px] w-4/5 rounded motion-safe:animate-pulse"
+        })]
+      })]
+    }, e)
+  }
+  e.s(["HatchIdeaPreviewDialog", 0, function(e) {
+    let s, o, f, x, y, S, k, j, w, L, H, A, M, D, T, P, Q, K = (0, l.c)(69),
+      {
+        idea: V,
+        actionState: F,
+        detailOverride: G,
+        forceError: z,
+        showDoItButton: U,
+        open: B,
+        onOpenChange: Z,
+        onAction: q,
+        onNotInterested: O,
+        surface: W,
+        isDeepLink: Y,
+        openContext: $,
+        containerRef: X
+      } = e,
+      J = void 0 !== z && z,
+      ee = void 0 === U || U,
+      et = void 0 !== Y && Y,
+      en = (0, C.useIsMobileBreakpoint)(),
+      [el, ei] = (0, i.useState)(null),
+      [ea, er] = (0, i.useState)(!1),
+      [es, eo] = (0, i.useState)(B),
+      ed = (0, i.useRef)(null),
+      ec = (0, i.useRef)(null),
+      eu = (0, i.useRef)(null),
+      ef = (0, i.useRef)(!1),
+      eh = (0, i.useId)();
+    B !== es && (eo(B), B && (ei(null), er(!1)));
+    let [em, eC] = (0, i.useState)(V);
+    null != V && V !== em && (eC(V), V.id !== em?.id && (ei(null), er(!1)));
+    let [ep, eg] = (0, i.useState)(G);
+    null != V && G !== ep && eg(G);
+    let [ex, ey] = (0, i.useState)(et);
+    null != V && et !== ex && ey(et);
+    let [e_, eb] = (0, i.useState)(F);
+    B && F !== e_ && eb(F);
+    let ev = em?.id;
+    K[0] !== ev ? (s = {
+      eventName: I.HatchClickEvent.IDEA_SHARE_BACK_CLICK,
+      actionTarget: "idea_share_back",
+      actionType: "click",
+      metadata: {
+        idea_id: ev,
+        surface: "idea_share",
+        subsurface: "idea_preview_dialog"
+      }
+    }, K[0] = ev, K[1] = s) : s = K[1];
+    let {
+      ref: eI,
+      onClick: eS
+    } = (0, r.useTrackedClickRef)(s), ek = (0, p.useMergeRefs)(eI, eu);
+    K[2] === Symbol.for("react.memo_cache_sentinel") ? (o = {
+      eventName: I.HatchClickEvent.IDEA_SHARE_CLOSE_CLICK,
+      actionTarget: "idea_share_close",
+      actionType: "click",
+      metadata: {
+        surface: "idea_share",
+        subsurface: "create",
+        source: "idea"
+      }
+    }, K[2] = o) : o = K[2];
+    let {
+      onClick: ej
+    } = (0, r.useTrackedClickRef)(o);
+    K[3] !== B || K[4] !== el ? (f = () => {
+      B && (null != el ? eu.current?.focus({
+        preventScroll: !0
+      }) : ef.current && (ef.current = !1, (ec.current ?? ed.current)?.focus({
+        preventScroll: !0
+      })))
+    }, x = [B, el], K[3] = B, K[4] = el, K[5] = f, K[6] = x) : (f = K[5], x = K[6]), (0, i.useLayoutEffect)(f, x), K[7] !== ej || K[8] !== Z || K[9] !== el ? (y = e => {
+      e || null == el || ej(), Z(e)
+    }, K[7] = ej, K[8] = Z, K[9] = el, K[10] = y) : y = K[10];
+    let ew = y;
+    K[11] !== eS ? (S = () => {
+      eS(), ef.current = !0, er(!0), ei(null)
+    }, K[11] = eS, K[12] = S) : S = K[12];
+    let eL = S;
+    if (null == em) return null;
+    K[13] !== el || K[14] !== eh ? (k = null == el ? {} : {
+      "aria-labelledby": eh,
+      "aria-describedby": void 0
+    }, K[13] = el, K[14] = eh, K[15] = k) : k = K[15];
+    let eH = k,
+      eE = null != el,
+      eR = null == el ? "flex" : "hidden",
+      eN = ea && "motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-start-6 motion-safe:duration-150 motion-safe:ease-out";
+    K[16] !== eR || K[17] !== eN ? (j = (0, g.cn)("relative min-h-0 flex-auto flex-col", eR, eN), K[16] = eR, K[17] = eN, K[18] = j) : j = K[18], K[19] === Symbol.for("react.memo_cache_sentinel") ? (w = (0, t.jsx)(a.Close, {
+      asChild: !0,
+      children: (0, t.jsx)(h.IconButton, {
+        icon: d.default,
+        label: n.fbs._("Close", null, {
+          hk: "2WAk1K"
+        }),
+        variant: "elevated",
+        size: "32",
+        className: "absolute end-4 top-4 z-20"
+      })
+    }), K[19] = w) : w = K[19];
+    let eA = B ? "open" : "closed";
+    K[20] !== em.id || K[21] !== eA ? (L = [em.id, eA], K[20] = em.id, K[21] = eA, K[22] = L) : L = K[22], K[23] !== J || K[24] !== q || K[25] !== O || K[26] !== $ || K[27] !== ee || K[28] !== e_ || K[29] !== ep || K[30] !== em || K[31] !== ex || K[32] !== W ? (H = (0, t.jsx)(N, {
+      idea: em,
+      actionState: e_,
+      detailOverride: ep,
+      forceError: J,
+      showDoItButton: ee,
+      onAction: q,
+      onNotInterested: O,
+      surface: W,
+      isDeepLink: ex,
+      openContext: $,
+      contentRegionRef: ed,
+      menuTriggerRef: ec,
+      onShare: ei
+    }, em.id), K[23] = J, K[24] = q, K[25] = O, K[26] = $, K[27] = ee, K[28] = e_, K[29] = ep, K[30] = em, K[31] = ex, K[32] = W, K[33] = H) : H = K[33], K[34] !== L || K[35] !== H ? (A = (0, t.jsx)(m.HatchErrorBoundary, {
+      surface: E.HATCH_SENTRY_SURFACES.IDEAS,
+      resetKeys: L,
+      fallback: R,
+      children: H
+    }), K[34] = L, K[35] = H, K[36] = A) : A = K[36], K[37] !== eE || K[38] !== j || K[39] !== A ? (M = (0, t.jsxs)("div", {
+      hidden: eE,
+      className: j,
+      children: [w, A]
+    }), K[37] = eE, K[38] = j, K[39] = A, K[40] = M) : M = K[40], K[41] !== X || K[42] !== ew || K[43] !== eL || K[44] !== en || K[45] !== B || K[46] !== ek || K[47] !== el || K[48] !== eh || K[49] !== em.id ? (D = null != el && (0, t.jsxs)("div", {
+      className: "motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-end-6 flex min-h-0 flex-auto flex-col overflow-y-auto motion-safe:duration-150 motion-safe:ease-out",
+      children: [(0, t.jsx)(_.HatchShareDialogHeader, {
+        variant: "idea",
+        titleId: eh,
+        onBack: eL,
+        backRef: ek,
+        onClose: () => ew(!1)
+      }), (0, t.jsx)(v.HatchShareLinkDialogPresentationContext.Provider, {
+        value: null != X && en ? "sheet" : "dialog",
+        children: (0, t.jsx)(b.HatchIdeaShareDialogBody, {
+          ideaCardId: em.id,
+          shareRevision: el,
+          isOpen: B
+        })
+      })]
+    }), K[41] = X, K[42] = ew, K[43] = eL, K[44] = en, K[45] = B, K[46] = ek, K[47] = el, K[48] = eh, K[49] = em.id, K[50] = D) : D = K[50], K[51] !== M || K[52] !== D ? (T = (0, t.jsxs)(t.Fragment, {
+      children: [M, D]
+    }), K[51] = M, K[52] = D, K[53] = T) : T = K[53];
+    let eM = T;
+    if (null != X) {
+      let e, n;
+      return K[54] !== X || K[55] !== eM || K[56] !== eH ? (e = (0, t.jsx)(c.ContentAreaDialogContent, {
+        ...eH,
+        containerRef: X,
+        className: "md:my-auto md:h-fit md:max-h-[calc(100%-144px)] md:max-w-[600px]",
+        children: eM
+      }), K[54] = X, K[55] = eM, K[56] = eH, K[57] = e) : e = K[57], K[58] !== ew || K[59] !== B || K[60] !== e ? (n = (0, t.jsx)(c.ContentAreaDialog, {
+        open: B,
+        onOpenChange: ew,
+        children: e
+      }), K[58] = ew, K[59] = B, K[60] = e, K[61] = n) : n = K[61], n
+    }
+    return K[62] !== eM || K[63] !== eH ? (P = (0, t.jsx)(u.DialogContent, {
+      ...eH,
+      className: "max-w-[600px]",
+      contentClassName: "flex min-h-0 flex-1 flex-col gap-0 overflow-hidden p-0",
+      showCloseButton: !1,
+      children: eM
+    }), K[62] = eM, K[63] = eH, K[64] = P) : P = K[64], K[65] !== ew || K[66] !== B || K[67] !== P ? (Q = (0, t.jsx)(u.Dialog, {
+      open: B,
+      onOpenChange: ew,
+      children: P
+    }), K[65] = ew, K[66] = B, K[67] = P, K[68] = Q) : Q = K[68], Q
+  }])
+}, 996835, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099),
+    l = e.i(519172);
+
+  function i(e) {
+    let l, i, a, r, s, o, d = (0, n.c)(11);
+    return d[0] !== e.title ? (l = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), d[0] = e.title, d[1] = l) : l = d[1], d[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), d[2] = e.children, d[3] = i) : i = d[3], d[4] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M8.787 4.59a3 3 0 0 0-4.48 3.735 8.952 8.952 0 0 0-.937 2.113 5 5 0 1 1 7.668-6.387 8.945 8.945 0 0 0-2.25.54zM19.692 8.325a3 3 0 0 0-4.48-3.735 8.945 8.945 0 0 0-2.25-.54 5 5 0 1 1 7.668 6.387 8.955 8.955 0 0 0-.938-2.112z"
+    }), r = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M12 20a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm0 2a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"
+    }), s = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M12 8.5a1 1 0 0 1 1 1v3.586l2.207 2.207a1 1 0 0 1-1.414 1.414l-2.5-2.5A1 1 0 0 1 11 13.5v-4a1 1 0 0 1 1-1z"
+    }), d[4] = a, d[5] = r, d[6] = s) : (a = d[4], r = d[5], s = d[6]), d[7] !== e || d[8] !== l || d[9] !== i ? (o = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [l, i, a, r, s]
+    }), d[7] = e, d[8] = l, d[9] = i, d[10] = o) : o = d[10], o
+  }
+  i._isSVG = !0;
+  var a = e.i(832815),
+    r = e.i(991301),
+    s = e.i(648386),
+    o = e.i(912104),
+    d = e.i(559401),
+    c = e.i(39299),
+    u = e.i(384680),
+    f = e.i(646398),
+    h = e.i(345717),
+    m = e.i(176048),
+    C = e.i(420297),
+    p = e.i(646361),
+    g = e.i(374785),
+    x = e.i(129499),
+    y = e.i(530611),
+    _ = e.i(246586),
+    b = e.i(960607),
+    v = e.i(863641),
+    I = e.i(675952);
+
+  function S() {
+    let e, l = (0, n.c)(1);
+    return l[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(p.HatchIcon, {
+      icon: c.default,
+      size: 20,
+      className: "text-text-secondary"
+    }), l[0] = e) : e = l[0], e
+  }
+
+  function k(e) {
+    let l, i, a = (0, n.c)(5),
+      {
+        withChip: r,
+        children: s
+      } = e,
+      o = r && "bg-fill-secondary overflow-hidden rounded-full";
+    return a[0] !== o ? (l = (0, g.cn)("relative flex size-11 shrink-0 items-center justify-center", o), a[0] = o, a[1] = l) : l = a[1], a[2] !== s || a[3] !== l ? (i = (0, t.jsx)("span", {
+      "aria-hidden": "true",
+      className: l,
+      children: s
+    }), a[2] = s, a[3] = l, a[4] = i) : i = a[4], i
+  }
+
+  function j(e) {
+    let i, a, r, s = (0, n.c)(13),
+      {
+        url: o,
+        colorIcons: d,
+        surface: c
+      } = e,
+      {
+        src: u,
+        isLoading: f
+      } = (0, x.useExploreMediaBlobUrl)(o, c),
+      [h, C] = (0, l.useState)(!1);
+    s[0] !== u ? (i = null != u && (0, b.isHatchVmMediaUrl)(u) ? null : u, s[0] = u, s[1] = i) : i = s[1];
+    let p = i;
+    if (null == p || h) {
+      let e, n;
+      return s[2] !== h || s[3] !== f ? (e = f && !h ? null : (0, t.jsx)(S, {}), s[2] = h, s[3] = f, s[4] = e) : e = s[4], s[5] !== e ? (n = (0, t.jsx)(k, {
+        withChip: !0,
+        children: e
+      }), s[5] = e, s[6] = n) : n = s[6], n
+    }
+    if (!d) {
+      let e, n;
+      return s[7] === Symbol.for("react.memo_cache_sentinel") ? (e = () => C(!0), s[7] = e) : e = s[7], s[8] !== p ? (n = (0, t.jsx)(k, {
+        withChip: !0,
+        children: (0, t.jsx)(m.EctoGracefulImage, {
+          src: p,
+          alt: "",
+          className: "size-5 object-contain dark:invert",
+          onError: e
+        })
+      }), s[8] = p, s[9] = n) : n = s[9], n
+    }
+    return s[10] === Symbol.for("react.memo_cache_sentinel") ? (a = () => C(!0), s[10] = a) : a = s[10], s[11] !== p ? (r = (0, t.jsx)(k, {
+      withChip: !1,
+      children: (0, t.jsx)(m.EctoGracefulImage, {
+        src: p,
+        alt: "",
+        className: "size-11 object-contain",
+        onError: a
+      })
+    }), s[11] = p, s[12] = r) : r = s[12], r
+  }
+
+  function w(e) {
+    let l, i, a, s, o = (0, n.c)(6),
+      {
+        className: d
+      } = e;
+    o[0] === Symbol.for("react.memo_cache_sentinel") ? (l = h.fbs._("Installed", null, {
+      hk: "3ci00j"
+    }), o[0] = l) : l = o[0];
+    let c = String(l);
+    return o[1] !== d ? (i = (0, g.cn)("bg-fill-secondary-elevated text-text-secondary border-fill-divider inline-flex h-10 min-w-[116px] items-center justify-center rounded-full border px-3", d), o[1] = d, o[2] = i) : i = o[2], o[3] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)(p.HatchIcon, {
+      icon: r.default,
+      size: 16
+    }), o[3] = a) : a = o[3], o[4] !== i ? (s = (0, t.jsx)("span", {
+      role: "status",
+      "aria-label": c,
+      className: i,
+      children: a
+    }), o[4] = i, o[5] = s) : s = o[5], s
+  }
+
+  function L() {
+    let e, l, i, a, r = (0, n.c)(4);
+    return r[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)("span", {
+      className: "bg-hatch-primary-action-foreground hatch-dot-pulse size-[5px] rounded-full"
+    }), r[0] = e) : e = r[0], r[1] === Symbol.for("react.memo_cache_sentinel") ? (l = (0, t.jsx)("span", {
+      className: "bg-hatch-primary-action-foreground hatch-dot-pulse size-[5px] rounded-full",
+      style: {
+        animationDelay: "0.3s"
+      }
+    }), r[1] = l) : l = r[1], r[2] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("span", {
+      className: "bg-hatch-primary-action-foreground hatch-dot-pulse size-[5px] rounded-full",
+      style: {
+        animationDelay: "0.9s"
+      }
+    }), r[2] = i) : i = r[2], r[3] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsxs)("span", {
+      className: "grid grid-cols-2 gap-1",
+      "aria-hidden": "true",
+      children: [e, l, i, (0, t.jsx)("span", {
+        className: "bg-hatch-primary-action-foreground hatch-dot-pulse size-[5px] rounded-full",
+        style: {
+          animationDelay: "0.6s"
+        }
+      })]
+    }), r[3] = a) : a = r[3], a
+  }
+  a.default._isSVG = !0, e.s(["HatchIdeaActionButton", 0, function(e) {
+    let l, i, r, s, o = (0, n.c)(18),
+      {
+        state: d,
+        action: c,
+        onClick: u,
+        className: m,
+        disabled: p
+      } = e,
+      x = void 0 === c ? "build" : c;
+    o[0] === Symbol.for("react.memo_cache_sentinel") ? (l = h.fbs._("Let's do it", null, {
+      hk: "2uWAzP"
+    }), o[0] = l) : l = o[0];
+    let y = l;
+    o[1] === Symbol.for("react.memo_cache_sentinel") ? (i = h.fbs._("Share", null, {
+      hk: "2qHnck"
+    }), o[1] = i) : i = o[1];
+    let _ = i;
+    if ("installed" === d) {
+      let e;
+      return o[2] !== m ? (e = (0, t.jsx)(w, {
+        className: m
+      }), o[2] = m, o[3] = e) : e = o[3], e
+    }
+    if ("pending" === d) {
+      let e, n, l, i;
+      o[4] === Symbol.for("react.memo_cache_sentinel") ? (e = h.fbs._("Building", null, {
+        hk: "3aD166"
+      }), o[4] = e) : e = o[4];
+      let a = String(e);
+      return o[5] !== m ? (n = (0, g.cn)("bg-hatch-primary-action-background inline-flex h-10 min-w-[116px] items-center justify-center rounded-full px-3", m), o[5] = m, o[6] = n) : n = o[6], o[7] === Symbol.for("react.memo_cache_sentinel") ? (l = (0, t.jsx)(L, {}), o[7] = l) : l = o[7], o[8] !== n ? (i = (0, t.jsx)("span", {
+        role: "status",
+        "aria-label": a,
+        className: n,
+        children: l
+      }), o[8] = n, o[9] = i) : i = o[9], i
+    }
+    let b = "share" === x ? a.default : f.default,
+      v = "share" === x ? _ : y;
+    return o[10] !== m ? (r = (0, g.cn)("text-subheadline-emphasized h-10 min-w-[116px] gap-1.5 px-3", m), o[10] = m, o[11] = r) : r = o[11], o[12] !== p || o[13] !== u || o[14] !== b || o[15] !== v || o[16] !== r ? (s = (0, t.jsx)(C.Button, {
+      type: "button",
+      size: "32",
+      radius: "rounded",
+      variant: "primary",
+      leadingIcon: b,
+      label: v,
+      onClick: u,
+      disabled: p,
+      className: r
+    }), o[12] = p, o[13] = u, o[14] = b, o[15] = v, o[16] = r, o[17] = s) : s = o[17], s
+  }, "HatchIdeaActivityItemIcon", 0, function(e) {
+    let l, a, r, h, m = (0, n.c)(9),
+      {
+        kind: C,
+        tone: x
+      } = e;
+    m[0] !== C ? (l = function(e) {
+      switch (e) {
+        case "space":
+          return o.default;
+        case "reminder":
+          return i;
+        case "data_source":
+        case "task":
+        case "document":
+        case "unknown":
+        default:
+          return s.default;
+        case "goal":
+          return I.HatchGoalsIcon;
+        case "skill":
+          return f.default;
+        case "search":
+          return u.default;
+        case "image":
+          return d.default;
+        case "idea":
+          return c.default
+      }
+    }(C), m[0] = C, m[1] = l) : l = m[1];
+    let y = l;
+    return m[2] !== x ? (a = (0, g.cn)("flex size-11 shrink-0 items-center justify-center rounded-full", function(e) {
+      switch (e) {
+        case "green":
+          return "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400";
+        case "yellow":
+          return "bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-400";
+        case "blue":
+          return "bg-hatch-accent/10 text-hatch-accent";
+        case "violet":
+          return "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400";
+        case "rose":
+          return "bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-400";
+        default:
+          return "bg-fill-secondary text-text-primary"
+      }
+    }(x)), m[2] = x, m[3] = a) : a = m[3], m[4] !== y ? (r = (0, t.jsx)(p.HatchIcon, {
+      icon: y,
+      size: 20,
+      iconSize: 20
+    }), m[4] = y, m[5] = r) : r = m[5], m[6] !== a || m[7] !== r ? (h = (0, t.jsx)("span", {
+      "aria-hidden": "true",
+      className: a,
+      children: r
+    }), m[6] = a, m[7] = r, m[8] = h) : h = m[8], h
+  }, "HatchIdeaInstalledIndicator", 0, function(e) {
+    let l, i, a, s, o = (0, n.c)(8),
+      {
+        label: d,
+        className: c
+      } = e;
+    o[0] !== d ? (l = d ?? h.fbs._("Installed", null, {
+      hk: "3ci00j"
+    }), o[0] = d, o[1] = l) : l = o[1];
+    let u = l;
+    return o[2] !== c ? (i = (0, g.cn)("bg-fill-secondary-elevated text-text-secondary inline-flex size-10 shrink-0 items-center justify-center rounded-full", c), o[2] = c, o[3] = i) : i = o[3], o[4] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)(p.HatchIcon, {
+      icon: r.default,
+      size: 16
+    }), o[4] = a) : a = o[4], o[5] !== u || o[6] !== i ? (s = (0, t.jsx)("span", {
+      "aria-label": u,
+      className: i,
+      role: "img",
+      children: a
+    }), o[5] = u, o[6] = i, o[7] = s) : s = o[7], s
+  }, "HatchIdeaListIcon", 0, function(e) {
+    let l, i = (0, n.c)(8),
+      {
+        iconUrl: a,
+        colorIcons: r,
+        surface: s,
+        pending: o
+      } = e,
+      d = void 0 !== o && o;
+    if (null == a) {
+      let e, n;
+      return i[0] !== d ? (e = d ? null : (0, t.jsx)(S, {}), i[0] = d, i[1] = e) : e = i[1], i[2] !== e ? (n = (0, t.jsx)(k, {
+        withChip: !0,
+        children: e
+      }), i[2] = e, i[3] = n) : n = i[3], n
+    }
+    return i[4] !== r || i[5] !== a || i[6] !== s ? (l = (0, t.jsx)(j, {
+      url: a,
+      colorIcons: r,
+      surface: s
+    }, a), i[4] = r, i[5] = a, i[6] = s, i[7] = l) : l = i[7], l
+  }, "HatchIdeaPreviewImage", 0, function(e) {
+    let l, i, a, r, s, o = (0, n.c)(14),
+      {
+        src: d,
+        alt: c,
+        className: u,
+        imageClassName: f
+      } = e,
+      h = (0, _.resolveSpaceImagePath)(d),
+      C = (0, y.useSpaceImageUrl)(null == h ? null : d),
+      {
+        src: p,
+        isLoading: I
+      } = (0, x.useExploreMediaBlobUrl)(null == h ? d : null, v.HATCH_SENTRY_SURFACES.IDEAS),
+      S = null == h ? p : C;
+    o[0] !== S ? (l = null != S && (0, b.isHatchVmMediaUrl)(S) ? null : S, o[0] = S, o[1] = l) : l = o[1];
+    let k = l,
+      j = null == h ? I : null == k;
+    return o[2] !== u ? (i = (0, g.cn)("bg-fill-secondary relative overflow-hidden", u), o[2] = u, o[3] = i) : i = o[3], o[4] !== j ? (a = j && (0, t.jsx)("div", {
+      className: "bg-fill-tertiary absolute inset-0 motion-safe:animate-pulse"
+    }), o[4] = j, o[5] = a) : a = o[5], o[6] !== c || o[7] !== f || o[8] !== k ? (r = null != k && (0, t.jsx)(m.EctoGracefulImage, {
+      src: k,
+      alt: c,
+      className: (0, g.cn)("absolute inset-0 size-full object-cover", f)
+    }), o[6] = c, o[7] = f, o[8] = k, o[9] = r) : r = o[9], o[10] !== i || o[11] !== a || o[12] !== r ? (s = (0, t.jsxs)("div", {
+      className: i,
+      children: [a, r]
+    }), o[10] = i, o[11] = a, o[12] = r, o[13] = s) : s = o[13], s
+  }], 996835)
+}, 75280, e => {
+  "use strict";
+  var t = e.i(722099),
+    n = e.i(519172),
+    l = e.i(918340),
+    i = e.i(359783),
+    a = e.i(867258),
+    r = e.i(175286);
+  let s = (0, i.createClientLogger)("HatchIdeaEngagement");
+
+  function o(e) {
+    let l, i, s, o, c, u = (0, t.c)(12),
+      {
+        sendRequest: f,
+        isReady: h
+      } = (0, r.useHatchRpc)();
+    u[0] === Symbol.for("react.memo_cache_sentinel") ? (l = new Set, u[0] = l) : l = u[0];
+    let m = (0, n.useRef)(l);
+    u[1] !== h || u[2] !== f || u[3] !== e ? (i = (t, n) => {
+      h && 0 !== t.length && (0, a.recordExploreIdeaEngagement)(t, n, {
+        surface: e,
+        metadata: {
+          source: "web"
+        }
+      }, f).catch(d)
+    }, u[1] = h, u[2] = f, u[3] = e, u[4] = i) : i = u[4];
+    let C = i;
+    u[5] !== C ? (s = e => {
+      m.current.has(e) || (m.current.add(e), C(e, "impression"))
+    }, u[5] = C, u[6] = s) : s = u[6];
+    let p = s;
+    u[7] !== C ? (o = e => C(e, "click"), u[7] = C, u[8] = o) : o = u[8];
+    let g = o;
+    return u[9] !== g || u[10] !== p ? (c = {
+      recordImpression: p,
+      recordClick: g
+    }, u[9] = g, u[10] = p, u[11] = c) : c = u[11], c
+  }
+
+  function d(e) {
+    s.retainForBugReport("debug", "Idea engagement write failed")
+  }
+  e.s(["useHatchIdeaEngagement", 0, o, "useHatchIdeaLedgerImpressionRef", 0, function(e, n) {
+    let i, a, r = (0, t.c)(4),
+      {
+        recordImpression: s
+      } = o(n);
+    return r[0] !== e || r[1] !== s ? (i = t => {
+      t && s(e)
+    }, r[0] = e, r[1] = s, r[2] = i) : i = r[2], r[3] === Symbol.for("react.memo_cache_sentinel") ? (a = {
+      threshold: .5,
+      triggerOnce: !0
+    }, r[3] = a) : a = r[3], (0, l.useOnInView)(i, a)
+  }])
+}, 171311, e => {
+  "use strict";
+  var t = e.i(281851),
+    n = e.i(228750);
+  let l = {
+    all: ["feed"],
+    list: (e, t) => ["feed", e, "list", t ?? ""],
+    infiniteList: (e, t) => ["feed", e, "infiniteList", t ?? ""],
+    unit: (e, t) => ["feed", e, "unit", t],
+    status: (e, t) => ["feed", e, "status", t ?? ""],
+    prompts: e => ["feed", e, "prompts"]
+  };
+
+  function i(e, l, i, a, r) {
+    let s = {
+      version: 1,
+      queryKey: l,
+      sourceKey: JSON.stringify(l),
+      staleTimeMs: r,
+      targetKey: e.targetKey,
+      request: {
+        method: i,
+        params: a,
+        resultMode: "raw",
+        ..."feed.list" === i ? {
+          clientParams: [{
+            kind: "browser_timezone",
+            paramName: "timezone"
+          }]
+        } : {}
+      },
+      dependency: {
+        queryKey: (0, n.buildOnboardingStartQueryKey)(e.targetKey),
+        skipWhen: {
+          field: "variant",
+          equals: t.UI_DRIVEN_ONBOARDING_VARIANT
+        }
+      }
+    };
+    return {
+      descriptor: s,
+      queryKey: l,
+      sourceKey: s.sourceKey
+    }
+  }
+  e.s(["bindFeedListGatewayQuery", 0, function(e, t) {
+    return i(e, l.list(e.gatewayUrl, t), "feed.list", null == t || 0 === t.length ? {} : {
+      prompt_id: t
+    }, 3e4)
+  }, "bindFeedPromptGatewayQuery", 0, function(e) {
+    return i(e, l.prompts(e.gatewayUrl), "feed.prompt.get", {}, 3e4)
+  }, "bindFeedStatusGatewayQuery", 0, function(e, t) {
+    return i(e, l.status(e.gatewayUrl, t), "feed.status", null == t || 0 === t.length ? {} : {
+      prompt_id: t
+    }, 0)
+  }, "feedQueryKeys", 0, l])
+}, 942970, e => {
+  "use strict";
+  var t = e.i(790170),
+    n = e.i(171311);
+  let l = ["like", "love", "dislike"];
+
+  function i(e) {
+    if ("string" != typeof e) return null;
+    let t = e.trim();
+    return 0 === t.length ? null : t
+  }
+
+  function a(e) {
+    return "number" == typeof e && Number.isFinite(e) ? e : null
+  }
+
+  function r(e) {
+    return "object" == typeof e && null != e && !Array.isArray(e)
+  }
+
+  function s(e) {
+    var t;
+    if (!r(e)) return null;
+    let n = i(e.unit_id),
+      s = i(e.run_id),
+      o = i(e.edition_local_date);
+    if (null == n || null == s || null == o) return null;
+    let d = i(e.origin) ?? "generated";
+    return {
+      unitId: n,
+      runId: s,
+      editionKind: i(e.edition_kind) ?? "adhoc",
+      editionLocalDate: o,
+      editionGeneratedAtMs: a(e.edition_generated_at_ms) ?? 0,
+      position: a(e.position) ?? 0,
+      kicker: i(e.kicker) ?? "",
+      title: i(e.title),
+      bodyMd: "string" == typeof e.body_md ? e.body_md : "",
+      whyDidISeeThis: i(e.why_did_i_see_this),
+      iconUrl: i(e.icon_url),
+      emoji: i(e.emoji),
+      attachment: function(e) {
+        let t, n, l, s, o;
+        if (!r(e)) return {
+          kind: "none"
+        };
+        let d = (t = i(e.social_embed_url), n = i(e.social_attribution_text), l = i(e.social_post_username), s = i(e.social_source_name), o = i(e.social_source_icon_url), {
+          ...null != t ? {
+            socialEmbedUrl: t
+          } : {},
+          ...null != n ? {
+            socialAttributionText: n
+          } : {},
+          ...null != l ? {
+            socialPostUsername: l
+          } : {},
+          ...null != s ? {
+            socialSourceName: s
+          } : {},
+          ...null != o ? {
+            socialSourceIconUrl: o
+          } : {}
+        });
+        switch (e.kind) {
+          case "hero_image": {
+            let t = i(e.hero_image_url);
+            if (null == t) return {
+              kind: "none",
+              ...d
+            };
+            let n = i(e.video_url),
+              l = a(e.social_thumbnail_aspect_ratio);
+            return {
+              kind: "hero_image",
+              heroImageUrl: t,
+              ...null != n ? {
+                videoUrl: n
+              } : {},
+              ...null != l && l > 0 ? {
+                aspectRatio: l
+              } : {},
+              ...d
+            }
+          }
+          case "carousel": {
+            let t = function(e) {
+              if (!Array.isArray(e)) return [];
+              let t = [];
+              for (let n of e) {
+                let e = i(n);
+                null != e && t.push(e)
+              }
+              return t
+            }(e.image_urls);
+            if (0 === t.length) return {
+              kind: "none",
+              ...d
+            };
+            let n = function(e, t) {
+              if (!Array.isArray(e) || e.length !== t.length) return;
+              let n = !1,
+                l = e.map((e, l) => {
+                  let a = t[l] ?? "";
+                  if (!r(e)) return {
+                    kind: "image",
+                    url: a
+                  };
+                  let s = i(e.url);
+                  if ("video" === e.kind && null != s) {
+                    let t = i(e.poster_url);
+                    return null == t ? {
+                      kind: "image",
+                      url: a
+                    } : (n = !0, {
+                      kind: "video",
+                      url: s,
+                      posterUrl: t
+                    })
+                  }
+                  return {
+                    kind: "image",
+                    url: s ?? a
+                  }
+                });
+              return n ? l : void 0
+            }(e.media_items, t);
+            return {
+              kind: "carousel",
+              imageUrls: t,
+              ...null != n ? {
+                mediaItems: n
+              } : {},
+              ...d
+            }
+          }
+          case "widget": {
+            let t = "string" == typeof e.widget_html ? e.widget_html : null;
+            return null != t && t.trim().length > 0 ? {
+              kind: "widget",
+              widgetHtml: t,
+              ...d
+            } : {
+              kind: "none",
+              ...d
+            }
+          }
+          case "social_embed": {
+            let t = i(e.social_embed_url);
+            if (null == t) return {
+              kind: "none",
+              ...d
+            };
+            let n = i(e.social_thumbnail_url),
+              l = !0 === e.social_is_carousel,
+              a = function(e) {
+                if (!Array.isArray(e) || e.length < 2 || e.length > 10) return;
+                let t = [];
+                for (let n of e) {
+                  if (!r(n)) return;
+                  let e = i(n.media_url);
+                  if (null == e) return;
+                  if ("image" === n.kind) {
+                    t.push({
+                      kind: "image",
+                      mediaUrl: e
+                    });
+                    continue
+                  }
+                  if ("video" === n.kind) {
+                    let l = i(n.thumbnail_url);
+                    t.push(null != l ? {
+                      kind: "video",
+                      mediaUrl: e,
+                      thumbnailUrl: l
+                    } : {
+                      kind: "video",
+                      mediaUrl: e
+                    });
+                    continue
+                  }
+                  return
+                }
+                return t
+              }(e.social_media_items);
+            return {
+              kind: "social_embed",
+              socialEmbedUrl: t,
+              ...null != n ? {
+                socialThumbnailUrl: n
+              } : {},
+              ...l ? {
+                socialIsCarousel: !0
+              } : {},
+              ...null != a ? {
+                socialMediaItems: a
+              } : {},
+              ...d
+            }
+          }
+          default:
+            return {
+              kind: "none", ...d
+            }
+        }
+      }(e.attachment),
+      category: i(e.category) ?? "",
+      connectorAttribution: i(e.connector_attribution),
+      isReflective: !0 === e.is_reflective,
+      stats: function(e) {
+        if (!Array.isArray(e)) return [];
+        let t = [];
+        for (let n of e) {
+          if (!r(n)) continue;
+          let e = i(n.label),
+            l = i(n.value) ?? a(n.value)?.toString() ?? null;
+          null != e && null != l && t.push({
+            label: e,
+            value: l
+          })
+        }
+        return t
+      }(e.stats),
+      reaction: "string" == typeof(t = e.reaction) && l.includes(t) ? t : null,
+      shareCount: a(e.share_count) ?? 0,
+      discussCount: a(e.discuss_count) ?? 0,
+      origin: d,
+      ideaAction: "idea" === d ? function(e) {
+        if (!r(e)) return null;
+        let t = i(e.idea_id);
+        return null == t || 0 === t.length ? null : {
+          ideaId: t,
+          state: "built" === e.state ? "built" : "available"
+        }
+      }(e.idea_action) : null,
+      promptId: i(e.prompt_id),
+      seenAtMs: a(e.seen_at_ms),
+      createdAtMs: a(e.created_at_ms) ?? 0,
+      updatedAtMs: a(e.updated_at_ms) ?? 0
+    }
+  }
+
+  function o(e) {
+    if (!r(e)) return {
+      promptId: null,
+      days: [],
+      pagination: {
+        nextCursor: null,
+        prevCursor: null
+      }
+    };
+    let t = [];
+    for (let n of Array.isArray(e.days) ? e.days : []) {
+      let e = function(e) {
+        if (!r(e)) return null;
+        let t = i(e.local_date);
+        if (null == t) return null;
+        let n = [];
+        for (let t of Array.isArray(e.editions) ? e.editions : []) {
+          let e = r(t) ? {
+            kind: i(t.kind) ?? "adhoc",
+            title: i(t.title) ?? "",
+            generatedAtMs: a(t.generated_at_ms) ?? 0,
+            units: function(e) {
+              if (!Array.isArray(e)) return [];
+              let t = [];
+              for (let n of e) {
+                let e = s(n);
+                null != e && t.push(e)
+              }
+              return t
+            }(t.units)
+          } : null;
+          null != e && n.push(e)
+        }
+        return {
+          localDate: t,
+          editions: n
+        }
+      }(n);
+      null != e && t.push(e)
+    }
+    let n = r(e.pagination) ? e.pagination : {};
+    return {
+      promptId: i(e.prompt_id),
+      days: t,
+      pagination: {
+        nextCursor: i(n.next_cursor),
+        prevCursor: i(n.prev_cursor)
+      }
+    }
+  }
+
+  function d(e) {
+    if (!r(e)) return null;
+    let t = i(e.prompt_id);
+    return null == t ? null : {
+      promptId: t,
+      fullPrompt: i(e.full_prompt) ?? ("string" == typeof e.free_text ? e.free_text : ""),
+      createdAtMs: a(e.created_at_ms) ?? 0,
+      updatedAtMs: a(e.updated_at_ms) ?? 0
+    }
+  }
+
+  function c(e) {
+    return r(e) ? {
+      prompt: d(e.prompt)
+    } : {
+      prompt: null
+    }
+  }
+
+  function u(e) {
+    return r(e) ? {
+      promptId: i(e.prompt_id),
+      promptEnabled: !0 === e.prompt_enabled,
+      refreshInProgress: !0 === e.refresh_in_progress,
+      runId: i(e.run_id),
+      trigger: i(e.trigger),
+      startedAtMs: a(e.started_at_ms),
+      nextScheduledAtMs: a(e.next_scheduled_at_ms),
+      nextEditionKind: i(e.next_edition_kind),
+      freshestGeneratedAtMs: a(e.freshest_generated_at_ms)
+    } : {
+      promptId: null,
+      promptEnabled: !1,
+      refreshInProgress: !1,
+      runId: null,
+      trigger: null,
+      startedAtMs: null,
+      nextScheduledAtMs: null,
+      nextEditionKind: null,
+      freshestGeneratedAtMs: null
+    }
+  }
+  let f = (0, t.createGatewayQuery)({
+    id: "feed.list",
+    queryKey: ({
+      gatewayUrl: e,
+      promptId: t
+    }) => n.feedQueryKeys.list(e, t),
+    noiseFn: async (e, t) => {
+      let n = {};
+      null != t.promptId && t.promptId.length > 0 && (n.prompt_id = t.promptId);
+      let l = h();
+      return null != l && (n.timezone = l), o(await e.sendRequest("feed.list", n))
+    },
+    invalidationKey: () => n.feedQueryKeys.all,
+    staleTime: 3e4
+  });
+
+  function h() {
+    try {
+      let e = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      return e.length > 0 ? e : null
+    } catch {
+      return null
+    }
+  }
+  let m = (0, t.createGatewayInfiniteQuery)({
+    id: "feed.list",
+    queryKey: ({
+      gatewayUrl: e,
+      promptId: t
+    }) => n.feedQueryKeys.infiniteList(e, t),
+    noiseFn: async (e, t, n) => {
+      let l = {},
+        i = n?.promptId ?? t.promptId;
+      null != i && i.length > 0 && (l.prompt_id = i), null != n && n.cursor.length > 0 && (l.cursor = n.cursor);
+      let a = h();
+      return null != a && (l.timezone = a), o(await e.sendRequest("feed.list", l))
+    },
+    invalidationKey: () => n.feedQueryKeys.all,
+    initialPageParam: null,
+    getNextPageParam: e => null != e.pagination.nextCursor ? {
+      cursor: e.pagination.nextCursor,
+      promptId: e.promptId
+    } : void 0,
+    staleTime: 3e4
+  });
+  (0, t.createGatewayQuery)({
+    id: "feed.status",
+    queryKey: ({
+      gatewayUrl: e,
+      promptId: t
+    }) => n.feedQueryKeys.status(e, t),
+    noiseFn: async (e, t) => {
+      let n = {};
+      return null != t.promptId && t.promptId.length > 0 && (n.prompt_id = t.promptId), u(await e.sendRequest("feed.status", n))
+    },
+    invalidationKey: () => n.feedQueryKeys.all,
+    staleTime: 0
+  });
+  let C = (0, t.createGatewayQuery)({
+    id: "feed.prompt.get",
+    queryKey: ({
+      gatewayUrl: e
+    }) => n.feedQueryKeys.prompts(e),
+    noiseFn: async e => c(await e.sendRequest("feed.prompt.get", {})),
+    invalidationKey: () => n.feedQueryKeys.all,
+    staleTime: 3e4
+  });
+  async function p(e, t, n) {
+    var l;
+    return r(l = await n("feed.unit.reaction", {
+      unit_id: e,
+      reaction: t
+    })) ? s(l.unit) : null
+  }
+  async function g(e, t) {
+    await t("feed.unit.delete", {
+      unit_id: e
+    })
+  }
+  async function x(e, t) {
+    let n = {};
+    null != e && e.length > 0 && (n.prompt_id = e);
+    let l = await t("feed.regenerate", n);
+    return r(l) ? {
+      runId: i(l.run_id),
+      alreadyInProgress: !0 === l.already_in_progress,
+      queued: !0 === l.queued,
+      promptEnabled: "boolean" == typeof l.prompt_enabled ? l.prompt_enabled : null
+    } : {
+      runId: null,
+      alreadyInProgress: !1,
+      queued: !1,
+      promptEnabled: null
+    }
+  }
+  async function y(e, t) {
+    var n;
+    return r(n = await t("feed.prompt.update", {
+      prompt: e.fullPrompt
+    })) ? d(n.prompt) : null
+  }
+  e.s(["deleteFeedUnit", 0, g, "feedFreshestRenderedGeneratedAtMs", 0, function(e) {
+    let t = 0;
+    for (let n of e.days)
+      for (let e of n.editions) e.generatedAtMs > t && (t = e.generatedAtMs);
+    return t
+  }, "feedListInfiniteQuery", 0, m, "feedListQuery", 0, f, "feedPromptQuery", 0, C, "feedQueryMatchesPromptScope", 0, function(e, t) {
+    return "unit" === e[2] || e.includes(t)
+  }, "getFeedListGatewayQuery", 0, function(e) {
+    return {
+      bind: t => (0, n.bindFeedListGatewayQuery)(t, e),
+      transform: o,
+      staleTime: 3e4
+    }
+  }, "getFeedPromptGatewayQuery", 0, function() {
+    return {
+      bind: n.bindFeedPromptGatewayQuery,
+      transform: c,
+      staleTime: 3e4
+    }
+  }, "getFeedStatusGatewayQuery", 0, function(e) {
+    return {
+      bind: t => (0, n.bindFeedStatusGatewayQuery)(t, e),
+      transform: u,
+      staleTime: 0
+    }
+  }, "mapUnitInFeedList", 0, function(e, t, n) {
+    return {
+      ...e,
+      days: e.days.map(e => ({
+        ...e,
+        editions: e.editions.map(e => ({
+          ...e,
+          units: e.units.map(e => e.unitId === t ? n(e) : e)
+        }))
+      }))
+    }
+  }, "mergeFeedListPages", 0, function(e) {
+    let t = new Map;
+    for (let n of e)
+      for (let e of n.days) t.has(e.localDate) || t.set(e.localDate, e);
+    let n = e[0],
+      l = e[e.length - 1];
+    return {
+      promptId: n?.promptId ?? null,
+      days: [...t.values()],
+      pagination: l?.pagination ?? {
+        nextCursor: null,
+        prevCursor: null
+      }
+    }
+  }, "normalizeFeedUnit", 0, s, "regenerateFeed", 0, x, "removeUnitFromFeedList", 0, function(e, t) {
+    return {
+      ...e,
+      days: e.days.map(e => ({
+        ...e,
+        editions: e.editions.map(e => ({
+          ...e,
+          units: e.units.filter(e => e.unitId !== t)
+        })).filter(e => e.units.length > 0)
+      })).filter(e => e.editions.length > 0)
+    }
+  }, "setFeedUnitReaction", 0, p, "upsertFeedPrompt", 0, y])
+}, 129499, e => {
+  "use strict";
+  var t = e.i(722099),
+    n = e.i(849329),
+    l = e.i(175286),
+    i = e.i(389409),
+    a = e.i(499608);
+
+  function r(e, t, n) {
+    return {
+      queryKey: ["explore-media-blob", e, t],
+      queryFn: async () => {
+        if (null == t) return null;
+        let e = t.split("/idea-cards/media/")[1] ?? "",
+          l = e.indexOf("?"),
+          i = -1 === l ? e : e.slice(0, l),
+          a = Object.fromEntries(new URLSearchParams(-1 === l ? "" : e.slice(l + 1)));
+        return await n("idea-cards.media", {
+          handle: i,
+          ...a
+        })
+      },
+      staleTime: 1 / 0,
+      gcTime: 18e5,
+      retry: 1
+    }
+  }
+
+  function s(e, t) {
+    let n;
+    if (e.startsWith("/")) {
+      try {
+        let t = new URL(e, "http://n");
+        if (t.pathname.includes("/idea-cards/media/")) return t.pathname + t.search
+      } catch {}
+      return null
+    }
+    try {
+      n = new URL(e)
+    } catch {
+      return null
+    }
+    if (!n.pathname.includes("/idea-cards/media/")) return null;
+    let l = null;
+    try {
+      l = new URL(t.includes("://") ? t : `https://${t}`).host
+    } catch {
+      l = null
+    }
+    let a = window.location.host;
+    return n.host === l || n.host === a || (0, i.isHatchVmGatewayHostname)(n.hostname) ? n.pathname + n.search : null
+  }
+  e.s(["prefetchExploreMediaBlob", 0, function(e, t, n, l, i) {
+    if (null == n || 0 === t.length) return Promise.resolve();
+    let a = s(n, t);
+    return null == a ? Promise.resolve() : e.prefetchQuery({
+      ...r(t, a, l),
+      meta: {
+        sentrySurface: i
+      }
+    })
+  }, "useExploreMediaBlobUrl", 0, function(e, i) {
+    let o, d, c, u, f, h, m = (0, t.c)(18),
+      {
+        gatewayUrl: C,
+        sendRequest: p
+      } = (0, l.useHatchRpc)(),
+      g = C ?? "";
+    if (m[0] !== g || m[1] !== p || m[2] !== e) {
+      let t = null != e && g.length > 0 ? s(e, g) : null;
+      o = null != t, c = n.useQuery, d = r(g, t, p), m[0] = g, m[1] = p, m[2] = e, m[3] = o, m[4] = d, m[5] = c
+    } else o = m[3], d = m[4], c = m[5];
+    m[6] !== i ? (u = {
+      sentrySurface: i
+    }, m[6] = i, m[7] = u) : u = m[7], m[8] !== o || m[9] !== d || m[10] !== u ? (f = {
+      ...d,
+      enabled: o,
+      meta: u
+    }, m[8] = o, m[9] = d, m[10] = u, m[11] = f) : f = m[11];
+    let {
+      data: x,
+      isPending: y,
+      isError: _,
+      fetchStatus: b
+    } = c(f), v = (0, a.useBlobUrl)(x ?? null);
+    if (!o) {
+      let t, n = e ?? null;
+      return m[12] !== n ? (t = {
+        src: n,
+        isLoading: !1,
+        isError: !1
+      }, m[12] = n, m[13] = t) : t = m[13], t
+    }
+    let I = "fetching" === b || y && null == v && !_;
+    return m[14] !== v || m[15] !== _ || m[16] !== I ? (h = {
+      src: v,
+      isLoading: I,
+      isError: _
+    }, m[14] = v, m[15] = _, m[16] = I, m[17] = h) : h = m[17], h
+  }])
+}, 514540, e => {
+  "use strict";
+  var t = e.i(722099),
+    n = e.i(293760),
+    l = e.i(503037),
+    i = e.i(849329),
+    a = e.i(393202),
+    r = e.i(175286),
+    s = e.i(543912),
+    o = e.i(14751),
+    d = e.i(720756);
+  e.i(942970);
+  var c = e.i(171311),
+    u = e.i(867258),
+    f = e.i(281918),
+    h = e.i(863641);
+  let m = {
+    ideas: [],
+    groups: [],
+    heroIdeaIds: [],
+    subtitle: null,
+    showNullStateMessage: !1,
+    pagination: {
+      nextCursor: null,
+      hasNextPage: !1
+    }
+  };
+
+  function C(e) {
+    return "list" === e.queryKey[2] || "unit" === e.queryKey[2]
+  }
+
+  function p(e) {
+    return "preview" === e.queryKey[2]
+  }
+
+  function g(e) {
+    return "detail" === e.queryKey[2]
+  }
+
+  function x(e) {
+    return "infiniteList" === e.queryKey[2]
+  }
+
+  function y(e) {
+    return "list" === e.queryKey[2]
+  }
+  e.s(["useExecuteExploreIdeaMutation", 0, function() {
+    let e, n, i, s, o, d = (0, t.c)(16),
+      {
+        gatewayUrl: f,
+        gatewayScopeKey: h,
+        sendRequest: m,
+        isReady: _,
+        ensureLiveConnection: b
+      } = (0, r.useHatchRpc)(),
+      v = (0, a.useQueryClient)(),
+      I = f ?? "",
+      S = h ?? I;
+    return d[0] !== b || d[1] !== _ || d[2] !== I || d[3] !== m ? (e = async e => {
+      if (0 === I.length) throw Error("Gateway URL not available yet");
+      return _ || await b(), (0, u.executeExploreIdeaCard)(e.ideaCardId, e.selectedItemIds, m, {
+        sessionId: e.sessionId
+      })
+    }, d[0] = b, d[1] = _, d[2] = I, d[3] = m, d[4] = e) : e = d[4], d[5] !== v || d[6] !== S ? (n = e => {
+      let {
+        ideaCardId: t
+      } = e, n = [];
+      for (let [e, l] of v.getQueriesData({
+          queryKey: ["exploreIdeas", S],
+          predicate: y
+        })) {
+        if (null == l) continue;
+        n.push({
+          key: e,
+          data: l
+        });
+        let i = l.ideas.map(e => e.id === t ? {
+          ...e,
+          buildStatus: "in_progress"
+        } : e);
+        v.setQueryData(e, {
+          ...l,
+          ideas: i
+        })
+      }
+      let l = [];
+      for (let [e, n] of v.getQueriesData({
+          queryKey: ["exploreIdeas", S],
+          predicate: x
+        })) null != n && (l.push({
+        key: e,
+        data: n
+      }), v.setQueryData(e, {
+        ...n,
+        pages: n.pages.map(e => ({
+          ...e,
+          ideas: e.ideas.map(e => e.id === t ? {
+            ...e,
+            buildStatus: "in_progress"
+          } : e)
+        }))
+      }));
+      let i = [];
+      for (let [e, n] of v.getQueriesData({
+          queryKey: ["exploreIdeas", S],
+          predicate: g
+        })) null != n && n.ideaCardId === t && (i.push({
+        key: e,
+        data: n
+      }), v.setQueryData(e, {
+        ...n,
+        buildStatus: "in_progress"
+      }));
+      let a = [];
+      for (let [e, n] of v.getQueriesData({
+          queryKey: ["exploreIdeas", S],
+          predicate: p
+        })) null != n && n.idea.id === t && (a.push({
+        key: e,
+        data: n
+      }), v.setQueryData(e, {
+        idea: {
+          ...n.idea,
+          buildStatus: "in_progress"
+        },
+        detail: {
+          ...n.detail,
+          buildStatus: "in_progress"
+        }
+      }));
+      return {
+        listSnapshots: n,
+        infiniteListSnapshots: l,
+        detailSnapshots: i,
+        previewSnapshots: a
+      }
+    }, d[5] = v, d[6] = S, d[7] = n) : n = d[7], d[8] !== v ? (i = (e, t, n) => {
+      if (n?.listSnapshots != null)
+        for (let {
+            key: e,
+            data: t
+          }
+          of n.listSnapshots) v.setQueryData(e, t);
+      if (n?.infiniteListSnapshots != null)
+        for (let {
+            key: e,
+            data: t
+          }
+          of n.infiniteListSnapshots) v.setQueryData(e, t);
+      if (n?.detailSnapshots != null)
+        for (let {
+            key: e,
+            data: t
+          }
+          of n.detailSnapshots) v.setQueryData(e, t);
+      for (let {
+          key: e,
+          data: t
+        }
+        of n?.previewSnapshots ?? []) v.setQueryData(e, t)
+    }, s = async (e, t, n, l) => {
+      if (e?.success === !1)
+        for (let {
+            key: e,
+            data: t
+          }
+          of l?.previewSnapshots ?? []) v.setQueryData(e, t);
+      await Promise.all([u.exploreIdeasListQuery.invalidateAll(v), u.exploreIdeaDetailQuery.invalidateAll(v), v.invalidateQueries({
+        queryKey: c.feedQueryKeys.all,
+        predicate: C
+      })])
+    }, d[8] = v, d[9] = i, d[10] = s) : (i = d[9], s = d[10]), d[11] !== e || d[12] !== n || d[13] !== i || d[14] !== s ? (o = {
+      mutationFn: e,
+      onMutate: n,
+      onError: i,
+      onSettled: s
+    }, d[11] = e, d[12] = n, d[13] = i, d[14] = s, d[15] = o) : o = d[15], (0, l.useMutation)(o)
+  }, "useHatchExploreIdeaCardQuery", 0, function(e) {
+    let n, l, a, o = (0, t.c)(10),
+      {
+        gatewayUrl: c,
+        gatewayScopeKey: f
+      } = (0, r.useHatchRpc)(),
+      m = (0, d.useGatewayQueryContext)(),
+      C = (0, s.useHatchIdeaColorIconsWithoutExposure)(),
+      p = c ?? "",
+      g = f ?? p,
+      x = null != e && p.length > 0;
+    return o[0] !== C || o[1] !== m || o[2] !== e || o[3] !== g || o[4] !== p ? (n = u.exploreIdeaCardQuery.queryOptions({
+      gatewayUrl: p,
+      gatewayScopeKey: g,
+      ideaCardId: e ?? "",
+      colorIcons: C
+    }, m), o[0] = C, o[1] = m, o[2] = e, o[3] = g, o[4] = p, o[5] = n) : n = o[5], o[6] === Symbol.for("react.memo_cache_sentinel") ? (l = {
+      sentrySurface: h.HATCH_SENTRY_SURFACES.CHAT_FEED
+    }, o[6] = l) : l = o[6], o[7] !== x || o[8] !== n ? (a = {
+      ...n,
+      enabled: x,
+      meta: l
+    }, o[7] = x, o[8] = n, o[9] = a) : a = o[9], (0, i.useQuery)(a)
+  }, "useHatchExploreIdeaDetailQuery", 0, function(e, n) {
+    let l, a, o, c = (0, t.c)(12),
+      {
+        sentrySurface: f
+      } = n,
+      {
+        gatewayUrl: h,
+        gatewayScopeKey: m
+      } = (0, r.useHatchRpc)(),
+      C = (0, d.useGatewayQueryContext)(),
+      p = (0, s.useHatchIdeaColorIconsWithoutExposure)(),
+      g = h ?? "",
+      x = m ?? g,
+      y = null != e && g.length > 0;
+    return c[0] !== p || c[1] !== C || c[2] !== e || c[3] !== x || c[4] !== g ? (l = u.exploreIdeaDetailQuery.queryOptions({
+      gatewayUrl: g,
+      gatewayScopeKey: x,
+      ideaCardId: e ?? "",
+      colorIcons: p
+    }, C), c[0] = p, c[1] = C, c[2] = e, c[3] = x, c[4] = g, c[5] = l) : l = c[5], c[6] !== f ? (a = {
+      sentrySurface: f
+    }, c[6] = f, c[7] = a) : a = c[7], c[8] !== y || c[9] !== l || c[10] !== a ? (o = {
+      ...l,
+      enabled: y,
+      meta: a
+    }, c[8] = y, c[9] = l, c[10] = a, c[11] = o) : o = c[11], (0, i.useQuery)(o)
+  }, "useHatchExploreIdeaPreviewQuery", 0, function(e) {
+    let n, l, a = (0, t.c)(7),
+      r = (0, d.useGatewayQueryContext)(),
+      o = (0, s.useHatchIdeaColorIconsWithoutExposure)();
+    a[0] !== o || a[1] !== r || a[2] !== e ? (n = u.exploreIdeaPreviewQuery.queryOptions({
+      gatewayUrl: r.gatewayUrl ?? "",
+      gatewayScopeKey: r.gatewayScopeKey ?? r.targetKey,
+      ideaCardId: e ?? "",
+      colorIcons: o
+    }, r), a[0] = o, a[1] = r, a[2] = e, a[3] = n) : n = a[3];
+    let c = null != e && null != r.gatewayUrl && r.isReady;
+    return a[4] !== n || a[5] !== c ? (l = {
+      ...n,
+      enabled: c
+    }, a[4] = n, a[5] = c, a[6] = l) : l = a[6], (0, i.useQuery)(l)
+  }, "useHatchExploreIdeasQuery", 0, function(e) {
+    let l, i, a, c, h, C, p, g, x, y, _ = (0, t.c)(36);
+    _[0] !== e ? (l = void 0 === e ? {} : e, _[0] = e, _[1] = l) : l = _[1];
+    let b = l.enabled ?? !0,
+      v = (0, s.useHatchIdeaColorIconsWithoutExposure)(),
+      {
+        gatewayUrl: I,
+        gatewayScopeKey: S,
+        isReady: k
+      } = (0, r.useHatchRpc)(),
+      j = (0, d.useGatewayQueryContext)(),
+      w = I ?? "",
+      L = S ?? w;
+    _[2] !== v || _[3] !== L || _[4] !== w ? (i = {
+      gatewayUrl: w,
+      gatewayScopeKey: L,
+      pageSize: f.EXPLORE_IDEAS_SECTION_PAGE_SIZE,
+      colorIcons: v
+    }, _[2] = v, _[3] = L, _[4] = w, _[5] = i) : i = _[5];
+    let H = i;
+    _[6] !== b || _[7] !== k || _[8] !== w ? (a = b && w.length > 0 && (0, o.isMethodReadyForTransport)({
+      method: "api.idea-cards.list",
+      gatewayUrl: w,
+      isWsReady: k
+    }), _[6] = b, _[7] = k, _[8] = w, _[9] = a) : a = _[9];
+    let E = a;
+    _[10] !== j || _[11] !== H ? (c = u.exploreIdeasInfiniteQuery.infiniteQueryOptions(H, j), _[10] = j, _[11] = H, _[12] = c) : c = _[12], _[13] !== E || _[14] !== c ? (h = {
+      ...c,
+      enabled: E
+    }, _[13] = E, _[14] = c, _[15] = h) : h = _[15];
+    let R = (0, n.useInfiniteQuery)(h);
+    _[16] !== R.data?.pages ? (C = R.data?.pages ?? [], _[16] = R.data?.pages, _[17] = C) : C = _[17], _[18] !== C ? (p = (0, u.mergeExploreIdeasPages)(C), _[18] = C, _[19] = p) : p = _[19];
+    let N = p,
+      A = null == R.data ? m : N,
+      M = R.isPending || R.isFetchingNextPage,
+      D = R.hasNextPage ?? !1;
+    _[20] !== R ? (g = () => {
+      R.fetchNextPage()
+    }, _[20] = R, _[21] = g) : g = _[21];
+    let T = R.data?.pages.length ?? 0;
+    return _[22] !== R ? (x = () => {
+      R.refetch()
+    }, _[22] = R, _[23] = x) : x = _[23], _[24] !== R.error || _[25] !== R.isError || _[26] !== R.isFetchNextPageError || _[27] !== R.isFetchingNextPage || _[28] !== R.isPending || _[29] !== D || _[30] !== g || _[31] !== T || _[32] !== x || _[33] !== A || _[34] !== M ? (y = {
+      data: A,
+      isPending: R.isPending,
+      packsPending: R.isPending,
+      postsPending: M,
+      hasNextPage: D,
+      isFetchingNextPage: R.isFetchingNextPage,
+      isFetchNextPageError: R.isFetchNextPageError,
+      fetchNextPageError: R.error,
+      fetchNextPage: g,
+      isError: R.isError,
+      pageCount: T,
+      refetch: x
+    }, _[24] = R.error, _[25] = R.isError, _[26] = R.isFetchNextPageError, _[27] = R.isFetchingNextPage, _[28] = R.isPending, _[29] = D, _[30] = g, _[31] = T, _[32] = x, _[33] = A, _[34] = M, _[35] = y) : y = _[35], y
+  }, "usePrefetchExploreIdeaDetail", 0, function() {
+    let e, n = (0, t.c)(6),
+      l = (0, a.useQueryClient)(),
+      {
+        gatewayUrl: i,
+        gatewayScopeKey: o
+      } = (0, r.useHatchRpc)(),
+      c = (0, d.useGatewayQueryContext)(),
+      f = (0, s.useHatchIdeaColorIconsWithoutExposure)(),
+      h = i ?? "",
+      m = o ?? h;
+    return n[0] !== f || n[1] !== c || n[2] !== l || n[3] !== m || n[4] !== h ? (e = e => {
+      0 !== h.length && u.exploreIdeaDetailQuery.prefetch(l, {
+        gatewayUrl: h,
+        gatewayScopeKey: m,
+        ideaCardId: e,
+        colorIcons: f
+      }, c)
+    }, n[0] = f, n[1] = c, n[2] = l, n[3] = m, n[4] = h, n[5] = e) : e = n[5], e
+  }])
+}, 654764, e => {
+  "use strict";
+  var t = e.i(722099),
+    n = e.i(763971),
+    l = e.i(22338),
+    i = e.i(915637);
+  e.s(["useActiveRoute", 0, function() {
+    let e, a = (0, t.c)(6),
+      r = (0, n.usePathname)(),
+      s = (0, n.useSearchParams)();
+    e: {
+      let t, n;a[0] !== r || a[1] !== s ? (t = (0, l.resolveShellLocationMatch)(r, s, i.shellRouteMetadata), a[0] = r, a[1] = s, a[2] = t) : t = a[2];
+      let {
+        match: o
+      } = t;
+      if (o) {
+        let t;
+        a[3] !== o ? (t = {
+          match: o,
+          panelType: o.route.panelType,
+          tracePolicy: o.tracePolicy,
+          isShellRoute: !0,
+          params: o.params
+        }, a[3] = o, a[4] = t) : t = a[4], e = t;
+        break e
+      }
+      a[5] === Symbol.for("react.memo_cache_sentinel") ? (n = {
+        match: null,
+        panelType: "chat",
+        tracePolicy: void 0,
+        isShellRoute: !1,
+        params: {}
+      }, a[5] = n) : n = a[5],
+      e = n
+    }
+    return e
+  }])
+}, 621545, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099);
+
+  function l(e) {
+    let l, i, a, r, s = (0, n.c)(9);
+    return s[0] !== e.title ? (l = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), s[0] = e.title, s[1] = l) : l = s[1], s[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), s[2] = e.children, s[3] = i) : i = s[3], s[4] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M12 1.13C18.01 1.13 22.88 5.99 22.88 12C22.88 18.01 18.01 22.88 12 22.88C5.99 22.88 1.13 18.01 1.13 12C1.13 5.99 5.99 1.13 12 1.13ZM17.02 7.47C16.63 7.18 16.08 7.27 15.79 7.66L10.37 15.08L7.92 12.18C7.61 11.81 7.05 11.76 6.69 12.07C6.32 12.38 6.27 12.94 6.58 13.3L9.75 17.06C9.93 17.27 10.18 17.38 10.45 17.37C10.72 17.36 10.97 17.23 11.13 17.02L17.21 8.69C17.49 8.3 17.41 7.75 17.02 7.47Z"
+    }), s[4] = a) : a = s[4], s[5] !== e || s[6] !== l || s[7] !== i ? (r = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [l, i, a]
+    }), s[5] = e, s[6] = l, s[7] = i, s[8] = r) : r = s[8], r
+  }
+  l._isSVG = !0, e.s(["default", 0, l])
+}, 592240, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099);
+
+  function l(e) {
+    let l, i, a, r, s = (0, n.c)(9);
+    return s[0] !== e.title ? (l = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), s[0] = e.title, s[1] = l) : l = s[1], s[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), s[2] = e.children, s[3] = i) : i = s[3], s[4] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M12 1.13C18.01 1.13 22.88 5.99 22.88 12C22.88 18.01 18.01 22.88 12 22.88C5.99 22.88 1.13 18.01 1.13 12C1.13 5.99 5.99 1.13 12 1.13ZM12 2.88C6.96 2.88 2.88 6.96 2.88 12C2.88 17.04 6.96 21.13 12 21.13C17.04 21.13 21.13 17.04 21.13 12C21.13 6.96 17.04 2.88 12 2.88Z"
+    }), s[4] = a) : a = s[4], s[5] !== e || s[6] !== l || s[7] !== i ? (r = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [l, i, a]
+    }), s[5] = e, s[6] = l, s[7] = i, s[8] = r) : r = s[8], r
+  }
+  l._isSVG = !0, e.s(["default", 0, l])
+}, 912104, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099);
+
+  function l(e) {
+    let l, i, a, r, s, o, d, c = (0, n.c)(12);
+    return c[0] !== e.title ? (l = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), c[0] = e.title, c[1] = l) : l = c[1], c[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), c[2] = e.children, c[3] = i) : i = c[3], c[4] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M8.8 13.13C9.35 13.13 9.81 13.12 10.18 13.16C10.57 13.19 10.95 13.26 11.31 13.44C11.85 13.71 12.29 14.15 12.56 14.69C12.74 15.05 12.81 15.43 12.84 15.82C12.88 16.19 12.88 16.65 12.88 17.2V17.8C12.88 18.35 12.88 18.81 12.84 19.18C12.81 19.57 12.74 19.95 12.56 20.31C12.29 20.85 11.85 21.29 11.31 21.56C10.95 21.74 10.57 21.81 10.18 21.84C9.81 21.88 9.35 21.88 8.8 21.88H4.2C3.65 21.88 3.19 21.88 2.82 21.84C2.43 21.81 2.05 21.74 1.69 21.56C1.15 21.29 0.71 20.85 0.44 20.31C0.26 19.95 0.19 19.57 0.16 19.18C0.12 18.81 0.13 18.35 0.13 17.8V17.2C0.13 16.65 0.12 16.19 0.16 15.82C0.19 15.43 0.26 15.05 0.44 14.69C0.71 14.15 1.15 13.71 1.69 13.44C2.05 13.26 2.43 13.19 2.82 13.16C3.19 13.12 3.65 13.13 4.2 13.13H8.8ZM4.2 14.88C3.63 14.88 3.25 14.88 2.96 14.9C2.68 14.92 2.56 14.96 2.49 15C2.28 15.11 2.11 15.28 2 15.49C1.96 15.56 1.92 15.68 1.9 15.96C1.88 16.25 1.88 16.63 1.88 17.2V17.8C1.88 18.37 1.88 18.75 1.9 19.04C1.92 19.32 1.96 19.44 2 19.51C2.11 19.72 2.28 19.89 2.49 20C2.56 20.04 2.68 20.08 2.96 20.1C3.25 20.12 3.63 20.13 4.2 20.13H8.8C9.37 20.13 9.75 20.12 10.04 20.1C10.32 20.08 10.44 20.04 10.51 20C10.72 19.89 10.89 19.72 11 19.51C11.04 19.44 11.08 19.32 11.1 19.04C11.12 18.75 11.13 18.37 11.13 17.8V17.2C11.13 16.63 11.12 16.25 11.1 15.96C11.08 15.68 11.04 15.56 11 15.49C10.89 15.28 10.72 15.11 10.51 15C10.44 14.96 10.32 14.92 10.04 14.9C9.75 14.88 9.37 14.88 8.8 14.88H4.2Z"
+    }), r = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M19.8 13.13C20.35 13.13 20.81 13.12 21.18 13.16C21.57 13.19 21.95 13.26 22.31 13.44C22.85 13.71 23.29 14.15 23.56 14.69C23.74 15.05 23.81 15.43 23.84 15.82C23.88 16.19 23.88 16.65 23.88 17.2V17.8C23.88 18.35 23.88 18.81 23.84 19.18C23.81 19.57 23.74 19.95 23.56 20.31C23.29 20.85 22.85 21.29 22.31 21.56C21.95 21.74 21.57 21.81 21.18 21.84C20.81 21.88 20.35 21.88 19.8 21.88H19.2C18.65 21.88 18.19 21.88 17.82 21.84C17.43 21.81 17.05 21.74 16.69 21.56C16.15 21.29 15.71 20.85 15.44 20.31C15.26 19.95 15.19 19.57 15.16 19.18C15.12 18.81 15.13 18.35 15.13 17.8V17.2C15.13 16.65 15.12 16.19 15.16 15.82C15.19 15.43 15.26 15.05 15.44 14.69C15.71 14.15 16.15 13.71 16.69 13.44C17.05 13.26 17.43 13.19 17.82 13.16C18.19 13.12 18.65 13.13 19.2 13.13H19.8ZM19.2 14.88C18.63 14.88 18.25 14.88 17.96 14.9C17.68 14.92 17.56 14.96 17.49 15C17.28 15.11 17.11 15.28 17 15.49C16.96 15.56 16.92 15.68 16.9 15.96C16.88 16.25 16.88 16.63 16.88 17.2V17.8C16.88 18.37 16.88 18.75 16.9 19.04C16.92 19.32 16.96 19.44 17 19.51C17.11 19.72 17.28 19.89 17.49 20C17.56 20.04 17.68 20.08 17.96 20.1C18.25 20.12 18.63 20.13 19.2 20.13H19.8C20.37 20.13 20.75 20.12 21.04 20.1C21.32 20.08 21.44 20.04 21.51 20C21.72 19.89 21.89 19.72 22 19.51C22.04 19.44 22.08 19.32 22.1 19.04C22.12 18.75 22.13 18.37 22.13 17.8V17.2C22.13 16.63 22.12 16.25 22.1 15.96C22.08 15.68 22.04 15.56 22 15.49C21.89 15.28 21.72 15.11 21.51 15C21.44 14.96 21.32 14.92 21.04 14.9C20.75 14.88 20.37 14.88 19.8 14.88H19.2Z"
+    }), s = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M4.8 2.13C5.35 2.13 5.81 2.12 6.18 2.16C6.57 2.19 6.95 2.26 7.31 2.44C7.85 2.71 8.29 3.15 8.56 3.69C8.74 4.05 8.81 4.43 8.84 4.82C8.88 5.19 8.88 5.65 8.88 6.2V6.8C8.88 7.35 8.88 7.81 8.84 8.18C8.81 8.57 8.74 8.95 8.56 9.31C8.29 9.85 7.85 10.29 7.31 10.56C6.95 10.74 6.57 10.81 6.18 10.84C5.81 10.88 5.35 10.88 4.8 10.88H4.2C3.65 10.88 3.19 10.88 2.82 10.84C2.43 10.81 2.05 10.74 1.69 10.56C1.15 10.29 0.71 9.85 0.44 9.31C0.26 8.95 0.19 8.57 0.16 8.18C0.12 7.81 0.13 7.35 0.13 6.8V6.2C0.13 5.65 0.12 5.19 0.16 4.82C0.19 4.43 0.26 4.05 0.44 3.69C0.71 3.15 1.15 2.71 1.69 2.44C2.05 2.26 2.43 2.19 2.82 2.16C3.19 2.12 3.65 2.13 4.2 2.13H4.8ZM4.2 3.88C3.63 3.88 3.25 3.88 2.96 3.9C2.68 3.92 2.56 3.96 2.49 4C2.28 4.11 2.11 4.28 2 4.49C1.96 4.56 1.92 4.68 1.9 4.96C1.88 5.25 1.88 5.63 1.88 6.2V6.8C1.88 7.37 1.88 7.75 1.9 8.04C1.92 8.32 1.96 8.44 2 8.51C2.11 8.72 2.28 8.89 2.49 9C2.56 9.04 2.68 9.08 2.96 9.1C3.25 9.12 3.63 9.13 4.2 9.13H4.8C5.37 9.13 5.75 9.12 6.04 9.1C6.32 9.08 6.44 9.04 6.51 9C6.72 8.89 6.89 8.72 7 8.51C7.04 8.44 7.08 8.32 7.1 8.04C7.12 7.75 7.13 7.37 7.13 6.8V6.2C7.13 5.63 7.12 5.25 7.1 4.96C7.08 4.68 7.04 4.56 7 4.49C6.89 4.28 6.72 4.11 6.51 4C6.44 3.96 6.32 3.92 6.04 3.9C5.75 3.88 5.37 3.88 4.8 3.88H4.2Z"
+    }), o = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M19.8 2.13C20.35 2.13 20.81 2.12 21.18 2.16C21.57 2.19 21.95 2.26 22.31 2.44C22.85 2.71 23.29 3.15 23.56 3.69C23.74 4.05 23.81 4.43 23.84 4.82C23.88 5.19 23.88 5.65 23.88 6.2V6.8C23.88 7.35 23.88 7.81 23.84 8.18C23.81 8.57 23.74 8.95 23.56 9.31C23.29 9.85 22.85 10.29 22.31 10.56C21.95 10.74 21.57 10.81 21.18 10.84C20.81 10.88 20.35 10.88 19.8 10.88H15.2C14.65 10.88 14.19 10.88 13.82 10.84C13.43 10.81 13.05 10.74 12.69 10.56C12.15 10.29 11.71 9.85 11.44 9.31C11.26 8.95 11.19 8.57 11.16 8.18C11.12 7.81 11.13 7.35 11.13 6.8V6.2C11.13 5.65 11.12 5.19 11.16 4.82C11.19 4.43 11.26 4.05 11.44 3.69C11.71 3.15 12.15 2.71 12.69 2.44C13.05 2.26 13.43 2.19 13.82 2.16C14.19 2.12 14.65 2.13 15.2 2.13H19.8ZM15.2 3.88C14.63 3.88 14.25 3.88 13.96 3.9C13.68 3.92 13.56 3.96 13.49 4C13.28 4.11 13.11 4.28 13 4.49C12.96 4.56 12.92 4.68 12.9 4.96C12.88 5.25 12.88 5.63 12.88 6.2V6.8C12.88 7.37 12.88 7.75 12.9 8.04C12.92 8.32 12.96 8.44 13 8.51C13.11 8.72 13.28 8.89 13.49 9C13.56 9.04 13.68 9.08 13.96 9.1C14.25 9.12 14.63 9.13 15.2 9.13H19.8C20.37 9.13 20.75 9.12 21.04 9.1C21.32 9.08 21.44 9.04 21.51 9C21.72 8.89 21.89 8.72 22 8.51C22.04 8.44 22.08 8.32 22.1 8.04C22.12 7.75 22.13 7.37 22.13 6.8V6.2C22.13 5.63 22.12 5.25 22.1 4.96C22.08 4.68 22.04 4.56 22 4.49C21.89 4.28 21.72 4.11 21.51 4C21.44 3.96 21.32 3.92 21.04 3.9C20.75 3.88 20.37 3.88 19.8 3.88H15.2Z"
+    }), c[4] = a, c[5] = r, c[6] = s, c[7] = o) : (a = c[4], r = c[5], s = c[6], o = c[7]), c[8] !== e || c[9] !== l || c[10] !== i ? (d = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [l, i, a, r, s, o]
+    }), c[8] = e, c[9] = l, c[10] = i, c[11] = d) : d = c[11], d
+  }
+  l._isSVG = !0, e.s(["default", 0, l])
+}, 39299, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099);
+
+  function l(e) {
+    let l, i, a, r, s = (0, n.c)(9);
+    return s[0] !== e.title ? (l = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), s[0] = e.title, s[1] = l) : l = s[1], s[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), s[2] = e.children, s[3] = i) : i = s[3], s[4] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M12 0.13C16.62 0.13 20.38 3.88 20.38 8.5C20.38 10.85 19.36 12.42 18.46 13.68C17.53 15 16.88 15.84 16.88 17V17.88H16.87C16.87 17.92 16.88 17.96 16.88 18V19.5C16.88 20.73 15.95 21.73 14.75 21.86C14.74 21.92 14.72 21.98 14.7 22.03C14.64 22.19 14.54 22.37 14.45 22.55L14.25 22.95C14.21 23.04 14.12 23.24 13.97 23.41L13.9 23.48L13.79 23.58C13.67 23.68 13.53 23.75 13.39 23.8C13.14 23.89 12.87 23.88 12.76 23.88H11.24C11.13 23.88 10.86 23.89 10.61 23.8C10.42 23.73 10.24 23.63 10.1 23.48C9.91 23.3 9.8 23.05 9.75 22.95L9.55 22.55C9.46 22.37 9.36 22.19 9.3 22.03C9.28 21.98 9.26 21.92 9.25 21.86C8.05 21.73 7.13 20.73 7.13 19.5V18C7.13 17.96 7.13 17.92 7.13 17.88H7.13V17C7.13 15.84 6.47 14.99 5.54 13.67C4.64 12.4 3.63 10.84 3.63 8.5C3.63 3.88 7.38 0.13 12 0.13ZM11.29 22.13H12.71L12.84 21.88H11.17L11.29 22.13ZM9 17.88C8.93 17.88 8.88 17.93 8.88 18V19.5C8.88 19.85 9.15 20.13 9.5 20.13H14.5C14.85 20.13 15.13 19.85 15.13 19.5V18C15.13 17.93 15.07 17.88 15 17.88H9ZM12 1.88C8.34 1.88 5.38 4.84 5.38 8.5C5.38 10.27 6.11 11.45 6.96 12.66C7.64 13.62 8.52 14.72 8.79 16.13H15.21C15.48 14.72 16.36 13.63 17.04 12.67C17.89 11.47 18.63 10.28 18.63 8.5C18.63 4.84 15.66 1.88 12 1.88Z"
+    }), s[4] = a) : a = s[4], s[5] !== e || s[6] !== l || s[7] !== i ? (r = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [l, i, a]
+    }), s[5] = e, s[6] = l, s[7] = i, s[8] = r) : r = s[8], r
+  }
+  l._isSVG = !0, e.s(["default", 0, l])
+}, 623336, 178794, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099);
+
+  function l(e) {
+    let l, i, a, r, s = (0, n.c)(9);
+    return s[0] !== e.title ? (l = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), s[0] = e.title, s[1] = l) : l = s[1], s[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), s[2] = e.children, s[3] = i) : i = s[3], s[4] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M9.75 0.88C11.75 0.88 13.61 1.22 15.16 1.94L15.76 1.64C16.44 1.3 17.19 1.13 17.94 1.13H19.25C20.67 1.13 21.84 2.07 22.61 3.29C23.4 4.53 23.88 6.2 23.88 8C23.88 9.75 23.54 11.41 22.84 12.66C22.15 13.93 21.02 14.88 19.5 14.88H17.1C16.64 15.48 16.14 16.03 15.67 16.56L15.67 16.57L15.65 16.59C14.21 18.21 13.11 20.79 12.56 22.26C12.21 23.2 11.31 23.88 10.27 23.88H10C8.41 23.88 7.13 22.59 7.13 21V20.74C7.13 19.17 7.34 17.61 7.77 16.11L7.84 15.88H3.13C1.47 15.88 0.13 14.53 0.13 12.88C0.13 12.15 0.38 11.5 0.8 10.98C0.69 10.66 0.63 10.32 0.63 9.96V9.9L0.63 9.87L0.63 9.85L0.63 9.85L0.64 9.71L0.64 9.71L0.64 9.68L0.64 9.65L0.64 9.63L0.65 9.59C0.72 9 0.96 8.47 1.32 8.04C1.21 7.74 1.13 7.38 1.13 7.04C1.13 5.99 1.75 5.1 2.51 4.56C2.5 4.46 2.49 4.36 2.49 4.26V4.24L2.49 4.22L2.5 4.04L2.5 4.03L2.5 4.01C2.6 2.86 3.38 1.91 4.43 1.55L4.46 1.54L4.62 1.49L4.62 1.49C5.87 1.08 8.19 0.88 9.5 0.88C9.54 0.88 9.57 0.88 9.59 0.88C9.61 0.88 9.62 0.88 9.63 0.88C9.63 0.88 9.64 0.88 9.66 0.88C9.68 0.88 9.71 0.88 9.75 0.88ZM9.72 2.63C9.7 2.63 9.67 2.63 9.63 2.63H9.62C9.58 2.63 9.55 2.63 9.53 2.63C9.51 2.63 9.51 2.63 9.5 2.63C8.24 2.63 6.13 2.83 5.15 3.16L5.14 3.16L5.12 3.16L4.99 3.2C4.58 3.35 4.29 3.72 4.25 4.16L4.24 4.27C4.24 4.39 4.27 4.51 4.3 4.62C4.47 5.1 4.25 5.64 3.78 5.85C3.25 6.08 2.88 6.61 2.88 7.04C2.88 7.2 2.97 7.5 3.1 7.75C3.33 8.17 3.22 8.69 2.85 8.98L2.85 8.98C2.6 9.19 2.42 9.48 2.38 9.81V9.81L2.38 9.95L2.38 9.96C2.38 10.2 2.44 10.43 2.56 10.62L2.56 10.62C2.83 11.05 2.73 11.6 2.34 11.9L2.24 12C2.01 12.22 1.88 12.53 1.88 12.88C1.88 13.57 2.43 14.13 3.13 14.13H8.01C9.09 14.13 9.86 15.16 9.57 16.2L9.46 16.59C9.07 17.94 8.88 19.34 8.88 20.74V21C8.88 21.62 9.38 22.13 10 22.13H10.27C10.54 22.13 10.81 21.95 10.92 21.65C11.47 20.17 12.67 17.3 14.35 15.42L14.35 15.41L14.37 15.39C16.07 13.49 17.63 11.71 17.63 8.5L17.62 8.14C17.52 6.35 16.74 5.05 15.49 4.15C14.12 3.16 12.13 2.63 9.75 2.63C9.75 2.63 9.74 2.63 9.72 2.63ZM17.94 2.88C17.6 2.88 17.25 2.93 16.92 3.05C18.47 4.33 19.38 6.17 19.38 8.5C19.38 10.38 18.92 11.87 18.25 13.13H19.5C20.19 13.13 20.81 12.73 21.31 11.82C21.82 10.9 22.13 9.56 22.13 8C22.13 6.49 21.72 5.15 21.14 4.23C20.54 3.28 19.83 2.88 19.25 2.88H17.94Z"
+    }), s[4] = a) : a = s[4], s[5] !== e || s[6] !== l || s[7] !== i ? (r = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [l, i, a]
+    }), s[5] = e, s[6] = l, s[7] = i, s[8] = r) : r = s[8], r
+  }
+
+  function i(e) {
+    let l, i, a, r, s = (0, n.c)(9);
+    return s[0] !== e.title ? (l = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), s[0] = e.title, s[1] = l) : l = s[1], s[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), s[2] = e.children, s[3] = i) : i = s[3], s[4] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M14 0.12C15.59 0.12 16.88 1.41 16.88 3V3.26C16.88 4.83 16.66 6.39 16.23 7.89L16.16 8.13H20.88C22.53 8.13 23.88 9.47 23.88 11.13C23.88 11.85 23.62 12.5 23.2 13.02C23.31 13.34 23.38 13.68 23.38 14.04V14.1L23.37 14.13L23.37 14.15L23.37 14.15L23.36 14.29L23.36 14.29L23.36 14.32L23.36 14.35L23.36 14.37L23.35 14.41C23.28 15 23.04 15.53 22.68 15.96C22.79 16.26 22.87 16.62 22.88 16.96C22.88 18.01 22.25 18.9 21.49 19.44C21.5 19.54 21.51 19.64 21.51 19.74V19.76L21.51 19.78L21.5 19.96L21.5 19.97L21.5 19.99C21.4 21.14 20.62 22.09 19.57 22.45L19.54 22.46L19.38 22.51L19.38 22.51C18.13 22.92 15.81 23.13 14.5 23.13C14.46 23.13 14.43 23.12 14.41 23.12C14.39 23.12 14.38 23.12 14.38 23.12C14.37 23.12 14.36 23.12 14.34 23.12C14.32 23.12 14.29 23.13 14.25 23.13C12.25 23.13 10.39 22.78 8.84 22.06L8.24 22.36C7.56 22.7 6.81 22.88 6.06 22.88H4.75C3.33 22.88 2.16 21.93 1.39 20.71C0.6 19.47 0.13 17.8 0.13 16C0.13 14.25 0.46 12.59 1.16 11.34C1.85 10.07 2.98 9.13 4.5 9.13H6.9C7.36 8.52 7.86 7.97 8.33 7.44L8.33 7.43L8.35 7.41C9.79 5.79 10.89 3.21 11.44 1.74C11.79 0.8 12.69 0.12 13.73 0.12H14ZM13.73 1.87C13.46 1.87 13.19 2.05 13.08 2.35C12.53 3.83 11.33 6.7 9.65 8.58L9.65 8.59L9.63 8.61C7.93 10.51 6.38 12.29 6.38 15.5L6.38 15.86C6.48 17.65 7.26 18.95 8.51 19.85C9.88 20.84 11.87 21.38 14.25 21.38C14.25 21.38 14.26 21.37 14.28 21.37C14.3 21.37 14.33 21.37 14.37 21.37H14.38C14.42 21.37 14.45 21.37 14.47 21.37C14.49 21.37 14.49 21.38 14.5 21.38C15.76 21.38 17.87 21.17 18.85 20.84L18.86 20.84L18.88 20.84L19.01 20.8C19.42 20.65 19.71 20.28 19.75 19.84L19.76 19.73C19.76 19.61 19.73 19.49 19.7 19.38C19.53 18.9 19.75 18.36 20.22 18.15C20.75 17.92 21.13 17.39 21.13 16.96C21.12 16.8 21.04 16.5 20.9 16.25C20.67 15.83 20.78 15.31 21.15 15.02L21.15 15.02C21.4 14.81 21.58 14.52 21.62 14.19V14.19L21.62 14.05L21.63 14.04C21.63 13.8 21.56 13.57 21.44 13.38L21.44 13.38C21.17 12.95 21.27 12.4 21.66 12.1L21.76 12C21.99 11.78 22.13 11.47 22.13 11.13C22.13 10.43 21.57 9.88 20.88 9.88H15.99C14.91 9.87 14.14 8.84 14.43 7.8L14.54 7.41C14.93 6.06 15.13 4.66 15.13 3.26V3C15.13 2.38 14.62 1.87 14 1.87H13.73ZM4.5 10.88C3.81 10.88 3.19 11.27 2.69 12.18C2.18 13.1 1.88 14.44 1.88 16C1.88 17.51 2.28 18.85 2.86 19.77C3.46 20.72 4.17 21.13 4.75 21.13H6.06C6.4 21.13 6.75 21.07 7.08 20.95C5.53 19.67 4.63 17.83 4.63 15.5C4.63 13.62 5.08 12.13 5.75 10.88H4.5Z"
+    }), s[4] = a) : a = s[4], s[5] !== e || s[6] !== l || s[7] !== i ? (r = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [l, i, a]
+    }), s[5] = e, s[6] = l, s[7] = i, s[8] = r) : r = s[8], r
+  }
+  l._isSVG = !0, e.s(["default", 0, l], 623336), i._isSVG = !0, e.s(["default", 0, i], 178794)
+}, 646398, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099);
+
+  function l(e) {
+    let l, i, a, r, s, o, d, c, u, f = (0, n.c)(14);
+    return f[0] !== e.title ? (l = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), f[0] = e.title, f[1] = l) : l = f[1], f[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), f[2] = e.children, f[3] = i) : i = f[3], f[4] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M12.8 8.77C11.84 8 10.47 8 9.51 8.77C9.39 8.87 9.27 8.99 9.13 9.13C8.99 9.27 8.87 9.39 8.78 9.51C8 10.47 8 11.84 8.78 12.8C8.87 12.92 8.99 13.04 9.13 13.18L18.04 22.09C18.18 22.23 18.3 22.35 18.42 22.44C19.38 23.22 20.75 23.22 21.71 22.44C21.83 22.35 21.95 22.23 22.09 22.09C22.23 21.95 22.35 21.83 22.44 21.71C23.22 20.75 23.22 19.38 22.44 18.41C22.35 18.3 22.23 18.18 22.09 18.04L13.18 9.13C13.04 8.99 12.92 8.87 12.8 8.77ZM20.85 19.27C21.02 19.45 21.06 19.49 21.08 19.51C21.34 19.83 21.34 20.29 21.08 20.61C21.06 20.64 21.02 20.68 20.85 20.85C20.68 21.02 20.64 21.06 20.61 21.08C20.29 21.34 19.83 21.34 19.51 21.08C19.49 21.06 19.45 21.02 19.28 20.85L14.57 16.14C15.21 15.74 15.75 15.21 16.14 14.57L20.85 19.27ZM10.61 10.14C10.93 9.88 11.39 9.88 11.71 10.14C11.73 10.16 11.77 10.2 11.95 10.37L14.85 13.28C14.54 13.97 13.98 14.54 13.28 14.85L10.37 11.94C10.2 11.77 10.16 11.73 10.14 11.71C9.88 11.38 9.88 10.93 10.14 10.61C10.16 10.58 10.2 10.54 10.37 10.37C10.54 10.2 10.58 10.16 10.61 10.14Z"
+    }), r = (0, t.jsx)("path", {
+      d: "M6.79 17.21C6.44 16.87 5.89 16.87 5.55 17.21L3.6 19.16C3.26 19.5 3.26 20.05 3.6 20.4C3.95 20.74 4.5 20.74 4.84 20.4L6.79 18.45C7.13 18.11 7.13 17.56 6.79 17.21Z"
+    }), s = (0, t.jsx)("path", {
+      d: "M1 11.13C0.52 11.13 0.13 11.52 0.13 12C0.13 12.48 0.52 12.88 1 12.88H3.75C4.23 12.88 4.63 12.48 4.63 12C4.63 11.52 4.23 11.13 3.75 11.13H1Z"
+    }), o = (0, t.jsx)("path", {
+      d: "M20.4 3.6C20.06 3.26 19.5 3.26 19.16 3.6L17.21 5.55C16.87 5.89 16.87 6.44 17.21 6.79C17.56 7.13 18.11 7.13 18.45 6.79L20.4 4.84C20.74 4.5 20.74 3.95 20.4 3.6Z"
+    }), d = (0, t.jsx)("path", {
+      d: "M4.84 3.6C4.5 3.26 3.95 3.26 3.6 3.6C3.26 3.94 3.26 4.5 3.6 4.84L5.55 6.79C5.89 7.13 6.44 7.13 6.79 6.79C7.13 6.44 7.13 5.89 6.79 5.55L4.84 3.6Z"
+    }), c = (0, t.jsx)("path", {
+      d: "M12 0.13C11.52 0.13 11.13 0.52 11.13 1V3.75C11.13 4.23 11.52 4.62 12 4.63C12.48 4.63 12.88 4.23 12.88 3.75V1C12.88 0.52 12.48 0.13 12 0.13Z"
+    }), f[4] = a, f[5] = r, f[6] = s, f[7] = o, f[8] = d, f[9] = c) : (a = f[4], r = f[5], s = f[6], o = f[7], d = f[8], c = f[9]), f[10] !== e || f[11] !== l || f[12] !== i ? (u = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [l, i, a, r, s, o, d, c]
+    }), f[10] = e, f[11] = l, f[12] = i, f[13] = u) : u = f[13], u
+  }
+  l._isSVG = !0, e.s(["default", 0, l])
+}]);
+
+//# debugId=1f6bb088-ff8b-6d65-0eff-f651f85db14f
+//# sourceMappingURL=0r52gxuyvxeyz.js.map

@@ -1,0 +1,1297 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "1886cd06-a37d-dc04-302f-23e0491dcdfc")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 942970, e => {
+  "use strict";
+  var t = e.i(790170),
+    n = e.i(171311);
+  let r = ["like", "love", "dislike"];
+
+  function i(e) {
+    if ("string" != typeof e) return null;
+    let t = e.trim();
+    return 0 === t.length ? null : t
+  }
+
+  function l(e) {
+    return "number" == typeof e && Number.isFinite(e) ? e : null
+  }
+
+  function a(e) {
+    return "object" == typeof e && null != e && !Array.isArray(e)
+  }
+
+  function o(e) {
+    var t;
+    if (!a(e)) return null;
+    let n = i(e.unit_id),
+      o = i(e.run_id),
+      u = i(e.edition_local_date);
+    if (null == n || null == o || null == u) return null;
+    let s = i(e.origin) ?? "generated";
+    return {
+      unitId: n,
+      runId: o,
+      editionKind: i(e.edition_kind) ?? "adhoc",
+      editionLocalDate: u,
+      editionGeneratedAtMs: l(e.edition_generated_at_ms) ?? 0,
+      position: l(e.position) ?? 0,
+      kicker: i(e.kicker) ?? "",
+      title: i(e.title),
+      bodyMd: "string" == typeof e.body_md ? e.body_md : "",
+      whyDidISeeThis: i(e.why_did_i_see_this),
+      iconUrl: i(e.icon_url),
+      emoji: i(e.emoji),
+      attachment: function(e) {
+        let t, n, r, o, u;
+        if (!a(e)) return {
+          kind: "none"
+        };
+        let s = (t = i(e.social_embed_url), n = i(e.social_attribution_text), r = i(e.social_post_username), o = i(e.social_source_name), u = i(e.social_source_icon_url), {
+          ...null != t ? {
+            socialEmbedUrl: t
+          } : {},
+          ...null != n ? {
+            socialAttributionText: n
+          } : {},
+          ...null != r ? {
+            socialPostUsername: r
+          } : {},
+          ...null != o ? {
+            socialSourceName: o
+          } : {},
+          ...null != u ? {
+            socialSourceIconUrl: u
+          } : {}
+        });
+        switch (e.kind) {
+          case "hero_image": {
+            let t = i(e.hero_image_url);
+            if (null == t) return {
+              kind: "none",
+              ...s
+            };
+            let n = i(e.video_url),
+              r = l(e.social_thumbnail_aspect_ratio);
+            return {
+              kind: "hero_image",
+              heroImageUrl: t,
+              ...null != n ? {
+                videoUrl: n
+              } : {},
+              ...null != r && r > 0 ? {
+                aspectRatio: r
+              } : {},
+              ...s
+            }
+          }
+          case "carousel": {
+            let t = function(e) {
+              if (!Array.isArray(e)) return [];
+              let t = [];
+              for (let n of e) {
+                let e = i(n);
+                null != e && t.push(e)
+              }
+              return t
+            }(e.image_urls);
+            if (0 === t.length) return {
+              kind: "none",
+              ...s
+            };
+            let n = function(e, t) {
+              if (!Array.isArray(e) || e.length !== t.length) return;
+              let n = !1,
+                r = e.map((e, r) => {
+                  let l = t[r] ?? "";
+                  if (!a(e)) return {
+                    kind: "image",
+                    url: l
+                  };
+                  let o = i(e.url);
+                  if ("video" === e.kind && null != o) {
+                    let t = i(e.poster_url);
+                    return null == t ? {
+                      kind: "image",
+                      url: l
+                    } : (n = !0, {
+                      kind: "video",
+                      url: o,
+                      posterUrl: t
+                    })
+                  }
+                  return {
+                    kind: "image",
+                    url: o ?? l
+                  }
+                });
+              return n ? r : void 0
+            }(e.media_items, t);
+            return {
+              kind: "carousel",
+              imageUrls: t,
+              ...null != n ? {
+                mediaItems: n
+              } : {},
+              ...s
+            }
+          }
+          case "widget": {
+            let t = "string" == typeof e.widget_html ? e.widget_html : null;
+            return null != t && t.trim().length > 0 ? {
+              kind: "widget",
+              widgetHtml: t,
+              ...s
+            } : {
+              kind: "none",
+              ...s
+            }
+          }
+          case "social_embed": {
+            let t = i(e.social_embed_url);
+            if (null == t) return {
+              kind: "none",
+              ...s
+            };
+            let n = i(e.social_thumbnail_url),
+              r = !0 === e.social_is_carousel,
+              l = function(e) {
+                if (!Array.isArray(e) || e.length < 2 || e.length > 10) return;
+                let t = [];
+                for (let n of e) {
+                  if (!a(n)) return;
+                  let e = i(n.media_url);
+                  if (null == e) return;
+                  if ("image" === n.kind) {
+                    t.push({
+                      kind: "image",
+                      mediaUrl: e
+                    });
+                    continue
+                  }
+                  if ("video" === n.kind) {
+                    let r = i(n.thumbnail_url);
+                    t.push(null != r ? {
+                      kind: "video",
+                      mediaUrl: e,
+                      thumbnailUrl: r
+                    } : {
+                      kind: "video",
+                      mediaUrl: e
+                    });
+                    continue
+                  }
+                  return
+                }
+                return t
+              }(e.social_media_items);
+            return {
+              kind: "social_embed",
+              socialEmbedUrl: t,
+              ...null != n ? {
+                socialThumbnailUrl: n
+              } : {},
+              ...r ? {
+                socialIsCarousel: !0
+              } : {},
+              ...null != l ? {
+                socialMediaItems: l
+              } : {},
+              ...s
+            }
+          }
+          default:
+            return {
+              kind: "none", ...s
+            }
+        }
+      }(e.attachment),
+      category: i(e.category) ?? "",
+      connectorAttribution: i(e.connector_attribution),
+      isReflective: !0 === e.is_reflective,
+      stats: function(e) {
+        if (!Array.isArray(e)) return [];
+        let t = [];
+        for (let n of e) {
+          if (!a(n)) continue;
+          let e = i(n.label),
+            r = i(n.value) ?? l(n.value)?.toString() ?? null;
+          null != e && null != r && t.push({
+            label: e,
+            value: r
+          })
+        }
+        return t
+      }(e.stats),
+      reaction: "string" == typeof(t = e.reaction) && r.includes(t) ? t : null,
+      shareCount: l(e.share_count) ?? 0,
+      discussCount: l(e.discuss_count) ?? 0,
+      origin: s,
+      ideaAction: "idea" === s ? function(e) {
+        if (!a(e)) return null;
+        let t = i(e.idea_id);
+        return null == t || 0 === t.length ? null : {
+          ideaId: t,
+          state: "built" === e.state ? "built" : "available"
+        }
+      }(e.idea_action) : null,
+      promptId: i(e.prompt_id),
+      seenAtMs: l(e.seen_at_ms),
+      createdAtMs: l(e.created_at_ms) ?? 0,
+      updatedAtMs: l(e.updated_at_ms) ?? 0
+    }
+  }
+
+  function u(e) {
+    if (!a(e)) return {
+      promptId: null,
+      days: [],
+      pagination: {
+        nextCursor: null,
+        prevCursor: null
+      }
+    };
+    let t = [];
+    for (let n of Array.isArray(e.days) ? e.days : []) {
+      let e = function(e) {
+        if (!a(e)) return null;
+        let t = i(e.local_date);
+        if (null == t) return null;
+        let n = [];
+        for (let t of Array.isArray(e.editions) ? e.editions : []) {
+          let e = a(t) ? {
+            kind: i(t.kind) ?? "adhoc",
+            title: i(t.title) ?? "",
+            generatedAtMs: l(t.generated_at_ms) ?? 0,
+            units: function(e) {
+              if (!Array.isArray(e)) return [];
+              let t = [];
+              for (let n of e) {
+                let e = o(n);
+                null != e && t.push(e)
+              }
+              return t
+            }(t.units)
+          } : null;
+          null != e && n.push(e)
+        }
+        return {
+          localDate: t,
+          editions: n
+        }
+      }(n);
+      null != e && t.push(e)
+    }
+    let n = a(e.pagination) ? e.pagination : {};
+    return {
+      promptId: i(e.prompt_id),
+      days: t,
+      pagination: {
+        nextCursor: i(n.next_cursor),
+        prevCursor: i(n.prev_cursor)
+      }
+    }
+  }
+
+  function s(e) {
+    if (!a(e)) return null;
+    let t = i(e.prompt_id);
+    return null == t ? null : {
+      promptId: t,
+      fullPrompt: i(e.full_prompt) ?? ("string" == typeof e.free_text ? e.free_text : ""),
+      createdAtMs: l(e.created_at_ms) ?? 0,
+      updatedAtMs: l(e.updated_at_ms) ?? 0
+    }
+  }
+
+  function d(e) {
+    return a(e) ? {
+      prompt: s(e.prompt)
+    } : {
+      prompt: null
+    }
+  }
+
+  function c(e) {
+    return a(e) ? {
+      promptId: i(e.prompt_id),
+      promptEnabled: !0 === e.prompt_enabled,
+      refreshInProgress: !0 === e.refresh_in_progress,
+      runId: i(e.run_id),
+      trigger: i(e.trigger),
+      startedAtMs: l(e.started_at_ms),
+      nextScheduledAtMs: l(e.next_scheduled_at_ms),
+      nextEditionKind: i(e.next_edition_kind),
+      freshestGeneratedAtMs: l(e.freshest_generated_at_ms)
+    } : {
+      promptId: null,
+      promptEnabled: !1,
+      refreshInProgress: !1,
+      runId: null,
+      trigger: null,
+      startedAtMs: null,
+      nextScheduledAtMs: null,
+      nextEditionKind: null,
+      freshestGeneratedAtMs: null
+    }
+  }
+  let f = (0, t.createGatewayQuery)({
+    id: "feed.list",
+    queryKey: ({
+      gatewayUrl: e,
+      promptId: t
+    }) => n.feedQueryKeys.list(e, t),
+    noiseFn: async (e, t) => {
+      let n = {};
+      null != t.promptId && t.promptId.length > 0 && (n.prompt_id = t.promptId);
+      let r = p();
+      return null != r && (n.timezone = r), u(await e.sendRequest("feed.list", n))
+    },
+    invalidationKey: () => n.feedQueryKeys.all,
+    staleTime: 3e4
+  });
+
+  function p() {
+    try {
+      let e = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      return e.length > 0 ? e : null
+    } catch {
+      return null
+    }
+  }
+  let y = (0, t.createGatewayInfiniteQuery)({
+    id: "feed.list",
+    queryKey: ({
+      gatewayUrl: e,
+      promptId: t
+    }) => n.feedQueryKeys.infiniteList(e, t),
+    noiseFn: async (e, t, n) => {
+      let r = {},
+        i = n?.promptId ?? t.promptId;
+      null != i && i.length > 0 && (r.prompt_id = i), null != n && n.cursor.length > 0 && (r.cursor = n.cursor);
+      let l = p();
+      return null != l && (r.timezone = l), u(await e.sendRequest("feed.list", r))
+    },
+    invalidationKey: () => n.feedQueryKeys.all,
+    initialPageParam: null,
+    getNextPageParam: e => null != e.pagination.nextCursor ? {
+      cursor: e.pagination.nextCursor,
+      promptId: e.promptId
+    } : void 0,
+    staleTime: 3e4
+  });
+  (0, t.createGatewayQuery)({
+    id: "feed.status",
+    queryKey: ({
+      gatewayUrl: e,
+      promptId: t
+    }) => n.feedQueryKeys.status(e, t),
+    noiseFn: async (e, t) => {
+      let n = {};
+      return null != t.promptId && t.promptId.length > 0 && (n.prompt_id = t.promptId), c(await e.sendRequest("feed.status", n))
+    },
+    invalidationKey: () => n.feedQueryKeys.all,
+    staleTime: 0
+  });
+  let m = (0, t.createGatewayQuery)({
+    id: "feed.prompt.get",
+    queryKey: ({
+      gatewayUrl: e
+    }) => n.feedQueryKeys.prompts(e),
+    noiseFn: async e => d(await e.sendRequest("feed.prompt.get", {})),
+    invalidationKey: () => n.feedQueryKeys.all,
+    staleTime: 3e4
+  });
+  async function g(e, t, n) {
+    var r;
+    return a(r = await n("feed.unit.reaction", {
+      unit_id: e,
+      reaction: t
+    })) ? o(r.unit) : null
+  }
+  async function _(e, t) {
+    await t("feed.unit.delete", {
+      unit_id: e
+    })
+  }
+  async function h(e, t) {
+    let n = {};
+    null != e && e.length > 0 && (n.prompt_id = e);
+    let r = await t("feed.regenerate", n);
+    return a(r) ? {
+      runId: i(r.run_id),
+      alreadyInProgress: !0 === r.already_in_progress,
+      queued: !0 === r.queued,
+      promptEnabled: "boolean" == typeof r.prompt_enabled ? r.prompt_enabled : null
+    } : {
+      runId: null,
+      alreadyInProgress: !1,
+      queued: !1,
+      promptEnabled: null
+    }
+  }
+  async function v(e, t) {
+    var n;
+    return a(n = await t("feed.prompt.update", {
+      prompt: e.fullPrompt
+    })) ? s(n.prompt) : null
+  }
+  e.s(["deleteFeedUnit", 0, _, "feedFreshestRenderedGeneratedAtMs", 0, function(e) {
+    let t = 0;
+    for (let n of e.days)
+      for (let e of n.editions) e.generatedAtMs > t && (t = e.generatedAtMs);
+    return t
+  }, "feedListInfiniteQuery", 0, y, "feedListQuery", 0, f, "feedPromptQuery", 0, m, "feedQueryMatchesPromptScope", 0, function(e, t) {
+    return "unit" === e[2] || e.includes(t)
+  }, "getFeedListGatewayQuery", 0, function(e) {
+    return {
+      bind: t => (0, n.bindFeedListGatewayQuery)(t, e),
+      transform: u,
+      staleTime: 3e4
+    }
+  }, "getFeedPromptGatewayQuery", 0, function() {
+    return {
+      bind: n.bindFeedPromptGatewayQuery,
+      transform: d,
+      staleTime: 3e4
+    }
+  }, "getFeedStatusGatewayQuery", 0, function(e) {
+    return {
+      bind: t => (0, n.bindFeedStatusGatewayQuery)(t, e),
+      transform: c,
+      staleTime: 0
+    }
+  }, "mapUnitInFeedList", 0, function(e, t, n) {
+    return {
+      ...e,
+      days: e.days.map(e => ({
+        ...e,
+        editions: e.editions.map(e => ({
+          ...e,
+          units: e.units.map(e => e.unitId === t ? n(e) : e)
+        }))
+      }))
+    }
+  }, "mergeFeedListPages", 0, function(e) {
+    let t = new Map;
+    for (let n of e)
+      for (let e of n.days) t.has(e.localDate) || t.set(e.localDate, e);
+    let n = e[0],
+      r = e[e.length - 1];
+    return {
+      promptId: n?.promptId ?? null,
+      days: [...t.values()],
+      pagination: r?.pagination ?? {
+        nextCursor: null,
+        prevCursor: null
+      }
+    }
+  }, "normalizeFeedUnit", 0, o, "regenerateFeed", 0, h, "removeUnitFromFeedList", 0, function(e, t) {
+    return {
+      ...e,
+      days: e.days.map(e => ({
+        ...e,
+        editions: e.editions.map(e => ({
+          ...e,
+          units: e.units.filter(e => e.unitId !== t)
+        })).filter(e => e.units.length > 0)
+      })).filter(e => e.editions.length > 0)
+    }
+  }, "setFeedUnitReaction", 0, g, "upsertFeedPrompt", 0, v])
+}, 644036, e => {
+  "use strict";
+  var t = e.i(925301),
+    n = e.i(790170),
+    r = e.i(552122);
+
+  function i(e) {
+    if ("string" != typeof e) return null;
+    let t = e.trim();
+    return 0 === t.length ? null : t
+  }
+
+  function l(e, t) {
+    return "boolean" == typeof e ? e : t
+  }
+
+  function a(e) {
+    return Array.isArray(e) ? e : []
+  }
+
+  function o(e) {
+    return "object" == typeof e && null != e && !Array.isArray(e)
+  }
+
+  function u(e) {
+    return o(e) ? e : {}
+  }
+
+  function s(e) {
+    var t, n, r;
+    if (!o(e)) return null;
+    let u = i(e.goal_id ?? e.id);
+    if (null == u) return null;
+    let d = a(e.subGoals ?? e.sub_goals).map(e => s(e)).filter(e => null != e);
+    return {
+      id: u,
+      title: i(e.title),
+      summary: i(e.summary),
+      momentum: i(e.momentum),
+      momentumStatus: "on_track" === (t = e.momentumStatus ?? e.momentum_status) || "at_risk" === t || "behind" === t ? t : null,
+      description: i(e.description),
+      emoji: i(e.emoji),
+      imageUrl: i(e.imageUrl ?? e.image_url),
+      source: "user_goal" === (n = e.source) || "assistant_tracking" === n ? n : null,
+      status: "active" === (r = e.status) || "paused" === r || "retired" === r || "completed" === r ? r : null,
+      createdAt: i(e.createdAt ?? e.created_at),
+      lastEventAt: i(e.lastEventAt ?? e.last_event_at),
+      parentGoalId: i(e.parentGoalId ?? e.parent_goal_id),
+      sortOrder: function(e) {
+        if ("number" == typeof e && Number.isFinite(e)) return e;
+        if ("string" == typeof e) {
+          let t = Number(e);
+          if (Number.isFinite(t)) return t
+        }
+        return 0
+      }(e.sortOrder ?? e.sort_order),
+      subGoals: d,
+      sessionId: i(e.sessionId ?? e.session_id),
+      isThread: l(e.isThread ?? e.is_thread, !1)
+    }
+  }
+
+  function d(e) {
+    return a(e).map(e => s(e)).filter(e => null != e)
+  }
+
+  function c(e) {
+    if (!o(e)) return Array.isArray(e) ? d(e) : [];
+    if (Array.isArray(e.goals)) return d(e.goals);
+    let t = e.result;
+    return Array.isArray(t) ? d(t) : o(t) && Array.isArray(t.goals) ? d(t.goals) : []
+  }
+
+  function f(e) {
+    return a(e).map(e => (function(e) {
+      if (!o(e)) return null;
+      let t = i(e.updateId ?? e.update_id ?? e.id),
+        n = i(e.goalId ?? e.goal_id),
+        r = i(e.title);
+      return null == t || null == n || null == r ? null : {
+        updateId: t,
+        goalId: n,
+        title: r,
+        summary: i(e.summary),
+        description: i(e.description),
+        effectiveAt: i(e.effectiveAt ?? e.effective_at),
+        createdAt: i(e.createdAt ?? e.created_at)
+      }
+    })(e)).filter(e => null != e)
+  }
+
+  function p(e) {
+    return a(e).map(e => (function(e) {
+      var t;
+      if (!o(e)) return null;
+      let n = i(e.suggestionId ?? e.suggestion_id ?? e.id),
+        r = i(e.goalId ?? e.goal_id),
+        l = i(e.ideaId ?? e.idea_id),
+        u = function(e) {
+          if (!o(e)) return null;
+          let t = i(e.id),
+            n = i(e.title),
+            r = i(e.summary);
+          return null == t || null == n || null == r ? null : {
+            id: t,
+            title: n,
+            summary: r,
+            kind: i(e.kind),
+            rationale: i(e.rationale),
+            categoryLabel: i(e.categoryLabel ?? e.category_label),
+            dateLabel: i(e.dateLabel ?? e.date_label),
+            audience: i(e.audience),
+            lane: i(e.lane),
+            previewImageUrl: i(e.previewImageUrl ?? e.preview_image_url),
+            installMarkdown: i(e.installMarkdown ?? e.install_markdown),
+            items: a(e.items).map(e => (function(e) {
+              if (!o(e)) return null;
+              let t = i(e.id),
+                n = i(e.title);
+              return null == t || null == n ? null : {
+                id: t,
+                title: n,
+                summary: i(e.summary),
+                kind: i(e.kind),
+                status: i(e.status)
+              }
+            })(e)).filter(e => null != e),
+            tags: a(e.tags).map(e => i(e)).filter(e => null != e)
+          }
+        }(e.idea);
+      return null == n || null == r || null == l || null == u ? null : {
+        suggestionId: n,
+        goalId: r,
+        ideaId: l,
+        status: "suggested" === (t = e.status) || "accepted" === t || "dismissed" === t ? t : null,
+        createdAt: i(e.createdAt ?? e.created_at),
+        updatedAt: i(e.updatedAt ?? e.updated_at),
+        idea: u
+      }
+    })(e)).filter(e => null != e)
+  }
+
+  function y(e) {
+    let t = u(e).chat;
+    return o(t) ? {
+      chat: {
+        streamOwnerMessageId: i(t.streamOwnerMessageId ?? t.stream_owner_message_id),
+        channel: i(t.channel),
+        sessionId: i(t.sessionId ?? t.session_id),
+        isThread: l(t.isThread ?? t.is_thread, !1)
+      }
+    } : {
+      chat: null
+    }
+  }
+
+  function m(e) {
+    return a(e).map(e => (function(e) {
+      var t;
+      if (!o(e)) return null;
+      let n = i(e.associationId ?? e.association_id ?? e.id),
+        r = "cron" === (t = e.associationType ?? e.association_type) || "document" === t || "space" === t ? t : null;
+      if (null == n || null == r) return null;
+      let l = {
+        associationId: n,
+        imageUrl: i(e.imageUrl ?? e.image_url),
+        createdAt: i(e.createdAt ?? e.created_at),
+        updatedAt: i(e.updatedAt ?? e.updated_at)
+      };
+      switch (r) {
+        case "space": {
+          let t, n, a = null == (n = i((t = {
+            ...u(e.details)
+          }).slug ?? t.space_id ?? t.spaceId ?? t.id)) ? null : (t.slug = n, t);
+          return null == a ? null : {
+            ...l,
+            associationType: r,
+            details: a
+          }
+        }
+        case "document": {
+          let t, n, a = null == (n = i((t = {
+            ...u(e.details)
+          }).path ?? t.file_path ?? t.filePath ?? t.id)) ? null : (t.path = n, t);
+          return null == a ? null : {
+            ...l,
+            associationType: r,
+            details: a
+          }
+        }
+        case "cron": {
+          let t, n, a = null == (n = i((t = {
+            ...u(e.details)
+          }).id ?? t.job_id ?? t.jobId ?? t.cron_id ?? t.cronId)) ? null : (t.id = n, t);
+          return null == a ? null : {
+            ...l,
+            associationType: r,
+            details: a
+          }
+        }
+      }
+    })(e)).filter(e => null != e)
+  }
+
+  function g(e) {
+    if (!o(e)) return null;
+    let t = i(e.briefingId ?? e.briefing_id ?? e.id),
+      n = i(e.goalId ?? e.goal_id),
+      r = i(e.path);
+    return null == t || null == n || null == r ? null : {
+      briefingId: t,
+      goalId: n,
+      path: r,
+      createdAt: i(e.createdAt ?? e.created_at),
+      updatedAt: i(e.updatedAt ?? e.updated_at),
+      lastOpenedAt: i(e.lastOpenedAt ?? e.last_opened_at)
+    }
+  }
+
+  function _(e) {
+    return a(e).map(e => g(e)).filter(e => null != e)
+  }
+
+  function h(e) {
+    if (!o(e)) return null;
+    let t = o(e.goal) ? e.goal : null,
+      n = e.updates,
+      r = e.suggestions,
+      i = e.associations,
+      l = _(e.briefings);
+    if (null != t) {
+      let a = s(t);
+      return null == a ? null : {
+        goal: a,
+        updates: f(n),
+        suggestions: p(r),
+        associations: m(i),
+        recentBriefing: g(e.recentBriefing ?? e.recent_briefing) ?? l[0] ?? null,
+        briefings: l
+      }
+    }
+    if (o(e.result)) {
+      let t = e.result,
+        n = o(t.goal) ? s(t.goal) : null;
+      return null == n ? null : {
+        goal: n,
+        updates: f(t.updates),
+        suggestions: p(t.suggestions),
+        associations: m(t.associations),
+        recentBriefing: g(t.recentBriefing ?? t.recent_briefing) ?? _(t.briefings)[0] ?? null,
+        briefings: _(t.briefings)
+      }
+    }
+    return null
+  }
+
+  function v(e) {
+    let t = "string" == typeof e.title ? e.title.trim() : void 0,
+      n = "string" == typeof e.description ? e.description.trim() : void 0,
+      r = e.status,
+      i = "parentGoalId" in e;
+    if (null == t && null == n && null == r && !i) throw Error("updateGoal requires at least one of title, description, status, or parentGoalId");
+    let l = {};
+    return null != t && (l.title = t), null != n && (l.description = n), null != r && (l.status = r), i && (l.parent_goal_id = e.parentGoalId ?? null), l
+  }
+  async function I(e, t, n) {
+    let r = v(t);
+    return h(await n("goals.update", {
+      id: e,
+      ...r
+    }))
+  }
+  async function w(e, t, n) {
+    let r = await n("goals.update", {
+      id: e,
+      ...v({
+        parentGoalId: t
+      })
+    });
+    return o(r) && "string" == typeof r.goal_id ? {
+      appliedParentGoalId: i(r.parentGoalId ?? r.parent_goal_id)
+    } : null
+  }
+  async function b(e, t, n) {
+    await n("goals.reorder", {
+      id: e,
+      order: t
+    })
+  }
+  async function A(e, t) {
+    await t("goals.delete", {
+      id: e
+    })
+  }
+  async function S(e, t, n, r) {
+    return y(await r("goals.suggestions.decide", {
+      goal_id: e,
+      suggestion_id: t,
+      decision: n
+    }))
+  }
+  async function V(e, t, n) {
+    let r = {};
+    return null != t && (r.source = t), null != n && (r.status = n), c(await e("goals.list", r))
+  }
+  async function E(e, t) {
+    return h(await e("goals.get", {
+      id: t
+    }))
+  }
+  async function k(e, t, n) {
+    let r, a;
+    return {
+      action: i((a = o((r = u(await n("iframe.call", {
+        action: e,
+        payload: t
+      }))).result) && (null != r.result.action || null != r.result.ok) ? r.result : r).action) ?? "",
+      ok: l(a.ok, !1),
+      result: a.result
+    }
+  }
+  let Q = (0, n.createGatewayQuery)({
+      id: "goals.list",
+      queryKey: ({
+        gatewayUrl: e
+      }) => r.goalsQueryKeys.list(e),
+      noiseFn: e => V(e.sendRequest, "user_goal"),
+      invalidationKey: () => r.goalsQueryKeys.all,
+      staleTime: 5e3
+    }),
+    C = (0, n.createGatewayQuery)({
+      id: "goals.list",
+      queryKey: ({
+        gatewayUrl: e
+      }) => r.goalsQueryKeys.trackingList(e),
+      noiseFn: e => V(e.sendRequest, "assistant_tracking"),
+      invalidationKey: () => r.goalsQueryKeys.all,
+      staleTime: 5e3
+    });
+  (0, n.createGatewayQuery)({
+    id: "goals.list",
+    queryKey: ({
+      gatewayUrl: e
+    }) => r.goalsQueryKeys.completedList(e),
+    noiseFn: e => V(e.sendRequest, void 0, "completed"),
+    invalidationKey: () => r.goalsQueryKeys.all,
+    staleTime: 5e3
+  });
+  let F = (0, n.createGatewayQuery)({
+    id: "goals.detail",
+    queryKey: ({
+      gatewayUrl: e,
+      goalId: t
+    }) => r.goalsQueryKeys.detail(e, t),
+    noiseFn: (e, t) => E(e.sendRequest, t.goalId),
+    invalidationKey: () => r.goalsQueryKeys.all,
+    staleTime: 5e3
+  });
+  e.s(["callIframeAction", 0, k, "decideGoalSuggestion", 0, S, "deleteGoal", 0, A, "extractGoalDetail", 0, h, "getGoalDetailGatewayQuery", 0, function(e) {
+    return {
+      bind: t => (0, r.bindGoalDetailGatewayQuery)(t, e),
+      transform: h,
+      staleTime: 5e3
+    }
+  }, "getGoalsCompletedListGatewayQuery", 0, function() {
+    return {
+      bind: r.bindGoalsCompletedListGatewayQuery,
+      transform: c,
+      staleTime: 5e3
+    }
+  }, "getGoalsListGatewayQuery", 0, function() {
+    return {
+      bind: r.bindGoalsListGatewayQuery,
+      transform: c,
+      staleTime: 5e3
+    }
+  }, "getGoalsTrackingListGatewayQuery", 0, function() {
+    return {
+      bind: r.bindGoalsTrackingListGatewayQuery,
+      transform: c,
+      staleTime: 5e3
+    }
+  }, "goalMoveMutationKey", 0, ["goals", "move"], "goalsDetailQuery", 0, F, "goalsListQuery", 0, Q, "goalsTrackingListQuery", 0, C, "isGoalLifecycleTransitionInProgress", 0, function(e) {
+    return (0, t.isGatewayRequestError)(e) && "goal_lifecycle_transition_in_progress" === e.code
+  }, "normalizeGoalSuggestionDecisionResponse", 0, y, "reorderGoal", 0, b, "reparentGoal", 0, w, "updateGoal", 0, I])
+}, 318422, e => {
+  "use strict";
+  var t = e.i(359783),
+    n = e.i(93731);
+  let r = (0, t.createClientLogger)("HatchVoiceSelectionPersistence");
+  async function i(e, t) {
+    try {
+      let i = await e.read(n.VOICE_SELECTION_PATH);
+      if (!i.ok && "not_found" !== i.error.kind) return r.retainForBugReport("warn", "Failed to read Hatch voice file before update"), !1;
+      let l = i.ok ? (0, n.readVoiceSelectionJsonFromString)(i.data.content) : null;
+      if (!(await e.write(n.VOICE_SELECTION_PATH, (0, n.serializeHatchVoiceFile)(t(l)), {
+          createDirectories: !0
+        })).ok) return r.retainForBugReport("warn", "Failed to persist Hatch voice file"), !1;
+      return !0
+    } catch (e) {
+      return r.retainForBugReport("warn", "Failed to persist Hatch voice file"), !1
+    }
+  }
+  async function l(e) {
+    return (await a(e))?.voiceId ?? null
+  }
+  async function a(e) {
+    return (await o(e)).selection
+  }
+  async function o(e) {
+    let t = await e.read(n.VOICE_SELECTION_PATH);
+    return t.ok ? {
+      selection: (0, n.parseHatchVoiceSelectionDetails)(t.data.content),
+      captionsEnabled: (0, n.parseHatchVoiceCaptionsEnabled)(t.data.content)
+    } : {
+      selection: null,
+      captionsEnabled: !1
+    }
+  }
+  e.s(["readPersistedHatchVoiceFile", 0, o, "readPersistedHatchVoiceSelection", 0, l, "writeHatchVoiceCaptionsEnabledAwaited", 0, function(e, t) {
+    return i(e, e => (0, n.withHatchVoiceCaptionsEnabled)(e, t))
+  }, "writeHatchVoiceSelectionAwaited", 0, function(e, t, r) {
+    return i(e, e => (0, n.withHatchVoiceSelection)(e, t, r))
+  }])
+}, 793949, 384390, 711541, e => {
+  "use strict";
+  var t = e.i(519172),
+    n = e.i(393202),
+    r = e.i(359783),
+    i = e.i(224520),
+    l = e.i(543912),
+    a = e.i(508180),
+    o = e.i(907579),
+    u = e.i(175286),
+    s = e.i(863641),
+    d = e.i(713590),
+    c = e.i(93731);
+  let f = "user/voice_nux.json";
+
+  function p(e) {
+    return ["hatch", "voice-nux", e]
+  }
+  let y = (0, r.createClientLogger)("HatchVoiceNuxPersistence");
+  async function m(e, t = !0) {
+    try {
+      let n = await e.write(f, `${JSON.stringify({voice_nux_seen:t})}
+`, {
+        createDirectories: !0
+      });
+      if (!n.ok) throw Error(n.error.message);
+      return !0
+    } catch (e) {
+      return y.retainForBugReport("warn", "Failed to persist the voice intro flag"), !1
+    }
+  }
+  async function g(e, t) {
+    try {
+      if (t?.aborted) return !0;
+      let n = await e.read(f);
+      if (t?.aborted) return !0;
+      if (n.ok) return (0, c.readVoiceSelectionJsonFromString)(n.data.content)?.voice_nux_seen === !0;
+      if ("not_found" !== n.error.kind) throw Error(n.error.message);
+      let r = await e.read(c.VOICE_SELECTION_PATH);
+      if (t?.aborted) return !0;
+      if (!r.ok) {
+        if ("not_found" !== r.error.kind) throw Error(r.error.message);
+        return !1
+      }
+      if ((0, c.readVoiceSelectionJsonFromString)(r.data.content)?.voice_nux_seen !== !0) return !1;
+      return await m(e), !0
+    } catch (e) {
+      return y.retainForBugReport("warn", "Failed to read the voice intro flag"), !0
+    }
+  }
+  e.s(["VOICE_NUX_PATH", 0, f, "hatchVoiceNuxQueryKey", 0, p, "readPersistedHatchVoiceNuxSeen", 0, g, "writeHatchVoiceNuxSeenAwaited", 0, m], 384390);
+  var _ = e.i(318422);
+  let h = "user/voices.json",
+    v = ["hatch", "saved-voices"],
+    I = /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/,
+    w = /^avocado_v2:[A-Za-z0-9_.-]{1,256}$/,
+    b = new Set(["version", "saved_voice_id", "voice_id", "voice_name", "description", "profiles"]),
+    A = /\p{Cc}/u,
+    S = ["**", "{", "}", "[", "]", "<", ">"],
+    V = new Set(["profile_id", "label", "voice_instructions", "preview_text"]);
+
+  function E(e) {
+    return null == e || "object" != typeof e || Array.isArray(e) ? null : e
+  }
+
+  function k(e, t) {
+    let n = Object.keys(e);
+    return n.length === t.size && n.every(e => t.has(e))
+  }
+
+  function Q(e, t, n) {
+    var r;
+    return "string" != typeof e ? null : 0 === e.trim().length || Array.from(e).length > t || (r = n?.multiline === !0, Array.from(e).some(e => A.test(e) && !(r && ("\n" === e || "\r" === e || "	" === e)))) || n?.pattern != null && !n.pattern.test(e) || n?.plainVoiceInstructions === !0 && S.some(t => e.includes(t)) ? null : e
+  }
+
+  function C(e) {
+    let t = E(e);
+    if (null == t || !k(t, V)) return null;
+    let n = null != Q(t.profile_id, 36, {
+        pattern: I
+      }) ? t.profile_id : null,
+      r = Q(t.label, 80),
+      i = Q(t.voice_instructions, 2e3, {
+        multiline: !0,
+        plainVoiceInstructions: !0
+      }),
+      l = Q(t.preview_text, 500, {
+        multiline: !0,
+        plainVoiceInstructions: !0
+      });
+    return null == n || null == r || null == i || null == l ? null : {
+      profileId: n,
+      label: r,
+      voiceInstructions: i,
+      previewText: l
+    }
+  }
+
+  function F(e) {
+    let t = E(e);
+    if (null == t || 1 !== t.version || !k(t, b)) return null;
+    let n = null != Q(t.saved_voice_id, 36, {
+        pattern: I
+      }) ? t.saved_voice_id : null,
+      r = null != Q(t.voice_id, 267, {
+        pattern: w
+      }) ? t.voice_id : null,
+      i = null != Q(t.voice_name, 80) ? t.voice_name : null,
+      l = Q(t.description, 4e3, {
+        multiline: !0
+      });
+    if (null == n || null == r || null == i || null == l || !Array.isArray(t.profiles) || 0 === t.profiles.length || t.profiles.length > 3) return null;
+    let a = t.profiles.map(C);
+    return a.some(e => null == e) || new Set(a.map(e => e.profileId)).size !== a.length ? null : {
+      version: 1,
+      savedVoiceId: n,
+      voiceId: r,
+      voiceName: i,
+      description: l,
+      profiles: a
+    }
+  }
+
+  function T(e, t) {
+    return Error(`${e}: ${t}`)
+  }
+  async function G(e) {
+    let t = await e.read(h, {
+      maxBytes: 4194304
+    });
+    if (!t.ok) {
+      if ("not_found" === t.error.kind) return [];
+      throw T("Unable to read saved voices", t.error.message)
+    }
+    let n = function(e) {
+      let t;
+      if (new TextEncoder().encode(e).byteLength > 4194304) return null;
+      try {
+        t = JSON.parse(e)
+      } catch {
+        return null
+      }
+      if (!Array.isArray(t) || t.length > 50) return null;
+      let n = t.map(F);
+      return n.some(e => null == e) || new Set(n.map(e => e.savedVoiceId)).size !== n.length ? null : n
+    }(t.data.content);
+    if (null == n) throw T("Unable to read saved voices", `${h} is invalid`);
+    return n
+  }
+
+  function K(e, t) {
+    return {
+      savedVoiceId: e.savedVoiceId,
+      profileId: t.profileId,
+      voiceId: e.voiceId,
+      voiceName: e.voiceName
+    }
+  }
+  e.s(["SAVED_VOICES_PATH", 0, h, "listSavedVoices", 0, G, "savedVoiceProfileSelection", 0, K, "savedVoicesQueryKey", 0, function(e) {
+    return [...v, e]
+  }], 711541);
+  let P = (0, r.createClientLogger)("HatchVoiceSelectionMutations");
+  e.s(["useHatchVoiceSelectionMutations", 0, function() {
+    let e = (0, o.useHatchGatewayFs)(),
+      {
+        gatewayScopeKey: r,
+        sendRequest: f
+      } = (0, u.useHatchRpc)(),
+      y = (0, l.useHatchVoiceEnabled)(),
+      g = (0, t.useRef)(r),
+      h = (0, t.useRef)(y);
+    g.current = r, h.current = y;
+    let v = (0, i.useMcString)("9cd8f8f3", d.FALLBACK_VOICE_ID),
+      I = (0, n.useQueryClient)(),
+      w = (0, t.useMemo)(() => (0, c.hatchVoiceSelectionQueryKey)(r), [r]),
+      b = (0, t.useCallback)(async ({
+        voiceId: t,
+        voiceName: n
+      }) => {
+        if (!y || null == r || !await (0, _.writeHatchVoiceSelectionAwaited)(e, t, {
+            voiceName: n,
+            introCompleted: !0
+          }) || !h.current || g.current !== r) return !1;
+        let i = (0, c.hatchVoiceSelectionQueryKey)(r);
+        return await I.cancelQueries({
+          queryKey: i,
+          exact: !0
+        }), !!h.current && g.current === r && (I.setQueryData(i, e => ({
+          voiceId: t,
+          voiceName: n,
+          hasPersistedSelection: !0,
+          captionsEnabled: e?.captionsEnabled ?? !1
+        })), (0, a.setVoiceId)(t), !0)
+      }, [e, r, I, y]),
+      A = (0, t.useCallback)(async t => {
+        if (!y || null == r || !await (0, _.writeHatchVoiceSelectionAwaited)(e, t.voiceId, {
+            savedVoiceId: t.savedVoiceId,
+            profileId: t.profileId,
+            voiceName: t.voiceName,
+            introCompleted: !0
+          }) || !h.current || g.current !== r) return !1;
+        let n = (0, c.hatchVoiceSelectionQueryKey)(r);
+        return await I.cancelQueries({
+          queryKey: n,
+          exact: !0
+        }), !!h.current && g.current === r && (I.setQueryData(n, e => ({
+          voiceId: t.voiceId,
+          voiceName: t.voiceName,
+          savedVoiceId: t.savedVoiceId,
+          profileId: t.profileId,
+          hasPersistedSelection: !0,
+          captionsEnabled: e?.captionsEnabled ?? !1
+        })), (0, a.setVoiceId)(t.voiceId), !0)
+      }, [e, r, I, y]),
+      S = (0, t.useCallback)(async (t, n) => {
+        let i;
+        if (!y || null == r) return !1;
+        try {
+          i = await G(e)
+        } catch (e) {
+          return P.error({
+            error: e instanceof Error ? e : Error(String(e)),
+            tags: (0, s.hatchSentryTags)(s.HATCH_SENTRY_SURFACES.CHAT_VOICE_OPTIONS)
+          }, "Failed to read saved voices for presented voice selection"), !1
+        }
+        if (!h.current || g.current !== r) return !1;
+        let l = i.find(e => e.voiceId === t.voiceId);
+        if (null == l) return n?.({
+          voice_id: t.voiceId
+        }), b(t);
+        n?.({
+          saved_voice_id: l.savedVoiceId
+        });
+        let a = l.profiles[0];
+        return null != a && A(K(l, a))
+      }, [e, r, A, b, y]);
+    return {
+      setVoice: b,
+      setSavedVoice: A,
+      setPresentedVoice: S,
+      clearVoiceSelection: (0, t.useCallback)(async () => {
+        if (!y || null == r) return !1;
+        try {
+          await f("voice.onboarding.reset", {})
+        } catch (e) {
+          return P.error({
+            error: e instanceof Error ? e : Error(String(e)),
+            tags: (0, s.hatchSentryTags)(s.HATCH_SENTRY_SURFACES.SETTINGS_VOICE)
+          }, "voice onboarding reset failed"), !1
+        }
+        let t = () => h.current && g.current === r;
+        if (!t()) return !1;
+        let n = p(r);
+        if (await Promise.all([I.cancelQueries({
+            queryKey: w,
+            exact: !0
+          }), I.cancelQueries({
+            queryKey: n,
+            exact: !0
+          })]), !t()) return !1;
+        let i = await m(e, !1);
+        return !!t() && (i ? (I.setQueryData(n, !1), I.setQueryData(w, {
+          voiceId: v,
+          hasPersistedSelection: !1,
+          captionsEnabled: !1
+        }), (0, a.clearVoiceIdOverride)(v), (0, a.setCaptionsEnabled)(!1), !0) : (P.error({
+          error: Error("Failed to persist voice intro reset"),
+          tags: (0, s.hatchSentryTags)(s.HATCH_SENTRY_SURFACES.SETTINGS_VOICE)
+        }, "voice onboarding intro reset persistence failed"), !1))
+      }, [e, r, v, I, w, f, y]),
+      setCaptionsPreference: (0, t.useCallback)(async t => {
+        if (!y || null == r) return !1;
+        (0, a.setCaptionsEnabled)(t);
+        let n = await (0, _.writeHatchVoiceCaptionsEnabledAwaited)(e, t);
+        return !!h.current && g.current === r && (n ? (I.setQueryData((0, c.hatchVoiceSelectionQueryKey)(r), e => null == e ? e : {
+          ...e,
+          captionsEnabled: t
+        }), !0) : ((0, a.getSnapshot)().chat.captionsEnabled === t && (0, a.setCaptionsEnabled)(!t), !1))
+      }, [e, r, I, y])
+    }
+  }], 793949)
+}, 424509, e => {
+  "use strict";
+  var t = e.i(722099),
+    n = e.i(519172),
+    r = e.i(849329),
+    i = e.i(224520),
+    l = e.i(543912),
+    a = e.i(508180),
+    o = e.i(907579),
+    u = e.i(175286),
+    s = e.i(713590),
+    d = e.i(93731),
+    c = e.i(318422),
+    f = e.i(793949);
+  async function p(e) {
+    let {
+      selection: t,
+      captionsEnabled: n
+    } = await (0, c.readPersistedHatchVoiceFile)(e);
+    return null != t ? {
+      voiceId: t.voiceId,
+      ...null != t.voiceName ? {
+        voiceName: t.voiceName
+      } : {},
+      ...null != t.savedVoiceId ? {
+        savedVoiceId: t.savedVoiceId
+      } : {},
+      ...null != t.profileId ? {
+        profileId: t.profileId
+      } : {},
+      hasPersistedSelection: !0,
+      captionsEnabled: n
+    } : {
+      voiceId: s.FALLBACK_VOICE_ID,
+      hasPersistedSelection: !1,
+      captionsEnabled: n
+    }
+  }
+  e.s(["useInitVoiceFromFile", 0, function() {
+    let e, c, y, m, g, _, h = (0, t.c)(20),
+      v = (0, o.useHatchGatewayFs)(),
+      {
+        isReady: I,
+        gatewayScopeKey: w
+      } = (0, u.useHatchRpc)(),
+      b = (0, l.useHatchVoiceEnabled)(),
+      A = (0, i.useMcString)("9cd8f8f3", s.FALLBACK_VOICE_ID);
+    h[0] !== w ? (e = (0, d.hatchVoiceSelectionQueryKey)(w), h[0] = w, h[1] = e) : e = h[1];
+    let S = e,
+      V = (0, f.useHatchVoiceSelectionMutations)();
+    h[2] !== v ? (c = async () => p(v), h[2] = v, h[3] = c) : c = h[3];
+    let E = b && I;
+    h[4] !== S || h[5] !== c || h[6] !== E ? (y = {
+      queryKey: S,
+      queryFn: c,
+      enabled: E,
+      staleTime: 0,
+      refetchOnMount: "always"
+    }, h[4] = S, h[5] = c, h[6] = E, h[7] = y) : y = h[7];
+    let {
+      data: k,
+      isPending: Q
+    } = (0, r.useQuery)(y);
+    h[8] !== k || h[9] !== A || h[10] !== b ? (m = () => {
+      if (b && null != k) {
+        if ((0, a.setCaptionsEnabled)(k.captionsEnabled), k.hasPersistedSelection) return void(0, a.setVoiceIdFromFile)(k.voiceId);
+        (0, a.clearVoiceIdOverride)(A)
+      }
+    }, g = [k, A, b], h[8] = k, h[9] = A, h[10] = b, h[11] = m, h[12] = g) : (m = h[11], g = h[12]), (0, n.useEffect)(m, g);
+    let C = b && k?.hasPersistedSelection === !0,
+      F = b && Q,
+      T = b ? k?.voiceName : void 0,
+      G = b ? k?.savedVoiceId : void 0,
+      K = b ? k?.profileId : void 0;
+    return h[13] !== V || h[14] !== K || h[15] !== C || h[16] !== F || h[17] !== T || h[18] !== G ? (_ = {
+      ...V,
+      hasPersistedVoiceSelection: C,
+      isVoiceSelectionLoading: F,
+      persistedVoiceName: T,
+      persistedSavedVoiceId: G,
+      persistedProfileId: K
+    }, h[13] = V, h[14] = K, h[15] = C, h[16] = F, h[17] = T, h[18] = G, h[19] = _) : _ = h[19], _
+  }])
+}]);
+
+//# debugId=1886cd06-a37d-dc04-302f-23e0491dcdfc
+//# sourceMappingURL=1qgql0b-h4jkg.js.map

@@ -1,0 +1,1801 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "c5ba7bad-3a1b-5146-5268-81dd1c69a680")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 645718, e => {
+  "use strict";
+  var t = e.i(359783),
+    a = e.i(240542),
+    n = e.i(899097),
+    r = e.i(416753),
+    l = e.i(975740),
+    o = e.i(498565),
+    i = e.i(871157),
+    s = e.i(195601),
+    c = e.i(825472),
+    u = e.i(228750),
+    d = e.i(204523),
+    m = e.i(863641);
+  let y = (0, t.createClientLogger)("EarlyGatewayRuntime"),
+    f = globalThis;
+
+  function h() {
+    return f.__hatchEarlyGatewayRuntimeState ??= {
+      activeRuntime: null,
+      activeGatewayUrl: null,
+      activeTargetKey: null,
+      descriptors: new Map,
+      scheduledSourceKeys: new Set,
+      releaseDocument: null,
+      started: !1
+    }, f.__hatchEarlyGatewayRuntimeState
+  }
+
+  function g() {
+    return window
+  }
+  let v = !1,
+    w = !1;
+
+  function p(e, t) {
+    let a = e.activeRuntime;
+    if (null != a && e.activeTargetKey === t.targetKey)
+      for (let n of (null == (0, l.getEarlyGatewayQueryPreload)(t.sourceKey) && (0, l.getOrCreateEarlyGatewayQueryPromise)(t, () => (0, o.dispatchGatewayQueryDescriptor)(t, a.getSnapshot().sendRequest)), e.descriptors.values())) {
+        if (null == e.activeGatewayUrl || null == e.activeTargetKey) return;
+        let a = (0, u.bindHatchEarlyGatewayQueryDescriptor)(n, e.activeGatewayUrl, e.activeTargetKey);
+        JSON.stringify(a.dependency?.queryKey) === t.sourceKey && _(e, n)
+      }
+  }
+
+  function _(e, t) {
+    if (null == e.activeGatewayUrl || null == e.activeTargetKey) return;
+    let a = (0, u.bindHatchEarlyGatewayQueryDescriptor)(t, e.activeGatewayUrl, e.activeTargetKey);
+    if (null == a.dependency) return void p(e, a);
+    let n = a.dependency;
+    if (null != (0, l.getEarlyGatewayQueryPreload)(a.sourceKey)) return;
+    let r = (0, l.getEarlyGatewayQueryPreload)(JSON.stringify(n.queryKey));
+    null == r || r.descriptor.targetKey !== a.targetKey || e.scheduledSourceKeys.has(a.sourceKey) || (e.scheduledSourceKeys.add(a.sourceKey), r.promise.then(t => {
+      var r, l;
+      e.activeTargetKey === a.targetKey && (r = n.skipWhen.field, l = n.skipWhen.equals, "object" == typeof t && null != t && r in t && JSON.stringify(t[r]) === JSON.stringify(l) || p(e, a))
+    }).catch(() => {
+      e.scheduledSourceKeys.delete(a.sourceKey)
+    }))
+  }
+
+  function S(e) {
+    for (let t of e.descriptors.values()) _(e, t)
+  }
+
+  function E() {
+    let e = g(),
+      t = e.__HATCH_GATEWAY_QUERY_QUEUE__;
+    if (!Array.isArray(t) || 0 === t.length) return !1;
+    e.__HATCH_GATEWAY_QUERY_QUEUE__ = [];
+    let a = h();
+    for (let e of t) {
+      let t = (0, u.parseHatchEarlyGatewayQueryDescriptors)(e);
+      if (null == t) {
+        y.error({
+          error: Error("Invalid early gateway query descriptors"),
+          tags: (0, m.hatchSentryTags)(m.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+        }, "Early gateway query descriptors failed validation");
+        continue
+      }
+      for (let e of (! function(e) {
+          let t = [...new Set(e.flatMap(e => e.clientPreloads ?? []))];
+          if (0 === t.length) return;
+          let a = g();
+          if (null != a.__HATCH_CLIENT_PRELOAD__) return a.__HATCH_CLIENT_PRELOAD__(t);
+          let n = a.__HATCH_CLIENT_PRELOAD_QUEUE__ ?? [];
+          for (let e of t) n.includes(e) || n.push(e);
+          a.__HATCH_CLIENT_PRELOAD_QUEUE__ = n.slice(0, d.HATCH_EARLY_CLIENT_PRELOAD_LIMIT)
+        }(t), t))
+        for (a.descriptors.set(e.sourceKey, e); a.descriptors.size > u.HATCH_EARLY_GATEWAY_QUERY_LIMIT;) {
+          let e = a.descriptors.keys().next().value;
+          if ("string" != typeof e) break;
+          a.descriptors.delete(e), a.scheduledSourceKeys.delete(e)
+        }
+    }
+    return S(a), !0
+  }
+
+  function b() {
+    var e, t;
+    let r, l, o = g();
+    if (!("__HATCH_GATEWAY_INIT__" in o)) return !1;
+    let u = o.__HATCH_GATEWAY_INIT__;
+    delete o.__HATCH_GATEWAY_INIT__;
+    let d = h();
+    if (null == u) return !0;
+    let f = function(e) {
+      if ("object" != typeof e || null == e) return null;
+      let t = e.cvmReplacementEnabled,
+        a = {
+          ...e,
+          cvmReplacementEnabled: void 0 !== t && t
+        };
+      return null != a && 1 === a.version && "string" == typeof a.gatewayUrl && a.gatewayUrl.length > 0 && (null == a.vmName || "string" == typeof a.vmName) && (null == a.authToken || "string" == typeof a.authToken) && (null == a.noiseNotaryToken || "string" == typeof a.noiseNotaryToken) && ("off" === a.attestationTier || "staging" === a.attestationTier || "prod" === a.attestationTier) && "boolean" == typeof a.attestationDowngradeAllowed && ("enabled" === a.cvmRolloutStatus || "disabled" === a.cvmRolloutStatus || "unavailable" === a.cvmRolloutStatus) && "boolean" == typeof a.cvmReplacementEnabled ? a : null
+    }(u);
+    if (null == f) return y.error({
+      error: Error("Invalid early gateway bootstrap payload"),
+      tags: (0, m.hatchSentryTags)(m.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+    }, "Early gateway bootstrap failed validation"), !0;
+    if (null != f.authToken) {
+      let e = {
+        token: f.authToken,
+        gatewayUrl: f.gatewayUrl,
+        vmName: f.vmName,
+        noiseNotaryToken: f.noiseNotaryToken
+      };
+      (0, a.setCachedToken)(e), (0, n.markEarlyGatewayCredentialSeed)(e)
+    }(0, a.rememberGatewayVmName)(f.gatewayUrl, f.vmName);
+    let p = (0, s.getOrCreatePrimaryGatewayRuntime)({
+      gatewayUrl: f.gatewayUrl,
+      vmName: f.vmName
+    }, {
+      attestationTier: (e = f.attestationTier, t = f.attestationDowngradeAllowed, r = function() {
+        try {
+          let e = window.localStorage.getItem(c.HATCH_ATTESTATION_OVERRIDE_STORAGE_KEY);
+          return (0, c.isAttestationTierOverride)(e) ? e : "default"
+        } catch {
+          return "default"
+        }
+      }(), (0, c.isAttestationDowngrade)(e, r) && !v && (v = !0, y.error({
+        serverTier: e,
+        requestedTier: r,
+        effectiveTier: t ? r : e,
+        applied: t,
+        tags: (0, m.hatchSentryTags)(m.HATCH_SENTRY_SURFACES.ATTESTATION)
+      }, t ? "Early gateway attestation enforcement resolved below the server-provided tier" : "Ignored a weakening VM attestation override on the early gateway connection")), "debug" !== (l = (0, c.resolveAttestationTier)(e, r, t)) || w || (w = !0, y.error({
+        effectiveTier: l,
+        tags: (0, m.hatchSentryTags)(m.HATCH_SENTRY_SURFACES.ATTESTATION)
+      }, "Early gateway attestation is verifying transparency against the debug policy")), l),
+      cvmEnabled: "enabled" === f.cvmRolloutStatus,
+      cvmReplacementEnabled: !0 === f.cvmReplacementEnabled,
+      cvmRolloutStatus: f.cvmRolloutStatus
+    });
+    return d.activeRuntime !== p && (null != d.activeRuntime && (d.releaseDocument?.(), (0, s.releasePrimaryGatewayRuntime)(d.activeRuntime)), d.activeRuntime = p, d.releaseDocument = p.retainForDocument()), d.activeTargetKey = (0, i.gatewayTargetKey)(f.gatewayUrl, f.vmName), d.activeGatewayUrl = f.gatewayUrl, p.updateConfig({
+      gatewayUrl: f.gatewayUrl,
+      vmName: f.vmName
+    }), p.activateConfig(), S(d), !0
+  }(0, r.setEarlyGatewayRuntimeReleaseHandler)(function() {
+    let e = h(),
+      t = g();
+    t.__HATCH_GATEWAY_ON_INIT__ === b && delete t.__HATCH_GATEWAY_ON_INIT__, t.__HATCH_GATEWAY_ON_QUERY__ === E && delete t.__HATCH_GATEWAY_ON_QUERY__, e.releaseDocument?.(), null != e.activeRuntime && (0, s.releasePrimaryGatewayRuntime)(e.activeRuntime), e.activeRuntime = null, e.activeGatewayUrl = null, e.activeTargetKey = null, e.descriptors.clear(), e.scheduledSourceKeys.clear(), e.releaseDocument = null
+  });
+  try {
+    ! function() {
+      let e = h();
+      if (e.started) return;
+      e.started = !0;
+      let t = g();
+      t.__HATCH_GATEWAY_ON_INIT__ = b, t.__HATCH_GATEWAY_ON_QUERY__ = E, b(), E()
+    }()
+  } catch (e) {
+    (0, m.captureHatchException)(m.HATCH_SENTRY_SURFACES.CHAT_GATEWAY, e instanceof Error ? e : Error(String(e)))
+  }
+  e.s(["HatchEarlyGatewayRuntimeBootstrap", 0, function() {
+    return null
+  }], 645718)
+}, 69803, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    n = e.i(590328),
+    r = e.i(374785);
+  e.s(["SidebarProvider", 0, function(e) {
+    let l, o, i, s, c, u = (0, a.c)(10);
+    return u[0] !== e ? ({
+      className: o,
+      children: l,
+      ...i
+    } = e, u[0] = e, u[1] = l, u[2] = o, u[3] = i) : (l = u[1], o = u[2], i = u[3]), u[4] !== o ? (s = (0, r.cn)("group/sidebar-wrapper min-h-svh w-full", o), u[4] = o, u[5] = s) : s = u[5], u[6] !== l || u[7] !== i || u[8] !== s ? (c = (0, t.jsx)(n.Flexbox, {
+      "data-slot": "sidebar-wrapper",
+      className: s,
+      ...i,
+      children: l
+    }), u[6] = l, u[7] = i, u[8] = s, u[9] = c) : c = u[9], c
+  }])
+}, 925535, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    n = e.i(217089),
+    r = e.i(345717);
+  e.i(488128);
+  var l = e.i(519172),
+    o = e.i(630203),
+    i = e.i(397649),
+    s = e.i(813280),
+    c = e.i(492929),
+    u = e.i(796413),
+    d = e.i(224520),
+    m = e.i(590328),
+    y = e.i(173214),
+    f = e.i(359783),
+    h = e.i(984345);
+  (0, f.createClientLogger)("useRouteTracePolicy");
+  var g = e.i(755876),
+    v = e.i(392570);
+
+  function w(e) {
+    let n, r, o, i, s, c, u = (0, a.c)(14),
+      {
+        children: d,
+        isEnabled: m
+      } = e;
+    u[0] === Symbol.for("react.memo_cache_sentinel") ? (n = [], u[0] = n) : n = u[0];
+    let [y, f] = (0, l.useState)(n), [h, g] = (0, l.useState)(!1), [w, _] = (0, l.useState)(!1), S = (0, l.useRef)(0);
+    u[1] !== m ? (r = e => {
+      if (!m) return;
+      let t = {
+        ...e,
+        id: `evt-${S.current=S.current+1}`,
+        timestamp: Date.now()
+      };
+      f(e => [t, ...e].slice(0, v.MAX_EVENTS))
+    }, u[1] = m, u[2] = r) : r = u[2];
+    let E = r;
+    u[3] === Symbol.for("react.memo_cache_sentinel") ? (o = () => {
+      f([])
+    }, u[3] = o) : o = u[3];
+    let b = o;
+    u[4] === Symbol.for("react.memo_cache_sentinel") ? (i = [], u[4] = i) : i = u[4], (0, l.useEffect)(p, i), u[5] !== E || u[6] !== y || u[7] !== m || u[8] !== h || u[9] !== w ? (s = {
+      isEnabled: m,
+      events: y,
+      addEvent: E,
+      clearEvents: b,
+      showClickOverlays: h,
+      setShowClickOverlays: g,
+      showImpressionOverlays: w,
+      setShowImpressionOverlays: _
+    }, u[5] = E, u[6] = y, u[7] = m, u[8] = h, u[9] = w, u[10] = s) : s = u[10];
+    let T = s;
+    return u[11] !== d || u[12] !== T ? (c = (0, t.jsx)(v.LoggingDebugContext.Provider, {
+      value: T,
+      children: d
+    }), u[11] = d, u[12] = T, u[13] = c) : c = u[13], c
+  }
+
+  function p() {
+    return window.addEventListener("keydown", _), () => window.removeEventListener("keydown", _)
+  }
+
+  function _(e) {
+    (e.ctrlKey || e.metaKey) && e.shiftKey && "l" === e.key.toLowerCase() && (e.preventDefault(), (0, v.toggleLoggingDebug)())
+  }
+  let S = (0, l.createContext)(null);
+
+  function E(e) {
+    let n, r, o = (0, a.c)(5),
+      {
+        children: i
+      } = e,
+      [s, c] = (0, l.useState)(null);
+    return o[0] !== s ? (n = {
+      isLoading: s,
+      setIsLoading: c
+    }, o[0] = s, o[1] = n) : n = o[1], o[2] !== i || o[3] !== n ? (r = (0, t.jsx)(S.Provider, {
+      value: n,
+      children: i
+    }), o[2] = i, o[3] = n, o[4] = r) : r = o[4], r
+  }
+  var b = e.i(758821),
+    T = e.i(607691),
+    R = e.i(282511),
+    x = e.i(767408);
+  let C = (0, f.createClientLogger)("useEctoUploadMessageAttachment");
+  var A = e.i(365500);
+  let k = (0, l.createContext)(null);
+
+  function H({
+    children: e
+  }) {
+    let [a, n] = (0, l.useState)(null), {
+      accessToken: r
+    } = (0, A.useAuth)(), {
+      uploadFile: o
+    } = function(e) {
+      let [t, a] = (0, l.useState)(!1);
+      return {
+        uploadFile: async (t, n, r) => {
+          let l = (0, T.getFileCategory)(t.type) ?? "unknown";
+          b.addBreadcrumb({
+            category: "file.upload",
+            message: "File upload started",
+            data: {
+              fileExtension: (0, x.fileExtensionForTelemetry)(t.name),
+              fileSize: t.size,
+              mimeType: t.type,
+              category: l
+            },
+            level: "info"
+          });
+          try {
+            try {
+              (0, T.validateFile)(t.size, t.type, t.name, T.DEFAULT_UPLOAD_CONFIG)
+            } catch (e) {
+              if (e instanceof Error) {
+                if (e.message.includes("File too large")) throw Error(`File too large. Maximum size is ${T.DEFAULT_UPLOAD_CONFIG.maxFileSize/1048576} MB`);
+                else if (e.message.includes("Unsupported file type")) throw Error(`Unsupported file type: ${t.type}. Supported types: ${(0,T.getSupportedFileTypesDisplay)()}`)
+              }
+              throw e
+            }
+          } catch (a) {
+            let e = a instanceof Error ? a.message : "Validation failed";
+            C.error({
+              error: e
+            }, "File validation failed"), b.addBreadcrumb({
+              category: "file.upload",
+              message: "File validation failed",
+              data: {
+                fileExtension: (0, x.fileExtensionForTelemetry)(t.name),
+                fileSize: t.size,
+                mimeType: t.type,
+                error: e
+              },
+              level: "warning"
+            }), r?.(e);
+            return
+          }
+          if (!e) {
+            let e = "Authentication required for file uploads";
+            C.error({
+              fileExtension: (0, x.fileExtensionForTelemetry)(t.name)
+            }, e), b.addBreadcrumb({
+              category: "file.upload",
+              message: "File upload auth failed",
+              data: {
+                fileExtension: (0, x.fileExtensionForTelemetry)(t.name),
+                error: e
+              },
+              level: "warning"
+            }), r?.(e);
+            return
+          }
+          a(!0);
+          try {
+            C.retainForBugReport("info", "Uploading file directly to rupload");
+            let a = await (0, R.uploadFileDirectToRupload)(t, e);
+            b.addBreadcrumb({
+              category: "file.upload",
+              message: "File upload completed",
+              data: {
+                fileExtension: (0, x.fileExtensionForTelemetry)(t.name),
+                fileSize: t.size,
+                mimeType: t.type,
+                category: l,
+                handle: a
+              },
+              level: "info"
+            }), C.retainForBugReport("info", "File uploaded successfully"), n?.(a)
+          } catch (a) {
+            let e = a instanceof Error ? a.message : "Upload failed";
+            C.error({
+              error: a,
+              fileExtension: (0, x.fileExtensionForTelemetry)(t.name),
+              fileSize: t.size
+            }, "Failed to upload file"), b.addBreadcrumb({
+              category: "file.upload",
+              message: "File upload failed",
+              data: {
+                fileExtension: (0, x.fileExtensionForTelemetry)(t.name),
+                fileSize: t.size,
+                mimeType: t.type,
+                category: l,
+                error: e
+              },
+              level: "error"
+            }), r?.(e)
+          } finally {
+            a(!1)
+          }
+        },
+        isUploading: t
+      }
+    }(r), i = (0, l.useRef)(null), s = (0, l.useRef)(r), c = (0, l.useRef)(o);
+    s.current = r, c.current = o;
+    let u = (0, l.useCallback)(e => {
+        s.current ? c.current(e, e => {
+          n(t => t ? {
+            ...t,
+            status: "complete",
+            handle: e
+          } : null)
+        }, e => {
+          n(t => t ? {
+            ...t,
+            status: "error",
+            errorMessage: e
+          } : null)
+        }) : n(e => e ? {
+          ...e,
+          status: "error",
+          errorMessage: "Not authenticated"
+        } : null)
+      }, []),
+      d = (0, l.useCallback)(e => {
+        i.current && URL.revokeObjectURL(i.current);
+        let t = URL.createObjectURL(e);
+        i.current = t, n({
+          fileName: e.name,
+          previewUrl: t,
+          status: "uploading",
+          handle: null,
+          errorMessage: null
+        }), u(e)
+      }, [u]),
+      m = (0, l.useCallback)(() => {
+        i.current && (URL.revokeObjectURL(i.current), i.current = null), n(null)
+      }, []),
+      y = (0, l.useMemo)(() => ({
+        pendingUpload: a,
+        startUpload: d,
+        clearUpload: m
+      }), [a, d, m]);
+    return (0, t.jsx)(k.Provider, {
+      value: y,
+      children: e
+    })
+  }
+  var N = e.i(635527);
+
+  function U(e) {
+    return (0, l.lazy)(() => new Promise(t => {
+      (0, N.requestIdleCallbackAfterLoad)(() => {
+        t(e())
+      })
+    }))
+  }
+
+  function j(e) {
+    let t, n, r = (0, a.c)(2),
+      {
+        children: o
+      } = e,
+      [i, s] = (0, l.useState)(!1);
+    return r[0] === Symbol.for("react.memo_cache_sentinel") ? (t = () => s(!0), n = [], r[0] = t, r[1] = n) : (t = r[0], n = r[1]), (0, l.useLayoutEffect)(t, n), i ? o : null
+  }
+  var L = e.i(543912),
+    I = e.i(863641),
+    F = e.i(675914);
+  let D = U(() => e.A(526298).then(e => ({
+      default: e.PELDebugBridge
+    }))),
+    K = U(() => e.A(856945).then(e => ({
+      default: e.HatchDeveloperToolbar
+    }))),
+    G = U(() => e.A(66571).then(e => ({
+      default: e.EctoLoggingDebugOverlay
+    }))),
+    P = U(() => e.A(796173).then(e => ({
+      default: e.EctoClickTrackingOverlays
+    })));
+
+  function O(e) {
+    let n, r, o, i, s, d, f, g, v = (0, a.c)(3),
+      {
+        children: w
+      } = e;
+    return s = (0, a.c)(4), d = (0, h.useOptionalAppRouterRouteContext)(), f = (0, y.useSetPageTracePolicy)(), g = d?.tracePolicy ?? null, s[0] !== f || s[1] !== g ? (o = () => {
+      g && f(g)
+    }, i = [f, g], s[0] = f, s[1] = g, s[2] = o, s[3] = i) : (o = s[2], i = s[3]), (0, l.useEffect)(o, i), v[0] === Symbol.for("react.memo_cache_sentinel") ? (n = [], v[0] = n) : n = v[0], (0, l.useEffect)(M, n), v[1] !== w ? (r = (0, t.jsx)(c.EctoKeyboardShortcutsProvider, {
+      children: (0, t.jsx)(u.HatchConfirmationDialogProvider, {
+        children: (0, t.jsx)(E, {
+          children: (0, t.jsx)(m.Flexbox, {
+            className: "h-dvh w-dvw overflow-hidden",
+            children: (0, t.jsx)(m.Flexbox, {
+              direction: "column",
+              grow: 1,
+              className: "md:bg-bg-primary relative overflow-hidden",
+              children: w
+            })
+          })
+        })
+      })
+    }), v[1] = w, v[2] = r) : r = v[2], r
+  }
+
+  function M() {
+    (0, d.initExposureLogging)()
+  }
+
+  function Y() {
+    let e, n = (0, a.c)(1),
+      {
+        canUse: r
+      } = (0, L.useNoiseInspectorAccess)();
+    return r ? (n[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(j, {
+      children: (0, t.jsx)(l.Suspense, {
+        fallback: null,
+        children: (0, t.jsx)(K, {})
+      })
+    }), n[0] = e) : e = n[0], e) : null
+  }
+
+  function B(e) {
+    let n, r, o, i, s, c = (0, a.c)(11),
+      {
+        children: u,
+        isLoggingDebugEnabled: d
+      } = e;
+    return c[0] === Symbol.for("react.memo_cache_sentinel") ? (n = (0, t.jsx)(l.Suspense, {
+      fallback: null,
+      children: (0, t.jsx)(Y, {})
+    }), c[0] = n) : n = c[0], c[1] !== d ? (r = d && (0, t.jsx)(j, {
+      children: (0, t.jsxs)(l.Suspense, {
+        fallback: null,
+        children: [(0, t.jsx)(D, {}), (0, t.jsx)(G, {}), (0, t.jsx)(P, {})]
+      })
+    }), c[1] = d, c[2] = r) : r = c[2], c[3] !== u ? (o = (0, t.jsx)(H, {
+      children: (0, t.jsx)(O, {
+        children: u
+      })
+    }), c[3] = u, c[4] = o) : o = c[4], c[5] !== r || c[6] !== o ? (i = (0, t.jsxs)(g.HatchDeveloperToolbarDialogProvider, {
+      children: [n, r, o]
+    }), c[5] = r, c[6] = o, c[7] = i) : i = c[7], c[8] !== d || c[9] !== i ? (s = (0, t.jsx)(w, {
+      isEnabled: d,
+      children: i
+    }), c[8] = d, c[9] = i, c[10] = s) : s = c[10], s
+  }
+
+  function V(e) {
+    let t, n, r = (0, a.c)(4),
+      {
+        onResolve: o
+      } = e,
+      i = (0, v.useIsLoggingDebugEnabled)();
+    return r[0] !== i || r[1] !== o ? (t = () => o(i), n = [i, o], r[0] = i, r[1] = o, r[2] = t, r[3] = n) : (t = r[2], n = r[3]), (0, l.useLayoutEffect)(t, n), null
+  }
+
+  function z(e) {
+    let n, r, o, i, s, c = (0, a.c)(10),
+      {
+        children: u
+      } = e,
+      d = (0, v.useIsLoggingDebugRequested)(),
+      [m, y] = (0, l.useState)(!1);
+    c[0] === Symbol.for("react.memo_cache_sentinel") ? (n = e => {
+      y(e)
+    }, c[0] = n) : n = c[0];
+    let f = n;
+    return c[1] !== d ? (r = () => {
+      d || y(!1)
+    }, o = [d], c[1] = d, c[2] = r, c[3] = o) : (r = c[2], o = c[3]), (0, l.useLayoutEffect)(r, o), c[4] !== d ? (i = d && (0, t.jsx)(l.Suspense, {
+      fallback: null,
+      children: (0, t.jsx)(V, {
+        onResolve: f
+      })
+    }), c[4] = d, c[5] = i) : i = c[5], c[6] !== u || c[7] !== m || c[8] !== i ? (s = (0, t.jsxs)(B, {
+      isLoggingDebugEnabled: m,
+      children: [i, u]
+    }), c[6] = u, c[7] = m, c[8] = i, c[9] = s) : s = c[9], s
+  }
+
+  function q(e) {
+    let n, r = (0, a.c)(2),
+      {
+        children: l
+      } = e;
+    return r[0] !== l ? (n = (0, t.jsx)(s.EctoErrorBoundary, {
+      surface: I.HATCH_SENTRY_SURFACES.ROOT,
+      fallback: W,
+      children: (0, t.jsx)(z, {
+        children: l
+      })
+    }), r[0] = l, r[1] = n) : n = r[1], n
+  }
+
+  function W(e) {
+    let {
+      error: a,
+      reset: n
+    } = e;
+    return (0, t.jsx)(F.HatchInitialLoadStateLayout, {
+      children: (0, t.jsx)(i.HatchPageErrorFallback, {
+        error: a,
+        reset: n
+      })
+    })
+  }
+
+  function Q(e) {
+    let t, n = (0, a.c)(1),
+      {
+        children: r
+      } = e;
+    return n[0] === Symbol.for("react.memo_cache_sentinel") ? (t = [], n[0] = t) : t = n[0], (0, l.useEffect)($, t), r
+  }
+
+  function $() {
+    window.__REACT_INITIAL_RENDER_COMPLETE__ = !0, window.dispatchEvent(new Event("react_initial_render_complete"))
+  }
+  var J = e.i(52038),
+    X = e.i(816042),
+    Z = e.i(666750),
+    ee = e.i(140175),
+    et = e.i(885462);
+  let ea = (0, f.createClientLogger)("HatchClientConsistencyRuntime");
+
+  function en(e, t, a, n = I.HATCH_SENTRY_SURFACES.NAVIGATION_CLIENT_CONSISTENCY, r = "", l = null) {
+    (0, I.captureHatchMessage)(n, "Hatch client consistency recovery requested", {
+      fingerprint: ["hatch-client-consistency", e, t, n],
+      level: "warning",
+      tags: {
+        client_consistency_action: t,
+        client_consistency_reason: e
+      },
+      extra: {
+        loadedDeploymentId: a.deploymentId,
+        loadedGitHash: a.gitHash,
+        componentStack: r,
+        errorMessage: l?.message,
+        errorName: l?.name
+      }
+    })
+  }
+
+  function er() {
+    let e = (0, l.useRef)((0, ee.getHatchClientPageStartedAtMs)()),
+      t = (0, l.useRef)(null),
+      a = (0, l.useRef)(!1),
+      n = (0, l.useRef)(!1),
+      r = (0, l.useRef)(!1),
+      o = (0, l.useRef)(!1),
+      i = (0, l.useRef)(!1),
+      s = (0, l.useRef)((0, ee.getLoadedHatchClientVersion)()),
+      c = (0, l.useCallback)(() => window.location.reload(), []),
+      u = (0, l.useCallback)(e => {
+        let t = e instanceof Error ? e : Error(String(e));
+        ea.retainForBugReport("warn", "Client version check failed"), o.current || (o.current = !0, (0, I.captureHatchException)(I.HATCH_SENTRY_SURFACES.NAVIGATION_CLIENT_CONSISTENCY, t, {
+          level: "warning",
+          tags: {
+            client_consistency_reason: "version_check_failed"
+          }
+        }))
+      }, []),
+      d = (0, l.useCallback)((t, a) => {
+        r.current = !0, (0, I.captureHatchMessage)(I.HATCH_SENTRY_SURFACES.NAVIGATION_CLIENT_CONSISTENCY, "Hatch client deployment changed", {
+          fingerprint: ["hatch-client-consistency", "deployment-mismatch"],
+          level: "warning",
+          tags: {
+            client_consistency_reason: "deployment_mismatch"
+          },
+          extra: {
+            currentDeploymentId: t.deploymentId,
+            currentGitHash: t.gitHash,
+            loadedDeploymentId: s.current.deploymentId,
+            loadedGitHash: s.current.gitHash,
+            pageAgeMs: Math.max(0, a - e.current)
+          }
+        })
+      }, []),
+      m = (0, l.useCallback)(async e => {
+        if (!n.current) {
+          n.current = !0;
+          try {
+            let t = await (0, ee.fetchCurrentHatchClientVersion)();
+            if (!(0, ee.hatchClientVersionsDiffer)(s.current, t) || (d(t, Date.now()), !(0, ee.claimHatchChunkReloadAttempt)(s.current))) return;
+            en("chunk_load_error", "automatic_reload", s.current, e.surface, e.componentStack, e.error), c()
+          } catch (e) {
+            i.current && u(e)
+          } finally {
+            n.current = !1
+          }
+        }
+      }, [d, c, u]),
+      y = (0, l.useCallback)(e => {
+        if ("navigation" === e.kind) {
+          var t;
+          return !!r.current && (en("deployment_mismatch", "refresh_on_navigation", s.current), t = e.targetHref, e.replace ? window.location.replace(t) : window.location.assign(t), !0)
+        }
+        return (!("u" > typeof navigator) || !1 !== navigator.onLine) && (r.current ? !!(0, ee.claimHatchChunkReloadAttempt)(s.current) && (en("chunk_load_error", "automatic_reload", s.current, e.surface, e.componentStack, e.error), c(), !0) : (m(e), !1))
+      }, [m, c]);
+    (0, l.useEffect)(() => (0, ee.registerHatchClientConsistencyHandler)(y), [y]);
+    let f = (0, l.useCallback)(async () => {
+      if (r.current || a.current || "u" > typeof document && "visible" !== document.visibilityState) return;
+      let n = Date.now();
+      if ((0, ee.shouldCheckHatchClientVersion)({
+          lastCheckAtMs: t.current,
+          nowMs: n,
+          pageStartedAtMs: e.current
+        })) {
+        t.current = n, a.current = !0;
+        try {
+          let e = await (0, ee.fetchCurrentHatchClientVersion)();
+          if (!i.current || !(0, ee.hatchClientVersionsDiffer)(s.current, e)) return;
+          d(e, n)
+        } catch (e) {
+          if (!i.current) return;
+          u(e)
+        } finally {
+          a.current = !1
+        }
+      }
+    }, [d, u]);
+    return (0, l.useEffect)(() => {
+      i.current = !0;
+      let e = (0, et.subscribeToPageLifecycle)(e => {
+        ("resume" === e.type || "attention" === e.type) && f()
+      });
+      return () => {
+        i.current = !1, e()
+      }
+    }, [f]), (0, l.useEffect)(() => {
+      let e = e => {
+          if (!r.current || e.defaultPrevented) return;
+          let t = e.target;
+          if (!(t instanceof Element)) return;
+          let a = t.closest("a[href]");
+          a instanceof HTMLAnchorElement && function(e, t) {
+            if (0 !== e.button || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || t.hasAttribute("download") || t.target.length > 0 && "_self" !== t.target) return !1;
+            try {
+              let e = new URL(t.href, window.location.href);
+              if (e.origin !== window.location.origin) return !1;
+              return e.pathname !== window.location.pathname || e.search !== window.location.search || e.hash === window.location.hash
+            } catch {
+              return !1
+            }
+          }(e, a) && y({
+            kind: "navigation",
+            replace: !1,
+            targetHref: a.href
+          }) && e.preventDefault()
+        },
+        t = () => {
+          r.current && (en("deployment_mismatch", "refresh_on_navigation", s.current), window.location.reload())
+        };
+      return document.addEventListener("click", e, !0), window.addEventListener("popstate", t), () => {
+        document.removeEventListener("click", e, !0), window.removeEventListener("popstate", t)
+      }
+    }, [y]), null
+  }
+  var el = e.i(240542),
+    eo = e.i(899097),
+    ei = e.i(416753),
+    es = e.i(906788),
+    ec = e.i(173066),
+    eu = e.i(941748),
+    ed = e.i(51651),
+    em = e.i(372873),
+    ey = e.i(173662),
+    ef = e.i(175286),
+    eh = e.i(719182),
+    eg = e.i(977501),
+    ev = e.i(147245),
+    ew = e.i(503610),
+    ep = e.i(427489),
+    e_ = e.i(535678),
+    eS = e.i(871157),
+    eE = e.i(870228),
+    eb = e.i(295967),
+    eT = e.i(832964);
+
+  function eR() {
+    let e, n, l, o, i = (0, a.c)(4);
+    return i[0] === Symbol.for("react.memo_cache_sentinel") ? (e = r.fbs._("Loading support options", null, {
+      hk: "Q10cs"
+    }), i[0] = e) : e = i[0], i[1] === Symbol.for("react.memo_cache_sentinel") ? (n = (0, t.jsx)(eT.Skeleton, {
+      className: "size-20 rounded-full md:size-24"
+    }), i[1] = n) : n = i[1], i[2] === Symbol.for("react.memo_cache_sentinel") ? (l = (0, t.jsx)(eT.Skeleton, {
+      strength: "strong",
+      className: "h-8 w-72 max-w-full rounded"
+    }), i[2] = l) : l = i[2], i[3] === Symbol.for("react.memo_cache_sentinel") ? (o = (0, t.jsx)(eb.LoadingState, {
+      name: "vm_disabled",
+      className: "flex h-full flex-1",
+      children: (0, t.jsx)("section", {
+        role: "status",
+        "aria-busy": "true",
+        "aria-label": e,
+        className: "flex flex-1 flex-col items-center px-5 pt-16 pb-8 md:justify-center md:px-4 md:pt-8 motion-reduce:[&_*]:!animate-none",
+        children: (0, t.jsxs)("div", {
+          "aria-hidden": "true",
+          className: "flex w-full max-w-sm flex-col items-center",
+          children: [n, (0, t.jsxs)("div", {
+            className: "mt-9 flex w-full flex-col items-center gap-3",
+            children: [l, (0, t.jsxs)("div", {
+              className: "flex w-full max-w-xs flex-col items-center gap-1",
+              children: [(0, t.jsx)(eT.Skeleton, {
+                className: "h-5 w-full rounded"
+              }), (0, t.jsx)(eT.Skeleton, {
+                className: "h-5 w-4/5 rounded"
+              })]
+            })]
+          }), (0, t.jsx)(eT.Skeleton, {
+            className: "mt-6 h-11 w-full rounded-full"
+          })]
+        })
+      })
+    }), i[3] = o) : o = i[3], o
+  }
+
+  function ex() {
+    let e, n, l, o, i, s = (0, a.c)(5);
+    return s[0] === Symbol.for("react.memo_cache_sentinel") ? (e = r.fbs._("Loading secure workspace setup", null, {
+      hk: "3d53ku"
+    }), s[0] = e) : e = s[0], s[1] === Symbol.for("react.memo_cache_sentinel") ? (n = (0, t.jsx)(eT.Skeleton, {
+      className: "size-[100px] rounded-full"
+    }), l = (0, t.jsx)(eT.Skeleton, {
+      className: "mt-8 h-8 w-72 max-w-full rounded"
+    }), o = (0, t.jsx)(eT.Skeleton, {
+      className: "mt-3 h-5 w-96 max-w-full rounded",
+      strength: "medium"
+    }), s[1] = n, s[2] = l, s[3] = o) : (n = s[1], l = s[2], o = s[3]), s[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)(eb.LoadingState, {
+      name: "cvm_gate",
+      className: "h-full w-full",
+      children: (0, t.jsx)("main", {
+        role: "status",
+        "aria-busy": "true",
+        "aria-label": e,
+        className: "bg-bg-secondary flex h-dvh w-full flex-col items-center justify-center px-4 py-8 motion-reduce:[&_*]:!animate-none",
+        children: (0, t.jsxs)("div", {
+          "aria-hidden": "true",
+          className: "flex w-full max-w-[553px] flex-col items-center",
+          children: [n, l, o, (0, t.jsx)("div", {
+            className: "mt-8 flex w-full max-w-sm justify-center gap-3",
+            children: Array.from({
+              length: 6
+            }).map(eC)
+          }), (0, t.jsx)(eT.Skeleton, {
+            className: "mt-8 h-12 w-full max-w-sm rounded-full"
+          })]
+        })
+      })
+    }), s[4] = i) : i = s[4], i
+  }
+
+  function eC(e, a) {
+    return (0, t.jsx)(eT.Skeleton, {
+      className: "rounded-12 h-12 w-10",
+      strength: "medium"
+    }, a)
+  }
+  var eA = e.i(325814);
+
+  function ek() {
+    return (0, l.lazy)(() => e.A(636189).then(e => ({
+      default: e.HatchCvmReplacementSurface
+    })))
+  }
+
+  function eH() {
+    let e, n, l, o, i, s = (0, a.c)(5);
+    return s[0] === Symbol.for("react.memo_cache_sentinel") ? (e = r.fbs._("Loading environment update", null, {
+      hk: "4dUGGj"
+    }), s[0] = e) : e = s[0], s[1] === Symbol.for("react.memo_cache_sentinel") ? (n = (0, t.jsx)(eT.Skeleton, {
+      "aria-hidden": "true",
+      className: "absolute end-4 top-4 size-12 rounded-full"
+    }), s[1] = n) : n = s[1], s[2] === Symbol.for("react.memo_cache_sentinel") ? (l = (0, t.jsx)(eT.Skeleton, {
+      className: "size-16 rounded-full md:size-[100px]"
+    }), o = (0, t.jsx)(eT.Skeleton, {
+      className: "mt-8 h-8 w-96 max-w-full rounded"
+    }), s[2] = l, s[3] = o) : (l = s[2], o = s[3]), s[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)(eb.LoadingState, {
+      name: "cvm_replacement",
+      className: "h-full w-full",
+      children: (0, t.jsxs)("main", {
+        role: "status",
+        "aria-busy": "true",
+        "aria-label": e,
+        className: "bg-bg-secondary relative flex h-dvh w-full flex-col md:h-auto md:min-h-dvh md:items-center md:justify-center md:py-8 motion-reduce:[&_*]:!animate-none",
+        children: [n, (0, t.jsx)("div", {
+          "aria-hidden": "true",
+          className: "flex flex-1 flex-col overflow-y-auto px-4 py-8 md:flex-none md:overflow-visible md:py-0",
+          children: (0, t.jsxs)("div", {
+            className: "mx-auto flex w-full max-w-[553px] flex-col items-center md:my-0",
+            children: [l, o, (0, t.jsxs)("div", {
+              className: "mt-4 flex w-full flex-col items-center gap-2",
+              children: [(0, t.jsx)(eT.Skeleton, {
+                className: "h-5 w-full rounded",
+                strength: "medium"
+              }), (0, t.jsx)(eT.Skeleton, {
+                className: "h-5 w-72 max-w-full rounded",
+                strength: "medium"
+              })]
+            }), (0, t.jsx)(eT.Skeleton, {
+              className: "mt-4 size-6 rounded-full",
+              strength: "medium"
+            })]
+          })
+        })]
+      })
+    }), s[4] = i) : i = s[4], i
+  }
+
+  function eN(e) {
+    let [a, n] = (0, l.useState)(0), o = (0, l.useRef)(null), i = (0, l.useMemo)(ek, [a]);
+    return (0, t.jsx)(eA.Dialog, {
+      open: !0,
+      onOpenChange: () => {},
+      children: (0, t.jsx)(eA.DialogPortal, {
+        children: (0, t.jsxs)(eA.DialogContentPrimitive, {
+          "aria-describedby": void 0,
+          className: "bg-bg-secondary inset-0 h-dvh w-full overflow-y-auto motion-reduce:animate-none",
+          "data-testid": "cvm-replacement-maintenance",
+          onOpenAutoFocus: () => {
+            o.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+          },
+          onCloseAutoFocus: e => {
+            e.preventDefault();
+            let t = o.current;
+            t?.isConnected && null == t.closest("[inert]") && t.focus()
+          },
+          onEscapeKeyDown: e => e.preventDefault(),
+          onInteractOutside: e => e.preventDefault(),
+          children: [(0, t.jsx)(eA.DialogTitle, {
+            className: "sr-only",
+            children: null == e.snapshot.replacement ? r.fbt._("Checking your encrypted environment", null, {
+              hk: "1swdMx"
+            }) : r.fbt._("Updating your encrypted environment", null, {
+              hk: "2lKghI"
+            })
+          }), (0, t.jsx)(s.HatchErrorBoundary, {
+            surface: I.HATCH_SENTRY_SURFACES.CVM_REPLACEMENT,
+            withQueryReset: !1,
+            resetKeys: [a],
+            fallback: ({
+              error: e,
+              reset: a
+            }) => (0, t.jsx)(eE.HatchContentErrorFallback, {
+              error: e,
+              onRetry: () => {
+                n(e => e + 1), a()
+              },
+              alwaysShowRetry: !0,
+              hideTechnicalDetails: !0
+            }),
+            children: (0, t.jsx)(l.Suspense, {
+              fallback: (0, t.jsx)(eH, {}),
+              children: (0, t.jsx)(i, {
+                ...e
+              })
+            })
+          })]
+        })
+      })
+    })
+  }
+  var eU = e.i(21483),
+    ej = e.i(152759),
+    eL = e.i(506171),
+    eI = e.i(652649);
+  let eF = (0, f.createClientLogger)("HatchTransportRoute");
+  (0, e_.markInitialLoadPoint)("hatch_route_module_evaluated");
+  let eD = (0, f.createClientLogger)("HatchTransportRoute"),
+    eK = (0, l.lazy)(() => e.A(131381).then(e => ({
+      default: e.HatchDisabledVmState
+    }))),
+    eG = (0, l.lazy)(() => e.A(334534).then(e => ({
+      default: e.HatchCvmFlowHost
+    }))),
+    eP = (0, l.lazy)(() => e.A(353691).then(e => ({
+      default: e.HatchCvmReplacementRuntime
+    }))),
+    eO = {
+      cross_tab: "Starting gateway destination from cross-tab reconciliation",
+      flow: "Starting gateway destination from confidential VM flow",
+      restore: "Restoring pending gateway destination",
+      vm_switch: "Starting gateway destination from VM switch"
+    };
+
+  function eM(e) {
+    let n, r = (0, a.c)(3),
+      {
+        error: l,
+        reset: o
+      } = e;
+    return r[0] !== l || r[1] !== o ? (n = (0, t.jsx)(F.HatchInitialLoadStateLayout, {
+      children: (0, t.jsx)(i.HatchPageErrorFallback, {
+        error: l,
+        reset: o,
+        reportToTelemetry: !1
+      })
+    }), r[0] = l, r[1] = o, r[2] = n) : n = r[2], n
+  }
+  let eY = {
+    attestationTier: "off",
+    cvmReplacementEnabled: !1,
+    resolved: !1
+  };
+
+  function eB(e) {
+    let t, n, r = (0, a.c)(5),
+      {
+        onResolve: o
+      } = e,
+      i = (0, L.useHatchAttestationEnforcementTier)(),
+      s = (0, d.useMcBool)("dccdcd94", !1);
+    return r[0] !== i || r[1] !== s || r[2] !== o ? (t = () => o({
+      attestationTier: i,
+      cvmReplacementEnabled: s,
+      resolved: !0
+    }), n = [i, s, o], r[0] = i, r[1] = s, r[2] = o, r[3] = t, r[4] = n) : (t = r[3], n = r[4]), (0, l.useLayoutEffect)(t, n), null
+  }
+
+  function eV({
+    children: e,
+    cvmBootstrap: a,
+    cvmBootstrapResolved: n = !0
+  }) {
+    let r = (0, J.useHatchServerData)(),
+      {
+        activateGateway: o
+      } = (0, J.useHatchServerDataActions)(),
+      i = "DISABLED" === r.vmState,
+      [c, u] = (0, l.useState)(null),
+      d = n && !i && c?.snapshot.context?.envId === r.vmId && c.snapshot.maintenanceActive,
+      m = (0, l.useRef)(a);
+    m.current = a;
+    let y = (0, l.useRef)(n),
+      f = (0, l.useRef)(n ? a.initialFlow : null),
+      h = f.current,
+      [g, v] = (0, l.useState)(n && null != h),
+      [w, p] = (0, l.useState)(null),
+      [_, S] = (0, l.useState)(!1),
+      [E, b] = (0, l.useState)(null),
+      [T, R] = (0, l.useState)({
+        gatewayUrl: null,
+        targetKey: null,
+        noiseReady: !1,
+        shellReady: !1
+      }),
+      [x, C] = (0, l.useState)(!1),
+      [A, k] = (0, l.useState)(0),
+      H = (0, l.useRef)(0),
+      N = (0, l.useRef)(0),
+      [U, j] = (0, l.useState)(!1),
+      L = (0, l.useRef)((0, eS.gatewayTargetKey)(r.gatewayUrl, r.vmName)),
+      F = (0, l.useRef)(!1),
+      D = (0, eS.gatewayTargetKey)(r.gatewayUrl, r.vmName),
+      K = (0, l.useRef)(D),
+      G = (0, l.useRef)(null != r.gatewayUrl && null != r.vmName ? D : null);
+    null != r.gatewayUrl && null != r.vmName && (null == G.current ? G.current = D : G.current !== D && (G.current = D, K.current = D)), D !== L.current && (F.current = !0);
+    let P = (0, l.useRef)(null),
+      [O, M] = (0, l.useState)(!1),
+      Y = (0, l.useCallback)(e => (P.current = e, M(!0), () => {
+        P.current === e && (P.current = null, M(!1))
+      }), []);
+    (0, l.useLayoutEffect)(() => {
+      j(!0)
+    }, []), (0, l.useLayoutEffect)(() => {
+      if (!i && r.authToken && r.gatewayUrl) {
+        let e = {
+          token: r.authToken,
+          gatewayUrl: r.gatewayUrl,
+          vmName: r.vmName,
+          noiseNotaryToken: r.noiseNotaryToken
+        };
+        (0, eo.consumeMatchingEarlyGatewayCredentialSeed)(e) || (0, el.setCachedToken)(e)
+      }
+    }, [i, r.authToken, r.gatewayUrl, r.noiseNotaryToken, r.vmName]), (0, l.useLayoutEffect)(() => {
+      if (!n) return;
+      let e = y.current ? f.current : m.current.initialFlow;
+      y.current = !0, f.current = e;
+      let t = (0, ev.subscribeToHatchCvmFlow)(p);
+      return v(null != e), e?.kind === "enroll_new" ? ((0, eh.clearNoiseTrustSessionState)(), p((0, ev.materializeHatchCvmBootstrapFlow)({
+        kind: "enroll_new"
+      }))) : p((0, ev.readPendingHatchCvmFlow)()), S(!0), t
+    }, [n]), (0, l.useEffect)(() => {
+      n && "enabled" === a.rolloutStatus && "authoritative" === r.gatewayBootstrapSource && "missing" === r.vmAssignment && null == r.gatewayUrl && !r.hasOverride && (0, ev.requestHatchCvmFlow)({
+        kind: "enroll_new"
+      })
+    }, [n, a.rolloutStatus, r.gatewayBootstrapSource, r.gatewayUrl, r.hasOverride, r.vmAssignment]), (0, l.useLayoutEffect)(() => {
+      if (!n || "enabled" === a.rolloutStatus) return;
+      let e = (0, ev.readPendingHatchCvmFlow)();
+      (e?.flow.kind === "enroll_new" || e?.flow.kind === "enroll_existing") && (0, ev.clearPendingHatchCvmFlow)()
+    }, [a.rolloutStatus, n]);
+    let [B, V] = (0, l.useState)(eY), {
+      attestationTier: z,
+      cvmReplacementEnabled: W,
+      resolved: Q
+    } = B, $ = ew.HATCH_CVM_REPLACEMENT_STATES.some(e => e === r.vmState), ee = $ && !(c?.snapshot.context?.envId === r.vmId && c.canConnect), et = "enabled" === a.rolloutStatus || W || "hatch_cvm" === r.vmType || $ || c?.snapshot.context?.envId === r.vmId && c?.snapshot.replacement != null || null != r.vmId && null != (0, ep.readNoiseCvmReplacementTrust)(r.vmId), ea = (0, l.useCallback)(() => P.current?.shouldCaptureRawMessage() ?? !1, []), en = (0, l.useCallback)((...e) => P.current?.onRawMessage(...e), []), er = (0, l.useRef)(null), ed = (0, l.useCallback)(e => {
+      er.current = e
+    }, []), em = (0, l.useCallback)(e => {
+      ("connect" === e.lifecycle.phase || "connected" === e.lifecycle.phase) && eD.retainForBugReport("info", "Gateway connection progress after VM wake"), "reconnect_scheduled" === e.lifecycle.phase && 0 === e.lifecycle.attempt && k(e => e + 1), P.current?.onLifecycleEvent(e)
+    }, []);
+    r.gatewayUrl && !i && (0, el.rememberGatewayVmName)(r.gatewayUrl, r.vmName);
+    let ey = (0, l.useMemo)(() => n && Q && r.gatewayUrl && !i && !ee ? {
+        gatewayUrl: r.gatewayUrl,
+        vmName: r.vmName,
+        onRawMessage: O ? en : void 0,
+        shouldCaptureRawMessage: O ? ea : void 0,
+        onLifecycleEvent: em
+      } : null, [r.gatewayUrl, r.vmName, i, ee, n, Q, O, em, en, ea]),
+      e_ = (0, es.useGatewayWebSocketWithResolvedPolicy)(ey, {
+        attestationTier: z,
+        cvmReplacementEnabled: W || "hatch_cvm" === r.vmType,
+        cvmEnabled: n && "enabled" === a.rolloutStatus
+      });
+    (0, ec.useHatchVmWakeRecovery)(null == r.gatewayUrl || i ? null : {
+      gatewayUrl: r.gatewayUrl,
+      vmId: r.vmId,
+      vmName: r.vmName
+    }, {
+      reconnectExhausted: e_?.reconnectExhausted ?? !1,
+      recoveryRevision: A,
+      onWakeAttempt: ed
+    }), (0, l.useEffect)(() => {
+      n && !r.isLoading && null == ey && (0, ei.releaseHatchEarlyGatewayRuntime)()
+    }, [n, ey, r.isLoading]);
+    let eE = e_?.reconnect,
+      eb = e_?.connectionState ?? "disconnected",
+      eT = "connected" === eb,
+      eR = e_?.sendRequest ?? eJ,
+      eC = (0, l.useMemo)(() => ({
+        enabled: "enabled" === a.rolloutStatus,
+        startEnrollment: () => {
+          "enabled" === a.rolloutStatus && (0, ev.requestHatchCvmFlow)({
+            kind: "enroll_new"
+          })
+        },
+        startUnlock: () => {
+          (0, ev.requestHatchCvmFlow)({
+            kind: "unlock"
+          })
+        }
+      }), [a.rolloutStatus]),
+      eA = (0, ev.admitHatchCvmFlow)(w, a.rolloutStatus),
+      ek = (0, l.useMemo)(() => eA ?? ("enabled" === a.rolloutStatus && g && null != h ? {
+        flow: h,
+        returnPath: null,
+        revision: 0
+      } : null), [eA, a.rolloutStatus, h, g]),
+      eH = (0, ev.isHatchCvmFlowWaitingForConnection)(ek) ? null : ek,
+      eU = null != E && (x || "error" === eb || e_?.reconnectExhausted === !0),
+      eL = x && "connecting" === eb,
+      eI = (0, ev.isHatchCvmFlowWaitingForConnection)(ek) ? ek : null,
+      eF = null == E || (0, ev.isHatchCvmFlowWaitingForConnection)(E.request) ? null : E.request,
+      eK = (null != eH && (null == eF || eH.revision !== eF.revision) ? eH : eF ?? eH) ?? eI,
+      ez = (0, l.useRef)(null);
+    ez.current = null == E ? eK : null;
+    let eW = eK?.flow ?? null,
+      eQ = null == eW ? null : `${eW.kind}:${eK?.revision??0}`,
+      eX = n && !y.current && null != a.initialFlow,
+      e0 = n && "enabled" === a.rolloutStatus && "authoritative" === r.gatewayBootstrapSource && "missing" === r.vmAssignment && null == r.gatewayUrl && !r.hasOverride,
+      e2 = !i && (eX || e0 || null != eW || (0, ev.isHatchCvmFlowWaitingForConnection)(ek) || d || ee || null != E),
+      e5 = (0, l.useCallback)(() => {
+        ez.current = null, H.current += 1, b(null), C(!1), v(!1), (0, ev.clearPendingHatchCvmFlow)(), p(null)
+      }, []),
+      e4 = (0, l.useCallback)(async (e, t = !1) => {
+        let a = ++H.current;
+        eD.retainForBugReport("info", eO[e.source]), t || C(!1);
+        try {
+          let t = e.completion.assignment,
+            n = null != t && (r.gatewayUrl !== t.gatewayUrl || r.vmName !== t.vmName);
+          if (null != t && n) {
+            if (await P.current?.beforeGatewayChange(), a !== H.current) return;
+            o({
+              ...t,
+              authToken: null,
+              noiseNotaryToken: null
+            })
+          } else if (null != eE) eE();
+          else throw Error("Gateway connection is unavailable");
+          "immediate" === e.completion.reveal && e5()
+        } catch {
+          a === H.current && C(!0)
+        }
+      }, [o, e5, eE, r.gatewayUrl, r.vmName]),
+      e3 = (0, l.useCallback)(e => {
+        if (null == eK || ez.current !== eK) return;
+        N.current += 1, ez.current = null;
+        let t = eK.flow.kind,
+          a = "enroll_new" === t || "enroll_existing" === t ? "shell" : "noise",
+          n = {
+            completion: e,
+            readiness: a,
+            request: eK,
+            source: "flow"
+          };
+        R({
+          gatewayUrl: null,
+          targetKey: null,
+          noiseReady: !1,
+          shellReady: !1
+        }), b(n), v(!1), "destination_ready" === e.reveal && (0, ev.prepareHatchCvmFlowReconnect)(a), null != e.assignment && (0, ej.broadcastVmReady)({
+          ...e.assignment,
+          readiness: a
+        }), e4(n)
+      }, [eK, e4]),
+      e7 = (0, l.useCallback)(e => {
+        if (null == eK || ez.current !== eK) return;
+        N.current += 1, ez.current = null, v(!1);
+        let t = {
+          completion: {
+            assignment: e,
+            reveal: "destination_ready"
+          },
+          readiness: "shell",
+          request: eK,
+          source: "vm_switch"
+        };
+        R({
+          gatewayUrl: null,
+          targetKey: null,
+          noiseReady: !1,
+          shellReady: !1
+        }), b(t), (0, ev.prepareHatchCvmFlowReconnect)("shell"), (0, ej.broadcastVmReady)({
+          ...e,
+          readiness: "shell"
+        }), e4(t)
+      }, [eK, e4]);
+    (0, l.useLayoutEffect)(() => {
+      _ && null == E && (0, ev.isHatchCvmFlowWaitingForConnection)(ek) && b({
+        completion: {
+          assignment: null,
+          reveal: "destination_ready"
+        },
+        readiness: ek.flow.readiness,
+        request: ek,
+        source: "restore"
+      })
+    }, [ek, _, E]), (0, l.useEffect)(() => {
+      if ("enabled" !== a.rolloutStatus) return;
+      let e = (0, ej.subscribeToVmReadyBroadcast)(e => {
+        let t = null != r.gatewayUrl,
+          a = (0, eS.gatewayTargetKey)(r.gatewayUrl, r.vmName),
+          n = (0, eS.gatewayTargetKey)(e.gatewayUrl, e.vmName);
+        if (t && a !== n) return;
+        let l = ++N.current;
+        (async () => {
+          try {
+            let r = await fetch("/api/session", {
+              cache: "no-store"
+            });
+            if (!r.ok) return;
+            let o = await r.json(),
+              i = (0, X.getAssignedVmFromSessionResponse)(o);
+            if (i?.vmName == null || l !== N.current) return;
+            let s = {
+                gatewayUrl: i.endpointUrl,
+                vmName: i.vmName,
+                vmId: i.vmId,
+                vmState: i.vmState,
+                vmType: i.vmType,
+                replaceAttemptId: i.replaceAttemptId,
+                vmStateSource: i.vmStateSource
+              },
+              c = (0, eS.gatewayTargetKey)(s.gatewayUrl, s.vmName);
+            if (t && c !== a) return;
+            let u = c === n ? e.readiness : "shell";
+            ez.current = null;
+            let d = (0, ev.prepareHatchCvmFlowReconnect)(u),
+              m = {
+                completion: {
+                  assignment: s,
+                  reveal: "destination_ready"
+                },
+                readiness: u,
+                request: d,
+                source: "cross_tab"
+              };
+            v(!1), R({
+              gatewayUrl: null,
+              targetKey: null,
+              noiseReady: !1,
+              shellReady: !1
+            }), b(m), e4(m)
+          } catch {}
+        })()
+      });
+      return () => {
+        N.current += 1, e()
+      }
+    }, [a.rolloutStatus, r.gatewayUrl, r.vmName, e4]);
+    let e8 = null != E && null != eH && eH.revision !== E.request.revision;
+    (0, l.useEffect)(() => {
+      e8 && (H.current += 1, b(null), C(!1))
+    }, [e8]), (0, l.useEffect)(() => {
+      if (e8 || E?.completion.reveal !== "destination_ready") return;
+      let e = E.completion.assignment?.gatewayUrl ?? r.gatewayUrl,
+        t = (0, eS.gatewayTargetKey)(e, E.completion.assignment?.vmName ?? r.vmName),
+        a = "noise" === E.readiness ? T.noiseReady : T.shellReady;
+      null != e && T.gatewayUrl === e && T.targetKey === t && a && e5()
+    }, [T, e5, E, e8, r.gatewayUrl, r.vmName]);
+    let e6 = (0, l.useCallback)(() => {
+      if (null != E) {
+        C(!0), e4(E, !0);
+        return
+      }
+      eE?.()
+    }, [E, eE, e4]);
+    return (0, t.jsxs)(ef.HatchRpcProvider, {
+      connectionAuthority: e_?.connectionAuthority ?? null,
+      connectionState: eb,
+      isReady: eT,
+      sendRequest: eR,
+      onEvent: e_?.onEvent ?? eZ,
+      onClientInvoke: e_?.onClientInvoke ?? e1,
+      ensureLiveConnection: e_?.ensureLiveConnection,
+      gatewayUrl: ey?.gatewayUrl ?? null,
+      vmName: ey?.vmName ?? null,
+      gatewayScopeKey: F.current ? D : r.gatewayUrl,
+      children: [n && et && !i && null != r.vmId && (0, t.jsx)(s.HatchErrorBoundary, {
+        surface: I.HATCH_SENTRY_SURFACES.CVM_REPLACEMENT,
+        children: (0, t.jsx)(l.Suspense, {
+          fallback: null,
+          children: (0, t.jsx)(eP, {
+            envId: r.vmId,
+            vmType: r.vmType,
+            vmState: r.vmState,
+            replaceAttemptId: r.replaceAttemptId,
+            vmStateSource: r.vmStateSource,
+            inventoryRevision: r.vmStateRevision,
+            refreshRevision: A,
+            onChange: u,
+            onReconnect: () => eE?.()
+          })
+        })
+      }), (0, t.jsx)(l.Suspense, {
+        fallback: null,
+        children: (0, t.jsx)(eB, {
+          onResolve: V
+        })
+      }), (0, t.jsx)(eu.HatchVmUpdatingProvider, {
+        isUpdating: !1,
+        connectionState: eb,
+        target: null == r.gatewayUrl || i ? null : {
+          gatewayUrl: r.gatewayUrl,
+          vmId: r.vmId,
+          vmName: r.vmName,
+          vmState: r.vmState
+        },
+        refreshRevision: A,
+        children: (0, t.jsx)(Z.HatchConnectionProvider, {
+          gatewayUrl: r.gatewayUrl,
+          wsConnectionState: eb,
+          hasEverConnected: e_?.hasEverConnected ?? !1,
+          reconnectExhausted: e_?.reconnectExhausted ?? !1,
+          lastFailureKind: e_?.lastFailureKind ?? "none",
+          reconnect: e_?.reconnect,
+          children: (0, t.jsx)(eg.HatchCvmFlowProvider, {
+            actions: eC,
+            children: (0, t.jsxs)(q, {
+              children: [(0, t.jsx)(e$, {
+                children: (0, t.jsx)(eq, {
+                  activateGateway: o,
+                  cvmRolloutStatus: a.rolloutStatus,
+                  gatewayScopeKey: F.current ? D : r.gatewayUrl,
+                  connectionState: eb,
+                  cvmBootstrapResolved: n,
+                  flowBlockerActive: e2,
+                  gatewayReconnect: e_?.reconnect,
+                  gatewayReconnectExhausted: e_?.reconnectExhausted ?? !1,
+                  gatewayFailureKind: e_?.lastFailureKind ?? "none",
+                  gatewayTerminalFailureKind: e_?.terminalFailureKind ?? "none",
+                  gatewayHasEverConnected: e_?.hasEverConnected ?? !1,
+                  hasLeftInitialGateway: F.current,
+                  holdNewAdmissionForDestination: e2,
+                  onReadinessChange: R,
+                  registerApplicationBridge: Y,
+                  serverData: r,
+                  shellHydrated: U,
+                  storeScopeKey: K.current,
+                  targetKey: D,
+                  children: e
+                })
+              }), !i && (d || ee) && null == eW && !eX && !e0 && c?.snapshot.context?.envId === r.vmId && (0, t.jsx)(eN, {
+                snapshot: c.snapshot,
+                onRetry: c.retry
+              }), !i && null != eW && (0, t.jsx)("div", {
+                "data-hatch-boot-surface": "cvm_flow",
+                elementtiming: "hatch_cvm_flow",
+                className: "bg-bg-secondary fixed inset-0 z-50",
+                children: (0, t.jsx)(s.HatchErrorBoundary, {
+                  surface: I.HATCH_SENTRY_SURFACES.CVM,
+                  reportToTelemetry: !1,
+                  fallback: ({
+                    error: e,
+                    reset: a
+                  }) => (0, t.jsx)(eM, {
+                    error: e,
+                    reset: a
+                  }),
+                  children: (0, t.jsx)(l.Suspense, {
+                    fallback: (0, t.jsx)(ex, {}),
+                    children: (0, t.jsx)(eG, {
+                      flow: eW,
+                      enrollmentAllowed: "enabled" === a.rolloutStatus,
+                      destinationFailed: eU,
+                      destinationPending: null != E && (!eU || eL),
+                      flowInteractionsDisabled: E?.source === "vm_switch" && !eU,
+                      onComplete: e3,
+                      onRetryDestination: e6,
+                      onVmSwitchComplete: e7
+                    }, eQ ?? void 0)
+                  })
+                })
+              })]
+            })
+          })
+        })
+      })]
+    })
+  }
+
+  function ez() {
+    let e, t = (0, a.c)(1);
+    return t[0] === Symbol.for("react.memo_cache_sentinel") ? (e = r.fbt._("This browser cannot create the secure connection required by this app. Update it to the latest version, then try again.", null, {
+      hk: "1Bm8u1"
+    }), t[0] = e) : e = t[0], e
+  }
+
+  function eq(e) {
+    let n, r, i, c, u, d, m, y, f, h, g, v, w, p, _ = (0, a.c)(99),
+      {
+        activateGateway: S,
+        children: E,
+        connectionState: b,
+        cvmBootstrapResolved: T,
+        cvmRolloutStatus: R,
+        flowBlockerActive: x,
+        gatewayFailureKind: C,
+        gatewayHasEverConnected: A,
+        gatewayReconnect: k,
+        gatewayReconnectExhausted: H,
+        gatewayTerminalFailureKind: N,
+        gatewayScopeKey: U,
+        holdNewAdmissionForDestination: j,
+        hasLeftInitialGateway: L,
+        onReadinessChange: D,
+        registerApplicationBridge: K,
+        serverData: G,
+        shellHydrated: P,
+        storeScopeKey: O,
+        targetKey: M
+      } = e,
+      Y = (0, ef.useHatchRpc)(),
+      {
+        gatewayUrl: B,
+        isReady: V
+      } = Y,
+      z = "DISABLED" === G.vmState,
+      q = (0, eU.useHatchCheckpointAdmissionStatus)(),
+      W = (0, eU.useReportActivationDestination)(),
+      $ = "unsupported_browser_crypto" === N,
+      J = !z && !$ && T && "allowed" === q && V,
+      [ee, et] = (0, l.useState)(null);
+    _[0] !== R || _[1] !== G.hasOverride ? (n = async () => {
+      if ("enabled" === R && !G.hasOverride) return (0, ev.requestHatchCvmFlow)({
+        kind: "enroll_new"
+      }) ? {
+        kind: "handled"
+      } : {
+        kind: "failed"
+      };
+      if ("disabled" === R) try {
+        let e = await (0, eL.requestHatchVmLease)("standard");
+        return {
+          kind: "assigned",
+          activation: {
+            ...e,
+            authToken: null,
+            noiseNotaryToken: null
+          }
+        }
+      } catch (e) {
+        eD.retainForBugReport("warn", "Standard VM recovery lease failed")
+      }
+      return {
+        kind: "failed"
+      }
+    }, _[0] = R, _[1] = G.hasOverride, _[2] = n) : n = _[2];
+    let ea = n,
+      en = T && "allowed" === q && !G.isLoading && null == G.gatewayUrl && ("unavailable" === G.vmAssignment || "missing" === G.vmAssignment && "disabled" === R) && "rejected" !== G.backendAuthStatus && !x,
+      er = G.vmResolutionIssue?.kind !== "explicit_unavailable";
+    _[3] !== S || _[4] !== ea || _[5] !== er || _[6] !== en ? (r = {
+      autoRecover: er,
+      enabled: en,
+      onAssigned: S,
+      onConfirmedMissing: ea
+    }, _[3] = S, _[4] = ea, _[5] = er, _[6] = en, _[7] = r) : r = _[7];
+    let el = function({
+        autoRecover: e,
+        enabled: t,
+        onAssigned: a,
+        onConfirmedMissing: n
+      }) {
+        let {
+          isVisible: r
+        } = (0, eI.usePageVisibility)(), [o, i] = (0, l.useState)("idle"), [s, c] = (0, l.useState)(null), u = (0, l.useRef)(t), d = (0, l.useRef)(!1), m = (0, l.useRef)(0), y = (0, l.useRef)(null), f = (0, l.useRef)(r);
+        u.current = t;
+        let h = (0, l.useCallback)(() => {
+          if (!u.current || null != y.current) return;
+          let e = ++m.current;
+          d.current && (c(null), i("recovering"));
+          let t = (async () => {
+            try {
+              let t = await fetch("/api/session", {
+                cache: "no-store"
+              });
+              if (!t.ok) {
+                eF.retainForBugReport("warn", "VM assignment recovery request returned an unsuccessful response"), d.current && e === m.current && i("failed");
+                return
+              }
+              let r = await t.json();
+              if (!d.current || e !== m.current) return;
+              let l = (0, X.getAssignedVmFromSessionResponse)(r);
+              if (l?.vmName != null) return void a({
+                gatewayUrl: l.endpointUrl,
+                vmName: l.vmName,
+                authToken: null,
+                noiseNotaryToken: null,
+                vmId: l.vmId,
+                vmState: l.vmState,
+                vmType: l.vmType,
+                replaceAttemptId: l.replaceAttemptId,
+                vmStateSource: l.vmStateSource
+              });
+              if ("none" === r.status) {
+                let t = await n();
+                if (!d.current || e !== m.current) return;
+                "assigned" === t.kind ? a(t.activation) : "failed" === t.kind && i("failed");
+                return
+              }
+              if (r.vm_resolution_issue?.kind === "explicit_unavailable") {
+                c(r.vm_resolution_issue), i("failed");
+                return
+              }
+              i("failed")
+            } catch (t) {
+              eF.retainForBugReport("warn", "VM assignment recovery request failed"), d.current && e === m.current && i("failed")
+            }
+          })();
+          y.current = t, t.finally(() => {
+            y.current === t && (y.current = null)
+          })
+        }, [a, n]);
+        return (0, l.useEffect)(() => (d.current = !0, () => {
+          d.current = !1, m.current += 1
+        }), []), (0, l.useEffect)(() => {
+          if (!t) {
+            m.current += 1, y.current = null, c(null), i("idle");
+            return
+          }
+          e && "idle" === o && h()
+        }, [e, t, h, o]), (0, l.useEffect)(() => {
+          if (!t) return;
+          let e = () => h();
+          return window.addEventListener("online", e), () => window.removeEventListener("online", e)
+        }, [t, h]), (0, l.useEffect)(() => {
+          let e = f.current;
+          f.current = r, t && r && !e && h()
+        }, [t, r, h]), {
+          issue: s,
+          recover: h,
+          state: o
+        }
+      }(r),
+      eo = "failed" === el.state ? el.issue : G.vmResolutionIssue;
+    _[8] !== B || _[9] !== V || _[10] !== D || _[11] !== M ? (i = () => {
+      D({
+        gatewayUrl: B,
+        targetKey: M,
+        noiseReady: V,
+        shellReady: V
+      })
+    }, c = [B, V, D, M], _[8] = B, _[9] = V, _[10] = D, _[11] = M, _[12] = i, _[13] = c) : (i = _[12], c = _[13]), (0, l.useEffect)(i, c), _[14] !== j || _[15] !== M || _[16] !== J ? (u = () => {
+      J && !j && et(M)
+    }, d = [j, M, J], _[14] = j, _[15] = M, _[16] = J, _[17] = u, _[18] = d) : (u = _[17], d = _[18]), (0, l.useEffect)(u, d);
+    let ei = !z && !$ && T && "allowed" === q && !j && (J || ee === M);
+    _[19] !== q || _[20] !== T || _[21] !== x || _[22] !== eo?.kind || _[23] !== W || _[24] !== z || _[25] !== G.gatewayUrl || _[26] !== G.isLoading || _[27] !== G.vmAssignment || _[28] !== el.state ? (m = () => {
+      if (G.isLoading || "blocked" === q) return;
+      let e = null == G.gatewayUrl && "unavailable" === G.vmAssignment && (eo?.kind === "explicit_unavailable" || "failed" === el.state);
+      T && !x && (z || null == G.gatewayUrl && "missing" === G.vmAssignment || e) && W("vm_disconnected")
+    }, _[19] = q, _[20] = T, _[21] = x, _[22] = eo?.kind, _[23] = W, _[24] = z, _[25] = G.gatewayUrl, _[26] = G.isLoading, _[27] = G.vmAssignment, _[28] = el.state, _[29] = m) : m = _[29];
+    let es = eo?.kind;
+    _[30] !== q || _[31] !== T || _[32] !== x || _[33] !== W || _[34] !== z || _[35] !== G.gatewayUrl || _[36] !== G.isLoading || _[37] !== G.vmAssignment || _[38] !== es || _[39] !== el.state ? (y = [q, T, x, es, W, z, G.gatewayUrl, G.isLoading, G.vmAssignment, el.state], _[30] = q, _[31] = T, _[32] = x, _[33] = W, _[34] = z, _[35] = G.gatewayUrl, _[36] = G.isLoading, _[37] = G.vmAssignment, _[38] = es, _[39] = el.state, _[40] = y) : y = _[40], (0, l.useEffect)(m, y);
+    e: {
+      if ("blocked" !== q && !G.isLoading && z && null != G.gatewayUrl) {
+        let e;
+        _[41] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(F.HatchInitialLoadStateLayout, {
+          settingsControlClassName: "end-5 top-15 size-11",
+          settingsControlIconSize: 20,
+          children: (0, t.jsx)(s.HatchErrorBoundary, {
+            surface: I.HATCH_SENTRY_SURFACES.VM_PICKER_RECONNECT,
+            fallback: eQ,
+            children: (0, t.jsx)(o.HeroPlaceholder, {
+              name: "vm-disabled-state",
+              fallback: (0, t.jsx)(eR, {}),
+              children: (0, t.jsx)(eK, {})
+            })
+          })
+        }), _[41] = e) : e = _[41], f = e;
+        break e
+      }
+      if ("blocked" !== q && !G.isLoading && null == G.gatewayUrl && eo?.kind === "explicit_unavailable" && !x) {
+        let e, a;
+        _[42] === Symbol.for("react.memo_cache_sentinel") ? (e = Error("Workspace is explicitly unavailable"), _[42] = e) : e = _[42];
+        let n = eo.title ?? void 0,
+          r = eo.summary ?? void 0;
+        _[43] !== n || _[44] !== r || _[45] !== el.recover ? (a = (0, t.jsx)(F.HatchInitialLoadStateLayout, {
+          children: (0, t.jsx)(eE.HatchContentErrorFallback, {
+            error: e,
+            title: n,
+            description: r,
+            hideTechnicalDetails: !0,
+            onRetry: el.recover,
+            alwaysShowRetry: !0
+          })
+        }), _[43] = n, _[44] = r, _[45] = el.recover, _[46] = a) : a = _[46], f = a;
+        break e
+      }
+      if ("blocked" !== q && !G.isLoading && null == G.gatewayUrl && !x) {
+        let e, a, n;
+        if ("missing" === G.vmAssignment && "enabled" === R && !G.hasOverride || en && "failed" !== el.state) {
+          f = null;
+          break e
+        }
+        _[47] === Symbol.for("react.memo_cache_sentinel") ? (e = Error("No workspace gateway resolved for the current user"), _[47] = e) : e = _[47], _[48] !== el.recover || _[49] !== en ? (a = en ? el.recover : eW, _[48] = el.recover, _[49] = en, _[50] = a) : a = _[50], _[51] !== a ? (n = (0, t.jsx)(F.HatchInitialLoadStateLayout, {
+          children: (0, t.jsx)(eE.HatchContentErrorFallback, {
+            error: e,
+            hideTechnicalDetails: !0,
+            onRetry: a,
+            alwaysShowRetry: !0
+          })
+        }), _[51] = a, _[52] = n) : n = _[52], f = n;
+        break e
+      }
+      if ("blocked" !== q && $) {
+        let e, a, n;
+        _[53] === Symbol.for("react.memo_cache_sentinel") ? (e = Error("Browser lacks a compatible X25519 implementation"), a = (0, t.jsx)(ez, {}), _[53] = e, _[54] = a) : (e = _[53], a = _[54]);
+        let r = k ?? e0;
+        _[55] !== r ? (n = (0, t.jsx)(F.HatchInitialLoadStateLayout, {
+          children: (0, t.jsx)(eE.HatchContentErrorFallback, {
+            error: e,
+            description: a,
+            onRetry: r,
+            alwaysShowRetry: !0
+          })
+        }), _[55] = r, _[56] = n) : n = _[56], f = n;
+        break e
+      }
+      if ("blocked" !== q && !ei && "error" === b && "auth_failed" === C) {
+        let e, a;
+        _[57] === Symbol.for("react.memo_cache_sentinel") ? (e = Error("Unable to establish a secure workspace connection"), _[57] = e) : e = _[57];
+        let n = k ?? e0;
+        _[58] !== n ? (a = (0, t.jsx)(F.HatchInitialLoadStateLayout, {
+          children: (0, t.jsx)(eE.HatchContentErrorFallback, {
+            error: e,
+            onRetry: n,
+            alwaysShowRetry: !0
+          })
+        }), _[58] = n, _[59] = a) : a = _[59], f = a;
+        break e
+      }
+      f = null
+    }
+    let ec = f,
+      eu = !T || "allowed" !== q || z || $ || j,
+      ed = eu && "connected" === b ? "connecting" : b;
+    _[60] !== b || _[61] !== x || _[62] !== C || _[63] !== A || _[64] !== k || _[65] !== H || _[66] !== U || _[67] !== L || _[68] !== K || _[69] !== P || _[70] !== O || _[71] !== ei || _[72] !== M || _[73] !== ec ? (h = {
+      connectionState: b,
+      flowBlockerActive: x,
+      gatewayFailureKind: C,
+      gatewayHasEverConnected: A,
+      gatewayReconnect: k,
+      gatewayReconnectExhausted: H,
+      gatewayScopeKey: U,
+      hasLeftInitialGateway: L,
+      registerApplicationBridge: K,
+      shellHydrated: P,
+      storeScopeKey: O,
+      targetAdmitted: ei,
+      targetKey: M,
+      terminalInitialLoadState: ec
+    }, _[60] = b, _[61] = x, _[62] = C, _[63] = A, _[64] = k, _[65] = H, _[66] = U, _[67] = L, _[68] = K, _[69] = P, _[70] = O, _[71] = ei, _[72] = M, _[73] = ec, _[74] = h) : h = _[74];
+    let ey = h,
+      eh = eu ? null : Y.connectionAuthority,
+      eg = !eu && Y.isReady,
+      ew = eu ? eJ : Y.sendRequest,
+      ep = eu ? eZ : Y.onEvent,
+      e_ = eu ? e1 : Y.onClientInvoke,
+      eS = eu ? eX : Y.ensureLiveConnection,
+      eb = !eu && A;
+    return _[75] === Symbol.for("react.memo_cache_sentinel") ? (g = (0, t.jsx)(Q, {}), _[75] = g) : g = _[75], _[76] !== ey || _[77] !== E ? (v = (0, t.jsxs)(em.HatchRouteAdmissionProvider, {
+      admission: ey,
+      children: [E, g]
+    }), _[76] = ey, _[77] = E, _[78] = v) : v = _[78], _[79] !== C || _[80] !== k || _[81] !== H || _[82] !== ed || _[83] !== G.gatewayUrl || _[84] !== eb || _[85] !== v ? (w = (0, t.jsx)(Z.HatchConnectionProvider, {
+      gatewayUrl: G.gatewayUrl,
+      wsConnectionState: ed,
+      hasEverConnected: eb,
+      lastFailureKind: C,
+      reconnectExhausted: H,
+      reconnect: k,
+      children: v
+    }), _[79] = C, _[80] = k, _[81] = H, _[82] = ed, _[83] = G.gatewayUrl, _[84] = eb, _[85] = v, _[86] = w) : w = _[86], _[87] !== U || _[88] !== ed || _[89] !== Y.gatewayUrl || _[90] !== Y.vmName || _[91] !== eh || _[92] !== eg || _[93] !== ew || _[94] !== ep || _[95] !== e_ || _[96] !== eS || _[97] !== w ? (p = (0, t.jsx)(ef.HatchRpcProvider, {
+      connectionAuthority: eh,
+      connectionState: ed,
+      isReady: eg,
+      sendRequest: ew,
+      onEvent: ep,
+      onClientInvoke: e_,
+      ensureLiveConnection: eS,
+      gatewayUrl: Y.gatewayUrl,
+      vmName: Y.vmName,
+      gatewayScopeKey: U,
+      children: w
+    }), _[87] = U, _[88] = ed, _[89] = Y.gatewayUrl, _[90] = Y.vmName, _[91] = eh, _[92] = eg, _[93] = ew, _[94] = ep, _[95] = e_, _[96] = eS, _[97] = w, _[98] = p) : p = _[98], p
+  }
+
+  function eW() {
+    return window.location.reload()
+  }
+
+  function eQ(e) {
+    let {
+      error: a,
+      reset: n
+    } = e;
+    return (0, t.jsx)(i.HatchPageErrorFallback, {
+      error: a,
+      reset: n
+    })
+  }
+
+  function e$(e) {
+    let n, r, l = (0, a.c)(3),
+      {
+        children: o
+      } = e;
+    return l[0] === Symbol.for("react.memo_cache_sentinel") ? (n = (0, t.jsx)(er, {}), l[0] = n) : n = l[0], l[1] !== o ? (r = (0, t.jsx)(ey.HatchQueryProvider, {
+      children: (0, t.jsxs)(ed.HatchTracingProvider, {
+        children: [n, o]
+      })
+    }), l[1] = o, l[2] = r) : r = l[2], r
+  }
+
+  function eJ() {
+    return Promise.reject(Error("Gateway not connected"))
+  }
+
+  function eX() {
+    return Promise.reject(Error("Gateway application transport blocked before admission"))
+  }
+
+  function eZ() {
+    return () => {}
+  }
+
+  function e0() {}
+
+  function e1() {
+    return () => {}
+  }
+  e.s(["HatchTransportLayout", 0, function(e) {
+    let r, l = (0, a.c)(4),
+      {
+        children: o
+      } = e,
+      {
+        cvmBootstrap: i,
+        cvmBootstrapResolved: s
+      } = (0, n.useHatchAppRouterBootstrap)();
+    return l[0] !== o || l[1] !== i || l[2] !== s ? (r = (0, t.jsx)(eV, {
+      cvmBootstrap: i,
+      cvmBootstrapResolved: s,
+      children: o
+    }), l[0] = o, l[1] = i, l[2] = s, l[3] = r) : r = l[3], r
+  }], 925535)
+}, 899097, 416753, e => {
+  "use strict";
+  let t = null;
+  e.s(["consumeMatchingEarlyGatewayCredentialSeed", 0, function(e) {
+    let a = t;
+    return null != a && (t = null, a.gatewayUrl === e.gatewayUrl && a.vmName === e.vmName && a.token === e.token && a.noiseNotaryToken === e.noiseNotaryToken)
+  }, "markEarlyGatewayCredentialSeed", 0, function(e) {
+    t = e
+  }], 899097);
+  let a = null;
+  e.s(["releaseHatchEarlyGatewayRuntime", 0, function() {
+    a?.()
+  }, "setEarlyGatewayRuntimeReleaseHandler", 0, function(e) {
+    a = e
+  }], 416753)
+}]);
+
+//# debugId=c5ba7bad-3a1b-5146-5268-81dd1c69a680
+//# sourceMappingURL=37nw7qn-c_bpm.js.map

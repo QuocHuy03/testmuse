@@ -1,0 +1,1612 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "ee06d077-3c03-305c-1149-97eb5ca47b88")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 254517, e => {
+  e.v(t => Promise.all(["static/chunks/3kwy7cag-3e4d.js", "static/chunks/205vb_nmrh-ji.js", "static/chunks/15tcg-f4bm08k.js", "static/chunks/3wkm0jnbybs8o.js"].map(t => e.l(t))).then(() => t(63477)))
+}, 787900, e => {
+  "use strict";
+  var t = e.i(984416),
+    r = e.i(722099),
+    n = e.i(519172);
+  let l = (0, n.createContext)({
+    consentStatus: null,
+    setConsentStatus: () => {}
+  });
+  e.s(["ConsentStatusClientProvider", 0, function(e) {
+    let a, o, i, u = (0, r.c)(6),
+      {
+        children: s,
+        consentStatus: c
+      } = e,
+      [d, f] = (0, n.useState)(c);
+    u[0] === Symbol.for("react.memo_cache_sentinel") ? (a = e => {
+      f(e)
+    }, u[0] = a) : a = u[0];
+    let p = a;
+    return u[1] !== d ? (o = {
+      consentStatus: d,
+      setConsentStatus: p
+    }, u[1] = d, u[2] = o) : o = u[2], u[3] !== s || u[4] !== o ? (i = (0, t.jsx)(l.Provider, {
+      value: o,
+      children: s
+    }), u[3] = s, u[4] = o, u[5] = i) : i = u[5], i
+  }, "useConsentStatus", 0, function() {
+    return (0, n.useContext)(l)
+  }])
+}, 681211, e => {
+  "use strict";
+  let t = "data-hatch-link-entry-point";
+  e.s(["hatchLinkEntryPointAttrs", 0, function(e) {
+    let r = {};
+    for (let [t, n] of Object.entries(e)) void 0 !== n && (r[t] = n);
+    return {
+      [t]: JSON.stringify(r)
+    }
+  }, "readHatchLinkEntryPointMetadata", 0, function(e) {
+    let r, n = e.closest(`[${t}]`),
+      l = n?.getAttribute(t);
+    if (null == l || 0 === l.length) return null;
+    try {
+      r = JSON.parse(l)
+    } catch {
+      return null
+    }
+    if ("object" != typeof r || null === r || Array.isArray(r)) return null;
+    let a = {};
+    for (let [e, t] of Object.entries(r))("string" == typeof t || "number" == typeof t || "boolean" == typeof t) && (a[e] = t);
+    let o = a.entry_point;
+    return "string" != typeof o || 0 === o.length ? null : {
+      ...a,
+      entry_point: o
+    }
+  }])
+}, 836932, e => {
+  "use strict";
+  let t = new Set,
+    r = new Set,
+    n = !1;
+  e.s(["prepareMarketingSignupMeasurement", 0, function() {
+    for (let e of (n = !0, r)) try {
+      e()
+    } catch {}
+  }, "registerMarketingSignupPreparer", 0, function(e) {
+    if (r.add(e), n) try {
+      e()
+    } catch {}
+    return () => r.delete(e)
+  }, "registerMarketingSignupReporter", 0, function(e) {
+    return t.add(e), () => t.delete(e)
+  }, "reportMarketingSignupCompleted", 0, function() {
+    for (let e of (n = !1, t)) try {
+      e()
+    } catch {}
+  }])
+}, 963765, e => {
+  "use strict";
+  let t = null,
+    r = !1;
+  e.s(["registerMetaPixelCompleteRegistrationReporter", 0, function(e) {
+    if (t = e, r) {
+      r = !1;
+      try {
+        e()
+      } catch {}
+    }
+    return () => {
+      t === e && (t = null)
+    }
+  }, "reportMetaPixelCompleteRegistration", 0, function() {
+    let e = t;
+    if (null == e) {
+      r = !0;
+      return
+    }
+    try {
+      e()
+    } catch {}
+  }])
+}, 635527, e => {
+  "use strict";
+
+  function t(e, t, r) {
+    let n;
+    return "requestIdleCallback" in window ? (n = window.requestIdleCallback(() => {
+      n = null, e()
+    }, t), () => {
+      null != n && window.cancelIdleCallback(n)
+    }) : (n = window.setTimeout(e, r), () => {
+      null != n && window.clearTimeout(n)
+    })
+  }
+  e.s(["requestIdleCallbackAfterLoad", 0, function(e, r, n) {
+    let l;
+    var a = () => t(e, r, n);
+
+    function o() {
+      "complete" === document.readyState && !0 === window.__REACT_INITIAL_RENDER_COMPLETE__ && (window.removeEventListener("react_initial_render_complete", o), window.removeEventListener("load", o), l = t(a, void 0, void 0))
+    }
+    return "complete" !== document.readyState && window.addEventListener("load", o), !0 !== window.__REACT_INITIAL_RENDER_COMPLETE__ && window.addEventListener("react_initial_render_complete", o), o(), () => {
+      window.removeEventListener("react_initial_render_complete", o), window.removeEventListener("load", o), l?.()
+    }
+  }, "requestIdleCallbackAfterWindowLoad", 0, function(e, r, n) {
+    let l;
+
+    function a() {
+      "complete" === document.readyState && (window.removeEventListener("load", a), l = t(e, r, n))
+    }
+    return "complete" !== document.readyState && window.addEventListener("load", a), a(), () => {
+      window.removeEventListener("load", a), l?.()
+    }
+  }])
+}, 697514, e => {
+  "use strict";
+  var t = e.i(183663),
+    r = e.i(984416),
+    n = e.i(722099),
+    l = e.i(848048),
+    a = e.i(599969);
+  let o = "true" === t.default.env.NEXT_PUBLIC_PEL_DEBUG;
+
+  function i(e) {
+    let t, l, i = (0, n.c)(5),
+      {
+        children: u
+      } = e;
+    if (!o) {
+      let e;
+      return i[0] !== u ? (e = (0, r.jsx)(r.Fragment, {
+        children: u
+      }), i[0] = u, i[1] = e) : e = i[1], e
+    }
+    return i[2] === Symbol.for("react.memo_cache_sentinel") ? (t = {
+      showOverlay: !0,
+      showPanel: !0
+    }, i[2] = t) : t = i[2], i[3] !== u ? (l = (0, r.jsx)(a.DebugProvider, {
+      enabled: !0,
+      config: t,
+      children: u
+    }), i[3] = u, i[4] = l) : l = i[4], l
+  }
+  var u = e.i(519172),
+    s = e.i(281539),
+    c = e.i(681211);
+
+  function d() {
+    let e = (0, l.useInteractionLogger)(),
+      t = (0, u.useRef)(e);
+    return t.current = e, (0, u.useEffect)(() => {
+      let e = e => {
+        let r = e.target;
+        if (!(r instanceof Element)) return;
+        let n = r.closest("a[href]");
+        if (null == n) return;
+        let l = n.getAttribute("href");
+        if (null == l || 0 === l.length || l.startsWith("#")) return;
+        let a = !1;
+        if (/^(mailto:|tel:|sms:)/i.test(l)) a = !0;
+        else try {
+          let e = new URL(l, window.location.href);
+          ("http:" === e.protocol || "https:" === e.protocol) && (a = e.origin !== window.location.origin)
+        } catch {
+          return
+        }
+        if (!a) return;
+        let o = (0, c.readHatchLinkEntryPointMetadata)(n);
+        t.current({
+          eventName: s.HatchClickEvent.EXTERNAL_LINK_CLICK,
+          actionTarget: "external_link",
+          actionType: "click",
+          metadata: {
+            ...o,
+            surface: "external_link"
+          }
+        })
+      };
+      return document.addEventListener("click", e, !0), () => document.removeEventListener("click", e, !0)
+    }, []), null
+  }
+  var f = e.i(827288);
+  let p = !1;
+
+  function h() {
+    let e = (0, l.useInteractionLogger)(),
+      t = (0, u.useRef)(e);
+    return t.current = e, (0, u.useEffect)(() => {
+      p || (p = !0, (0, f.isSecretBearingPathname)(window.location.pathname) || t.current({
+        eventName: s.HatchClickEvent.HATCH_PAGE_LOAD,
+        actionTarget: "app_root",
+        actionType: "page_load",
+        metadata: {
+          surface: "app_load"
+        }
+      }))
+    }, []), null
+  }
+  var m = e.i(126607),
+    g = e.i(737942);
+  let b = (0, l.createEngagementLogger)({
+      debug: !1,
+      logInfra: m.logInfra,
+      channelName: g.PEL_CHANNEL_NAME
+    }),
+    y = (0, g.createVoiceButtonImpressionSessionFilter)(l.getSessionId),
+    v = {
+      ...b,
+      logEvent(e) {
+        y(e) && b.logEvent((0, g.sanitizeProductEngagementEvent)(e))
+      }
+    };
+  e.s(["default", 0, function(e) {
+    let t, a, o, u = (0, n.c)(4),
+      {
+        children: s
+      } = e;
+    return u[0] === Symbol.for("react.memo_cache_sentinel") ? (t = (0, r.jsx)(d, {}), a = (0, r.jsx)(h, {}), u[0] = t, u[1] = a) : (t = u[0], a = u[1]), u[2] !== s ? (o = (0, r.jsx)(l.EngagementLoggerProvider, {
+      logger: v,
+      children: (0, r.jsxs)(i, {
+        children: [t, a, s]
+      })
+    }), u[2] = s, u[3] = o) : o = u[3], o
+  }], 697514)
+}, 737942, e => {
+  "use strict";
+  var t = e.i(823173),
+    r = e.i(863641);
+  let n = new Set(["/connect/browser-credentials", "/connect/browser-credentials/"]),
+    l = new Set(["/hatch/peer/accept", "/hatch/peer/accept/", "/shared-agents/claim", "/shared-agents/claim/"]),
+    a = new Set(["one_px_impression", "vpv_impression"]);
+
+  function o(e) {
+    if ("string" != typeof e) return null;
+    try {
+      return new URL(e, "https://placeholder.invalid").pathname
+    } catch {
+      return null
+    }
+  }
+
+  function i(e) {
+    if ("string" != typeof e) return e;
+    let t = (0, r.redactFeedSharePathname)((0, r.redactSensitiveUrlSearchParams)(e)),
+      n = o(e);
+    if (null != n && l.has(n)) {
+      let e = t.indexOf("#");
+      return -1 === e ? t : t.slice(0, e)
+    }
+    return t
+  }
+  e.s(["PEL_CHANNEL_NAME", 0, "pel-events", "createVoiceButtonImpressionSessionFilter", 0, function(e) {
+    let r = null;
+    return n => {
+      let {
+        actionType: l,
+        eventName: o
+      } = n;
+      if (o !== t.HatchImpressionEvent.VOICE_CALL_BUTTON_IMPRESSION || null == l || !a.has(l)) return !0;
+      let i = e();
+      return r !== i && (r = i, !0)
+    }
+  }, "sanitizeProductEngagementEvent", 0, function(e) {
+    if (null == e || "object" != typeof e) return e;
+    let t = i(e.uri),
+      r = i(e.referrer),
+      l = o(e.uri),
+      a = o(e.httpReferrer),
+      u = (null != l && n.has(l) ? l : null) ?? (null != a && n.has(a) ? a : null) ?? i(e.httpReferrer);
+    return t === e.uri && r === e.referrer && u === e.httpReferrer ? e : {
+      ...e,
+      ...void 0 !== t ? {
+        uri: t
+      } : {},
+      ...void 0 !== r ? {
+        referrer: r
+      } : {},
+      ...void 0 !== u ? {
+        httpReferrer: u
+      } : {}
+    }
+  }])
+}, 823879, e => {
+  "use strict";
+  var t = e.i(871157),
+    r = e.i(175521);
+  let n = /^#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{5})?$/,
+    l = /^[0-9a-z]+:[0-9a-z]+:[0-9a-z]+$/;
+
+  function a(e, r) {
+    return null == e && null == r ? null : function(e) {
+      let t = 0x811c9dc5,
+        r = 5381;
+      for (let n = 0; n < e.length; n += 1) {
+        let l = e.charCodeAt(n);
+        t ^= l, t = Math.imul(t, 0x1000193), r = Math.imul(r, 33) ^ l
+      }
+      return `${e.length.toString(36)}:${(t>>>0).toString(36)}:${(r>>>0).toString(36)}`
+    }((0, t.gatewayTargetKey)(e, r))
+  }
+
+  function o(e) {
+    return [e.userText, e.userBubble, e.agentText, e.agentBubble, e.background]
+  }
+
+  function i(e) {
+    return {
+      userText: e[0],
+      userBubble: e[1],
+      agentText: e[2],
+      agentBubble: e[3],
+      background: e[4]
+    }
+  }
+
+  function u(e) {
+    return Array.isArray(e) && 5 === e.length && e.every(e => "string" == typeof e && n.test(e))
+  }
+
+  function s(e) {
+    return "string" == typeof e && e.length > 0 && e.length <= 128
+  }
+
+  function c(e) {
+    return "string" == typeof e && e.length <= 64 && l.test(e)
+  }
+
+  function d(e) {
+    if (null == e || !c(e.targetFingerprint) || !s(e.themeId) || e.themeId === r.DEFAULT_CHAT_THEME_ID) return null;
+    let t = o(e.variants.light),
+      n = o(e.variants.dark);
+    return u(t) && u(n) ? {
+      v: 1,
+      t: e.targetFingerprint,
+      i: e.themeId,
+      l: t,
+      d: n
+    } : null
+  }
+  e.s(["buildChatThemeCookieCache", 0, function({
+    gatewayUrl: e,
+    vmName: t,
+    themeId: n,
+    variants: l
+  }) {
+    let o = a(e, t);
+    if (null == o || !s(n) || n === r.DEFAULT_CHAT_THEME_ID) return null;
+    let i = {
+      targetFingerprint: o,
+      themeId: n,
+      variants: l
+    };
+    return null == d(i) ? null : i
+  }, "chatThemeCookieCacheForTarget", 0, function(e, t, r) {
+    let n = a(t, r);
+    return null == e || null == n ? null : e.targetFingerprint === n ? e : null
+  }, "chatThemeCookieCachesEqual", 0, function(e, t) {
+    if (e === t) return !0;
+    let r = d(e),
+      n = d(t);
+    return JSON.stringify(r) === JSON.stringify(n)
+  }, "parseChatThemeCookieCache", 0, function(e) {
+    return null == e || "object" != typeof e ? null : 1 === e.v && c(e.t) && s(e.i) && e.i !== r.DEFAULT_CHAT_THEME_ID && u(e.l) && u(e.d) ? {
+      targetFingerprint: e.t,
+      themeId: e.i,
+      variants: {
+        light: i(e.l),
+        dark: i(e.d)
+      }
+    } : null
+  }, "serializeChatThemeCookieCache", 0, d])
+}, 642397, e => {
+  "use strict";
+  var t = e.i(175521),
+    r = e.i(823879),
+    n = e.i(899515);
+  let l = ["system", "light", "dark"],
+    a = ["default", "dense", "airy"],
+    o = ["blue", "green", "red", "purple", "pink", "orange", "monochrome"],
+    i = ["none", "tight", "normal", "soft"],
+    u = {
+      shown: 0,
+      lastShownDay: null,
+      downloaded: !1
+    },
+    s = {
+      preference: "system",
+      style: "default",
+      accentColor: "blue",
+      connectorsDismissed: !1,
+      chatTheme: t.DEFAULT_CHAT_THEME_ID,
+      chatThemeCookieCache: null,
+      locale: null,
+      macPromo: u
+    };
+
+  function c(e) {
+    if (!e) return {
+      ...s
+    };
+    try {
+      let s = decodeURIComponent(e);
+      if (s.startsWith("{")) {
+        var n, c;
+        let e = JSON.parse(s),
+          d = e.mode && l.includes(e.mode) ? e.mode : "system",
+          f = e.accent && o.includes(e.accent) ? e.accent : "blue",
+          p = e.radius && i.includes(e.radius) ? e.radius : void 0;
+        return {
+          preference: d,
+          style: (n = e.style, n && a.includes(n) ? n : "nova" === n || "tight" === p ? "dense" : "maia" === n || "soft" === p ? "airy" : "default"),
+          accentColor: f,
+          connectorsDismissed: !0 === e.connectorsDismissed,
+          chatTheme: "string" == typeof e.chatTheme && e.chatTheme.length > 0 ? e.chatTheme : t.DEFAULT_CHAT_THEME_ID,
+          chatThemeCookieCache: (0, r.parseChatThemeCookieCache)(e.chatThemeCache),
+          locale: "string" == typeof e.locale && e.locale.length > 0 ? e.locale : null,
+          macPromo: (c = e.macPromo, "object" != typeof c || null === c ? {
+            ...u
+          } : {
+            shown: Math.max(0, Math.floor("number" == typeof c.shown && Number.isFinite(c.shown) ? c.shown : 0)),
+            lastShownDay: "string" == typeof c.lastShownDay && /^\d{4}-\d{2}-\d{2}$/.test(c.lastShownDay) ? c.lastShownDay : null,
+            downloaded: !0 === c.downloaded
+          })
+        }
+      }
+    } catch {
+      return {
+        ...s
+      }
+    }
+    return l.includes(e) ? {
+      ...s,
+      preference: e
+    } : {
+      ...s
+    }
+  }
+  async function d(e, l) {
+    var a;
+    let o, i, u = (a = {
+      ...c(e.readCookie(n.SETTINGS_COOKIES.THEME)),
+      ...l
+    }, o = {}, i = (0, r.serializeChatThemeCookieCache)(a.chatThemeCookieCache), "system" !== a.preference && (o.mode = a.preference), "default" !== a.style && (o.style = a.style), "blue" !== a.accentColor && (o.accent = a.accentColor), a.connectorsDismissed && (o.connectorsDismissed = !0), a.chatTheme !== t.DEFAULT_CHAT_THEME_ID && (o.chatTheme = a.chatTheme), null !== i && (o.chatThemeCache = i), a.locale && (o.locale = a.locale), (a.macPromo.shown > 0 || a.macPromo.downloaded) && (o.macPromo = a.macPromo), 0 === Object.keys(o).length ? null : JSON.stringify(o));
+    null === u ? await e.deleteCookie(n.SETTINGS_COOKIES.THEME) : await e.writeCookie(n.SETTINGS_COOKIES.THEME, u)
+  }
+  e.s(["parseUserPreferencesCookieValue", 0, c, "updateUserPreferencesCookie", 0, d])
+}, 599969, e => {
+  "use strict";
+  var t = e.i(519172),
+    r = e.i(984416);
+  let n = "__PEL_DEBUG_COLLECTOR__";
+  class l {
+    events = [];
+    subscribers = new Set;
+    nextId = 1;
+    static _instance = null;
+    static getInstance() {
+      if ("u" > typeof globalThis) {
+        let e = globalThis[n];
+        if (e) return e
+      }
+      return l._instance || (l._instance = new l), "u" > typeof globalThis && (globalThis[n] = l._instance), l._instance
+    }
+    addEvent(e) {
+      let t = {
+        id: this.nextId++,
+        capturedAt: "u" > typeof performance ? performance.now() : Date.now(),
+        event: e
+      };
+      this.events.push(t), this.events.length > 1e3 && (this.events = this.events.slice(-1e3)), this.notify()
+    }
+    getEvents() {
+      return this.events
+    }
+    clear() {
+      this.events = [], this.notify()
+    }
+    subscribe(e) {
+      return this.subscribers.add(e), () => {
+        this.subscribers.delete(e)
+      }
+    }
+    unsubscribe(e) {
+      this.subscribers.delete(e)
+    }
+    notify() {
+      let e = this.events;
+      this.subscribers.forEach(t => {
+        try {
+          t(e)
+        } catch {}
+      })
+    }
+  }
+  let a = (0, t.createContext)({
+      enabled: !1,
+      config: {}
+    }),
+    o = "data-pel-click",
+    i = "data-pel-impression",
+    u = {
+      click: "2px solid rgba(59, 130, 246, 0.6)",
+      impression: "2px solid rgba(34, 197, 94, 0.6)",
+      both: "2px solid rgba(168, 85, 247, 0.6)",
+      untracked: "2px solid rgba(239, 68, 68, 0.4)"
+    };
+
+  function s({
+    enabled: e = !0,
+    showLabels: n = !0,
+    scanIntervalMs: l = 1e3
+  }) {
+    let [a, c] = (0, t.useState)([]), d = (0, t.useRef)([]), f = (0, t.useCallback)(() => {
+      d.current.forEach(e => e()), d.current = [];
+      let e = document.querySelectorAll(`[${o}]`),
+        t = document.querySelectorAll(`[${i}]`),
+        r = new Map;
+      e.forEach(e => {
+        r.set(e, "click")
+      }), t.forEach(e => {
+        r.has(e) ? r.set(e, "both") : r.set(e, "impression")
+      });
+      let n = [];
+      r.forEach((e, t) => {
+        let r = t.style.outline,
+          l = t.style.outlineOffset;
+        t.style.outline = u[e], t.style.outlineOffset = "-1px", d.current.push(() => {
+          t.style.outline = r, t.style.outlineOffset = l
+        });
+        let a = t.getAttribute(o) || t.getAttribute(i) || t.tagName.toLowerCase();
+        n.push({
+          element: t,
+          type: e,
+          label: a
+        })
+      }), c(n)
+    }, []);
+    return ((0, t.useEffect)(() => {
+      if (!e) return;
+      f();
+      let t = setInterval(f, l),
+        r = new MutationObserver(() => {
+          f()
+        });
+      return r.observe(document.body, {
+        childList: !0,
+        subtree: !0,
+        attributes: !0,
+        attributeFilter: [o, i]
+      }), () => {
+        clearInterval(t), r.disconnect(), d.current.forEach(e => e()), d.current = []
+      }
+    }, [e, f, l]), e && n) ? (0, r.jsx)(r.Fragment, {
+      children: a.map(({
+        element: e,
+        type: t,
+        label: n
+      }, l) => {
+        let a = e.getBoundingClientRect();
+        return 0 === a.width && 0 === a.height ? null : (0, r.jsxs)("div", {
+          style: {
+            position: "fixed",
+            top: a.top - 16,
+            left: a.left,
+            zIndex: 99999,
+            fontSize: "10px",
+            fontFamily: "monospace",
+            padding: "1px 4px",
+            borderRadius: "2px",
+            pointerEvents: "none",
+            whiteSpace: "nowrap",
+            color: "#fff",
+            backgroundColor: "click" === t ? "rgba(59, 130, 246, 0.85)" : "impression" === t ? "rgba(34, 197, 94, 0.85)" : "both" === t ? "rgba(168, 85, 247, 0.85)" : "rgba(239, 68, 68, 0.85)"
+          },
+          children: ["both" === t ? "👆👁" : "click" === t ? "👆" : "👁", " ", n]
+        }, `${n}-${l}`)
+      })
+    }) : null
+  }
+  let c = ["all", "click", "impression", "time_spent", "navigation", "web_vitals"];
+
+  function d(e) {
+    let t = e.event;
+    return "actionType" in t ? String(t.actionType) : "navigationType" in t ? "navigation" : "lcp" in t || "fcp" in t ? "web_vitals" : "event" in t ? "simple" : "unknown"
+  }
+  let f = {
+    "bottom-right": {
+      bottom: 16,
+      right: 16
+    },
+    "bottom-left": {
+      bottom: 16,
+      left: 16
+    },
+    "top-right": {
+      top: 16,
+      right: 16
+    },
+    "top-left": {
+      top: 16,
+      left: 16
+    }
+  };
+
+  function p({
+    enabled: e = !0,
+    position: n = "bottom-right",
+    defaultMinimized: o = !1
+  }) {
+    let i = function() {
+        let {
+          enabled: e
+        } = (0, t.useContext)(a), [r, n] = (0, t.useState)(() => e ? l.getInstance().getEvents() : []), o = (0, t.useCallback)(e => {
+          n([...e])
+        }, []);
+        return (0, t.useEffect)(() => {
+          if (!e) return;
+          let t = l.getInstance();
+          return n([...t.getEvents()]), t.subscribe(o)
+        }, [e, o]), r
+      }(),
+      [u, s] = (0, t.useState)(o),
+      [h, m] = (0, t.useState)("all"),
+      [g, b] = (0, t.useState)(null),
+      y = (0, t.useMemo)(() => i.filter(e => (function(e, t) {
+        if ("all" === t) return !0;
+        let r = d(e);
+        switch (t) {
+          case "click":
+            return "click" === r;
+          case "impression":
+            return "one_px_impression" === r || "vpv_impression" === r || "impression" === r;
+          case "time_spent":
+            return "time_spent" === r;
+          case "navigation":
+            return "navigation" === r;
+          case "web_vitals":
+            return "web_vitals" === r;
+          default:
+            return !0
+        }
+      })(e, h)), [i, h]),
+      v = (0, t.useCallback)(() => {
+        l.getInstance().clear()
+      }, []);
+    if (!e) return null;
+    let _ = f[n];
+    return u ? (0, r.jsxs)("div", {
+      style: {
+        position: "fixed",
+        ..._,
+        zIndex: 99998,
+        cursor: "pointer",
+        backgroundColor: "rgba(0, 0, 0, 0.85)",
+        color: "#fff",
+        borderRadius: "8px",
+        padding: "6px 12px",
+        fontSize: "12px",
+        fontFamily: "monospace",
+        display: "flex",
+        alignItems: "center",
+        gap: "6px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.3)"
+      },
+      onClick: () => s(!1),
+      children: ["📊 PEL Debug (", i.length, ")"]
+    }) : (0, r.jsxs)("div", {
+      style: {
+        position: "fixed",
+        ..._,
+        zIndex: 99998,
+        width: "420px",
+        maxHeight: "480px",
+        backgroundColor: "rgba(15, 15, 15, 0.95)",
+        color: "#e5e5e5",
+        borderRadius: "8px",
+        fontFamily: "monospace",
+        fontSize: "11px",
+        display: "flex",
+        flexDirection: "column",
+        boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
+        border: "1px solid rgba(255,255,255,0.1)"
+      },
+      children: [(0, r.jsxs)("div", {
+        style: {
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "8px 12px",
+          borderBottom: "1px solid rgba(255,255,255,0.1)",
+          flexShrink: 0
+        },
+        children: [(0, r.jsx)("span", {
+          style: {
+            fontWeight: "bold",
+            fontSize: "12px"
+          },
+          children: "📊 PEL Debug"
+        }), (0, r.jsxs)("div", {
+          style: {
+            display: "flex",
+            gap: "8px",
+            alignItems: "center"
+          },
+          children: [(0, r.jsxs)("span", {
+            style: {
+              color: "#888"
+            },
+            children: [y.length, "/", i.length]
+          }), (0, r.jsx)("button", {
+            onClick: v,
+            style: {
+              background: "none",
+              border: "1px solid rgba(255,255,255,0.2)",
+              color: "#e5e5e5",
+              borderRadius: "4px",
+              padding: "2px 6px",
+              cursor: "pointer",
+              fontSize: "10px"
+            },
+            children: "Clear"
+          }), (0, r.jsx)("button", {
+            onClick: () => s(!0),
+            style: {
+              background: "none",
+              border: "none",
+              color: "#e5e5e5",
+              cursor: "pointer",
+              fontSize: "14px",
+              padding: "0 2px"
+            },
+            children: "─"
+          })]
+        })]
+      }), (0, r.jsx)("div", {
+        style: {
+          display: "flex",
+          gap: "4px",
+          padding: "6px 12px",
+          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          flexWrap: "wrap",
+          flexShrink: 0
+        },
+        children: c.map(e => (0, r.jsx)("button", {
+          onClick: () => m(e),
+          style: {
+            background: h === e ? "rgba(59, 130, 246, 0.3)" : "transparent",
+            border: h === e ? "1px solid rgba(59, 130, 246, 0.5)" : "1px solid rgba(255,255,255,0.1)",
+            color: h === e ? "#93c5fd" : "#888",
+            borderRadius: "4px",
+            padding: "2px 8px",
+            cursor: "pointer",
+            fontSize: "10px"
+          },
+          children: e
+        }, e))
+      }), (0, r.jsx)("div", {
+        style: {
+          overflowY: "auto",
+          flex: 1,
+          padding: "4px 0"
+        },
+        children: 0 === y.length ? (0, r.jsxs)("div", {
+          style: {
+            padding: "24px 12px",
+            textAlign: "center",
+            color: "#666"
+          },
+          children: ["No events", "all" !== h ? ` matching "${h}"` : " captured yet"]
+        }) : [...y].reverse().map(e => {
+          var t;
+          let n, l, a;
+          return (0, r.jsxs)("div", {
+            style: {
+              padding: "6px 12px",
+              borderBottom: "1px solid rgba(255,255,255,0.03)",
+              cursor: "pointer",
+              backgroundColor: g === e.id ? "rgba(255,255,255,0.05)" : "transparent"
+            },
+            onClick: () => b(g === e.id ? null : e.id),
+            children: [(0, r.jsxs)("div", {
+              style: {
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center"
+              },
+              children: [(0, r.jsxs)("div", {
+                style: {
+                  display: "flex",
+                  gap: "6px",
+                  flex: 1
+                },
+                children: [(0, r.jsx)("span", {
+                  style: {
+                    color: "click" === d(e) ? "#60a5fa" : d(e).includes("impression") ? "#4ade80" : "time_spent" === d(e) ? "#fbbf24" : "#c084fc",
+                    minWidth: "80px"
+                  },
+                  children: d(e)
+                }), (0, r.jsx)("span", {
+                  style: {
+                    color: "#d4d4d4"
+                  },
+                  children: "eventName" in (n = e.event) ? String(n.eventName) : "navigationType" in n ? `nav:${n.navigationType}` : "event" in n ? String(n.event) : "event"
+                })]
+              }), (0, r.jsx)("span", {
+                style: {
+                  color: "#666",
+                  fontSize: "10px"
+                },
+                children: (t = e.capturedAt, new Date("u" > typeof performance ? performance.timeOrigin + t : t).toLocaleTimeString("en-US", {
+                  hour12: !1,
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit"
+                }))
+              })]
+            }), g === e.id && (0, r.jsxs)("div", {
+              style: {
+                marginTop: "6px",
+                padding: "6px 8px",
+                backgroundColor: "rgba(0,0,0,0.3)",
+                borderRadius: "4px",
+                fontSize: "10px",
+                lineHeight: "1.5"
+              },
+              children: [(0, r.jsxs)("div", {
+                children: [(0, r.jsx)("span", {
+                  style: {
+                    color: "#888"
+                  },
+                  children: "Target: "
+                }), (0, r.jsx)("span", {
+                  children: "actionTarget" in (l = e.event) ? String(l.actionTarget) : "pathname" in l ? String(l.pathname) : "—"
+                })]
+              }), (0, r.jsxs)("div", {
+                children: [(0, r.jsx)("span", {
+                  style: {
+                    color: "#888"
+                  },
+                  children: "Trace Policy: "
+                }), (0, r.jsx)("span", {
+                  children: "tracePolicyReferrer" in (a = e.event) ? String(a.tracePolicyReferrer) : "tracePolicy" in a ? String(a.tracePolicy) : "—"
+                })]
+              }), (0, r.jsx)("div", {
+                style: {
+                  marginTop: "4px"
+                },
+                children: (0, r.jsxs)("details", {
+                  children: [(0, r.jsx)("summary", {
+                    style: {
+                      color: "#888",
+                      cursor: "pointer"
+                    },
+                    children: "Raw event"
+                  }), (0, r.jsx)("pre", {
+                    style: {
+                      marginTop: "4px",
+                      whiteSpace: "pre-wrap",
+                      wordBreak: "break-all",
+                      color: "#a3a3a3",
+                      maxHeight: "200px",
+                      overflowY: "auto"
+                    },
+                    children: JSON.stringify(e.event, null, 2)
+                  })]
+                })
+              })]
+            })]
+          }, e.id)
+        })
+      })]
+    })
+  }
+  e.s(["DebugEventCollector", 0, l, "DebugProvider", 0, function({
+    children: e,
+    enabled: n = !1,
+    config: o = {}
+  }) {
+    (0, t.useEffect)(() => {
+      n && l.getInstance()
+    }, [n]);
+    let i = (0, t.useMemo)(() => ({
+        enabled: n,
+        config: o
+      }), [n, o]),
+      u = n && (o.showOverlay ?? !0),
+      c = n && (o.showPanel ?? !0);
+    return (0, r.jsxs)(a.Provider, {
+      value: i,
+      children: [e, u && (0, r.jsx)(s, {
+        enabled: !0,
+        ...o.overlay
+      }), c && (0, r.jsx)(p, {
+        enabled: !0,
+        ...o.panel
+      })]
+    })
+  }])
+}, 458533, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  }), Object.defineProperty(r, "useRouterBFCache", {
+    enumerable: !0,
+    get: function() {
+      return l
+    }
+  });
+  let n = e.r(519172);
+
+  function l(e, t, r) {
+    let [l, a] = (0, n.useState)(() => ({
+      tree: e,
+      cacheNode: t,
+      stateKey: r,
+      next: null
+    }));
+    if (l.tree === e) return l;
+    let o = {
+        tree: e,
+        cacheNode: t,
+        stateKey: r,
+        next: null
+      },
+      i = 1,
+      u = l,
+      s = o;
+    for (; null !== u && i < 1;) {
+      if (u.stateKey === r) {
+        s.next = u.next;
+        break
+      } {
+        i++;
+        let e = {
+          tree: u.tree,
+          cacheNode: u.cacheNode,
+          stateKey: u.stateKey,
+          next: null
+        };
+        s.next = e, s = e
+      }
+      u = u.next
+    }
+    return a(o), o
+  }("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 340554, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  }), Object.defineProperty(r, "ClientPageRoot", {
+    enumerable: !0,
+    get: function() {
+      return s
+    }
+  });
+  let n = e.r(984416),
+    l = e.r(48660),
+    a = e.r(519172),
+    o = e.r(569992),
+    i = e.r(415956),
+    u = e.r(370823);
+
+  function s({
+    Component: e,
+    serverProvidedParams: t
+  }) {
+    let r, c;
+    if (null !== t) r = t.searchParams, c = t.params;
+    else {
+      let e = (0, a.use)(l.LayoutRouterContext);
+      c = null !== e ? e.parentParams : {}, r = (0, o.urlSearchParamsToParsedUrlQuery)((0, a.use)(i.SearchParamsContext))
+    }
+    let d = (0, u.createClientSearchParams)(r),
+      f = (0, u.createClientParams)(c);
+    return (0, n.jsx)(e, {
+      params: f,
+      searchParams: d
+    })
+  }("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 408319, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  }), Object.defineProperty(r, "ClientSegmentRoot", {
+    enumerable: !0,
+    get: function() {
+      return i
+    }
+  });
+  let n = e.r(984416),
+    l = e.r(48660),
+    a = e.r(519172),
+    o = e.r(370823);
+
+  function i({
+    Component: e,
+    slots: t,
+    serverProvidedParams: r
+  }) {
+    let u;
+    if (null !== r) u = r.params;
+    else {
+      let e = (0, a.use)(l.LayoutRouterContext);
+      u = null !== e ? e.parentParams : {}
+    }
+    let s = (0, o.createClientParams)(u);
+    return (0, n.jsx)(e, {
+      ...t,
+      params: s
+    })
+  }("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 66160, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  }), Object.defineProperty(r, "HTTPAccessFallbackBoundary", {
+    enumerable: !0,
+    get: function() {
+      return c
+    }
+  });
+  let n = e.r(56421),
+    l = e.r(984416),
+    a = n._(e.r(519172)),
+    o = e.r(369794),
+    i = e.r(170247),
+    u = e.r(48660);
+  class s extends a.default.Component {
+    constructor(e) {
+      super(e), this.state = {
+        triggeredStatus: void 0,
+        previousPathname: e.pathname
+      }
+    }
+    componentDidCatch() {}
+    static getDerivedStateFromError(e) {
+      if ((0, i.isHTTPAccessFallbackError)(e)) return {
+        triggeredStatus: (0, i.getAccessFallbackHTTPStatus)(e)
+      };
+      throw e
+    }
+    static getDerivedStateFromProps(e, t) {
+      return e.pathname !== t.previousPathname && t.triggeredStatus ? {
+        triggeredStatus: void 0,
+        previousPathname: e.pathname
+      } : {
+        triggeredStatus: t.triggeredStatus,
+        previousPathname: e.pathname
+      }
+    }
+    render() {
+      let {
+        notFound: e,
+        forbidden: t,
+        unauthorized: r,
+        children: n
+      } = this.props, {
+        triggeredStatus: a
+      } = this.state, o = {
+        [i.HTTPAccessErrorStatus.NOT_FOUND]: e,
+        [i.HTTPAccessErrorStatus.FORBIDDEN]: t,
+        [i.HTTPAccessErrorStatus.UNAUTHORIZED]: r
+      };
+      if (a) {
+        let u = a === i.HTTPAccessErrorStatus.NOT_FOUND && e,
+          s = a === i.HTTPAccessErrorStatus.FORBIDDEN && t,
+          c = a === i.HTTPAccessErrorStatus.UNAUTHORIZED && r;
+        return u || s || c ? (0, l.jsxs)(l.Fragment, {
+          children: [(0, l.jsx)("meta", {
+            name: "robots",
+            content: "noindex"
+          }), !1, o[a]]
+        }) : n
+      }
+      return n
+    }
+  }
+
+  function c({
+    notFound: e,
+    forbidden: t,
+    unauthorized: r,
+    children: n
+  }) {
+    let i = (0, o.useUntrackedPathname)(),
+      d = (0, a.useContext)(u.MissingSlotContext);
+    return e || t || r ? (0, l.jsx)(s, {
+      pathname: i,
+      notFound: e,
+      forbidden: t,
+      unauthorized: r,
+      missingSlots: d,
+      children: n
+    }) : (0, l.jsx)(l.Fragment, {
+      children: n
+    })
+  }("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 97e3, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  });
+  var n = {
+    InstantValidationBoundaryContext: function() {
+      return a
+    },
+    PlaceValidationBoundaryBelowThisLevel: function() {
+      return o
+    },
+    RenderValidationBoundaryAtThisLevel: function() {
+      return i
+    },
+    SlotMarker: function() {
+      return u
+    }
+  };
+  for (var l in n) Object.defineProperty(r, l, {
+    enumerable: !0,
+    get: n[l]
+  });
+  let a = null,
+    o = null,
+    i = null,
+    u = null;
+  ("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 600073, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  });
+  var n = {
+    InstantValidationBoundaryContext: function() {
+      return a.InstantValidationBoundaryContext
+    },
+    PlaceValidationBoundaryBelowThisLevel: function() {
+      return a.PlaceValidationBoundaryBelowThisLevel
+    },
+    RenderValidationBoundaryAtThisLevel: function() {
+      return a.RenderValidationBoundaryAtThisLevel
+    },
+    SlotMarker: function() {
+      return a.SlotMarker
+    }
+  };
+  for (var l in n) Object.defineProperty(r, l, {
+    enumerable: !0,
+    get: n[l]
+  });
+  let a = e.r(97e3);
+  ("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 507504, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  });
+  var n = {
+    LoadingBoundaryProvider: function() {
+      return T
+    },
+    default: function() {
+      return S
+    }
+  };
+  for (var l in n) Object.defineProperty(r, l, {
+    enumerable: !0,
+    get: n[l]
+  });
+  let a = e.r(836437),
+    o = e.r(56421),
+    i = e.r(984416),
+    u = o._(e.r(519172)),
+    s = a._(e.r(787940)),
+    c = e.r(48660),
+    d = e.r(294942),
+    f = e.r(453415),
+    p = e.r(562807),
+    h = e.r(79645),
+    m = e.r(66160);
+  e.r(600073);
+  let g = e.r(595233),
+    b = e.r(458533);
+  e.r(668753);
+  let y = e.r(415956),
+    v = e.r(569992),
+    _ = e.r(524801);
+  s.default.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+
+  function x(e, t, r) {
+    let n = e.getClientRects();
+    if (0 === n.length) return 0;
+    let l = 1 / 0;
+    for (let e = 0; e < n.length; e++) {
+      let t = n[e];
+      t.top < l && (l = t.top)
+    }
+    return l >= r() && l <= t ? 1 : 2
+  }
+  u.default.Component;
+  let C = function(e) {
+    let t = u.default.useRef(null);
+    return (0, u.useLayoutEffect)(() => {
+      let {
+        focusAndScrollRef: r,
+        cacheNode: n
+      } = e, l = r.forceScroll ? r.scrollRef : n.scrollRef;
+      if (null === l || !l.current) return;
+      let a = null,
+        o = r.hashFragment;
+      if (o) {
+        var i;
+        if (null === (a = "top" === (i = o) ? document.body : document.getElementById(i) ?? document.getElementsByName(i)[0] ?? null)) {
+          l.current = !1, r.onlyHashChange = !1, r.hashFragment = null;
+          return
+        }
+      } else a = t.current;
+      if (null === a) return;
+      let u = !1;
+      (0, p.disableSmoothScrollDuringRouteTransition)(() => {
+        let e = document.documentElement,
+          t = null,
+          r = null,
+          n = null,
+          i = () => {
+            var r, l;
+            let a, o;
+            return null === n && (r = e, l = t, n = !Number.isFinite(o = Number.parseFloat(a = getComputedStyle(r).scrollPaddingTop)) || o < 0 ? 0 : a.endsWith("px") ? o : a.endsWith("%") ? o / 100 * l : 0), n
+          };
+        (o || (t = e.clientHeight, 0 !== (r = x(a, t, i)))) && ((u = !0, l.current = !1, o) ? a.scrollIntoView() : 1 !== r && (e.scrollTop = 0, 2 === x(a, t, i) && a.scrollIntoView()))
+      }, {
+        dontForceLayout: !0,
+        onlyHashChange: r.onlyHashChange
+      }), u && (r.onlyHashChange = !1, r.hashFragment = null)
+    }, void 0), (0, i.jsx)(u.Fragment, {
+      ref: t,
+      children: e.children
+    })
+  };
+
+  function P({
+    children: e,
+    cacheNode: t
+  }) {
+    let r = (0, u.useContext)(c.GlobalLayoutRouterContext);
+    if (!r) throw Object.defineProperty(Error("invariant global layout router not mounted"), "__NEXT_ERROR_CODE", {
+      value: "E473",
+      enumerable: !1,
+      configurable: !0
+    });
+    return (0, i.jsx)(C, {
+      focusAndScrollRef: r.focusAndScrollRef,
+      cacheNode: t,
+      children: e
+    })
+  }
+
+  function j({
+    tree: e,
+    segmentPath: t,
+    debugNameContext: r,
+    cacheNode: n,
+    params: l,
+    url: a,
+    isActive: o
+  }) {
+    let s, f = (0, u.useContext)(c.GlobalLayoutRouterContext);
+    if ((0, u.useContext)(y.NavigationPromisesContext), !f) throw Object.defineProperty(Error("invariant global layout router not mounted"), "__NEXT_ERROR_CODE", {
+      value: "E473",
+      enumerable: !1,
+      configurable: !0
+    });
+    let p = null !== n ? n : (0, u.use)(d.unresolvedThenable),
+      h = null !== p.prefetchRsc ? p.prefetchRsc : p.rsc,
+      m = (0, u.useDeferredValue)(p.rsc, h);
+    if ((0, _.isDeferredRsc)(m)) {
+      let e = (0, u.use)(m);
+      null === e && (0, u.use)(d.unresolvedThenable), s = e
+    } else null === m && (0, u.use)(d.unresolvedThenable), s = m;
+    let g = s;
+    return (0, i.jsx)(c.LayoutRouterContext.Provider, {
+      value: {
+        parentTree: e,
+        parentCacheNode: p,
+        parentSegmentPath: t,
+        parentParams: l,
+        parentLoadingData: null,
+        debugNameContext: r,
+        url: a,
+        isActive: o
+      },
+      children: g
+    })
+  }
+
+  function T({
+    loading: e,
+    children: t
+  }) {
+    let r = (0, u.use)(c.LayoutRouterContext);
+    return null === r ? t : (0, i.jsx)(c.LayoutRouterContext.Provider, {
+      value: {
+        parentTree: r.parentTree,
+        parentCacheNode: r.parentCacheNode,
+        parentSegmentPath: r.parentSegmentPath,
+        parentParams: r.parentParams,
+        parentLoadingData: e,
+        debugNameContext: r.debugNameContext,
+        url: r.url,
+        isActive: r.isActive
+      },
+      children: t
+    })
+  }
+
+  function E({
+    name: e,
+    loading: t,
+    children: r
+  }) {
+    if (null !== t) {
+      let n = t[0],
+        l = t[1],
+        a = t[2];
+      return (0, i.jsx)(u.Suspense, {
+        name: e,
+        fallback: (0, i.jsxs)(i.Fragment, {
+          children: [l, a, n]
+        }),
+        children: r
+      })
+    }
+    return (0, i.jsx)(i.Fragment, {
+      children: r
+    })
+  }
+
+  function S({
+    parallelRouterKey: e,
+    error: t,
+    errorStyles: r,
+    errorScripts: n,
+    templateStyles: l,
+    templateScripts: a,
+    template: o,
+    notFound: s,
+    forbidden: p,
+    unauthorized: y,
+    segmentViewBoundaries: _
+  }) {
+    let x = (0, u.useContext)(c.LayoutRouterContext);
+    if (!x) throw Object.defineProperty(Error("invariant expected layout router to be mounted"), "__NEXT_ERROR_CODE", {
+      value: "E56",
+      enumerable: !1,
+      configurable: !0
+    });
+    let {
+      parentTree: C,
+      parentCacheNode: T,
+      parentSegmentPath: w,
+      parentParams: O,
+      parentLoadingData: k,
+      url: R,
+      isActive: M,
+      debugNameContext: A
+    } = x, L = C[0], I = null === w ? [e] : w.concat([L, e]), N = C[1][e], F = T.slots;
+    (void 0 === N || null === F) && (0, u.use)(d.unresolvedThenable);
+    let D = N[0],
+      H = F[e] ?? null,
+      B = (0, g.createRouterCacheKey)(D, !0),
+      U = (0, b.useRouterBFCache)(N, H, B),
+      z = [];
+    do {
+      let e = U.tree,
+        u = U.cacheNode,
+        d = U.stateKey,
+        g = e[0],
+        b = O;
+      if (Array.isArray(g)) {
+        let e = g[0],
+          t = g[1],
+          r = g[2],
+          n = (0, v.getParamValueFromCacheKey)(t, r);
+        null !== n && (b = {
+          ...O,
+          [e]: n
+        })
+      }
+      let _ = function(e) {
+          if ("/" === e) return "/";
+          if ("string" == typeof e)
+            if ("(__SLOT__)" === e) return;
+            else return e + "/";
+          return e[1] + "/"
+        }(g),
+        x = _ ?? A,
+        C = void 0 === _ ? void 0 : A,
+        T = (0, i.jsxs)(P, {
+          cacheNode: u,
+          children: [(0, i.jsx)(f.ErrorBoundary, {
+            errorComponent: t,
+            errorStyles: r,
+            errorScripts: n,
+            children: (0, i.jsx)(E, {
+              name: C,
+              loading: k,
+              children: (0, i.jsx)(m.HTTPAccessFallbackBoundary, {
+                notFound: s,
+                forbidden: p,
+                unauthorized: y,
+                children: (0, i.jsxs)(h.RedirectBoundary, {
+                  children: [(0, i.jsx)(j, {
+                    url: R,
+                    tree: e,
+                    params: b,
+                    cacheNode: u,
+                    segmentPath: I,
+                    debugNameContext: x,
+                    isActive: M && d === B
+                  }), null]
+                })
+              })
+            })
+          }), null]
+        }),
+        S = (0, i.jsxs)(c.TemplateContext.Provider, {
+          value: T,
+          children: [l, a, o]
+        }, d);
+      z.push(S), U = U.next
+    } while (null !== U) return z
+  }("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 293486, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  }), Object.defineProperty(r, "default", {
+    enumerable: !0,
+    get: function() {
+      return i
+    }
+  });
+  let n = e.r(56421),
+    l = e.r(984416),
+    a = n._(e.r(519172)),
+    o = e.r(48660);
+
+  function i() {
+    let e = (0, a.useContext)(o.TemplateContext);
+    return (0, l.jsx)(l.Fragment, {
+      children: e
+    })
+  }("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 278313, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  }), Object.defineProperty(r, "createRenderParamsFromClient", {
+    enumerable: !0,
+    get: function() {
+      return l
+    }
+  });
+  let n = new WeakMap;
+
+  function l(e) {
+    let t = n.get(e);
+    if (t) return t;
+    let r = Promise.resolve(e);
+    return n.set(e, r), r
+  }("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 754657, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  }), Object.defineProperty(r, "createRenderParamsFromClient", {
+    enumerable: !0,
+    get: function() {
+      return n
+    }
+  });
+  let n = e.r(278313).createRenderParamsFromClient;
+  ("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 482628, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  }), Object.defineProperty(r, "createRenderSearchParamsFromClient", {
+    enumerable: !0,
+    get: function() {
+      return l
+    }
+  });
+  let n = new WeakMap;
+
+  function l(e) {
+    let t = n.get(e);
+    if (t) return t;
+    let r = Promise.resolve(e);
+    return n.set(e, r), r
+  }("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 773238, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  }), Object.defineProperty(r, "createRenderSearchParamsFromClient", {
+    enumerable: !0,
+    get: function() {
+      return n
+    }
+  });
+  let n = e.r(482628).createRenderSearchParamsFromClient;
+  ("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 370823, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  });
+  var n = {
+    createClientParams: function() {
+      return a.createRenderParamsFromClient
+    },
+    createClientSearchParams: function() {
+      return o.createRenderSearchParamsFromClient
+    }
+  };
+  for (var l in n) Object.defineProperty(r, l, {
+    enumerable: !0,
+    get: n[l]
+  });
+  let a = e.r(754657),
+    o = e.r(773238);
+  ("function" == typeof r.default || "object" == typeof r.default && null !== r.default) && void 0 === r.default.__esModule && (Object.defineProperty(r.default, "__esModule", {
+    value: !0
+  }), Object.assign(r.default, r), t.exports = r.default)
+}, 437445, (e, t, r) => {
+  "use strict";
+  Object.defineProperty(r, "__esModule", {
+    value: !0
+  }), Object.defineProperty(r, "IconMark", {
+    enumerable: !0,
+    get: function() {
+      return l
+    }
+  });
+  let n = e.r(984416),
+    l = () => "u" > typeof window ? null : (0, n.jsx)("meta", {
+      name: "«nxt-icon»"
+    })
+}, 786983, e => {
+  "use strict";
+  let t = ["hatch_aymh_complete", "aymh_complete"];
+  e.s(["AYMH_CARDS_CACHE_TTL_MS", 0, 3e5, "AYMH_CARDS_STORAGE_KEY", 0, "hatch_aymh_cards", "AYMH_CYCLE_COMPLETE_PARAMS", 0, t, "hasAymhCycleCompleteParam", 0, function(e) {
+    return t.some(t => e.has(t))
+  }])
+}]);
+
+//# debugId=ee06d077-3c03-305c-1149-97eb5ca47b88
+//# sourceMappingURL=0cqd9tp0j9_q3.js.map

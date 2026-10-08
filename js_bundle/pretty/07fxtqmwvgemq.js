@@ -1,0 +1,1286 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "7dfb8659-ceb7-d4dd-4f24-64a003662079")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 531378, e => {
+  "use strict";
+  e.s(["browserTaskHasUserControl", 0, function(e, t) {
+    return e?.lease?.controlOwner === "user" && e.lease.taskId === t
+  }, "extractBrowserSessionData", 0, function(e) {
+    let t = "string" == typeof e.session_id ? e.session_id.trim() : "";
+    if (0 === t.length) return null;
+    let r = "object" == typeof e.active_tab && null != e.active_tab ? e.active_tab : null,
+      n = "object" == typeof e.lease && null != e.lease ? e.lease : null,
+      a = "string" == typeof r?.title ? r.title : "",
+      s = "string" == typeof r?.url ? r.url : "",
+      i = "string" == typeof e.presented_task_id && e.presented_task_id.trim().length > 0 ? e.presented_task_id.trim() : null,
+      o = void 0 === e.device_clipboard_supported ? void 0 : !0 === e.device_clipboard_supported;
+    return {
+      sessionId: t,
+      presentedTaskId: i,
+      lease: null != n ? function(e) {
+        if ("user" !== e.control_owner && "agent" !== e.control_owner) return;
+        let t = "string" == typeof e.takeover_id ? e.takeover_id : "",
+          r = "string" == typeof e.task_id ? e.task_id : "",
+          n = "string" == typeof e.last_interrupted_message_id ? e.last_interrupted_message_id : "",
+          a = "number" == typeof e.control_expires_at_ms && Number.isFinite(e.control_expires_at_ms) ? e.control_expires_at_ms : void 0;
+        return {
+          controlOwner: e.control_owner,
+          takeoverId: t.length > 0 ? t : void 0,
+          taskId: r.length > 0 ? r : void 0,
+          lastInterruptedMessageId: n.length > 0 ? n : void 0,
+          controlExpiresAtMs: a
+        }
+      }(n) : void 0,
+      deviceClipboardSupported: o,
+      activeTab: a.length > 0 || s.length > 0 ? {
+        title: a,
+        url: s
+      } : void 0
+    }
+  }, "mergeBrowserSessionSnapshot", 0, function(e, t, r) {
+    let n = e?.lease,
+      a = t.lease,
+      s = e?.sessionId === t.sessionId && e.presentedTaskId === r && t.presentedTaskId === r && n?.controlOwner === "user" && a?.controlOwner === "user" && n.taskId === r && a.taskId === r && null != n.takeoverId && n.takeoverId === a.takeoverId;
+    return {
+      ...t,
+      deviceClipboardSupported: t.deviceClipboardSupported ?? (s ? e?.deviceClipboardSupported : void 0),
+      activeTab: t.activeTab ?? e?.activeTab
+    }
+  }, "toBrowserSessionInitialData", 0, function(e) {
+    return {
+      sessionId: e.sessionId,
+      activeTab: null != e.latestTab ? {
+        title: e.latestTab.title ?? "",
+        url: e.latestTab.url ?? ""
+      } : void 0
+    }
+  }])
+}, 696396, e => {
+  "use strict";
+  var t = e.i(345717),
+    r = e.i(801636);
+  let n = new Set(["Action required", "Starting browser...", "Task completed", "Task failed", "Waiting for browser", "You stopped the task", "You're in control of the browser"]);
+  e.s(["BROWSER_TASK_SERVER_FALLBACK_DETAILS", 0, n, "browserTaskCardSubtitle", 0, function({
+    activityTitle: e,
+    displayStatus: a,
+    displayStatusText: s,
+    queuePosition: i,
+    statusCopy: o
+  }) {
+    let l = (0, r.browserTaskDisplayStatusText)(s, a, o);
+    if ("queued" === a && null != i) return t.fbs._("{status} · {queue position} in line", [t.fbs._param("status", l), t.fbs._param("queue position", String(i))], {
+      hk: "YRypl"
+    });
+    let u = e?.trim();
+    if (null == u || 0 === u.length || n.has(u)) return l;
+    switch (a) {
+      case "starting":
+      case "working":
+      case "unknown":
+        return u;
+      case "queued":
+      case "waiting":
+      case "needs_you":
+      case "paused":
+      case "completed":
+      case "failed":
+      case "stopped":
+        return t.fbs._("{status} · {activity}", [t.fbs._param("status", l), t.fbs._param("activity", u)], {
+          hk: "2J1mpR"
+        })
+    }
+  }])
+}, 712181, 377576, e => {
+  "use strict";
+  var t = e.i(359783),
+    r = e.i(47247),
+    n = e.i(925301),
+    a = e.i(508180),
+    s = e.i(863641);
+  let i = "residential";
+
+  function o(e) {
+    return "string" == typeof e && e.length > 0 && e.length <= 256
+  }
+
+  function l(e, t) {
+    if (!e?.sendRequest) throw (0, n.createGatewayTransportError)(`Noise transport not ready for ${t}`);
+    return e.sendRequest
+  }
+  async function u(e, t, r) {
+    var n, a;
+    let s = l(r, e);
+    return n = r?.signal != null || r?.expectedGatewayTargetKey != null ? s(e, t, {
+      signal: r.signal,
+      expectedGatewayTargetKey: r.expectedGatewayTargetKey
+    }) : s(e, t), (a = r?.signal) ? Promise.race([n, new Promise((e, t) => {
+      a.addEventListener("abort", () => t(new DOMException("Aborted", "AbortError")), {
+        once: !0
+      })
+    })]) : n
+  }
+
+  function c(e, t) {
+    if ("object" == typeof e && null != e && !Array.isArray(e)) return e;
+    throw (0, n.createGatewayTransportError)(`Malformed ${t} response`, {
+      requestMethod: t
+    })
+  }
+
+  function d(e) {
+    if (e.length > 61440 || e.includes("\0")) return !1;
+    let t = new TextEncoder().encode(e);
+    return t.byteLength <= 61440 && new TextDecoder().decode(t) === e
+  }
+
+  function p(e, t, r, n) {
+    return l(n, e)(e, {
+      task_id: t,
+      ...r
+    }, {
+      signal: n?.signal,
+      expectedGatewayTargetKey: n?.expectedGatewayTargetKey
+    })
+  }
+  async function f(e, t, r) {
+    let a = "browser_task.clipboard.readiness",
+      s = c(await p(a, e, {
+        expected_takeover_id: t
+      }, r), a);
+    if ("boolean" != typeof s.available) throw (0, n.createGatewayTransportError)("Malformed browser clipboard readiness response", {
+      requestMethod: a
+    });
+    return s.available
+  }
+  async function h(e, t, r, a) {
+    let s = "browser_task.clipboard.copy",
+      i = c(await p(s, e, {
+        operation_id: r,
+        expected_takeover_id: t
+      }, a), s);
+    if (i.operation_id !== r) throw (0, n.createGatewayTransportError)("Mismatched browser clipboard Copy operation", {
+      requestMethod: s
+    });
+    if ("available" === i.outcome) {
+      if ("string" != typeof i.text || !d(i.text)) throw (0, n.createGatewayTransportError)("Invalid browser clipboard Copy text", {
+        requestMethod: s
+      });
+      return {
+        operationId: r,
+        outcome: "available",
+        text: i.text
+      }
+    }
+    if ("unavailable" === i.outcome || "outcome_unknown" === i.outcome) return {
+      operationId: r,
+      outcome: i.outcome
+    };
+    throw (0, n.createGatewayTransportError)("Unknown browser clipboard Copy outcome", {
+      requestMethod: s
+    })
+  }
+  async function m(e, t, r, a, s) {
+    let i = "browser_task.clipboard.paste";
+    if (!d(a)) throw (0, n.createGatewayTransportError)("Invalid browser clipboard Paste text", {
+      requestMethod: i,
+      deliveryState: "not_sent"
+    });
+    let o = c(await p(i, e, {
+      operation_id: r,
+      expected_takeover_id: t,
+      text: a
+    }, s), i);
+    if (o.operation_id !== r || "delivered" !== o.outcome && "unavailable" !== o.outcome && "outcome_unknown" !== o.outcome) throw (0, n.createGatewayTransportError)("Malformed browser clipboard Paste receipt", {
+      requestMethod: i
+    });
+    return {
+      operationId: r,
+      outcome: o.outcome
+    }
+  }
+  async function y(e, t) {
+    return u("browser_task.get", {
+      task_id: e
+    }, t)
+  }
+  async function w(e, t) {
+    return u("browser_task.takeover", {
+      task_id: e,
+      ...t?.viewer != null ? {
+        viewer: t.viewer
+      } : {}
+    }, t)
+  }
+  async function g(e, t) {
+    return u("browser_task.release", {
+      task_id: e
+    }, t)
+  }
+  async function _(e, t) {
+    return u("browser_task.present", {
+      task_id: e,
+      ...t?.viewer != null ? {
+        viewer: t.viewer
+      } : {}
+    }, t)
+  }
+  async function v(e, t, r) {
+    return u("browser_task.viewer", {
+      task_id: e,
+      viewer: t
+    }, r)
+  }
+  async function b(e, t) {
+    return u("browser_task.heartbeat", {
+      task_id: e
+    }, t)
+  }
+  async function k(e, t) {
+    return u("browser_task.close", {
+      task_id: e
+    }, t)
+  }
+  async function T(e, t) {
+    return u("browser_task.stop", {
+      task_id: e
+    }, t)
+  }
+  async function S(e, t) {
+    var r;
+    let a = "object" != typeof(r = await u("browser_task.refresh_environment", {
+      task_id: e,
+      requested_egress_profile: i
+    }, t)) || null == r ? {
+      ok: !1,
+      reason: "not_an_object"
+    } : "boolean" != typeof r.presented ? {
+      ok: !1,
+      reason: "presented_not_boolean"
+    } : o(r.previous_vm_uuid) ? o(r.vm_uuid) ? o(r.browser_incarnation) ? "number" == typeof r.route_generation && Number.isFinite(r.route_generation) ? r.egress_profile !== i ? {
+      ok: !1,
+      reason: "egress_profile_not_residential"
+    } : {
+      ok: !0,
+      result: {
+        previous_vm_uuid: r.previous_vm_uuid,
+        vm_uuid: r.vm_uuid,
+        presented: r.presented,
+        browser_incarnation: r.browser_incarnation,
+        route_generation: r.route_generation
+      }
+    } : {
+      ok: !1,
+      reason: "route_generation_not_finite"
+    } : {
+      ok: !1,
+      reason: "browser_incarnation_invalid"
+    } : {
+      ok: !1,
+      reason: "vm_uuid_invalid"
+    } : {
+      ok: !1,
+      reason: "previous_vm_uuid_invalid"
+    };
+    if (!a.ok) throw (0, n.createGatewayTransportError)(`Malformed browser_task.refresh_environment response: ${a.reason}`, {
+      requestMethod: "browser_task.refresh_environment"
+    });
+    return a.result
+  }
+  e.s(["browserClipboardReadiness", 0, f, "closeBrowserTask", 0, k, "copyBrowserTaskClipboard", 0, h, "getBrowserTask", 0, y, "heartbeatBrowserTask", 0, b, "pasteBrowserTaskClipboard", 0, m, "presentBrowserTask", 0, _, "refreshBrowserEnvironment", 0, S, "releaseBrowserTask", 0, g, "stopBrowserTask", 0, T, "takeOverBrowserTask", 0, w, "updateBrowserTaskViewer", 0, v], 377576);
+  let E = (0, t.createClientLogger)("BrowserTaskStop"),
+    x = new Map;
+  async function A(e, t, a) {
+    try {
+      return await T(e, {
+        sendRequest: t
+      }), {
+        outcome: "stopped",
+        taskWasMissing: !1
+      }
+    } catch (o) {
+      if ((0, n.isGatewayRequestError)(o) && "invalid_state" === o.code) return {
+        outcome: "already_ended",
+        taskWasMissing: !1
+      };
+      if ((0, n.isGatewayRequestError)(o) && "jarvis_rejection" === o.kind && "invalid_params" === o.code && o.message.toLowerCase().includes("browser task not found")) return E.retainForBugReport("warn", "Browser task was already missing during stop"), (0, s.captureHatchMessage)(s.HATCH_SENTRY_SURFACES.BROWSER_SESSION, "Browser task was already missing during stop", {
+        level: "warning",
+        extra: {
+          errorCode: o.code,
+          taskId: e
+        }
+      }), {
+        outcome: "stopped",
+        taskWasMissing: !0
+      };
+      let t = o instanceof Error ? o : Error(String(o)),
+        i = (0, n.isGatewayRequestError)(o) ? o : null;
+      return E.error({
+        error: t,
+        errorCode: i?.code ?? null,
+        errorKind: i?.kind ?? null,
+        errorMessage: t.message,
+        taskId: e,
+        tags: {
+          surface: s.HATCH_SENTRY_SURFACES.BROWSER_SESSION
+        }
+      }, "Browser task stop failed"), r.toast.error(a), {
+        outcome: "failed",
+        taskWasMissing: !1
+      }
+    }
+  }
+  async function R({
+    taskId: e,
+    presentationId: t,
+    resolvePresentationId: r,
+    preservePresentationOutcome: n,
+    presentationAction: s,
+    sendRequest: i,
+    failureMessage: o = "Couldn't stop the task. Try again."
+  }) {
+    let {
+      outcome: l,
+      taskWasMissing: u
+    } = await
+    function(e, t, r) {
+      let n = x.get(e);
+      if (null != n) return n;
+      let a = A(e, t, r);
+      return x.set(e, a), a.then(() => {
+        x.get(e) === a && x.delete(e)
+      }), a
+    }(e, i, o);
+    if ("failed" === l) return l;
+    let c = r?.() ?? t;
+    return "close_window" === s ? (n || "stopped" !== l || (0, a.patchBrowserTaskWidget)(c, {
+      display_status: "stopped",
+      status: "stopped"
+    }), (0, a.patchBrowserTaskWidget)(c, {
+      preview_available: !1
+    })) : "retain_window" !== s || "stopped" !== l || n ? "settle_only" !== s || "stopped" !== l || n || (0, a.patchBrowserTaskWidget)(c, {
+      display_status: "stopped",
+      status: "stopped"
+    }) : u ? ((0, a.patchBrowserTaskWidget)(c, {
+      display_status: "stopped",
+      status: "stopped"
+    }), (0, a.patchBrowserTaskWidget)(c, {
+      preview_available: !1
+    })) : (0, a.patchBrowserTaskWidget)(c, {
+      display_status: "stopped",
+      status: "stopped",
+      preview_available: !0
+    }), l
+  }
+  e.s(["requestBrowserTaskStop", 0, R], 712181)
+}, 355804, e => {
+  "use strict";
+  var t = e.i(984416),
+    r = e.i(722099),
+    n = e.i(519172),
+    a = e.i(849329),
+    s = e.i(393202),
+    i = e.i(345717),
+    o = e.i(32e4),
+    l = e.i(389409),
+    u = e.i(646361),
+    c = e.i(925301),
+    d = e.i(906214);
+  let p = /^\/api\/computer\/previews\/([^/?#]+)\/([^/?#]+)$/;
+  var f = e.i(499608),
+    h = e.i(720756),
+    m = e.i(907579),
+    y = e.i(175286),
+    w = e.i(926250),
+    g = e.i(863641);
+  let _ = !1;
+
+  function v(e) {
+    return {
+      kind: "blocked_legacy",
+      reason: e
+    }
+  }
+
+  function b(e) {
+    let n, a, s = (0, r.c)(12),
+      {
+        className: l,
+        emptyLabel: c,
+        imageUrl: d,
+        screenshot: p
+      } = e;
+    if (null == d) {
+      let e, r, n, a = `${l} bg-fill-secondary-elevated text-text-tertiary flex flex-col items-center justify-center gap-2`;
+      return s[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(u.HatchIcon, {
+        icon: o.default,
+        size: 36,
+        className: "opacity-50"
+      }), s[0] = e) : e = s[0], s[1] !== c ? (r = null != c ? (0, t.jsx)("div", {
+        className: "text-caption",
+        children: c
+      }) : null, s[1] = c, s[2] = r) : r = s[2], s[3] !== a || s[4] !== r ? (n = (0, t.jsxs)("div", {
+        className: a,
+        children: [e, r]
+      }), s[3] = a, s[4] = r, s[5] = n) : n = s[5], n
+    }
+    let f = p?.width ?? 800,
+      h = p?.height ?? 450;
+    s[6] === Symbol.for("react.memo_cache_sentinel") ? (n = i.fbs._("Browser snapshot", null, {
+      hk: "2uXBmR"
+    }), s[6] = n) : n = s[6];
+    let m = `${l} bg-bg-secondary object-cover`;
+    return s[7] !== d || s[8] !== f || s[9] !== h || s[10] !== m ? (a = (0, t.jsx)("img", {
+      src: d,
+      width: f,
+      height: h,
+      alt: n,
+      className: m
+    }), s[7] = d, s[8] = f, s[9] = h, s[10] = m, s[11] = a) : a = s[11], a
+  }
+
+  function k(e) {
+    let n, s, i, o, l, u = (0, r.c)(19),
+      {
+        actionId: c,
+        className: d,
+        emptyLabel: p,
+        screenshot: h
+      } = e,
+      {
+        ensureLiveConnection: w,
+        gatewayUrl: _,
+        isReady: v,
+        sendRequest: k
+      } = (0, y.useHatchRpc)(),
+      T = (0, m.useHatchGatewayFs)(),
+      S = _ ?? "",
+      E = c ?? "";
+    u[0] !== S || u[1] !== E ? (n = ["browser-activity-snapshot", S, E], u[0] = S, u[1] = E, u[2] = n) : n = u[2];
+    let x = n;
+    u[3] !== c || u[4] !== w || u[5] !== T || u[6] !== v || u[7] !== k ? (s = async () => {
+      if (null == c) return null;
+      v || await w();
+      let e = await T.rawFetch(`/workspace/.hatch-browser/${c}.webp`);
+      return e.ok ? e.data : k("browser_activity.snapshot", {
+        action_id: c
+      })
+    }, u[3] = c, u[4] = w, u[5] = T, u[6] = v, u[7] = k, u[8] = s) : s = u[8];
+    let A = null != c && S.length > 0;
+    u[9] === Symbol.for("react.memo_cache_sentinel") ? (i = {
+      sentrySurface: g.HATCH_SENTRY_SURFACES.BROWSER_SESSION
+    }, u[9] = i) : i = u[9], u[10] !== x || u[11] !== s || u[12] !== A ? (o = {
+      queryKey: x,
+      queryFn: s,
+      enabled: A,
+      staleTime: 1 / 0,
+      gcTime: 18e5,
+      retry: 1,
+      meta: i
+    }, u[10] = x, u[11] = s, u[12] = A, u[13] = o) : o = u[13];
+    let {
+      data: R
+    } = (0, a.useQuery)(o), C = (0, f.useBlobUrl)(R ?? null);
+    return u[14] !== d || u[15] !== p || u[16] !== C || u[17] !== h ? (l = (0, t.jsx)(b, {
+      className: d,
+      emptyLabel: p,
+      imageUrl: C,
+      screenshot: h
+    }), u[14] = d, u[15] = p, u[16] = C, u[17] = h, u[18] = l) : l = u[18], l
+  }
+
+  function T(e) {
+    let n, i, o, l, u, p = (0, r.c)(22),
+      {
+        className: m,
+        emptyLabel: w,
+        preview: _,
+        screenshot: v
+      } = e,
+      {
+        ensureLiveConnection: k,
+        gatewayUrl: T,
+        isReady: S,
+        sendRequest: E
+      } = (0, y.useHatchRpc)(),
+      {
+        targetKey: x
+      } = (0, h.useGatewayQueryContext)(),
+      A = (0, s.useQueryClient)(),
+      R = T ?? "";
+    p[0] !== _.sha256 || p[1] !== _.taskId || p[2] !== R ? (n = ["computer-preview", R, _.taskId, _.sha256], p[0] = _.sha256, p[1] = _.taskId, p[2] = R, p[3] = n) : n = p[3];
+    let C = n;
+    p[4] !== k || p[5] !== S || p[6] !== _.sha256 || p[7] !== _.taskId || p[8] !== A || p[9] !== E || p[10] !== x ? (i = async () => {
+      S || await k();
+      try {
+        return await E("computer.preview", {
+          task_id: _.taskId,
+          sha256: _.sha256
+        })
+      } catch (e) {
+        if ((0, c.isGatewayNotFoundError)(e)) return d.computerContextQuery.invalidate(A, {
+          targetKey: x
+        }), null;
+        throw e
+      }
+    }, p[4] = k, p[5] = S, p[6] = _.sha256, p[7] = _.taskId, p[8] = A, p[9] = E, p[10] = x, p[11] = i) : i = p[11];
+    let I = R.length > 0;
+    p[12] === Symbol.for("react.memo_cache_sentinel") ? (o = {
+      sentrySurface: g.HATCH_SENTRY_SURFACES.STATUS_COMPUTER
+    }, p[12] = o) : o = p[12], p[13] !== C || p[14] !== i || p[15] !== I ? (l = {
+      queryKey: C,
+      queryFn: i,
+      enabled: I,
+      staleTime: 1 / 0,
+      gcTime: 18e5,
+      retry: 1,
+      meta: o
+    }, p[13] = C, p[14] = i, p[15] = I, p[16] = l) : l = p[16];
+    let {
+      data: B
+    } = (0, a.useQuery)(l), M = (0, f.useBlobUrl)(B instanceof Blob ? B : null);
+    return p[17] !== m || p[18] !== w || p[19] !== M || p[20] !== v ? (u = (0, t.jsx)(b, {
+      className: m,
+      emptyLabel: w,
+      imageUrl: M,
+      screenshot: v
+    }), p[17] = m, p[18] = w, p[19] = M, p[20] = v, p[21] = u) : u = p[21], u
+  }
+
+  function S(e) {
+    let a, s = (0, r.c)(5),
+      {
+        className: i,
+        emptyLabel: o,
+        screenshot: l
+      } = e,
+      {
+        imageUrl: u
+      } = function(e) {
+        let t, a, s, i, o = (0, r.c)(9),
+          l = e?.url ?? null,
+          u = null != e;
+        o[0] !== l || o[1] !== u ? (t = {
+          sourceUrl: l,
+          usage: "full",
+          enabled: u
+        }, o[0] = l, o[1] = u, o[2] = t) : t = o[2];
+        let c = (0, w.useResolvedHatchImageMedia)(t),
+          [d, p] = (0, n.useState)(null);
+        o[3] !== c.src ? (a = () => {
+          null != c.src && p(c.src)
+        }, s = [c.src], o[3] = c.src, o[4] = a, o[5] = s) : (a = o[4], s = o[5]), (0, n.useEffect)(a, s);
+        let f = c.src ?? d,
+          h = "loading" === c.resolutionStatus;
+        return o[6] !== f || o[7] !== h ? (i = {
+          imageUrl: f,
+          isLoading: h
+        }, o[6] = f, o[7] = h, o[8] = i) : i = o[8], i
+      }(l);
+    return s[0] !== i || s[1] !== o || s[2] !== u || s[3] !== l ? (a = (0, t.jsx)(b, {
+      className: i,
+      emptyLabel: o,
+      imageUrl: u,
+      screenshot: l
+    }), s[0] = i, s[1] = o, s[2] = u, s[3] = l, s[4] = a) : a = s[4], a
+  }
+  e.s(["HatchBrowserSnapshotImage", 0, function(e) {
+    let a, s, i, o, u, c = (0, r.c)(21),
+      {
+        className: d,
+        emptyLabel: f,
+        screenshot: h
+      } = e,
+      m = h?.url;
+    c[0] !== m ? (a = function(e) {
+      let t = e?.trim().match(p);
+      if (null == t) return null;
+      try {
+        let e = decodeURIComponent(t[1] ?? ""),
+          r = decodeURIComponent(t[2] ?? ""),
+          n = e => e.length > 0 && e.length <= 256 && !e.includes("/") && !e.includes("\\");
+        return n(e) && n(r) ? {
+          taskId: e,
+          sha256: r
+        } : null
+      } catch {
+        return null
+      }
+    }(m), c[0] = m, c[1] = a) : a = c[1];
+    let y = a;
+    c[2] !== h ? (s = function(e) {
+      let t, r = e?.url.trim(),
+        n = e?.actionId;
+      if (null == r || 0 === r.length || null == n) return {
+        kind: "standard"
+      };
+      try {
+        t = new URL(r, "https://browser-snapshot.invalid")
+      } catch {
+        return {
+          kind: "standard"
+        }
+      }
+      if (!r.startsWith("/") && !(0, l.isHatchVmGatewayHostname)(t.hostname) || !t.pathname.startsWith("/api/browser-activity/")) return {
+        kind: "standard"
+      };
+      let a = t.pathname.match(/^\/api\/browser-activity\/actions\/([^/]+)\/snapshot$/);
+      if (null == a) return v("invalid_route");
+      try {
+        let e = decodeURIComponent(a[1] ?? "");
+        if (0 === e.length || e.length > 256 || e.includes("/") || e.includes("\\")) return v("invalid_action_id");
+        if (e !== n) return v("action_id_mismatch");
+        return {
+          kind: "legacy",
+          actionId: e
+        }
+      } catch {
+        return v("invalid_action_id")
+      }
+    }(h), c[2] = h, c[3] = s) : s = c[3];
+    let w = s,
+      b = "blocked_legacy" === w.kind ? w.reason : null;
+    if (c[4] !== b ? (i = () => {
+        null != b && (_ || (_ = !0, (0, g.captureHatchMessage)(g.HATCH_SENTRY_SURFACES.BROWSER_SESSION, "Legacy browser snapshot URL was rejected", {
+          level: "warning",
+          tags: {
+            reason: b
+          }
+        })))
+      }, o = [b], c[4] = b, c[5] = i, c[6] = o) : (i = c[5], o = c[6]), (0, n.useEffect)(i, o), null != y && null != h) {
+      let e;
+      return c[7] !== d || c[8] !== y || c[9] !== f || c[10] !== h ? (e = (0, t.jsx)(T, {
+        className: d,
+        emptyLabel: f,
+        preview: y,
+        screenshot: h
+      }), c[7] = d, c[8] = y, c[9] = f, c[10] = h, c[11] = e) : e = c[11], e
+    }
+    if ("standard" !== w.kind && null != h) {
+      let e, r = "legacy" === w.kind ? w.actionId : null;
+      return c[12] !== d || c[13] !== f || c[14] !== h || c[15] !== r ? (e = (0, t.jsx)(k, {
+        actionId: r,
+        className: d,
+        emptyLabel: f,
+        screenshot: h
+      }), c[12] = d, c[13] = f, c[14] = h, c[15] = r, c[16] = e) : e = c[16], e
+    }
+    return c[17] !== d || c[18] !== f || c[19] !== h ? (u = (0, t.jsx)(S, {
+      className: d,
+      emptyLabel: f,
+      screenshot: h
+    }), c[17] = d, c[18] = f, c[19] = h, c[20] = u) : u = c[20], u
+  }], 355804)
+}, 906214, e => {
+  "use strict";
+  var t = e.i(863641),
+    r = e.i(221988),
+    n = e.i(925301),
+    a = e.i(335004);
+
+  function s(e) {
+    return "object" == typeof e && null != e && !Array.isArray(e) && null != (0, r.extractBrowserTaskData)(e)
+  }
+
+  function i(e) {
+    if ((0, n.isGatewayRequestError)(e) && "computer_disabled" === e.code) return !0;
+    let t = (0, a.toHatchGatewayError)(e);
+    if (t?.kind !== "not_found") return !1;
+    let r = t.message.toLowerCase();
+    return r.includes("route not found") || r.includes("no route") || r.includes("route missing")
+  }
+
+  function o(e) {
+    if (null == e || "object" != typeof e || !("tasks" in e) || !Array.isArray(e.tasks)) throw Error("Invalid Computer context response");
+    let r = e.tasks.filter(s);
+    return r.length < e.tasks.length && (0, t.captureHatchMessage)(t.HATCH_SENTRY_SURFACES.STATUS_COMPUTER, "Computer context dropped unreadable browser tasks", {
+      level: "warning",
+      extra: {
+        receivedCount: e.tasks.length,
+        keptCount: r.length
+      }
+    }), {
+      available: !0,
+      tasks: r
+    }
+  }
+  async function l(e, t) {
+    let r = e.targetKey;
+    e.isReady || await e.waitForTransport();
+    let n = await e.sendRequest("browser.lease", {
+      lease_id: t
+    }, {
+      expectedGatewayTargetKey: r
+    });
+    if (!s(n)) throw Error("Invalid browser lease response");
+    return {
+      task: n,
+      requestTargetKey: r
+    }
+  }
+  let u = (0, e.i(790170).createGatewayQuery)({
+    id: "computer.context",
+    queryKey: ({
+      targetKey: e
+    }) => ["computer-context", e],
+    noiseFn: async e => {
+      try {
+        return o(await e.sendRequest("computer.context", {}, {
+          expectedGatewayTargetKey: e.targetKey
+        }))
+      } catch (e) {
+        if (i(e)) return {
+          available: !1,
+          tasks: []
+        };
+        throw e
+      }
+    },
+    staleTime: 0,
+    meta: {
+      sentrySurface: t.HATCH_SENTRY_SURFACES.STATUS_COMPUTER
+    }
+  });
+  e.s(["computerContextQuery", 0, u, "isComputerUnavailableError", 0, i, "leaseComputerBrowser", 0, l, "normalizeComputerContext", 0, o, "upsertComputerContextTask", 0, function(e, t) {
+    let n = (0, r.extractBrowserTaskData)(t)?.browserTaskId,
+      a = e?.tasks ?? [],
+      s = a.findIndex(e => (0, r.extractBrowserTaskData)(e)?.browserTaskId === n);
+    return s < 0 ? {
+      available: !0,
+      tasks: [...a, t]
+    } : {
+      available: !0,
+      tasks: a.map((e, r) => r === s ? t : e)
+    }
+  }])
+}, 931821, e => {
+  "use strict";
+  class t {
+    constructor(e) {
+      this.stop = () => this.runAll("stop"), this.animations = e.filter(Boolean)
+    }
+    get finished() {
+      return Promise.all(this.animations.map(e => e.finished))
+    }
+    getAll(e) {
+      return this.animations[0][e]
+    }
+    setAll(e, t) {
+      for (let r = 0; r < this.animations.length; r++) this.animations[r][e] = t
+    }
+    attachTimeline(e) {
+      let t = this.animations.map(t => t.attachTimeline(e));
+      return () => {
+        t.forEach((e, t) => {
+          e && e(), this.animations[t].stop()
+        })
+      }
+    }
+    get time() {
+      return this.getAll("time")
+    }
+    set time(e) {
+      this.setAll("time", e)
+    }
+    get speed() {
+      return this.getAll("speed")
+    }
+    set speed(e) {
+      this.setAll("speed", e)
+    }
+    get state() {
+      return this.getAll("state")
+    }
+    get startTime() {
+      return this.getAll("startTime")
+    }
+    get duration() {
+      return r(this.animations, "duration")
+    }
+    get iterationDuration() {
+      return r(this.animations, "iterationDuration")
+    }
+    runAll(e) {
+      this.animations.forEach(t => t[e]())
+    }
+    play() {
+      this.runAll("play")
+    }
+    pause() {
+      this.runAll("pause")
+    }
+    cancel() {
+      this.runAll("cancel")
+    }
+    complete() {
+      this.runAll("complete")
+    }
+  }
+
+  function r(e, t) {
+    let r = 0;
+    for (let n = 0; n < e.length; n++) {
+      let a = e[n][t];
+      null !== a && a > r && (r = a)
+    }
+    return r
+  }
+  class n extends t {
+    then(e, t) {
+      return this.finished.finally(e).then(() => {})
+    }
+  }
+  var a = e.i(133639),
+    s = e.i(798520),
+    i = e.i(538305),
+    o = e.i(668617),
+    l = e.i(161),
+    u = e.i(196239),
+    c = e.i(91649),
+    d = e.i(747113),
+    p = e.i(667327),
+    f = e.i(348367),
+    h = e.i(520085);
+
+  function m(e, t) {
+    var r;
+    let n;
+    return (0, h.isEasingArray)(e) ? e[r = e.length, ((t - 0) % (n = r - 0) + n) % n + 0] : e
+  }
+  var y = e.i(369710);
+
+  function w(e) {
+    return "object" == typeof e && !Array.isArray(e)
+  }
+
+  function g(e, t, r, n) {
+    return "string" == typeof e && w(t) ? (0, y.resolveElements)(e, r, n) : e instanceof NodeList ? Array.from(e) : Array.isArray(e) ? e : [e]
+  }
+
+  function _(e, t, r, n) {
+    return "number" == typeof t ? t : t.startsWith("-") || t.startsWith("+") ? Math.max(0, e + parseFloat(t)) : "<" === t ? r : t.startsWith("<") ? Math.max(0, r + parseFloat(t.slice(1))) : n.get(t) ?? e
+  }
+  var v = e.i(647480);
+
+  function b(e, t) {
+    return e.at !== t.at ? e.at - t.at : null === e.value ? 1 : null === t.value ? -1 : 0
+  }
+
+  function k(e, t) {
+    return t.has(e) || t.set(e, {}), t.get(e)
+  }
+
+  function T(e, t) {
+    return t[e] || (t[e] = []), t[e]
+  }
+  let S = e => "number" == typeof e,
+    E = e => e.every(S);
+  var x = e.i(663616),
+    A = e.i(872598),
+    R = e.i(361979),
+    C = e.i(637165),
+    I = e.i(596854),
+    B = e.i(455277),
+    M = e.i(364141);
+  class G extends M.VisualElement {
+    constructor() {
+      super(...arguments), this.type = "object"
+    }
+    readValueFromInstance(e, t) {
+      if (t in e) {
+        let r = e[t];
+        if ("string" == typeof r || "number" == typeof r) return r
+      }
+    }
+    getBaseTargetFromProps() {}
+    removeValueFromRenderState(e, t) {
+      delete t.output[e]
+    }
+    measureInstanceViewportBox() {
+      return (0, B.createBox)()
+    }
+    build(e, t) {
+      Object.assign(e.output, t)
+    }
+    renderInstance(e, {
+      output: t
+    }) {
+      Object.assign(e, t)
+    }
+    sortInstanceNodePosition() {
+      return 0
+    }
+  }
+  var j = e.i(428368);
+
+  function O(e) {
+    let t = {
+        presenceContext: null,
+        props: {},
+        visualState: {
+          renderState: {
+            transform: {},
+            transformOrigin: {},
+            style: {},
+            vars: {},
+            attrs: {}
+          },
+          latestValues: {}
+        }
+      },
+      r = (0, R.isSVGElement)(e) && !(0, C.isSVGSVGElement)(e) ? new j.SVGVisualElement(t) : new I.HTMLVisualElement(t);
+    r.mount(e), x.visualElementStore.set(e, r)
+  }
+
+  function U(e) {
+    let t = new G({
+      presenceContext: null,
+      props: {},
+      visualState: {
+        renderState: {
+          output: {}
+        },
+        latestValues: {}
+      }
+    });
+    t.mount(e), x.visualElementStore.set(e, t)
+  }
+  var N = e.i(160411);
+
+  function q(e, t, r, n) {
+    let a = [];
+    if ((0, i.isMotionValue)(e) || "number" == typeof e || "string" == typeof e && !w(t)) a.push((0, N.animateSingleValue)(e, w(t) && t.default || t, r && r.default || r));
+    else {
+      let s = g(e, t, n),
+        i = s.length;
+      (0, f.invariant)(!!i, "No valid elements provided.", "no-valid-elements");
+      for (let e = 0; e < i; e++) {
+        let n = s[e];
+        (0, f.invariant)(null !== n, "You're trying to perform an animation on null. Ensure that selectors are correctly finding elements and refs are correctly hydrated.", "animate-null");
+        let o = n instanceof Element ? O : U;
+        x.visualElementStore.has(n) || o(n);
+        let l = x.visualElementStore.get(n),
+          u = {
+            ...r
+          };
+        "delay" in u && "function" == typeof u.delay && (u.delay = u.delay(e, i)), a.push(...(0, A.animateTarget)(l, {
+          ...t,
+          transition: u
+        }, {}))
+      }
+    }
+    return a
+  }
+
+  function H(e) {
+    return function(t, r, h) {
+      let y, w = [];
+      if (Array.isArray(t) && t.some(Array.isArray)) {
+        let n;
+        n = [], (function(e, {
+          defaultTransition: t = {},
+          ...r
+        } = {}, n, s) {
+          let h = t.duration || .3,
+            y = new Map,
+            w = new Map,
+            S = {},
+            x = new Map,
+            A = 0,
+            R = 0,
+            C = 0;
+          for (let r = 0; r < e.length; r++) {
+            let d = e[r];
+            if ("string" == typeof d) {
+              x.set(d, R);
+              continue
+            }
+            if (!Array.isArray(d)) {
+              x.set(d.name, _(R, d.at, A, x));
+              continue
+            }
+            let [y, b, M = {}] = d;
+            void 0 !== M.at && (R = _(R, M.at, A, x));
+            let G = 0,
+              j = (e, r, n, i = 0, d = 0) => {
+                var y;
+                let w = Array.isArray(y = e) ? y : [y],
+                  {
+                    delay: g = 0,
+                    times: _ = (0, o.defaultOffset)(w),
+                    type: b = "keyframes",
+                    repeat: k,
+                    repeatType: T,
+                    repeatDelay: S = 0,
+                    ...x
+                  } = r,
+                  {
+                    ease: A = t.ease || "easeOut",
+                    duration: I
+                  } = r,
+                  B = "function" == typeof g ? g(i, d) : g,
+                  M = w.length,
+                  j = (0, l.isGenerator)(b) ? b : s?.[b || "keyframes"];
+                if (M <= 2 && j) {
+                  let e = 100;
+                  2 === M && E(w) && (e = Math.abs(w[1] - w[0]));
+                  let t = {
+                    ...x
+                  };
+                  void 0 !== I && (t.duration = (0, p.secondsToMilliseconds)(I));
+                  let r = (0, u.createGeneratorEasing)(t, e, j);
+                  A = r.ease, I = r.duration
+                }
+                I ?? (I = h);
+                let O = R + B;
+                1 === _.length && 0 === _[0] && (_[1] = 1);
+                let U = _.length - w.length;
+                if (U > 0 && (0, c.fillOffset)(_, U), 1 === w.length && w.unshift(null), k) {
+                  (0, f.invariant)(k < 20, "Repeat count too high, must be less than 20", "repeat-count-high"), I *= k + 1;
+                  let e = [...w],
+                    t = [..._],
+                    r = [...A = Array.isArray(A) ? [...A] : [A]];
+                  for (let n = 0; n < k; n++) {
+                    w.push(...e);
+                    for (let a = 0; a < e.length; a++) _.push(t[a] + (n + 1)), A.push(0 === a ? "linear" : m(r, a - 1))
+                  }
+                  for (let e = 0; e < _.length; e++) _[e] = _[e] / (k + 1)
+                }
+                let N = O + I;
+                ! function(e, t, r, n, s, i) {
+                  for (let t = 0; t < e.length; t++) {
+                    let r = e[t];
+                    r.at > s && r.at < i && ((0, a.removeItem)(e, r), t--)
+                  }
+                  for (let a = 0; a < t.length; a++) e.push({
+                    value: t[a],
+                    at: (0, v.mixNumber)(s, i, n[a]),
+                    easing: m(r, a)
+                  })
+                }(n, w, A, _, O, N), G = Math.max(B + I, G), C = Math.max(N, C)
+              };
+            if ((0, i.isMotionValue)(y)) j(b, M, T("default", k(y, w)));
+            else {
+              let e = g(y, b, n, S),
+                t = e.length;
+              for (let r = 0; r < t; r++) {
+                let n = k(e[r], w);
+                for (let e in b) {
+                  var I, B;
+                  j(b[e], (I = M, B = e, I && I[B] ? {
+                    ...I,
+                    ...I[B]
+                  } : {
+                    ...I
+                  }), T(e, n), r, t)
+                }
+              }
+            }
+            A = R, R += G
+          }
+          return w.forEach((e, n) => {
+            for (let a in e) {
+              let s = e[a];
+              s.sort(b);
+              let i = [],
+                o = [],
+                l = [];
+              for (let e = 0; e < s.length; e++) {
+                let {
+                  at: t,
+                  value: r,
+                  easing: n
+                } = s[e];
+                i.push(r), o.push((0, d.progress)(0, C, t)), l.push(n || "easeOut")
+              }
+              0 !== o[0] && (o.unshift(0), i.unshift(i[0]), l.unshift("easeInOut")), 1 !== o[o.length - 1] && (o.push(1), i.push(null)), y.has(n) || y.set(n, {
+                keyframes: {},
+                transition: {}
+              });
+              let u = y.get(n);
+              u.keyframes[a] = i, u.transition[a] = {
+                ...t,
+                duration: C,
+                ease: l,
+                times: o,
+                ...r
+              }
+            }
+          }), y
+        })(t, r, e, {
+          spring: s.spring
+        }).forEach(({
+          keyframes: e,
+          transition: t
+        }, r) => {
+          n.push(...q(r, e, t))
+        }), w = n
+      } else {
+        let {
+          onComplete: n,
+          ...a
+        } = h || {};
+        "function" == typeof n && (y = n), w = q(t, r, a, e)
+      }
+      let S = new n(w);
+      return y && S.finished.then(y), e && (e.animations.push(S), S.finished.then(() => {
+        (0, a.removeItem)(e.animations, S)
+      })), S
+    }
+  }
+  let F = H();
+  e.s(["animate", 0, F, "createScopedAnimate", 0, H], 931821)
+}, 931054, 632105, e => {
+  "use strict";
+  var t = e.i(984416),
+    r = e.i(722099);
+
+  function n(e) {
+    let n, a, s, i, o = (0, r.c)(9);
+    return o[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), o[0] = e.title, o[1] = n) : n = o[1], o[2] !== e.children ? (a = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), o[2] = e.children, o[3] = a) : a = o[3], o[4] === Symbol.for("react.memo_cache_sentinel") ? (s = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1 1 5.925 1 12s4.925 11 11 11zm.83-2.473c-.36.381-.641.473-.83.473-.189 0-.47-.091-.83-.473-.363-.384-.736-.992-1.07-1.827-.417-1.043-.743-2.361-.929-3.856.904.102 1.853.156 2.829.156.976 0 1.925-.054 2.829-.156-.186 1.495-.512 2.813-.929 3.856-.334.835-.707 1.444-1.07 1.827zm2.156-7.717c-.933.123-1.937.19-2.986.19-1.049 0-2.053-.067-2.987-.19A24.277 24.277 0 0 1 9 12c0-2.667.434-5.035 1.1-6.7.334-.835.707-1.443 1.07-1.827.36-.381.641-.473.83-.473.189 0 .47.091.83.473.363.384.736.992 1.07 1.827.666 1.665 1.1 4.033 1.1 6.7 0 .273-.005.544-.014.81zm1.891 1.706c-.185 1.87-.575 3.563-1.12 4.926-.128.32-.267.627-.416.918a9.009 9.009 0 0 0 5.603-7.35c-.598.372-1.3.692-2.071.959a16.62 16.62 0 0 1-1.996.547zm3.986-4.088c-.123.203-.344.446-.71.707-.47.337-1.12.662-1.935.944-.379.132-.788.252-1.222.359C17 12.292 17 12.146 17 12c0-2.856-.461-5.488-1.243-7.442-.128-.32-.267-.627-.416-.918a9.014 9.014 0 0 1 5.522 6.788zm-13.86 2.01A26.392 26.392 0 0 1 7 12c0-2.856.461-5.488 1.243-7.442.128-.32.267-.627.416-.918a9.014 9.014 0 0 0-5.522 6.788l.019.03c.36.56 1.33 1.22 2.97 1.735.28.088.572.17.878.245zm-3.947.573A9.009 9.009 0 0 0 8.66 20.36c-.15-.29-.288-.598-.416-.918-.545-1.363-.935-3.057-1.12-4.926a17.221 17.221 0 0 1-1.596-.415c-.908-.285-1.758-.647-2.47-1.09z"
+    }), o[4] = s) : s = o[4], o[5] !== e || o[6] !== n || o[7] !== a ? (i = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, a, s]
+    }), o[5] = e, o[6] = n, o[7] = a, o[8] = i) : i = o[8], i
+  }
+  n._isSVG = !0, e.s(["default", 0, n], 931054);
+  var a = e.i(519172);
+  let s = new Map,
+    i = new Set,
+    o = new Set,
+    l = new Map,
+    u = l;
+
+  function c({
+    messageId: e,
+    widgetId: t
+  }) {
+    return null == e ? null : `${e}\u0000${t}`
+  }
+
+  function d(e) {
+    switch (e) {
+      case "visible":
+        return 3;
+      case "pending":
+        return 2;
+      case "hidden":
+        return 1;
+      case "unknown":
+        return 0
+    }
+  }
+
+  function p() {
+    let e = new Map;
+    for (let t of i) e.set(t, "hidden");
+    for (let t of s.values()) {
+      let r = e.get(t.key) ?? "unknown";
+      d(t.state) > d(r) && e.set(t.key, t.state)
+    }
+    if (!(e.size === u.size && [...e].every(([e, t]) => u.get(e) === t)))
+      for (let t of (u = e, o)) t()
+  }
+
+  function f(e, t) {
+    let r = s.get(e);
+    if (r?.key === t) {
+      if (s.delete(e), ![...s.values()].some(e => e.key === t))
+        for (i.delete(t), i.add(t); i.size > 64;) {
+          let e = i.values().next().value;
+          if (null == e) break;
+          i.delete(e)
+        }
+      p()
+    }
+  }
+
+  function h(e) {
+    return o.add(e), () => o.delete(e)
+  }
+
+  function m() {
+    return u
+  }
+
+  function y() {
+    return l
+  }
+  e.s(["useBrowserTaskWidgetViewportRef", 0, function(e) {
+    let t, n, o = (0, r.c)(6),
+      {
+        messageId: l,
+        widgetId: u
+      } = e,
+      d = (0, a.useRef)(null),
+      h = (0, a.useRef)(null);
+    if (null == d.current) {
+      let e;
+      o[0] === Symbol.for("react.memo_cache_sentinel") ? (e = Symbol("browser-task-widget-viewport"), o[0] = e) : e = o[0], d.current = e
+    }
+    let m = d.current;
+    o[1] !== l || o[2] !== u ? (t = c({
+      messageId: l,
+      widgetId: u
+    }), o[1] = l, o[2] = u, o[3] = t) : t = o[3];
+    let y = t;
+    return o[4] !== y ? (n = e => {
+      if (h.current?.disconnect(), h.current = null, null == y) return;
+      if (null == e) return void f(m, y);
+      if (i.delete(y), s.set(m, {
+          key: y,
+          state: "pending"
+        }), p(), "u" < typeof IntersectionObserver) return () => f(m, y);
+      let t = new IntersectionObserver(t => {
+        let r = t.find(t => t.target === e);
+        if (null != r) {
+          var n;
+          let e;
+          n = r.isIntersecting ? "visible" : "hidden", e = s.get(m), e?.key === y && e.state !== n && (s.set(m, {
+            key: y,
+            state: n
+          }), p())
+        }
+      }, {
+        root: e.closest("#hatch-chat-scroll"),
+        threshold: 0
+      });
+      return h.current = t, t.observe(e), () => {
+        h.current === t && (h.current = null), t.disconnect(), f(m, y)
+      }
+    }, o[4] = y, o[5] = n) : n = o[5], n
+  }, "useBrowserTaskWidgetViewportState", 0, function(e) {
+    let t, n = (0, r.c)(4),
+      {
+        messageId: s,
+        widgetId: i
+      } = e,
+      o = (0, a.useSyncExternalStore)(h, m, y);
+    if (n[0] !== s || n[1] !== o || n[2] !== i) {
+      let e = c({
+        messageId: s,
+        widgetId: i
+      });
+      t = null == e ? "unknown" : o.get(e) ?? "unknown", n[0] = s, n[1] = o, n[2] = i, n[3] = t
+    } else t = n[3];
+    return t
+  }], 632105)
+}]);
+
+//# debugId=7dfb8659-ceb7-d4dd-4f24-64a003662079
+//# sourceMappingURL=2ctf7ssmhalq7.js.map

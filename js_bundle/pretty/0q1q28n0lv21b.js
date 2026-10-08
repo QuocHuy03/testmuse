@@ -1,0 +1,1695 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "c9f17bce-ab3d-bc31-4ac2-86611e0e7b33")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 214619, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(519172),
+    r = e.i(251932),
+    a = e.i(440149),
+    i = e.i(47247),
+    s = e.i(538206),
+    l = e.i(486868),
+    o = e.i(345717),
+    u = e.i(359783),
+    c = e.i(848048),
+    d = e.i(281539),
+    m = e.i(905156),
+    _ = e.i(831879),
+    p = e.i(269677),
+    f = e.i(907579),
+    g = e.i(648094),
+    T = e.i(863641),
+    h = e.i(805163);
+  let E = (0, u.createClientLogger)("EctoCopyButton"),
+    A = {
+      "video/mp4": "mp4",
+      "video/ogg": "ogv",
+      "video/quicktime": "mov",
+      "video/webm": "webm"
+    };
+  class C extends Error {}
+
+  function y(e) {
+    return e instanceof p.UnsupportedMediaClipboardError ? "clipboard_unsupported" : e instanceof p.MediaCopyLimitError ? "media_limit" : e instanceof C ? "noise_read" : e instanceof DOMException && "NotAllowedError" === e.name ? "clipboard_permission" : "unexpected"
+  }
+  e.s(["default", 0, function({
+    content: e,
+    media: u,
+    htmlRoot: S,
+    htmlRootRef: I,
+    htmlRootReady: R = !0,
+    entryPoint: N = "hover_button"
+  }) {
+    let w = (0, n.useRef)(!1),
+      [M, P] = (0, n.useState)(!1),
+      v = (0, f.useHatchGatewayFs)(),
+      H = u?.kind === "video",
+      b = o.fbs._("Video downloaded", null, {
+        hk: "sdt6W"
+      }),
+      x = o.fbs._("Copied to clipboard", null, {
+        hk: "x9bcg"
+      }),
+      D = o.fbs._("Failed to download video", null, {
+        hk: "3RLTjo"
+      }),
+      L = o.fbs._("Failed to copy to clipboard", null, {
+        hk: "3p3T2o"
+      }),
+      O = (0, m.useHatchChatThreadLoggingMetadataFromContext)(),
+      {
+        ref: k,
+        onClick: F
+      } = (0, c.useTrackedClickRef)({
+        eventName: d.HatchClickEvent.CHAT_COPY_RESPONSE,
+        actionTarget: "copy_button",
+        actionType: "click",
+        metadata: {
+          surface: "chat",
+          subsurface: "response_toolbar",
+          entry_point: N,
+          ...O
+        }
+      }),
+      {
+        ref: K,
+        onClick: U
+      } = (0, c.useTrackedClickRef)({
+        eventName: d.HatchClickEvent.MEDIA_DOWNLOAD,
+        actionTarget: "generated_video_download",
+        actionType: "click",
+        metadata: {
+          surface: "chat",
+          subsurface: "response_toolbar",
+          entry_point: N,
+          ...O
+        }
+      }),
+      G = async () => {
+        if (w.current) return;
+        let t = (0, i.captureHatchToast)();
+        w.current = !0, P(!0);
+        let n = H ? "video_download" : null == u ? "text_copy" : "media_clipboard_copy";
+        try {
+          if (u?.kind === "video") {
+            U();
+            let e = await v.rawFetch(u.path, {
+              urlEncodedPath: !0
+            });
+            if (!e.ok) throw new C("Failed to read generated video over Noise", {
+              cause: (0, h.toError)(e.error)
+            });
+            (0, g.triggerBlobDownload)(function(e) {
+              let t = e.path.split("/").filter(Boolean).at(-1);
+              if (null != t) try {
+                t = decodeURIComponent(t)
+              } catch {}
+              let n = t?.split(/[?#]/)[0]?.split(/[\\/]/).pop(),
+                r = A[e.mimeType] ?? "mp4";
+              return null != n && n.toLowerCase().endsWith(`.${r}`) ? n : `${n?.replace(/\.[^./\\]+$/,"")||"hatch-video"}.${r}`
+            }(u), e.data), t.success(b);
+            return
+          }
+          if (null != u) {
+            let t = null,
+              r = (0, _.copyTextWithOptionalHtml)({
+                text: e
+              }).then(() => null, e => (0, h.toError)(e));
+            try {
+              (0, p.validateImageCopyMetadata)(u), await (0, p.copyImageBlobToClipboard)({
+                loadBlob: () => t ??= v.rawFetch(u.path, {
+                  range: {
+                    start: 0,
+                    end: p.MAX_COPY_MEDIA_BYTES
+                  },
+                  urlEncodedPath: !0
+                }).then(e => {
+                  if (!e.ok) throw new C("Failed to read generated media over Noise", {
+                    cause: (0, h.toError)(e.error)
+                  });
+                  if (e.data.size > p.MAX_COPY_MEDIA_BYTES) throw new p.MediaCopyLimitError("Generated media exceeds the clipboard byte limit");
+                  return e.data
+                }),
+                mimeType: u.mimeType
+              })
+            } catch (t) {
+              let e = await r;
+              if (null != e) throw e;
+              t instanceof C ? E.error({
+                error: t,
+                mediaKind: u.kind,
+                tags: (0, T.hatchSentryTags)(T.HATCH_SENTRY_SURFACES.CHAT_WIDGET, {
+                  failure_reason: y(t),
+                  media_kind: u.kind,
+                  operation: n
+                })
+              }, "Failed to read generated media over Noise") : E.retainForBugReport("info", "Media copy unavailable")
+            }
+          } else await (0, _.copyTextWithOptionalHtml)({
+            text: e,
+            htmlRoot: R ? I?.current ?? S : null
+          });
+          F(), t.success(x)
+        } catch (r) {
+          t.error(H ? D : L);
+          let e = (0, h.toError)(r);
+          e instanceof p.MediaCopyLimitError || e instanceof p.UnsupportedMediaClipboardError ? E.retainForBugReport("info", "Media copy unavailable") : E.error({
+            error: e,
+            mediaKind: u?.kind,
+            tags: (0, T.hatchSentryTags)(T.HATCH_SENTRY_SURFACES.CHAT_WIDGET, {
+              failure_reason: y(e),
+              media_kind: u?.kind ?? "none",
+              operation: n
+            })
+          }, H ? "Failed to download video" : "Failed to copy response")
+        } finally {
+          w.current = !1, P(!1)
+        }
+      };
+    return (0, t.jsxs)(l.Tooltip, {
+      children: [(0, t.jsx)(l.TooltipTrigger, {
+        asChild: !0,
+        children: (0, t.jsx)(s.IconRailButton, {
+          ref: H ? K : k,
+          className: "text-text-secondary aria-disabled:cursor-not-allowed aria-disabled:opacity-50",
+          icon: H ? r.default : a.default,
+          onClick: G,
+          "aria-disabled": M || void 0,
+          "aria-busy": M || void 0,
+          label: H ? o.fbs._("Download video", null, {
+            hk: "3txDWe"
+          }) : o.fbs._("Copy response", null, {
+            hk: "2xZY6K"
+          }),
+          size: "24",
+          variant: "borderless"
+        })
+      }), (0, t.jsx)(l.TooltipContent, {
+        side: "bottom",
+        children: H ? o.fbs._("Download", null, {
+          hk: "3JKo6d"
+        }) : o.fbs._("Copy", null, {
+          hk: "16qaLd"
+        })
+      })]
+    })
+  }])
+}, 337879, e => {
+  "use strict";
+  var t = e.i(722099),
+    n = e.i(519172);
+  e.s(["useLatchedTrue", 0, function(e) {
+    let r, a, i = (0, t.c)(3),
+      [s, l] = (0, n.useState)(e);
+    return i[0] !== e ? (r = () => {
+      e && l(!0)
+    }, a = [e], i[0] = e, i[1] = r, i[2] = a) : (r = i[1], a = i[2]), (0, n.useEffect)(r, a), e || s
+  }])
+}, 805564, 982209, 264171, 571613, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099),
+    r = e.i(519172),
+    a = e.i(702471),
+    i = e.i(102806),
+    s = e.i(247717);
+
+  function l() {
+    return {
+      firstMessageAt: null,
+      lastMessageAt: null,
+      messageCount: 0,
+      deltaMessageStartAt: null,
+      deltaFirstTextAt: null,
+      deltaMessageDoneAt: null,
+      numImages: 0,
+      numVideos: 0,
+      numExtractedNonmediaResources: 0,
+      totalGeneratedFiles: 0,
+      mediaFilenames: [],
+      fileFilenames: [],
+      fileTypes: [],
+      hasRenderableMedia: !1,
+      hasHoldableContent: !1
+    }
+  }
+
+  function o(e, t, n) {
+    switch (e) {
+      case "idle":
+        var r, a;
+        return r = t, "USER_MESSAGE_SENT" === (a = n).type ? {
+          state: "awaiting",
+          context: {
+            ...l(),
+            firstMessageAt: a.timestamp,
+            lastMessageAt: a.timestamp,
+            messageCount: 1
+          },
+          outcome: null,
+          outcomeReason: null
+        } : {
+          state: "idle",
+          context: r,
+          outcome: null,
+          outcomeReason: null
+        };
+      case "awaiting":
+        var i = t,
+          s = n;
+        switch (s.type) {
+          case "USER_MESSAGE_SENT":
+            return {
+              state: "awaiting", context: {
+                ...i,
+                lastMessageAt: s.timestamp,
+                messageCount: i.messageCount + 1
+              }, outcome: null, outcomeReason: null
+            };
+          case "DELTA_MESSAGE_START":
+          case "DELTA_TEXT_APPEND":
+            return {
+              state: "streaming", context: {
+                ...i,
+                deltaMessageStartAt: s.timestamp
+              }, outcome: null, outcomeReason: null
+            };
+          case "TIMEOUT":
+            return {
+              state: "idle", context: i, outcome: "FAIL", outcomeReason: "timeout_no_message_start"
+            };
+          case "CANCEL":
+            return {
+              state: "idle", context: i, outcome: "CANCEL", outcomeReason: s.reason
+            };
+          case "FAIL":
+            return {
+              state: "idle", context: i, outcome: "FAIL", outcomeReason: s.error
+            };
+          case "DELTA_FIRST_TEXT":
+            return {
+              state: "streaming", context: {
+                ...i,
+                deltaMessageStartAt: s.timestamp,
+                deltaFirstTextAt: s.timestamp
+              }, outcome: null, outcomeReason: null
+            };
+          case "DELTA_MESSAGE_DONE":
+            return {
+              state: "idle", context: {
+                ...i,
+                deltaMessageStartAt: s.timestamp,
+                deltaMessageDoneAt: s.timestamp
+              }, outcome: "completed" === s.status ? "SUCCESS" : "interrupted" === s.status ? "CANCEL" : "FAIL", outcomeReason: "completed" === s.status ? null : s.status
+            };
+          default:
+            return {
+              state: "awaiting", context: i, outcome: null, outcomeReason: null
+            }
+        }
+      case "streaming":
+        return function(e, t) {
+          switch (t.type) {
+            case "DELTA_FIRST_TEXT":
+              if (null != e.deltaFirstTextAt) return {
+                state: "streaming",
+                context: e,
+                outcome: null,
+                outcomeReason: null
+              };
+              return {
+                state: "streaming", context: {
+                  ...e,
+                  deltaFirstTextAt: t.timestamp
+                }, outcome: null, outcomeReason: null
+              };
+            case "DELTA_TEXT_APPEND":
+            default:
+              return {
+                state: "streaming", context: e, outcome: null, outcomeReason: null
+              };
+            case "DELTA_MESSAGE_DONE": {
+              let n = t.mediaInfo,
+                r = (n?.renderableFilenames.length ?? 0) > 0,
+                a = n?.numExtractedNonmediaResources ?? 0,
+                i = n?.fileFilenames ?? [],
+                s = {
+                  ...e,
+                  deltaMessageDoneAt: t.timestamp,
+                  numImages: n?.numImages ?? 0,
+                  numVideos: n?.numVideos ?? 0,
+                  numExtractedNonmediaResources: a,
+                  totalGeneratedFiles: n?.totalGeneratedFiles ?? 0,
+                  mediaFilenames: n?.allFilenames ?? [],
+                  fileFilenames: i,
+                  fileTypes: n?.fileTypes ?? [],
+                  hasRenderableMedia: r,
+                  hasHoldableContent: r || a > 0 || i.length > 0
+                };
+              if ("completed" === t.status && s.hasHoldableContent) return {
+                state: "awaiting_holds",
+                context: s,
+                outcome: null,
+                outcomeReason: null
+              };
+              return {
+                state: "idle",
+                context: s,
+                outcome: "completed" === t.status ? "SUCCESS" : "interrupted" === t.status ? "CANCEL" : "FAIL",
+                outcomeReason: "completed" === t.status ? null : t.status
+              }
+            }
+            case "CANCEL":
+              return {
+                state: "idle", context: e, outcome: "CANCEL", outcomeReason: t.reason
+              };
+            case "FAIL":
+              return {
+                state: "idle", context: e, outcome: "FAIL", outcomeReason: t.error
+              };
+            case "USER_MESSAGE_SENT":
+              return {
+                state: "idle", context: e, outcome: "CANCEL", outcomeReason: "superseded_by_new_send"
+              }
+          }
+        }(t, n);
+      case "awaiting_holds":
+        var o = t,
+          u = n;
+        switch (u.type) {
+          case "ALL_MEDIA_LOADED":
+            return {
+              state: "idle", context: o, outcome: "SUCCESS", outcomeReason: null
+            };
+          case "MEDIA_HOLD_TIMEOUT":
+            return {
+              state: "idle", context: o, outcome: "FAIL", outcomeReason: "media_load_timeout"
+            };
+          case "USER_MESSAGE_SENT":
+            return {
+              state: "idle", context: o, outcome: "CANCEL", outcomeReason: "superseded_by_new_send"
+            };
+          case "CANCEL":
+            return {
+              state: "idle", context: o, outcome: "CANCEL", outcomeReason: u.reason
+            };
+          case "FAIL":
+            return {
+              state: "idle", context: o, outcome: "FAIL", outcomeReason: u.error
+            };
+          default:
+            return {
+              state: "awaiting_holds", context: o, outcome: null, outcomeReason: null
+            }
+        }
+    }
+  }
+  var u = e.i(175286),
+    c = e.i(508180);
+  e.i(787845);
+  var d = e.i(571707),
+    m = e.i(508284),
+    _ = e.i(288119);
+  let p = "sandbox://";
+
+  function f(e) {
+    let t = (e.split(/[?#]/)[0] ?? e).split("/");
+    return t[t.length - 1] ?? e
+  }
+
+  function g(e) {
+    let t, n = e.split(/[?#]/)[0] ?? e,
+      r = n.startsWith(p) ? n.slice(p.length) : n;
+    try {
+      t = decodeURIComponent(r).replace(/^\/+/, "")
+    } catch {
+      t = r.replace(/^\/+/, "")
+    }
+    return (0, _.normalizeSandboxFilePath)(t) ?? t
+  }
+  let T = new Set(["png", "jpg", "jpeg", "gif", "webp", "svg", "bmp", "ico", "avif", "mp4", "mov", "webm", "ogg", "avi", "mkv"]),
+    h = /!?\[[^\]]*\]\((sandbox:\/\/[^)]+)\)/g;
+
+  function E(e) {
+    let t;
+    if (null == e) return [];
+    h.lastIndex = 0;
+    let n = [];
+    for (; null != (t = h.exec(e));) {
+      let e = t[1];
+      if (null == e) continue;
+      let r = e.split(/[?#]/)[0] ?? e,
+        a = r.split(".").pop()?.toLowerCase();
+      null != a && T.has(a) || n.push(g(e))
+    }
+    return n
+  }
+
+  function A(e) {
+    return e()
+  }
+
+  function C(e) {
+    return e.fileType
+  }
+
+  function y(e) {
+    return f(e.uri)
+  }
+
+  function S(e) {
+    return f(e.uri)
+  }
+
+  function I(e) {
+    return g(e.uri)
+  }
+
+  function R(e) {
+    return "video" === e.fileType
+  }
+
+  function N(e) {
+    return "image" === e.fileType
+  }
+
+  function w(e) {
+    return "image" !== e.fileType && "video" !== e.fileType
+  }
+
+  function M(e) {
+    return "image" === e.fileType || "video" === e.fileType
+  }
+  e.s(["DEBUG_HOLD_FILENAMES", 0, !1, "HOLD_TIMER_AFTER_STREAM_MS", 0, 6e4, "MEDIA_HOLD_TIMEOUT_MS", 0, 6e4, "extractFileHoldKeysFromText", 0, E, "filenameFromUri", 0, f, "relativePathFromUri", 0, g], 982209);
+  var P = e.i(986907),
+    v = e.i(384784),
+    H = e.i(438181),
+    b = e.i(359783),
+    x = e.i(767408);
+  let D = (0, b.createClientLogger)("HatchTurnTracing"),
+    L = "hatch.turn.response",
+    O = (0, r.createContext)(null);
+
+  function k() {
+    return (0, r.useContext)(O)
+  }
+  e.s(["HatchTurnTracingProvider", 0, function({
+    children: e,
+    timeoutMs: a = 3e5,
+    streamingInactivityMs: s = 12e4
+  }) {
+    let _ = (0, r.useRef)("idle"),
+      p = (0, r.useRef)(l()),
+      f = (0, r.useRef)(void 0),
+      g = (0, r.useRef)(null),
+      T = (0, r.useRef)(null),
+      h = (0, v.useChatIsStreaming)(),
+      b = (0, r.useRef)(h),
+      k = (0, r.useRef)(0),
+      F = (0, r.useRef)(new Set),
+      K = (0, r.useRef)(new Set),
+      U = (0, r.useRef)(!1),
+      G = (0, r.useRef)(!1),
+      B = (0, r.useRef)(null),
+      W = (0, r.useCallback)(() => {
+        F.current.clear(), K.current.clear(), U.current = !1, G.current = !1, null != B.current && (window.clearTimeout(B.current), B.current = null)
+      }, []),
+      j = (0, r.useCallback)(() => {
+        null != g.current && (window.clearTimeout(g.current), g.current = null)
+      }, []),
+      V = (0, r.useCallback)(() => {
+        null != T.current && (window.clearTimeout(T.current), T.current = null)
+      }, []),
+      Q = (0, r.useCallback)(() => {
+        j(), V(), W()
+      }, [j, V, W]),
+      z = (0, r.useRef)(() => {}),
+      q = (0, r.useCallback)(() => {
+        j(), g.current = window.setTimeout(() => {
+          g.current = null, z.current({
+            type: "TIMEOUT"
+          })
+        }, a)
+      }, [j, a]),
+      Y = (0, r.useCallback)(() => {
+        V(), T.current = window.setTimeout(() => {
+          T.current = null, z.current({
+            type: "FAIL",
+            error: "streaming_inactivity_timeout"
+          })
+        }, s)
+      }, [V, s]),
+      $ = (0, r.useCallback)(() => {
+        K.current.clear(), f.current = (0, P.startManualInteraction)(L, {
+          debugName: "turn-response",
+          markerId: i.HATCH_AGENTIC_INTERACTION_MARKER.i
+        }), f.current.annotate({
+          string: {
+            tracePolicy: L
+          }
+        })
+      }, []),
+      X = (0, r.useCallback)((e, t, n) => {
+        null != f.current && (null != t.firstMessageAt && f.current.annotate({
+          int: {
+            first_message_at: Math.round(t.firstMessageAt)
+          }
+        }), null != t.lastMessageAt && f.current.annotate({
+          int: {
+            last_message_at: Math.round(t.lastMessageAt)
+          }
+        }), null != t.deltaMessageStartAt && f.current.annotate({
+          int: {
+            delta_message_start_at: Math.round(t.deltaMessageStartAt)
+          }
+        }), null != t.deltaFirstTextAt && f.current.annotate({
+          int: {
+            delta_first_text_at: Math.round(t.deltaFirstTextAt)
+          }
+        }), null != t.deltaMessageDoneAt && f.current.annotate({
+          int: {
+            delta_message_done_at: Math.round(t.deltaMessageDoneAt)
+          }
+        }), f.current.annotate({
+          int: {
+            message_count: t.messageCount
+          }
+        }), t.mediaFilenames.length > 0 && f.current.annotate({
+          int: {
+            num_images: t.numImages,
+            num_videos: t.numVideos,
+            num_extracted_nonmedia_resources: t.numExtractedNonmediaResources,
+            num_file_cards: t.fileFilenames.length,
+            total_generated_files: t.totalGeneratedFiles
+          },
+          string_array: {
+            media_types: t.mediaFilenames.map(x.fileExtensionForTelemetry),
+            file_types: t.fileTypes
+          }
+        }), null != t.firstMessageAt && null != t.deltaFirstTextAt && f.current.annotate({
+          int: {
+            slowest_ttft: Math.round(t.deltaFirstTextAt - t.firstMessageAt)
+          }
+        }), null != t.lastMessageAt && null != t.deltaFirstTextAt && f.current.annotate({
+          int: {
+            fastest_ttft: Math.round(t.deltaFirstTextAt - t.lastMessageAt)
+          }
+        }), null != t.firstMessageAt && null != t.lastMessageAt && f.current.annotate({
+          int: {
+            user_typing_window: Math.round(t.lastMessageAt - t.firstMessageAt)
+          }
+        }), null != t.lastMessageAt && null != t.deltaMessageStartAt && f.current.annotate({
+          int: {
+            server_processing: Math.round(t.deltaMessageStartAt - t.lastMessageAt)
+          }
+        }), null != t.deltaMessageStartAt && null != t.deltaMessageDoneAt && f.current.annotate({
+          int: {
+            stream_duration: Math.round(t.deltaMessageDoneAt - t.deltaMessageStartAt)
+          }
+        }), null != t.firstMessageAt && null != t.deltaMessageDoneAt && f.current.annotate({
+          int: {
+            full_turn_e2e: Math.round(t.deltaMessageDoneAt - t.firstMessageAt)
+          }
+        }), null != n && f.current.annotate({
+          string: {
+            outcome_reason: n
+          }
+        }), (0, P.endManualTrace)(f.current, e), f.current = void 0, W())
+      }, [W]),
+      J = (0, r.useCallback)(() => {
+        "awaiting_holds" !== _.current || F.current.size > 0 || z.current({
+          type: "ALL_MEDIA_LOADED",
+          timestamp: performance.now()
+        })
+      }, []),
+      Z = (0, r.useCallback)(e => {
+        null == f.current || U.current || (U.current = !0, f.current.markerPoint("first_media_loaded")), F.current.has(e) ? (F.current.delete(e), f.current?.annotate({
+          int: {
+            media_holds_remaining: F.current.size
+          }
+        }), J()) : K.current.add(e)
+      }, [J]),
+      ee = (0, r.useCallback)(e => {
+        F.current.has(e) ? (F.current.delete(e), f.current?.markerPoint("media_error"), f.current?.annotate({
+          int: {
+            media_holds_remaining: F.current.size
+          }
+        }), J()) : K.current.add(e)
+      }, [J]),
+      et = (0, r.useCallback)(e => {
+        F.current.has(e) ? (null == f.current || G.current || (G.current = !0, f.current.markerPoint("first_file_mounted")), F.current.delete(e), f.current?.annotate({
+          int: {
+            media_holds_remaining: F.current.size
+          }
+        }), J()) : K.current.add(e)
+      }, [J]);
+    (0, H.useMediaLoadSubscription)({
+      onMediaLoaded: Z,
+      onMediaError: ee,
+      onFileMounted: et
+    });
+    let en = (0, r.useCallback)(e => {
+      let t = _.current,
+        n = o(t, p.current, e);
+      if (_.current = n.state, p.current = n.context, "idle" === t && "awaiting" === n.state ? (k.current = 0, $(), f.current?.markerPoint("first_message_sent"), q()) : "awaiting" === t && "awaiting" === n.state && "USER_MESSAGE_SENT" === e.type ? f.current?.markerPoint("message_sent") : "streaming" === n.state && "awaiting" === t && (j(), Y(), f.current?.markerPoint("delta_message_start")), "streaming" === n.state && "DELTA_FIRST_TEXT" === e.type && (f.current?.markerPoint("delta_first_text"), Y()), "streaming" === n.state && "DELTA_TEXT_APPEND" === e.type && (k.current++, k.current <= 10 && f.current?.markerPoint(`delta_text_append_${k.current}`), Y()), "streaming" === t && "awaiting_holds" === n.state && (k.current > 0 && (f.current?.markerPoint("delta_text_append_last"), f.current?.annotate({
+          int: {
+            num_text_appends: k.current
+          }
+        })), f.current?.markerPoint("delta_message_done"), j(), V(), "DELTA_MESSAGE_DONE" === e.type && null != e.mediaInfo)) {
+        let t = new Set([...e.mediaInfo.renderableFilenames, ...e.mediaInfo.fileFilenames]),
+          n = new Set(e.mediaInfo.fileFilenames),
+          r = new Set;
+        for (let e of t) K.current.has(e) ? (K.current.delete(e), n.has(e) && null != f.current && !G.current && (G.current = !0, f.current.markerPoint("first_file_mounted"))) : r.add(e);
+        F.current = r;
+        let a = t.size - r.size;
+        f.current?.annotate({
+          int: {
+            num_media_holds: r.size,
+            num_media_pre_loaded: a
+          },
+          string_array: {
+            media_hold_types: [...r].map(x.fileExtensionForTelemetry)
+          }
+        }), f.current?.markerPoint("holds_registered"), 0 === r.size ? (f.current?.markerPoint("all_holds_pre_loaded"), window.setTimeout(() => {
+          z.current({
+            type: "ALL_MEDIA_LOADED",
+            timestamp: performance.now()
+          })
+        }, 0)) : B.current = window.setTimeout(() => {
+          B.current = null, z.current({
+            type: "MEDIA_HOLD_TIMEOUT",
+            timestamp: performance.now()
+          })
+        }, 6e4)
+      }
+      if (null != n.outcome) {
+        if ("SUCCESS" === n.outcome && "awaiting_holds" !== t) k.current > 0 && (f.current?.markerPoint("delta_text_append_last"), f.current?.annotate({
+          int: {
+            num_text_appends: k.current
+          }
+        })), f.current?.markerPoint("delta_message_done");
+        else if ("SUCCESS" === n.outcome && "awaiting_holds" === t) k.current > 0 && f.current?.annotate({
+          int: {
+            num_text_appends: k.current
+          }
+        }), f.current?.markerPoint("all_holds_loaded");
+        else if ("FAIL" === n.outcome && "awaiting_holds" === t && "MEDIA_HOLD_TIMEOUT" === e.type) {
+          let e = F.current.size;
+          f.current?.annotate({
+            int: {
+              media_holds_remaining_at_timeout: e
+            },
+            string_array: {
+              unloaded_hold_types: [...F.current].map(x.fileExtensionForTelemetry)
+            }
+          }), f.current?.markerPoint("hold_timeout")
+        }
+        if (k.current = 0, Q(), X(n.outcome, n.context, n.outcomeReason), p.current = l(), D.retainForBugReport("info", "Turn trace ended"), ("streaming" === t || "awaiting_holds" === t) && "USER_MESSAGE_SENT" === e.type && "superseded_by_new_send" === n.outcomeReason) {
+          let t = o(_.current, p.current, e);
+          _.current = t.state, p.current = t.context, $(), f.current?.markerPoint("first_message_sent"), q()
+        }
+      }
+    }, [$, X, q, j, Q, V, Y]);
+    z.current = en,
+      function(e) {
+        let t, a, i, s, l = (0, n.c)(7),
+          {
+            onEvent: o
+          } = (0, u.useHatchRpc)(),
+          _ = (0, r.useRef)(!1);
+        l[0] === Symbol.for("react.memo_cache_sentinel") ? (t = () => {
+          _.current = !1
+        }, l[0] = t) : t = l[0], l[1] !== e ? (a = [e], l[1] = e, l[2] = a) : a = l[2], (0, r.useEffect)(t, a), l[3] !== e || l[4] !== o ? (i = () => {
+          let t = [];
+          return t.push(o("delta.message_start", t => {
+            "subagent" !== (t.stream_lane ?? t.transcript_surface) && (_.current = !1, e({
+              type: "DELTA_MESSAGE_START",
+              timestamp: performance.now()
+            }))
+          })), t.push(o("delta.text_append", t => {
+            "subagent" !== (t.stream_lane ?? t.transcript_surface) && (_.current || (_.current = !0, e({
+              type: "DELTA_FIRST_TEXT",
+              timestamp: performance.now()
+            })), e({
+              type: "DELTA_TEXT_APPEND",
+              timestamp: performance.now()
+            }))
+          })), t.push(o("delta.message_done", t => {
+            let n;
+            if ("subagent" === (t.stream_lane ?? t.transcript_surface)) return;
+            let r = "completed" === t.status ? "completed" : "interrupted" === t.status ? "interrupted" : "failed";
+            if ("completed" === r) {
+              let e = (0, m.normalizeOptionalId)(t.message_id),
+                r = c.getSnapshot().chat.messagesById[e ?? ""],
+                a = (0, d.extractMediaResources)({
+                  resources: t.resources,
+                  payload: t,
+                  displayText: r?.content ?? null
+                }),
+                i = E(r?.content ?? null);
+              if (a.length > 0 || i.length > 0) {
+                let e = a.filter(M),
+                  t = a.filter(w);
+                n = {
+                  numImages: a.filter(N).length,
+                  numVideos: a.filter(R).length,
+                  numExtractedNonmediaResources: t.length,
+                  totalGeneratedFiles: new Set([...a.map(I), ...i]).size,
+                  renderableFilenames: e.map(S),
+                  allFilenames: a.map(y),
+                  fileFilenames: i,
+                  fileTypes: [...new Set(a.map(C))]
+                }
+              }
+            }
+            e({
+              type: "DELTA_MESSAGE_DONE",
+              timestamp: performance.now(),
+              status: r,
+              mediaInfo: n
+            }), _.current = !1
+          })), () => {
+            t.forEach(A)
+          }
+        }, s = [o, e], l[3] = e, l[4] = o, l[5] = i, l[6] = s) : (i = l[5], s = l[6]), (0, r.useEffect)(i, s)
+      }(en), (0, r.useEffect)(() => {
+        if (b.current && !h) {
+          let e = setTimeout(() => {
+            "streaming" === _.current && en({
+              type: "FAIL",
+              error: "stream_ended_without_message_done"
+            })
+          }, 2e3);
+          return () => clearTimeout(e)
+        }
+        b.current = h
+      }, [h, en]), (0, r.useEffect)(() => () => {
+        Q(), null != f.current && en({
+          type: "CANCEL",
+          reason: "provider_unmounted"
+        })
+      }, []);
+    let er = (0, r.useMemo)(() => ({
+      dispatchTurnEvent: en
+    }), [en]);
+    return (0, t.jsx)(O.Provider, {
+      value: er,
+      children: e
+    })
+  }, "useHatchTurnTracingOptional", 0, k], 264171);
+  let F = (0, r.createContext)(null);
+
+  function K(e) {
+    let r, a, i, s, l, o = (0, n.c)(10);
+    o[0] !== e ? ({
+      size: a,
+      ...r
+    } = e, o[0] = e, o[1] = r, o[2] = a) : (r = o[1], a = o[2]);
+    let u = void 0 === a ? 32 : a;
+    return o[3] !== r.title ? (i = null != r.title && (0, t.jsx)("title", {
+      children: r.title
+    }), o[3] = r.title, o[4] = i) : i = o[4], o[5] === Symbol.for("react.memo_cache_sentinel") ? (s = (0, t.jsx)("path", {
+      d: "M22.88 24.12a.877.877 0 0 0 1.239-1.239l-6.881-6.88 6.88-6.882a.876.876 0 0 0-1.238-1.238L16 14.761l-6.881-6.88A.876.876 0 0 0 7.88 9.119L14.761 16l-6.88 6.881a.877.877 0 0 0 1.238 1.238l6.88-6.88 6.881 6.88z",
+      fill: "currentColor"
+    }), o[5] = s) : s = o[5], o[6] !== r || o[7] !== u || o[8] !== i ? (l = (0, t.jsxs)("svg", {
+      viewBox: "0 0 32 32",
+      fill: "none",
+      width: u,
+      height: u,
+      ...r,
+      children: [i, s]
+    }), o[6] = r, o[7] = u, o[8] = i, o[9] = l) : l = o[9], l
+  }
+  e.s(["HatchSendUserMessageTracingProvider", 0, function(e) {
+    let l, o, u, c, d, m, _, p, f, g = (0, n.c)(19),
+      {
+        children: T
+      } = e,
+      [h, E] = (0, r.useState)(void 0),
+      A = (0, r.useRef)(void 0),
+      C = k();
+    g[0] === Symbol.for("react.memo_cache_sentinel") ? (l = e => {
+      E(e), A.current = e
+    }, g[0] = l) : l = g[0];
+    let y = l;
+    g[1] !== h ? (o = () => {
+      A.current = h
+    }, u = [h], g[1] = h, g[2] = o, g[3] = u) : (o = g[2], u = g[3]), (0, r.useEffect)(o, u), g[4] !== C ? (c = e => {
+      let t = A.current;
+      if (t) {
+        let e = a.default.InteractionTracingCore.getPendingInteractionById(t);
+        e?.cancelTrace("superseded_by_new_send", !1)
+      }
+      let n = a.default.InteractionTracingCore.startInteraction({
+        interactionClass: "fluid",
+        qplEvent: i.HATCH_INTERACTION_MARKER,
+        tracePolicy: "hatch.message.user_send",
+        traceType: "INTERACTION",
+        cfg: s.interactionTracingConfig,
+        deps: s.interactionTracingDeps,
+        startTime: performance.now()
+      });
+      y(n);
+      let r = a.default.InteractionTracingCore.getPendingInteractionById(n);
+      e && e(r), C?.dispatchTurnEvent({
+        type: "USER_MESSAGE_SENT",
+        timestamp: performance.now()
+      })
+    }, g[4] = C, g[5] = c) : c = g[5];
+    let S = c;
+    g[6] !== C ? (d = e => {
+      if (null != A.current) {
+        let t = a.default.InteractionTracingCore.getPendingInteractionById(A.current);
+        t?.cancelTrace(e, !1)
+      }
+      y(void 0), C?.dispatchTurnEvent({
+        type: "CANCEL",
+        reason: e
+      })
+    }, g[6] = C, g[7] = d) : d = g[7];
+    let I = d;
+    g[8] !== C ? (m = (e, t) => {
+      if (null != A.current) {
+        let n = a.default.InteractionTracingCore.getPendingInteractionById(A.current);
+        null != t && n?.addAnnotation("error_stack", (0, x.redactErrorStackForTelemetry)(t)), n?.failTrace(e, !0)
+      }
+      y(void 0), C?.dispatchTurnEvent({
+        type: "FAIL",
+        error: e
+      })
+    }, g[8] = C, g[9] = m) : m = g[9];
+    let R = m;
+    g[10] === Symbol.for("react.memo_cache_sentinel") ? (_ = e => {
+      if (null != A.current) {
+        let t = a.default.InteractionTracingCore.getPendingInteractionById(A.current);
+        null != e && t?.addAnnotation("complete_reason", e), t?.forceCompleteTrace()
+      }
+      y(void 0)
+    }, g[10] = _) : _ = g[10];
+    let N = _;
+    g[11] !== h || g[12] !== I || g[13] !== R || g[14] !== S ? (p = {
+      onSendTraceStart: S,
+      interactionID: h,
+      onSendTraceFail: R,
+      onSendTraceCancel: I,
+      onSendTraceComplete: N
+    }, g[11] = h, g[12] = I, g[13] = R, g[14] = S, g[15] = p) : p = g[15];
+    let w = p;
+    return g[16] !== T || g[17] !== w ? (f = (0, t.jsx)(F.Provider, {
+      value: w,
+      children: T
+    }), g[16] = T, g[17] = w, g[18] = f) : f = g[18], f
+  }, "useHatchSendUserMessageTracing", 0, function() {
+    let e = (0, r.useContext)(F);
+    if (null == e) throw Error("useHatchSendUserMessageTracing must be used within HatchSendUserMessageTracingProvider");
+    return e
+  }], 805564), K._isSVG = !0, K._viewBox = 32, e.s(["default", 0, K], 571613)
+}, 941807, 58746, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(519172),
+    r = e.i(998569);
+  let a = (0, n.createContext)(null);
+  e.s(["HatchDockProvider", 0, function({
+    children: e,
+    onSideChatsOpenDragProgressChange: i
+  }) {
+    let s = (0, n.useRef)(new Map),
+      l = (0, n.useRef)(null),
+      o = (0, n.useRef)(null),
+      u = (0, n.useRef)(0),
+      c = (0, n.useRef)(i);
+    c.current = i;
+    let d = (0, n.useCallback)((e, t) => {
+        t ? s.current.set(e, t) : s.current.delete(e)
+      }, []),
+      m = (0, n.useCallback)(e => {
+        let t = s.current.get(e);
+        if (!t) return;
+        let n = t.getBoundingClientRect();
+        return `${n.left+n.width/2}px ${n.top+n.height/2}px`
+      }, []),
+      _ = (0, n.useCallback)(e => s.current.get(e), []),
+      p = (0, n.useCallback)(e => {
+        let t = Math.max(0, Math.min(1, e)),
+          n = u.current > 0;
+        u.current = t, c.current?.(t);
+        let a = (0, r.getHatchPanelOpenDragOpacity)(t),
+          i = t > 0,
+          s = l.current;
+        null != s && (s.style.opacity = String(1 - a), i !== n && (s.style.willChange = i ? "opacity, translate" : ""));
+        let d = o.current;
+        null != d && (d.style.opacity = String(a), i !== n && (d.style.willChange = i ? "opacity" : ""))
+      }, []),
+      f = (0, n.useCallback)(e => {
+        let t = l.current;
+        if (null != t && t !== e && (t.style.removeProperty("opacity"), t.style.removeProperty("will-change")), l.current = e, null == e) return;
+        let n = u.current;
+        e.style.opacity = String(1 - (0, r.getHatchPanelOpenDragOpacity)(n)), e.style.willChange = n > 0 ? "opacity, translate" : ""
+      }, []),
+      g = (0, n.useCallback)(e => {
+        let t = o.current;
+        if (null != t && t !== e && (t.style.removeProperty("opacity"), t.style.removeProperty("will-change")), o.current = e, null == e) return;
+        let n = u.current;
+        e.style.opacity = String((0, r.getHatchPanelOpenDragOpacity)(n)), e.style.willChange = n > 0 ? "opacity" : ""
+      }, []),
+      T = (0, n.useMemo)(() => ({
+        registerRef: d,
+        registerSideChatsOpenDragFadeElement: f,
+        registerSideChatsOpenDragFillElement: g,
+        getOriginForPanel: m,
+        getRefElement: _,
+        setSideChatsOpenDragProgress: p
+      }), [d, f, g, m, _, p]);
+    return (0, t.jsx)(a.Provider, {
+      value: T,
+      children: e
+    })
+  }, "useHatchDock", 0, function() {
+    let e = (0, n.useContext)(a);
+    if (!e) throw Error("useHatchDock must be used within HatchDockProvider");
+    return e
+  }], 941807);
+  var i = e.i(726430);
+  e.s(["useIsLiveAvatarTileVisible", 0, function() {
+    return (0, i.useOptionalHatchVoiceVideoSurface)()?.portalVisible === !0
+  }, "useVoiceCallAvatarSlotsEnabled", 0, function() {
+    return null != (0, i.useHatchVoiceCallEntry)()
+  }], 58746)
+}, 790351, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099),
+    r = e.i(519172),
+    a = e.i(848048),
+    i = e.i(509789),
+    s = e.i(731714),
+    l = e.i(905156),
+    o = e.i(840282),
+    u = e.i(200097),
+    c = e.i(281539),
+    d = e.i(450106),
+    m = e.i(219327),
+    _ = e.i(838116);
+  e.s(["HatchMessageSurfaceContextMenu", 0, function(e) {
+    let p, f, g, T, h, E, A, C, y, S, I, R, N, w, M, P, v, H, b, x, D = (0, n.c)(51),
+      {
+        children: L,
+        copyContent: O,
+        createdAt: k,
+        messageId: F,
+        onOpenChange: K,
+        onReply: U,
+        trailingAction: G,
+        trailingActions: B,
+        touchAnchorToTriggerEdge: W,
+        triggerClassName: j,
+        triggerRef: V
+      } = e,
+      Q = void 0 === j ? "contents" : j,
+      z = (0, r.useRef)(null),
+      [q, Y] = (0, r.useState)(!1),
+      $ = (0, r.useId)(),
+      X = (0, r.useRef)(!1),
+      J = (0, r.useRef)(!1),
+      Z = (0, m.useOptionalHatchReactionTarget)(),
+      ee = (0, l.useHatchChatThreadLoggingMetadataFromContext)();
+    D[0] !== F ? (p = null != F ? {
+      message_id: F
+    } : {}, D[0] = F, D[1] = p) : p = D[1], D[2] !== p || D[3] !== ee ? (f = {
+      eventName: c.HatchClickEvent.CHAT_MESSAGE_OVERFLOW_OPEN,
+      actionTarget: "message_overflow_button",
+      actionType: "click",
+      metadata: {
+        surface: "chat",
+        subsurface: "context_menu",
+        entry_point: "right_click",
+        ...ee,
+        ...p
+      }
+    }, D[2] = p, D[3] = ee, D[4] = f) : f = D[4];
+    let et = (0, a.useTrackedClickRef)(f),
+      en = (0, s.useMergeRefs)(z, et.ref, V),
+      er = O ?? "";
+    D[5] !== er ? (g = {
+      bodyRef: z,
+      copyContent: er
+    }, D[5] = er, D[6] = g) : g = D[6];
+    let {
+      noteMenuOpen: ea,
+      onCopy: ei
+    } = (0, _.useHatchMessageMenuCopy)(g);
+    D[7] === Symbol.for("react.memo_cache_sentinel") ? (T = (0, u.hatchMenuPartsFor)("context"), D[7] = T) : T = D[7];
+    let {
+      Item: es,
+      Separator: el
+    } = T;
+    D[8] !== et || D[9] !== ea || D[10] !== K ? (h = e => {
+      Y(e), ea(e), K?.(e), e && X.current && (J.current = !0), e && et.onClick()
+    }, D[8] = et, D[9] = ea, D[10] = K, D[11] = h) : h = D[11];
+    let eo = h;
+    D[12] !== Z ? (E = e => {
+      Z?.onToggleReaction(e), Y(!1)
+    }, D[12] = Z, D[13] = E) : E = D[13];
+    let eu = E;
+    D[14] === Symbol.for("react.memo_cache_sentinel") ? (R = e => {
+      if (J.current) {
+        J.current = !1, e.preventDefault(), e.stopPropagation();
+        return
+      }
+      if ((0, o.isSynthesizedContextMenuClick)(e)) {
+        (0, o.openContextMenuAtPointer)(e), e.stopPropagation();
+        return
+      }(0, o.isPlainPrimaryClick)(e) || (e.preventDefault(), e.stopPropagation())
+    }, A = e => {
+      e.ctrlKey && (J.current = !0), e.stopPropagation()
+    }, C = () => {
+      J.current = !1
+    }, y = () => {
+      X.current = !1
+    }, S = e => {
+      J.current = !1, X.current = "touch" === e.pointerType || "pen" === e.pointerType, e.stopPropagation()
+    }, I = () => {
+      X.current = !1
+    }, D[14] = A, D[15] = C, D[16] = y, D[17] = S, D[18] = I, D[19] = R) : (A = D[14], C = D[15], y = D[16], S = D[17], I = D[18], R = D[19]), D[20] !== L || D[21] !== Q || D[22] !== en ? (N = (0, t.jsx)("div", {
+      ref: en,
+      className: Q,
+      onClickCapture: R,
+      onContextMenu: A,
+      onKeyDownCapture: C,
+      onPointerCancelCapture: y,
+      onPointerDown: S,
+      onPointerUpCapture: I,
+      children: L
+    }), D[20] = L, D[21] = Q, D[22] = en, D[23] = N) : N = D[23], D[24] !== N || D[25] !== W ? (w = (0, t.jsx)(i.ContextMenuTrigger, {
+      asChild: !0,
+      suppressTouchSelection: !0,
+      touchAnchorToTriggerEdge: W,
+      children: N
+    }), D[24] = N, D[25] = W, D[26] = w) : w = D[26];
+    let ec = null != k ? $ : void 0;
+    D[27] !== k || D[28] !== $ ? (M = null != k ? (0, t.jsx)(i.ContextMenuLabel, {
+      id: $,
+      className: "p-0",
+      children: (0, t.jsx)(d.HatchMessageMenuTimestamp, {
+        createdAt: k
+      })
+    }) : null, D[27] = k, D[28] = $, D[29] = M) : M = D[29];
+    let ed = null != O ? ei : void 0,
+      em = null != Z ? eu : void 0,
+      e_ = Z?.reactions;
+    return D[30] !== F || D[31] !== U || D[32] !== ed || D[33] !== em || D[34] !== e_ ? (P = (0, t.jsx)(d.HatchMessagePrimaryMenuItems, {
+      messageId: F,
+      onCopy: ed,
+      onReactionSelect: em,
+      onReply: U,
+      reactions: e_,
+      subsurface: "context_menu",
+      variant: "context"
+    }), D[30] = F, D[31] = U, D[32] = ed, D[33] = em, D[34] = e_, D[35] = P) : P = D[35], D[36] !== G ? (v = null != G ? (0, t.jsxs)(t.Fragment, {
+      children: [(0, t.jsx)(el, {}), (0, t.jsx)(es, {
+        disabled: G.disabled,
+        label: G.label,
+        leadingIcon: G.leadingIcon,
+        onSelect: G.onSelect
+      })]
+    }) : null, D[36] = G, D[37] = v) : v = D[37], D[38] !== B ? (H = null != B ? (0, t.jsxs)(t.Fragment, {
+      children: [(0, t.jsx)(el, {}), B]
+    }) : null, D[38] = B, D[39] = H) : H = D[39], D[40] !== ec || D[41] !== M || D[42] !== P || D[43] !== v || D[44] !== H ? (b = (0, t.jsxs)(i.ContextMenuContent, {
+      "aria-labelledby": ec,
+      children: [M, P, v, H]
+    }), D[40] = ec, D[41] = M, D[42] = P, D[43] = v, D[44] = H, D[45] = b) : b = D[45], D[46] !== eo || D[47] !== q || D[48] !== w || D[49] !== b ? (x = (0, t.jsxs)(i.ContextMenu, {
+      open: q,
+      onOpenChange: eo,
+      children: [w, b]
+    }), D[46] = eo, D[47] = q, D[48] = w, D[49] = b, D[50] = x) : x = D[50], x
+  }])
+}, 277684, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099),
+    r = e.i(519172);
+  let a = (0, r.createContext)(!1);
+  e.s(["HatchPeerSidechatProvider", 0, function(e) {
+    let r, i = (0, n.c)(3),
+      {
+        isPeerSidechat: s,
+        children: l
+      } = e;
+    return i[0] !== l || i[1] !== s ? (r = (0, t.jsx)(a.Provider, {
+      value: s,
+      children: l
+    }), i[0] = l, i[1] = s, i[2] = r) : r = i[2], r
+  }, "useIsPeerSidechatFromContext", 0, function() {
+    return (0, r.useContext)(a)
+  }])
+}, 984153, 819011, e => {
+  "use strict";
+  var t = e.i(615050),
+    n = e.i(245398),
+    r = e.i(829051);
+  let a = `${n.HATCH_CHAT_GROUPABLE_BUBBLE_CLASS} ${r.HATCH_CHAT_AGENT_SURFACE_WIDTH_CLASS} rounded-22 min-w-0 overflow-hidden`,
+    i = `${t.HATCH_ARTIFACT_CARD_PREVIEW_ASPECT_CLASS} rounded-18 relative w-full overflow-hidden`;
+  e.s(["HATCH_SPACE_BUILD_COMPLETED_ACTIONS_CLASS", 0, "h-7 w-28", "HATCH_SPACE_BUILD_COMPLETED_CARD_CLASS", 0, a, "HATCH_SPACE_BUILD_COMPLETED_FOOTER_CLASS", 0, "flex min-w-0 items-center gap-2 py-3 ps-3 pe-4", "HATCH_SPACE_BUILD_COMPLETED_PREVIEW_CLASS", 0, i], 984153);
+  var s = e.i(374785),
+    l = e.i(221988);
+
+  function o(e) {
+    switch (e) {
+      case l.HATCH_PRESENTATION_KIND_LOCAL_MAP:
+      case l.HATCH_PRESENTATION_KIND_MARKETPLACE_MAP:
+        return {
+          actionLayout: "stacked", fillsRowWidth: !0
+        };
+      case l.HATCH_PRESENTATION_KIND_HTML:
+        return {
+          actionLayout: "responsive", fillsRowWidth: !0
+        };
+      case l.HATCH_PRESENTATION_KIND_OPTION:
+      case l.HATCH_PRESENTATION_KIND_IMAGE_OPTIONS:
+      case l.HATCH_PRESENTATION_KIND_IDEA:
+      case l.HATCH_PRESENTATION_KIND_LETTER:
+      case l.HATCH_PRESENTATION_KIND_BROWSER_TASK:
+      case l.HATCH_PRESENTATION_KIND_SPACE_BUILD_COMPLETED:
+      case l.HATCH_PRESENTATION_KIND_NAVIGATION:
+      case l.HATCH_PRESENTATION_KIND_IDEA_GROUP:
+      case l.HATCH_PRESENTATION_KIND_VOICE_OPTIONS:
+      case l.HATCH_PRESENTATION_KIND_PELOTON_CLASSES:
+      case l.HATCH_PRESENTATION_KIND_FALLBACK:
+        return {
+          actionLayout: "inline", fillsRowWidth: !1
+        }
+    }
+  }
+  e.s(["assertEveryChatWidgetHandled", 0, function(e) {
+    let {
+      kind: t
+    } = e;
+    throw Error(`Chat widget kind is not handled: ${t}`)
+  }, "hatchChatBubbledWidgetTopInset", 0, function(e) {
+    switch (e) {
+      case l.HATCH_PRESENTATION_KIND_OPTION:
+      case l.HATCH_PRESENTATION_KIND_IMAGE_OPTIONS:
+        return "pt-1.5";
+      case l.HATCH_PRESENTATION_KIND_IDEA_GROUP:
+        return "pt-0.5";
+      case l.HATCH_PRESENTATION_KIND_LOCAL_MAP:
+      case l.HATCH_PRESENTATION_KIND_MARKETPLACE_MAP:
+      case l.HATCH_PRESENTATION_KIND_HTML:
+      case l.HATCH_PRESENTATION_KIND_IDEA:
+      case l.HATCH_PRESENTATION_KIND_LETTER:
+      case l.HATCH_PRESENTATION_KIND_BROWSER_TASK:
+      case l.HATCH_PRESENTATION_KIND_SPACE_BUILD_COMPLETED:
+      case l.HATCH_PRESENTATION_KIND_NAVIGATION:
+      case l.HATCH_PRESENTATION_KIND_VOICE_OPTIONS:
+      case l.HATCH_PRESENTATION_KIND_PELOTON_CLASSES:
+      case l.HATCH_PRESENTATION_KIND_FALLBACK:
+        return null
+    }
+  }, "hatchChatReactableWidgetContentClassName", 0, function(e) {
+    let {
+      actionLayout: t,
+      fillsRowWidth: n
+    } = o(e);
+    return (0, s.cn)("relative max-w-full min-w-0", n && "w-full", "responsive" === t && "md:flex-1")
+  }, "hatchChatReactableWidgetFrameClassName", 0, function(e, t) {
+    let {
+      actionLayout: n,
+      fillsRowWidth: r
+    } = o(e);
+    return (0, s.cn)("group/widget-presentation max-w-full flex-col items-start", r ? "flex w-full" : "inline-flex", "stacked" !== n && "md:flex-row md:items-center md:gap-0", e === l.HATCH_PRESENTATION_KIND_SPACE_BUILD_COMPLETED && "touch:flex-col touch:items-start", t ? "touch:mb-0 mb-5 gap-6" : "gap-1")
+  }, "hatchChatReactableWidgetFrameLayout", 0, o], 819011)
+}, 243191, e => {
+  "use strict";
+  e.s(["hatchWidgetActionsAlignmentClassName", 0, function(e) {
+    return "stacked" === e ? "self-start" : "responsive" === e ? "self-start md:self-center" : "self-center"
+  }])
+}, 934133, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099),
+    r = e.i(345717),
+    a = e.i(621570),
+    i = e.i(538206),
+    s = e.i(486868),
+    l = e.i(214619),
+    o = e.i(848048),
+    u = e.i(374785),
+    c = e.i(281539),
+    d = e.i(905156),
+    m = e.i(176358),
+    _ = e.i(991451),
+    p = e.i(219327),
+    f = e.i(243191);
+
+  function g(e) {
+    return e.stopPropagation()
+  }
+
+  function T(e) {
+    return e.stopPropagation()
+  }
+
+  function h(e) {
+    return e.stopPropagation()
+  }
+
+  function E(e) {
+    return e.stopPropagation()
+  }
+  e.s(["HatchWidgetActions", 0, function(e) {
+    let A, C, y, S, I, R, N, w, M, P = (0, n.c)(28),
+      {
+        className: v,
+        copyContent: H,
+        copyMedia: b,
+        shareMedia: x,
+        layout: D,
+        onReply: L,
+        reserveSpace: O,
+        trailingAction: k
+      } = e,
+      F = void 0 === D ? "inline" : D,
+      K = (0, p.useOptionalHatchReactionTarget)(),
+      U = (0, d.useHatchChatThreadLoggingMetadataFromContext)();
+    P[0] !== U ? (A = {
+      eventName: c.HatchClickEvent.CHAT_REPLY_MESSAGE,
+      actionTarget: "widget_reply_button",
+      actionType: "click",
+      metadata: {
+        surface: "chat",
+        subsurface: "widget_toolbar",
+        entry_point: "hover_button",
+        ...U
+      }
+    }, P[0] = U, P[1] = A) : A = P[1];
+    let {
+      ref: G,
+      onClick: B
+    } = (0, o.useTrackedClickRef)(A);
+    P[2] !== B || P[3] !== L ? (C = () => {
+      null != L && (B(), L())
+    }, P[2] = B, P[3] = L, P[4] = C) : C = P[4];
+    let W = C;
+    return void 0 !== O && O || null != K || null != L || null != H || null != b || null != x || null != k ? (P[5] !== v || P[6] !== F ? (y = (0, u.cn)("touch:opacity-100 ms-2 flex shrink-0 items-center opacity-0 group-hover/widget-presentation:opacity-100 focus-within:opacity-100 has-[[data-state=open]]:opacity-100 max-md:opacity-100", (0, f.hatchWidgetActionsAlignmentClassName)(F), v), P[5] = v, P[6] = F, P[7] = y) : y = P[7], P[8] !== K ? (S = null != K ? (0, t.jsx)(_.HatchReactionPicker, {
+      onSelect: K.onToggleReaction,
+      selectedEmojis: K.reactions,
+      entryPoint: "hover_button"
+    }) : null, P[8] = K, P[9] = S) : S = P[9], P[10] !== W || P[11] !== L || P[12] !== G ? (I = null != L ? (0, t.jsxs)(s.Tooltip, {
+      children: [(0, t.jsx)(s.TooltipTrigger, {
+        asChild: !0,
+        children: (0, t.jsx)(i.IconRailButton, {
+          ref: G,
+          icon: a.default,
+          size: "24",
+          variant: "borderless",
+          label: r.fbs._("Reply", null, {
+            hk: "17aayw"
+          }),
+          className: "text-text-secondary",
+          onClick: W
+        })
+      }), (0, t.jsx)(s.TooltipContent, {
+        side: "bottom",
+        children: r.fbs._("Reply", null, {
+          hk: "4y8zdP"
+        })
+      })]
+    }) : null, P[10] = W, P[11] = L, P[12] = G, P[13] = I) : I = P[13], P[14] !== S || P[15] !== I ? (R = (0, t.jsxs)(s.TooltipProvider, {
+      delayDuration: 500,
+      children: [S, I]
+    }), P[14] = S, P[15] = I, P[16] = R) : R = P[16], P[17] !== H || P[18] !== b ? (N = null != H ? (0, t.jsx)(l.default, {
+      content: H,
+      media: b
+    }) : null, P[17] = H, P[18] = b, P[19] = N) : N = P[19], P[20] !== x ? (w = null != x && (0, t.jsx)(m.HatchMediaShareButton, {
+      toolbar: !0,
+      item: x
+    }), P[20] = x, P[21] = w) : w = P[21], P[22] !== w || P[23] !== y || P[24] !== R || P[25] !== N || P[26] !== k ? (M = (0, t.jsxs)("div", {
+      "data-copy-exclude": !0,
+      className: y,
+      onClick: E,
+      onContextMenu: h,
+      onKeyDown: T,
+      onPointerDown: g,
+      children: [R, N, w, k]
+    }), P[22] = w, P[23] = y, P[24] = R, P[25] = N, P[26] = k, P[27] = M) : M = P[27], M) : null
+  }])
+}, 838116, e => {
+  "use strict";
+  var t = e.i(722099),
+    n = e.i(519172),
+    r = e.i(345717),
+    a = e.i(47247),
+    i = e.i(831879),
+    s = e.i(359783),
+    l = e.i(840282),
+    o = e.i(863641);
+  let u = (0, s.createClientLogger)("HatchMessageMenuCopy");
+  e.s(["useHatchMessageMenuCopy", 0, function(e) {
+    let s, c, d, m, _, p = (0, t.c)(12),
+      {
+        bodyRef: f,
+        copyContent: g,
+        htmlRootReady: T,
+        htmlRootRef: h
+      } = e,
+      E = void 0 === T || T,
+      [A, C] = (0, n.useState)(null);
+    p[0] === Symbol.for("react.memo_cache_sentinel") ? (s = r.fbs._("Copied to clipboard", null, {
+      hk: "x9bcg"
+    }), p[0] = s) : s = p[0];
+    let y = s;
+    p[1] === Symbol.for("react.memo_cache_sentinel") ? (c = r.fbs._("Failed to copy to clipboard", null, {
+      hk: "3p3T2o"
+    }), p[1] = c) : c = p[1];
+    let S = c;
+    p[2] !== f ? (d = e => {
+      C(e ? (0, l.readSelectionWithin)(f.current) : null)
+    }, p[2] = f, p[3] = d) : d = p[3];
+    let I = d;
+    p[4] !== g || p[5] !== E || p[6] !== h || p[7] !== A ? (m = () => {
+      let e = (0, a.captureHatchToast)(),
+        t = null == A ? {
+          text: g,
+          htmlRoot: E ? h?.current ?? null : null
+        } : {
+          text: A.text,
+          htmlRoot: A.htmlRoot
+        };
+      (0, i.copyTextWithOptionalHtml)(t).then(() => {
+        e.success(y)
+      }).catch(t => {
+        e.error(S), u.error({
+          error: t,
+          tags: (0, o.hatchSentryTags)(o.HATCH_SENTRY_SURFACES.CHAT_MESSAGE, {
+            failure_reason: "menu_copy"
+          })
+        }, "Failed to copy text")
+      })
+    }, p[4] = g, p[5] = E, p[6] = h, p[7] = A, p[8] = m) : m = p[8];
+    let R = m;
+    return p[9] !== I || p[10] !== R ? (_ = {
+      noteMenuOpen: I,
+      onCopy: R
+    }, p[9] = I, p[10] = R, p[11] = _) : _ = p[11], _
+  }])
+}, 611906, e => {
+  "use strict";
+  var t = e.i(304117);
+  e.s(["panelFromPathname", 0, function(e) {
+    return null == e ? "chat" : (0, t.isArtifactViewerPathname)(e) ? "space" : e.startsWith("/library") ? "files" : e.startsWith("/edit-space/") ? "space_edit" : "/feed" === e ? "feed" : "/ideas" === e ? "ideas" : "/shared-agents" === e || e.startsWith("/shared-agents/") ? "agents" : e.startsWith("/space/") || e.startsWith("/saved-space/") ? "space" : "/artifacts" === e ? "artifacts" : "/goals" === e || e.startsWith("/goals/") ? "goals" : "chat"
+  }])
+}, 171311, e => {
+  "use strict";
+  var t = e.i(281851),
+    n = e.i(228750);
+  let r = {
+    all: ["feed"],
+    list: (e, t) => ["feed", e, "list", t ?? ""],
+    infiniteList: (e, t) => ["feed", e, "infiniteList", t ?? ""],
+    unit: (e, t) => ["feed", e, "unit", t],
+    status: (e, t) => ["feed", e, "status", t ?? ""],
+    prompts: e => ["feed", e, "prompts"]
+  };
+
+  function a(e, r, a, i, s) {
+    let l = {
+      version: 1,
+      queryKey: r,
+      sourceKey: JSON.stringify(r),
+      staleTimeMs: s,
+      targetKey: e.targetKey,
+      request: {
+        method: a,
+        params: i,
+        resultMode: "raw",
+        ..."feed.list" === a ? {
+          clientParams: [{
+            kind: "browser_timezone",
+            paramName: "timezone"
+          }]
+        } : {}
+      },
+      dependency: {
+        queryKey: (0, n.buildOnboardingStartQueryKey)(e.targetKey),
+        skipWhen: {
+          field: "variant",
+          equals: t.UI_DRIVEN_ONBOARDING_VARIANT
+        }
+      }
+    };
+    return {
+      descriptor: l,
+      queryKey: r,
+      sourceKey: l.sourceKey
+    }
+  }
+  e.s(["bindFeedListGatewayQuery", 0, function(e, t) {
+    return a(e, r.list(e.gatewayUrl, t), "feed.list", null == t || 0 === t.length ? {} : {
+      prompt_id: t
+    }, 3e4)
+  }, "bindFeedPromptGatewayQuery", 0, function(e) {
+    return a(e, r.prompts(e.gatewayUrl), "feed.prompt.get", {}, 3e4)
+  }, "bindFeedStatusGatewayQuery", 0, function(e, t) {
+    return a(e, r.status(e.gatewayUrl, t), "feed.status", null == t || 0 === t.length ? {} : {
+      prompt_id: t
+    }, 0)
+  }, "feedQueryKeys", 0, r])
+}, 552122, e => {
+  "use strict";
+  var t = e.i(281851),
+    n = e.i(399172),
+    r = e.i(228750);
+  let a = {
+    all: ["goals"],
+    list: e => ["goals", e, "list"],
+    trackingList: e => ["goals", e, "list", "tracking"],
+    completedList: e => ["goals", e, "list", "completed"],
+    detail: (e, t) => ["goals", e, "detail", t]
+  };
+
+  function i(e, n, a, i) {
+    let s = {
+      version: 1,
+      queryKey: n,
+      sourceKey: JSON.stringify(n),
+      staleTimeMs: 5e3,
+      targetKey: e.targetKey,
+      request: {
+        method: a,
+        params: i,
+        resultMode: "raw"
+      },
+      dependency: {
+        queryKey: (0, r.buildOnboardingStartQueryKey)(e.targetKey),
+        skipWhen: {
+          field: "variant",
+          equals: t.UI_DRIVEN_ONBOARDING_VARIANT
+        }
+      }
+    };
+    return {
+      descriptor: s,
+      queryKey: n,
+      sourceKey: s.sourceKey
+    }
+  }
+  e.s(["bindGoalDetailGatewayQuery", 0, function(e, t) {
+    return i(e, a.detail((0, n.getGatewayRenderQueryScopeKey)(e), t), "goals.get", {
+      id: t
+    })
+  }, "bindGoalsCompletedListGatewayQuery", 0, function(e) {
+    return i(e, a.completedList((0, n.getGatewayRenderQueryScopeKey)(e)), "goals.list", {
+      status: "completed"
+    })
+  }, "bindGoalsListGatewayQuery", 0, function(e) {
+    return i(e, a.list((0, n.getGatewayRenderQueryScopeKey)(e)), "goals.list", {
+      source: "user_goal"
+    })
+  }, "bindGoalsTrackingListGatewayQuery", 0, function(e) {
+    return i(e, a.trackingList((0, n.getGatewayRenderQueryScopeKey)(e)), "goals.list", {
+      source: "assistant_tracking"
+    })
+  }, "goalsQueryKeys", 0, a])
+}, 537673, e => {
+  "use strict";
+  var t = e.i(722099),
+    n = e.i(849329),
+    r = e.i(393202),
+    a = e.i(175286),
+    i = e.i(14751),
+    s = e.i(720756),
+    l = e.i(713140);
+  e.s(["useHatchThreadSessionQuery", 0, function(e, o) {
+    let u, c, d, m, _, p, f, g = (0, t.c)(22),
+      T = void 0 === o || o,
+      {
+        isReady: h,
+        gatewayUrl: E
+      } = (0, a.useHatchRpc)(),
+      A = (0, s.useGatewayQueryContext)(),
+      C = (0, r.useQueryClient)(),
+      y = e ?? "";
+    return g[0] !== A || g[1] !== y ? (u = {
+      targetKey: A.targetKey,
+      sessionId: y
+    }, d = n.useQuery, c = l.threadSessionQuery.queryOptions(u, A), g[0] = A, g[1] = y, g[2] = u, g[3] = c, g[4] = d) : (u = g[2], c = g[3], d = g[4]), g[5] !== C || g[6] !== u || g[7] !== e ? (m = () => null == e ? void 0 : (0, l.getCachedThreadSession)(C, u), g[5] = C, g[6] = u, g[7] = e, g[8] = m) : m = g[8], g[9] !== A.targetKey || g[10] !== C ? (_ = () => C.getQueryState(l.threadSessionsListQuery.queryKey({
+      targetKey: A.targetKey
+    }))?.dataUpdatedAt, g[9] = A.targetKey, g[10] = C, g[11] = _) : _ = g[11], g[12] !== T || g[13] !== E || g[14] !== h || g[15] !== e ? (p = T && null != e && (0, i.isMethodReadyForTransport)({
+      method: "sessions.get",
+      gatewayUrl: E,
+      isWsReady: h
+    }), g[12] = T, g[13] = E, g[14] = h, g[15] = e, g[16] = p) : p = g[16], g[17] !== c || g[18] !== m || g[19] !== _ || g[20] !== p ? (f = {
+      ...c,
+      initialData: m,
+      initialDataUpdatedAt: _,
+      enabled: p,
+      refetchOnMount: "always"
+    }, g[17] = c, g[18] = m, g[19] = _, g[20] = p, g[21] = f) : f = g[21], d(f)
+  }])
+}, 149505, e => {
+  "use strict";
+  var t = e.i(672495);
+  let n = e => e.inputValue,
+    r = e => e.widgetOrigin?.placeholder ?? null,
+    a = e => e.pendingAttachments,
+    i = e => e.processingFiles,
+    s = e => e.pendingSend;
+  e.s(["useComposerInputValue", 0, function() {
+    return (0, t.useHatchComposerSelector)(n)
+  }, "useComposerPendingAttachments", 0, function() {
+    return (0, t.useHatchComposerSelector)(a)
+  }, "useComposerPendingSend", 0, function() {
+    return (0, t.useHatchComposerSelector)(s)
+  }, "useComposerProcessingFiles", 0, function() {
+    return (0, t.useHatchComposerSelector)(i)
+  }, "useComposerWidgetCustomInputPlaceholder", 0, function() {
+    return (0, t.useHatchComposerSelector)(r)
+  }])
+}, 670419, e => {
+  "use strict";
+  var t = e.i(722099),
+    n = e.i(519172),
+    r = e.i(30488);
+  let a = "hatch:open-inline-sheet",
+    i = null,
+    s = null,
+    l = null;
+
+  function o(e, t, n) {
+    i = e, s = null == e ? null : t, l = null == e ? null : n
+  }
+
+  function u() {
+    return s
+  }
+
+  function c() {
+    return i
+  }
+  let d = "hatch:inline-sheet-done";
+  e.s(["notifySheetDone", 0, function(e, t) {
+    window.dispatchEvent(new CustomEvent(d, {
+      detail: {
+        controlId: e,
+        success: t
+      }
+    }))
+  }, "openInlineSheet", 0, function(e, t, n) {
+    let r = document.activeElement,
+      i = n ?? (r instanceof HTMLElement && r !== document.body ? r : void 0);
+    o(e, t ?? null, i ?? null), window.dispatchEvent(new CustomEvent(a, {
+      detail: {
+        sheetId: e,
+        voiceOptions: t,
+        returnFocusElement: i
+      }
+    }))
+  }, "useActiveInlineSheet", 0, function() {
+    let e, i, s, d, m, _, p = (0, t.c)(9),
+      [f, g] = (0, n.useState)(c),
+      [T, h] = (0, n.useState)(u),
+      E = (0, n.useRef)(l);
+    p[0] === Symbol.for("react.memo_cache_sentinel") ? (e = () => {
+      let e = e => {
+        var t;
+        let n = e.detail,
+          r = "voice" === (t = n.sheetId) || "voiceFullList" === t ? t : null,
+          a = null == r ? null : n.voiceOptions ?? null,
+          i = n.returnFocusElement ?? null;
+        o(r, a, i), E.current = i, g(r), h(a)
+      };
+      return window.addEventListener(a, e), () => window.removeEventListener(a, e)
+    }, i = [], p[0] = e, p[1] = i) : (e = p[0], i = p[1]), (0, n.useEffect)(e, i), p[2] !== f ? (s = () => {
+      null != f && o(null, null, null)
+    }, d = [f], p[2] = f, p[3] = s, p[4] = d) : (s = p[3], d = p[4]), (0, n.useEffect)(s, d), p[5] === Symbol.for("react.memo_cache_sentinel") ? (m = () => {
+      let e = E.current;
+      E.current = null, o(null, null, null), g(null), h(null), window.requestAnimationFrame(() => {
+        e?.isConnected ? e.focus() : ((0, r.markPendingComposerFocus)(), window.dispatchEvent(new Event("hatch-focus-composer")))
+      })
+    }, p[5] = m) : m = p[5];
+    let A = m;
+    return p[6] !== f || p[7] !== T ? (_ = {
+      activeSheet: f,
+      closeSheet: A,
+      voiceOptions: T
+    }, p[6] = f, p[7] = T, p[8] = _) : _ = p[8], _
+  }, "useOnInlineSheetDone", 0, function(e) {
+    let t = (0, n.useRef)(e);
+    t.current = e, (0, n.useEffect)(() => {
+      let e = e => {
+        let {
+          controlId: n,
+          success: r
+        } = e.detail;
+        t.current(n, r)
+      };
+      return window.addEventListener(d, e), () => window.removeEventListener(d, e)
+    }, [])
+  }])
+}, 780021, e => {
+  "use strict";
+  var t = e.i(519172),
+    n = e.i(259864),
+    r = e.i(766271),
+    a = e.i(393202);
+
+  function i(e, t) {
+    return e.findAll(t.filters).map(e => t.select ? t.select(e) : e.state)
+  }
+
+  function s(e = {}, l) {
+    let o = (0, a.useQueryClient)(l).getMutationCache(),
+      u = t.useRef(e),
+      c = t.useRef(null);
+    return null === c.current && (c.current = i(o, e)), t.useEffect(() => {
+      u.current = e
+    }), t.useSyncExternalStore(t.useCallback(e => o.subscribe(() => {
+      let t = (0, r.replaceEqualDeep)(c.current, i(o, u.current));
+      c.current !== t && (c.current = t, n.notifyManager.schedule(e))
+    }), [o]), () => c.current, () => c.current)
+  }
+  e.s(["useIsMutating", 0, function(e, t) {
+    let n = (0, a.useQueryClient)(t);
+    return s({
+      filters: {
+        ...e,
+        status: "pending"
+      }
+    }, n).length
+  }, "useMutationState", 0, s])
+}, 302230, e => {
+  "use strict";
+  e.s(["HATCH_PROMPT_ID_QUERY_PARAM", 0, "prompt_id", "HATCH_PROMPT_QUERY_PARAM", 0, "prompt", "isHatchDeeplinkPromptId", 0, function(e) {
+    return "string" == typeof e && /^[1-9]\d{0,18}$/.test(e)
+  }])
+}]);
+
+//# debugId=c9f17bce-ab3d-bc31-4ac2-86611e0e7b33
+//# sourceMappingURL=26ypeh_jzxw6r.js.map

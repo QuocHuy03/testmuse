@@ -1,0 +1,14 @@
+# secrets — live auth, do NOT commit
+cookies.txt
+cookies_new.txt
+cookies*.txt
+mail.txt
+
+# captured traffic / session dumps (may contain tokens)
+captures/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/

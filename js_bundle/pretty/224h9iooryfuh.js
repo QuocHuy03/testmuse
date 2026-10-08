@@ -1,0 +1,1813 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "0a605c25-041d-8242-c90b-5703fc9fd9d8")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 246889, e => {
+  "use strict";
+  var r = e.i(984416),
+    t = e.i(722099),
+    n = e.i(345717),
+    i = e.i(906757),
+    o = e.i(678069),
+    a = e.i(374785),
+    l = e.i(239286),
+    c = e.i(646361),
+    s = e.i(445492);
+  let u = e.i(899185).default;
+  u._viewBox = 32;
+  let d = s.default;
+  d._viewBox = 32;
+  let f = {
+    duration: .12
+  };
+  e.s(["VoicePreviewButton", 0, function(e) {
+    let s, v, p, g, y, m = (0, t.c)(25),
+      {
+        isLoading: b,
+        isPlaying: h,
+        onClick: _,
+        variant: w,
+        size: E,
+        iconSize: S,
+        spinnerSize: V,
+        buttonRef: k,
+        disabled: C,
+        voiceName: L
+      } = e,
+      I = void 0 === w ? "prominent" : w,
+      A = void 0 === E ? 32 : E,
+      O = void 0 === S ? 20 : S,
+      P = void 0 === V ? 16 : V,
+      R = "prominent" === I,
+      T = void 0 !== C && C || b;
+    m[0] !== b || m[1] !== h || m[2] !== L ? (s = null == L ? b ? n.fbs._("Loading preview", null, {
+      hk: "4hDkIx"
+    }) : h ? n.fbs._("Pause preview", null, {
+      hk: "3C25YE"
+    }) : n.fbs._("Play preview", null, {
+      hk: "vvtQm"
+    }) : b ? n.fbs._("Loading preview of {voice_name}", [n.fbs._param("voice_name", L)], {
+      hk: "3yizWu"
+    }) : h ? n.fbs._("Pause preview of {voice_name}", [n.fbs._param("voice_name", L)], {
+      hk: "2Ycbta"
+    }) : n.fbs._("Play preview of {voice_name}", [n.fbs._param("voice_name", L)], {
+      hk: "2pr1g"
+    }), m[0] = b, m[1] = h, m[2] = L, m[3] = s) : s = m[3];
+    let N = s,
+      x = R ? "bg-text-primary shadow-md" : "ghost" === I ? "hover:bg-fill-secondary bg-transparent" : "bg-fill-secondary hover:bg-fill-tertiary",
+      H = T && !b && "opacity-35";
+    m[4] !== x || m[5] !== H ? (v = (0, a.cn)("flex shrink-0 items-center justify-center rounded-full transition-[background-color,opacity]", x, H), m[4] = x, m[5] = H, m[6] = v) : v = m[6], m[7] !== A ? (p = {
+      width: A,
+      height: A
+    }, m[7] = A, m[8] = p) : p = m[8];
+    let F = b || void 0;
+    return m[9] !== O || m[10] !== b || m[11] !== h || m[12] !== R || m[13] !== P ? (g = (0, r.jsx)(o.AnimatePresence, {
+      mode: "wait",
+      initial: !1,
+      children: b ? (0, r.jsx)(i.motion.span, {
+        initial: {
+          opacity: 0,
+          scale: .5
+        },
+        animate: {
+          opacity: 1,
+          scale: 1
+        },
+        exit: {
+          opacity: 0,
+          scale: .5
+        },
+        transition: f,
+        className: "flex items-center justify-center",
+        children: (0, r.jsx)(l.Spinner, {
+          size: P,
+          className: R ? "text-fill-primary" : "text-text-secondary",
+          color: "currentColor"
+        })
+      }, "loading") : h ? (0, r.jsx)(i.motion.span, {
+        initial: {
+          opacity: 0,
+          scale: .5
+        },
+        animate: {
+          opacity: 1,
+          scale: 1
+        },
+        exit: {
+          opacity: 0,
+          scale: .5
+        },
+        transition: f,
+        className: "flex items-center justify-center",
+        children: (0, r.jsx)(c.HatchIcon, {
+          icon: d,
+          size: O,
+          className: R ? "text-fill-primary" : "text-text-primary"
+        })
+      }, "pause") : (0, r.jsx)(i.motion.span, {
+        initial: {
+          opacity: 0,
+          scale: .5
+        },
+        animate: {
+          opacity: 1,
+          scale: 1
+        },
+        exit: {
+          opacity: 0,
+          scale: .5
+        },
+        transition: f,
+        className: "flex items-center justify-center",
+        children: (0, r.jsx)(c.HatchIcon, {
+          icon: u,
+          size: O,
+          className: (0, a.cn)("ms-0.5", R ? "text-fill-primary" : "text-text-primary")
+        })
+      }, "play")
+    }), m[9] = O, m[10] = b, m[11] = h, m[12] = R, m[13] = P, m[14] = g) : g = m[14], m[15] !== k || m[16] !== T || m[17] !== h || m[18] !== _ || m[19] !== N || m[20] !== p || m[21] !== F || m[22] !== g || m[23] !== v ? (y = (0, r.jsx)("button", {
+      ref: k,
+      type: "button",
+      className: v,
+      style: p,
+      onClick: _,
+      disabled: T,
+      "aria-busy": F,
+      "aria-label": N,
+      "aria-pressed": h,
+      children: g
+    }), m[15] = k, m[16] = T, m[17] = h, m[18] = _, m[19] = N, m[20] = p, m[21] = F, m[22] = g, m[23] = v, m[24] = y) : y = m[24], y
+  }])
+}, 93731, e => {
+  "use strict";
+  let r = /[\u0000-\u001f\u007f]/,
+    t = ["hatch", "voice-file"],
+    n = ["voice_id", "saved_voice_id", "profile_id", "voice_name", "intro_completed"],
+    i = "captions_enabled";
+
+  function o(e) {
+    let r = e.trim();
+    if (0 === r.length) return null;
+    try {
+      let e = JSON.parse(r);
+      if (null != e && "object" == typeof e && !Array.isArray(e)) return e
+    } catch {}
+    return null
+  }
+  e.s(["VOICE_SELECTION_PATH", 0, "user/voice.json", "hatchVoiceSelectionQueryKey", 0, function(e) {
+    return [...t, e]
+  }, "parseHatchVoiceCaptionsEnabled", 0, function(e) {
+    return o(e)?.[i] === !0
+  }, "parseHatchVoiceSelectionDetails", 0, function(e) {
+    try {
+      let t = JSON.parse(e);
+      if ("object" != typeof t || null == t || !("voice_id" in t)) return null;
+      let n = "string" == typeof t.voice_id ? t.voice_id.trim() : "";
+      if (0 === n.length) return null;
+      let i = "string" == typeof t.saved_voice_id ? t.saved_voice_id.trim() : "",
+        o = "string" == typeof t.profile_id ? t.profile_id.trim() : "",
+        a = "string" == typeof t.voice_name ? t.voice_name.trim() : "";
+      return {
+        voiceId: n,
+        ...i.length > 0 && i.length <= 128 ? {
+          savedVoiceId: i
+        } : {},
+        ...o.length > 0 && o.length <= 128 ? {
+          profileId: o
+        } : {},
+        ...a.length > 0 && a.length <= 80 && !r.test(a) ? {
+          voiceName: a
+        } : {}
+      }
+    } catch {
+      return null
+    }
+  }, "readVoiceSelectionJsonFromString", 0, o, "serializeHatchVoiceFile", 0, function(e) {
+    return JSON.stringify(e, null, 2) + "\n"
+  }, "withHatchVoiceCaptionsEnabled", 0, function(e, r) {
+    return {
+      ...e,
+      [i]: r
+    }
+  }, "withHatchVoiceSelection", 0, function(e, r, t) {
+    let i = {
+      ...e
+    };
+    for (let e of n) delete i[e];
+    return {
+      ...{
+        voice_id: r,
+        ...null != t ? {
+          ...null != t.savedVoiceId ? {
+            saved_voice_id: t.savedVoiceId
+          } : {},
+          ...null != t.profileId ? {
+            profile_id: t.profileId
+          } : {},
+          voice_name: t.voiceName,
+          intro_completed: t.introCompleted
+        } : {}
+      },
+      ...i
+    }
+  }])
+}, 318422, e => {
+  "use strict";
+  var r = e.i(359783),
+    t = e.i(93731);
+  let n = (0, r.createClientLogger)("HatchVoiceSelectionPersistence");
+  async function i(e, r) {
+    try {
+      let i = await e.read(t.VOICE_SELECTION_PATH);
+      if (!i.ok && "not_found" !== i.error.kind) return n.retainForBugReport("warn", "Failed to read Hatch voice file before update"), !1;
+      let o = i.ok ? (0, t.readVoiceSelectionJsonFromString)(i.data.content) : null;
+      if (!(await e.write(t.VOICE_SELECTION_PATH, (0, t.serializeHatchVoiceFile)(r(o)), {
+          createDirectories: !0
+        })).ok) return n.retainForBugReport("warn", "Failed to persist Hatch voice file"), !1;
+      return !0
+    } catch (e) {
+      return n.retainForBugReport("warn", "Failed to persist Hatch voice file"), !1
+    }
+  }
+  async function o(e) {
+    return (await a(e))?.voiceId ?? null
+  }
+  async function a(e) {
+    return (await l(e)).selection
+  }
+  async function l(e) {
+    let r = await e.read(t.VOICE_SELECTION_PATH);
+    return r.ok ? {
+      selection: (0, t.parseHatchVoiceSelectionDetails)(r.data.content),
+      captionsEnabled: (0, t.parseHatchVoiceCaptionsEnabled)(r.data.content)
+    } : {
+      selection: null,
+      captionsEnabled: !1
+    }
+  }
+  e.s(["readPersistedHatchVoiceFile", 0, l, "readPersistedHatchVoiceSelection", 0, o, "writeHatchVoiceCaptionsEnabledAwaited", 0, function(e, r) {
+    return i(e, e => (0, t.withHatchVoiceCaptionsEnabled)(e, r))
+  }, "writeHatchVoiceSelectionAwaited", 0, function(e, r, n) {
+    return i(e, e => (0, t.withHatchVoiceSelection)(e, r, n))
+  }])
+}, 793949, 384390, 711541, e => {
+  "use strict";
+  var r = e.i(519172),
+    t = e.i(393202),
+    n = e.i(359783),
+    i = e.i(224520),
+    o = e.i(543912),
+    a = e.i(508180),
+    l = e.i(907579),
+    c = e.i(175286),
+    s = e.i(863641),
+    u = e.i(713590),
+    d = e.i(93731);
+  let f = "user/voice_nux.json";
+
+  function v(e) {
+    return ["hatch", "voice-nux", e]
+  }
+  let p = (0, n.createClientLogger)("HatchVoiceNuxPersistence");
+  async function g(e, r = !0) {
+    try {
+      let t = await e.write(f, `${JSON.stringify({voice_nux_seen:r})}
+`, {
+        createDirectories: !0
+      });
+      if (!t.ok) throw Error(t.error.message);
+      return !0
+    } catch (e) {
+      return p.retainForBugReport("warn", "Failed to persist the voice intro flag"), !1
+    }
+  }
+  async function y(e, r) {
+    try {
+      if (r?.aborted) return !0;
+      let t = await e.read(f);
+      if (r?.aborted) return !0;
+      if (t.ok) return (0, d.readVoiceSelectionJsonFromString)(t.data.content)?.voice_nux_seen === !0;
+      if ("not_found" !== t.error.kind) throw Error(t.error.message);
+      let n = await e.read(d.VOICE_SELECTION_PATH);
+      if (r?.aborted) return !0;
+      if (!n.ok) {
+        if ("not_found" !== n.error.kind) throw Error(n.error.message);
+        return !1
+      }
+      if ((0, d.readVoiceSelectionJsonFromString)(n.data.content)?.voice_nux_seen !== !0) return !1;
+      return await g(e), !0
+    } catch (e) {
+      return p.retainForBugReport("warn", "Failed to read the voice intro flag"), !0
+    }
+  }
+  e.s(["VOICE_NUX_PATH", 0, f, "hatchVoiceNuxQueryKey", 0, v, "readPersistedHatchVoiceNuxSeen", 0, y, "writeHatchVoiceNuxSeenAwaited", 0, g], 384390);
+  var m = e.i(318422);
+  let b = "user/voices.json",
+    h = ["hatch", "saved-voices"],
+    _ = /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/,
+    w = /^avocado_v2:[A-Za-z0-9_.-]{1,256}$/,
+    E = new Set(["version", "saved_voice_id", "voice_id", "voice_name", "description", "profiles"]),
+    S = /\p{Cc}/u,
+    V = ["**", "{", "}", "[", "]", "<", ">"],
+    k = new Set(["profile_id", "label", "voice_instructions", "preview_text"]);
+
+  function C(e) {
+    return null == e || "object" != typeof e || Array.isArray(e) ? null : e
+  }
+
+  function L(e, r) {
+    let t = Object.keys(e);
+    return t.length === r.size && t.every(e => r.has(e))
+  }
+
+  function I(e, r, t) {
+    var n;
+    return "string" != typeof e ? null : 0 === e.trim().length || Array.from(e).length > r || (n = t?.multiline === !0, Array.from(e).some(e => S.test(e) && !(n && ("\n" === e || "\r" === e || "	" === e)))) || t?.pattern != null && !t.pattern.test(e) || t?.plainVoiceInstructions === !0 && V.some(r => e.includes(r)) ? null : e
+  }
+
+  function A(e) {
+    let r = C(e);
+    if (null == r || !L(r, k)) return null;
+    let t = null != I(r.profile_id, 36, {
+        pattern: _
+      }) ? r.profile_id : null,
+      n = I(r.label, 80),
+      i = I(r.voice_instructions, 2e3, {
+        multiline: !0,
+        plainVoiceInstructions: !0
+      }),
+      o = I(r.preview_text, 500, {
+        multiline: !0,
+        plainVoiceInstructions: !0
+      });
+    return null == t || null == n || null == i || null == o ? null : {
+      profileId: t,
+      label: n,
+      voiceInstructions: i,
+      previewText: o
+    }
+  }
+
+  function O(e) {
+    let r = C(e);
+    if (null == r || 1 !== r.version || !L(r, E)) return null;
+    let t = null != I(r.saved_voice_id, 36, {
+        pattern: _
+      }) ? r.saved_voice_id : null,
+      n = null != I(r.voice_id, 267, {
+        pattern: w
+      }) ? r.voice_id : null,
+      i = null != I(r.voice_name, 80) ? r.voice_name : null,
+      o = I(r.description, 4e3, {
+        multiline: !0
+      });
+    if (null == t || null == n || null == i || null == o || !Array.isArray(r.profiles) || 0 === r.profiles.length || r.profiles.length > 3) return null;
+    let a = r.profiles.map(A);
+    return a.some(e => null == e) || new Set(a.map(e => e.profileId)).size !== a.length ? null : {
+      version: 1,
+      savedVoiceId: t,
+      voiceId: n,
+      voiceName: i,
+      description: o,
+      profiles: a
+    }
+  }
+
+  function P(e, r) {
+    return Error(`${e}: ${r}`)
+  }
+  async function R(e) {
+    let r = await e.read(b, {
+      maxBytes: 4194304
+    });
+    if (!r.ok) {
+      if ("not_found" === r.error.kind) return [];
+      throw P("Unable to read saved voices", r.error.message)
+    }
+    let t = function(e) {
+      let r;
+      if (new TextEncoder().encode(e).byteLength > 4194304) return null;
+      try {
+        r = JSON.parse(e)
+      } catch {
+        return null
+      }
+      if (!Array.isArray(r) || r.length > 50) return null;
+      let t = r.map(O);
+      return t.some(e => null == e) || new Set(t.map(e => e.savedVoiceId)).size !== t.length ? null : t
+    }(r.data.content);
+    if (null == t) throw P("Unable to read saved voices", `${b} is invalid`);
+    return t
+  }
+
+  function T(e, r) {
+    return {
+      savedVoiceId: e.savedVoiceId,
+      profileId: r.profileId,
+      voiceId: e.voiceId,
+      voiceName: e.voiceName
+    }
+  }
+  e.s(["SAVED_VOICES_PATH", 0, b, "listSavedVoices", 0, R, "savedVoiceProfileSelection", 0, T, "savedVoicesQueryKey", 0, function(e) {
+    return [...h, e]
+  }], 711541);
+  let N = (0, n.createClientLogger)("HatchVoiceSelectionMutations");
+  e.s(["useHatchVoiceSelectionMutations", 0, function() {
+    let e = (0, l.useHatchGatewayFs)(),
+      {
+        gatewayScopeKey: n,
+        sendRequest: f
+      } = (0, c.useHatchRpc)(),
+      p = (0, o.useHatchVoiceEnabled)(),
+      y = (0, r.useRef)(n),
+      b = (0, r.useRef)(p);
+    y.current = n, b.current = p;
+    let h = (0, i.useMcString)("9cd8f8f3", u.FALLBACK_VOICE_ID),
+      _ = (0, t.useQueryClient)(),
+      w = (0, r.useMemo)(() => (0, d.hatchVoiceSelectionQueryKey)(n), [n]),
+      E = (0, r.useCallback)(async ({
+        voiceId: r,
+        voiceName: t
+      }) => {
+        if (!p || null == n || !await (0, m.writeHatchVoiceSelectionAwaited)(e, r, {
+            voiceName: t,
+            introCompleted: !0
+          }) || !b.current || y.current !== n) return !1;
+        let i = (0, d.hatchVoiceSelectionQueryKey)(n);
+        return await _.cancelQueries({
+          queryKey: i,
+          exact: !0
+        }), !!b.current && y.current === n && (_.setQueryData(i, e => ({
+          voiceId: r,
+          voiceName: t,
+          hasPersistedSelection: !0,
+          captionsEnabled: e?.captionsEnabled ?? !1
+        })), (0, a.setVoiceId)(r), !0)
+      }, [e, n, _, p]),
+      S = (0, r.useCallback)(async r => {
+        if (!p || null == n || !await (0, m.writeHatchVoiceSelectionAwaited)(e, r.voiceId, {
+            savedVoiceId: r.savedVoiceId,
+            profileId: r.profileId,
+            voiceName: r.voiceName,
+            introCompleted: !0
+          }) || !b.current || y.current !== n) return !1;
+        let t = (0, d.hatchVoiceSelectionQueryKey)(n);
+        return await _.cancelQueries({
+          queryKey: t,
+          exact: !0
+        }), !!b.current && y.current === n && (_.setQueryData(t, e => ({
+          voiceId: r.voiceId,
+          voiceName: r.voiceName,
+          savedVoiceId: r.savedVoiceId,
+          profileId: r.profileId,
+          hasPersistedSelection: !0,
+          captionsEnabled: e?.captionsEnabled ?? !1
+        })), (0, a.setVoiceId)(r.voiceId), !0)
+      }, [e, n, _, p]),
+      V = (0, r.useCallback)(async (r, t) => {
+        let i;
+        if (!p || null == n) return !1;
+        try {
+          i = await R(e)
+        } catch (e) {
+          return N.error({
+            error: e instanceof Error ? e : Error(String(e)),
+            tags: (0, s.hatchSentryTags)(s.HATCH_SENTRY_SURFACES.CHAT_VOICE_OPTIONS)
+          }, "Failed to read saved voices for presented voice selection"), !1
+        }
+        if (!b.current || y.current !== n) return !1;
+        let o = i.find(e => e.voiceId === r.voiceId);
+        if (null == o) return t?.({
+          voice_id: r.voiceId
+        }), E(r);
+        t?.({
+          saved_voice_id: o.savedVoiceId
+        });
+        let a = o.profiles[0];
+        return null != a && S(T(o, a))
+      }, [e, n, S, E, p]);
+    return {
+      setVoice: E,
+      setSavedVoice: S,
+      setPresentedVoice: V,
+      clearVoiceSelection: (0, r.useCallback)(async () => {
+        if (!p || null == n) return !1;
+        try {
+          await f("voice.onboarding.reset", {})
+        } catch (e) {
+          return N.error({
+            error: e instanceof Error ? e : Error(String(e)),
+            tags: (0, s.hatchSentryTags)(s.HATCH_SENTRY_SURFACES.SETTINGS_VOICE)
+          }, "voice onboarding reset failed"), !1
+        }
+        let r = () => b.current && y.current === n;
+        if (!r()) return !1;
+        let t = v(n);
+        if (await Promise.all([_.cancelQueries({
+            queryKey: w,
+            exact: !0
+          }), _.cancelQueries({
+            queryKey: t,
+            exact: !0
+          })]), !r()) return !1;
+        let i = await g(e, !1);
+        return !!r() && (i ? (_.setQueryData(t, !1), _.setQueryData(w, {
+          voiceId: h,
+          hasPersistedSelection: !1,
+          captionsEnabled: !1
+        }), (0, a.clearVoiceIdOverride)(h), (0, a.setCaptionsEnabled)(!1), !0) : (N.error({
+          error: Error("Failed to persist voice intro reset"),
+          tags: (0, s.hatchSentryTags)(s.HATCH_SENTRY_SURFACES.SETTINGS_VOICE)
+        }, "voice onboarding intro reset persistence failed"), !1))
+      }, [e, n, h, _, w, f, p]),
+      setCaptionsPreference: (0, r.useCallback)(async r => {
+        if (!p || null == n) return !1;
+        (0, a.setCaptionsEnabled)(r);
+        let t = await (0, m.writeHatchVoiceCaptionsEnabledAwaited)(e, r);
+        return !!b.current && y.current === n && (t ? (_.setQueryData((0, d.hatchVoiceSelectionQueryKey)(n), e => null == e ? e : {
+          ...e,
+          captionsEnabled: r
+        }), !0) : ((0, a.getSnapshot)().chat.captionsEnabled === r && (0, a.setCaptionsEnabled)(!r), !1))
+      }, [e, n, _, p])
+    }
+  }], 793949)
+}, 168080, e => {
+  "use strict";
+  var r = e.i(722099),
+    t = e.i(849329),
+    n = e.i(359783),
+    i = e.i(907579),
+    o = e.i(175286),
+    a = e.i(543912),
+    l = e.i(713590);
+  let c = "skills/voice-selector/voice_source.json",
+    s = (0, n.createClientLogger)("HatchVoiceSource"),
+    u = l.VOICE_OPTIONS.map(e => ({
+      id: e.value,
+      name: e.label
+    })),
+    d = ["Aria", "Helio"];
+
+  function f(e) {
+    let r = e => {
+      let r = d.findIndex(r => r.toLowerCase() === e.toLowerCase());
+      return -1 === r ? d.length : r
+    };
+    return [...e].sort((e, t) => {
+      let n = r(e.name),
+        i = r(t.name);
+      return n !== i ? n - i : e.name.localeCompare(t.name, void 0, {
+        sensitivity: "base"
+      })
+    })
+  }
+
+  function v(e) {
+    if ("string" != typeof e) return null;
+    let r = e.trim();
+    return r.length > 0 ? r : null
+  }
+
+  function p(e) {
+    if ("string" != typeof e) return e;
+    try {
+      return JSON.parse(e)
+    } catch {
+      return e
+    }
+  }
+
+  function g(e) {
+    let r = p(e);
+    if (!Array.isArray(r)) return [];
+    let t = [];
+    for (let e of r) {
+      if (null == e || "object" != typeof e || Array.isArray(e)) continue;
+      let r = v(e.id) ?? v(e.value),
+        n = v(e.name) ?? v(e.label);
+      if (null == r || null == n) continue;
+      let i = v(e.description),
+        o = v(e.accent),
+        a = v(e.gender),
+        l = v(e.tone);
+      t.push({
+        id: r,
+        name: n,
+        ...null != i && {
+          description: i
+        },
+        ...null != o && {
+          accent: o
+        },
+        ...null != a && {
+          gender: a
+        },
+        ...null != l && {
+          tone: l
+        }
+      })
+    }
+    return t
+  }
+
+  function y(e, r, {
+    requireCatalogMatch: t = !1
+  } = {}) {
+    let n = p(e);
+    if (!Array.isArray(n)) return [];
+    let i = new Map(r.map(e => [e.id.trim().toLowerCase(), e])),
+      o = [];
+    for (let e of n) {
+      if ("string" == typeof e) {
+        let r = v(e);
+        if (null == r) continue;
+        let n = i.get(r.trim().toLowerCase());
+        if (t && null == n) continue;
+        o.push(n ?? {
+          id: r,
+          name: r
+        });
+        continue
+      }
+      if (null == e || "object" != typeof e || Array.isArray(e)) continue;
+      let r = v(e.id) ?? v(e.value);
+      if (null == r) continue;
+      let n = i.get(r.trim().toLowerCase());
+      if (t && null == n) continue;
+      let a = v(e.name) ?? v(e.label) ?? n?.name ?? r,
+        l = v(e.description) ?? n?.description,
+        c = v(e.accent) ?? n?.accent,
+        s = v(e.gender) ?? n?.gender,
+        u = v(e.tone) ?? n?.tone;
+      o.push({
+        id: r,
+        name: a,
+        ...null != l && {
+          description: l
+        },
+        ...null != c && {
+          accent: c
+        },
+        ...null != s && {
+          gender: s
+        },
+        ...null != u && {
+          tone: u
+        }
+      })
+    }
+    return o
+  }
+
+  function m(e) {
+    return e instanceof Error ? e.message : String(e)
+  }
+
+  function b() {
+    let e, n, l, u, d = (0, r.c)(19),
+      p = (0, i.useHatchGatewayFs)(),
+      {
+        isReady: b,
+        gatewayUrl: w,
+        sendRequest: E
+      } = (0, o.useHatchRpc)(),
+      S = (0, a.useHatchVoiceEnabled)();
+    d[0] !== w ? (e = ["hatch", "voice-source", w, c], d[0] = w, d[1] = e) : e = d[1], d[2] !== p || d[3] !== w || d[4] !== E ? (n = async () => {
+      if (null != w) try {
+        let e = await E("voice.available_voices", {}),
+          r = function(e) {
+            let r = function(e) {
+              if (null == e || "object" != typeof e || Array.isArray(e)) return null;
+              let r = e.payload;
+              if (null != r && "object" == typeof r && !Array.isArray(r)) return r;
+              let t = e.result;
+              return null == t || "object" != typeof t || Array.isArray(t) ? e : t
+            }(e);
+            if (null == r) return null;
+            let t = f(g(r.voices));
+            if (0 === t.length) return null;
+            let n = y(r.suggested, t, {
+                requireCatalogMatch: !0
+              }),
+              i = v(r.sample_line) ?? v(r.sampleLine) ?? void 0;
+            return {
+              voices: t,
+              suggestedVoices: n.length > 0 ? n : t.slice(0, 5),
+              ...null != i && {
+                sampleLine: i
+              },
+              source: "api"
+            }
+          }(e);
+        if (null != r) return r;
+        s.retainForBugReport("info", "available-voices returned an empty or malformed voice catalog")
+      } catch (e) {
+        s.retainForBugReport("info", "Falling back to voice_source.json after available-voices failed")
+      }
+      let e = await p.read(c);
+      if (!e.ok) {
+        if (m(e.error).includes("ENOENT")) return null;
+        throw e.error
+      }
+      let r = function(e) {
+        let r;
+        try {
+          r = JSON.parse(e)
+        } catch {
+          return null
+        }
+        if (Array.isArray(r)) {
+          let e = f(g(r));
+          return e.length > 0 ? {
+            voices: e,
+            suggestedVoices: e.slice(0, 5),
+            source: "file"
+          } : null
+        }
+        if (null == r || "object" != typeof r) return null;
+        let t = r,
+          n = f(function(e, r) {
+            for (let t of r) {
+              let r = g(e[t]);
+              if (r.length > 0) return r
+            }
+            return []
+          }(t, ["voices", "available_voices", "availableVoices", "all_voices", "allVoices", "voice_source", "voiceSource"])),
+          i = function(e, r, t) {
+            for (let n of r) {
+              let r = y(e[n], t);
+              if (r.length > 0) return r
+            }
+            return []
+          }(t, ["suggested_voices", "suggestedVoices", "suggested_voices_json", "recommended_voices", "recommendedVoices", "suggested", "suggestions"], n),
+          o = n.length > 0 ? n : f(i);
+        return o.length > 0 ? {
+          voices: o,
+          suggestedVoices: i.length > 0 ? i : o.slice(0, 5),
+          source: "file"
+        } : null
+      }(e.data.content);
+      return null == r && s.retainForBugReport("info", "voice_source.json was empty or malformed"), r
+    }, d[2] = p, d[3] = w, d[4] = E, d[5] = n) : n = d[5];
+    let V = S && b;
+    d[6] !== e || d[7] !== n || d[8] !== V ? (l = {
+      queryKey: e,
+      queryFn: n,
+      enabled: V,
+      staleTime: 3e5,
+      retry: _,
+      retryDelay: h
+    }, d[6] = e, d[7] = n, d[8] = V, d[9] = l) : l = d[9];
+    let {
+      data: k,
+      isPending: C,
+      isFetching: L
+    } = (0, t.useQuery)(l);
+    if (!S) {
+      let e;
+      return d[10] === Symbol.for("react.memo_cache_sentinel") ? (e = {
+        status: "fallback"
+      }, d[10] = e) : e = d[10], e
+    }
+    if (!b) {
+      let e;
+      return d[11] === Symbol.for("react.memo_cache_sentinel") ? (e = {
+        status: "loading"
+      }, d[11] = e) : e = d[11], e
+    }
+    if (C || L && void 0 === k) {
+      let e;
+      return d[12] === Symbol.for("react.memo_cache_sentinel") ? (e = {
+        status: "loading"
+      }, d[12] = e) : e = d[12], e
+    }
+    if (null != k && k.voices.length > 0) {
+      let e;
+      return d[13] !== k.sampleLine || d[14] !== k.source || d[15] !== k.suggestedVoices || d[16] !== k.voices ? (e = {
+        status: "skill",
+        voices: k.voices,
+        suggestedVoices: k.suggestedVoices,
+        sampleLine: k.sampleLine,
+        source: k.source
+      }, d[13] = k.sampleLine, d[14] = k.source, d[15] = k.suggestedVoices, d[16] = k.voices, d[17] = e) : e = d[17], e
+    }
+    return d[18] === Symbol.for("react.memo_cache_sentinel") ? (u = {
+      status: "fallback"
+    }, d[18] = u) : u = d[18], u
+  }
+
+  function h(e) {
+    return Math.min(1e3 * 2 ** e, 8e3)
+  }
+
+  function _(e, r) {
+    return !m(r).includes("ENOENT") && e < 3
+  }
+  e.s(["useHatchVoiceSource", 0, b, "useVoiceOptions", 0, function() {
+    let e, t = (0, r.c)(8),
+      n = b();
+    if ("loading" === n.status) {
+      let e;
+      return t[0] === Symbol.for("react.memo_cache_sentinel") ? (e = {
+        voices: u,
+        suggestedVoices: [],
+        isLoading: !0
+      }, t[0] = e) : e = t[0], e
+    }
+    if ("skill" === n.status) {
+      let e, r;
+      return t[1] !== n.sampleLine ? (e = null != n.sampleLine && {
+        sampleLine: n.sampleLine
+      }, t[1] = n.sampleLine, t[2] = e) : e = t[2], t[3] !== n.suggestedVoices || t[4] !== n.voices || t[5] !== e ? (r = {
+        voices: n.voices,
+        suggestedVoices: n.suggestedVoices,
+        isLoading: !1,
+        ...e
+      }, t[3] = n.suggestedVoices, t[4] = n.voices, t[5] = e, t[6] = r) : r = t[6], r
+    }
+    return t[7] === Symbol.for("react.memo_cache_sentinel") ? (e = {
+      voices: u,
+      suggestedVoices: [],
+      isLoading: !1
+    }, t[7] = e) : e = t[7], e
+  }])
+}, 424509, e => {
+  "use strict";
+  var r = e.i(722099),
+    t = e.i(519172),
+    n = e.i(849329),
+    i = e.i(224520),
+    o = e.i(543912),
+    a = e.i(508180),
+    l = e.i(907579),
+    c = e.i(175286),
+    s = e.i(713590),
+    u = e.i(93731),
+    d = e.i(318422),
+    f = e.i(793949);
+  async function v(e) {
+    let {
+      selection: r,
+      captionsEnabled: t
+    } = await (0, d.readPersistedHatchVoiceFile)(e);
+    return null != r ? {
+      voiceId: r.voiceId,
+      ...null != r.voiceName ? {
+        voiceName: r.voiceName
+      } : {},
+      ...null != r.savedVoiceId ? {
+        savedVoiceId: r.savedVoiceId
+      } : {},
+      ...null != r.profileId ? {
+        profileId: r.profileId
+      } : {},
+      hasPersistedSelection: !0,
+      captionsEnabled: t
+    } : {
+      voiceId: s.FALLBACK_VOICE_ID,
+      hasPersistedSelection: !1,
+      captionsEnabled: t
+    }
+  }
+  e.s(["useInitVoiceFromFile", 0, function() {
+    let e, d, p, g, y, m, b = (0, r.c)(20),
+      h = (0, l.useHatchGatewayFs)(),
+      {
+        isReady: _,
+        gatewayScopeKey: w
+      } = (0, c.useHatchRpc)(),
+      E = (0, o.useHatchVoiceEnabled)(),
+      S = (0, i.useMcString)("9cd8f8f3", s.FALLBACK_VOICE_ID);
+    b[0] !== w ? (e = (0, u.hatchVoiceSelectionQueryKey)(w), b[0] = w, b[1] = e) : e = b[1];
+    let V = e,
+      k = (0, f.useHatchVoiceSelectionMutations)();
+    b[2] !== h ? (d = async () => v(h), b[2] = h, b[3] = d) : d = b[3];
+    let C = E && _;
+    b[4] !== V || b[5] !== d || b[6] !== C ? (p = {
+      queryKey: V,
+      queryFn: d,
+      enabled: C,
+      staleTime: 0,
+      refetchOnMount: "always"
+    }, b[4] = V, b[5] = d, b[6] = C, b[7] = p) : p = b[7];
+    let {
+      data: L,
+      isPending: I
+    } = (0, n.useQuery)(p);
+    b[8] !== L || b[9] !== S || b[10] !== E ? (g = () => {
+      if (E && null != L) {
+        if ((0, a.setCaptionsEnabled)(L.captionsEnabled), L.hasPersistedSelection) return void(0, a.setVoiceIdFromFile)(L.voiceId);
+        (0, a.clearVoiceIdOverride)(S)
+      }
+    }, y = [L, S, E], b[8] = L, b[9] = S, b[10] = E, b[11] = g, b[12] = y) : (g = b[11], y = b[12]), (0, t.useEffect)(g, y);
+    let A = E && L?.hasPersistedSelection === !0,
+      O = E && I,
+      P = E ? L?.voiceName : void 0,
+      R = E ? L?.savedVoiceId : void 0,
+      T = E ? L?.profileId : void 0;
+    return b[13] !== k || b[14] !== T || b[15] !== A || b[16] !== O || b[17] !== P || b[18] !== R ? (m = {
+      ...k,
+      hasPersistedVoiceSelection: A,
+      isVoiceSelectionLoading: O,
+      persistedVoiceName: P,
+      persistedSavedVoiceId: R,
+      persistedProfileId: T
+    }, b[13] = k, b[14] = T, b[15] = A, b[16] = O, b[17] = P, b[18] = R, b[19] = m) : m = b[19], m
+  }])
+}, 674533, e => {
+  "use strict";
+  var r = e.i(722099),
+    t = e.i(519172),
+    n = e.i(345717),
+    i = e.i(359783),
+    o = e.i(255859),
+    a = e.i(696254);
+  let l = (0, i.createClientLogger)("streamingVoicePreviewPlayer"),
+    c = "audio/mpeg";
+
+  function s() {
+    if ("u" < typeof MediaSource) return !1;
+    try {
+      return MediaSource.isTypeSupported(c)
+    } catch {
+      return !1
+    }
+  }
+  async function u(e, r, t) {
+    let n = await fetch("/api/hatch/voice/tts/stream", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "text/event-stream"
+      },
+      body: JSON.stringify({
+        voiceId: e,
+        text: r,
+        audioFormat: "mp3"
+      }),
+      signal: t
+    });
+    if (!n.ok) throw Error(`Streaming TTS failed: ${n.status}`);
+    if (null == n.body) throw Error("Streaming TTS response had no body");
+    return n
+  }
+  async function* d(e, r) {
+    let t = e.getReader(),
+      n = new TextDecoder,
+      i = "",
+      o = !1,
+      a = () => {
+        t.cancel().catch(() => {})
+      };
+    r.addEventListener("abort", a), r.aborted && a();
+    try {
+      for (;;) {
+        let {
+          done: e,
+          value: r
+        } = await t.read();
+        if (e) {
+          o = !0;
+          return
+        }
+        for (i += n.decode(r, {
+            stream: !0
+          });;) {
+          let e = i.indexOf("\r\n\r\n"),
+            r = i.indexOf("\n\n"),
+            t = -1,
+            n = 0;
+          if (-1 !== e && (-1 === r || e < r)) t = e, n = 4;
+          else if (-1 !== r) t = r, n = 2;
+          else break;
+          let o = i.slice(0, t);
+          i = i.slice(t + n);
+          let a = function(e) {
+            let r, t = e.split(/\r?\n/).find(e => e.startsWith("data:"))?.replace(/^data:\s*/, "");
+            if (null == t) return {
+              kind: "ignore"
+            };
+            if ("[DONE]" === t) return {
+              kind: "done"
+            };
+            try {
+              r = JSON.parse(t)
+            } catch {
+              return l.error({
+                frame: e
+              }, "Failed to parse SSE frame as JSON"), {
+                kind: "ignore"
+              }
+            }
+            return "tts.done" === r.type ? {
+              kind: "done"
+            } : "tts.delta" === r.type && "string" == typeof r.audio && r.audio.length > 0 ? {
+              kind: "delta",
+              bytes: function(e) {
+                let r = atob(e),
+                  t = new Uint8Array(new ArrayBuffer(r.length));
+                for (let e = 0; e < r.length; e++) t[e] = r.charCodeAt(e);
+                return t
+              }(r.audio)
+            } : {
+              kind: "ignore"
+            }
+          }(o);
+          if (yield a, "done" === a.kind) return
+        }
+      }
+    } finally {
+      if (r.removeEventListener("abort", a), !o) try {
+        await t.cancel()
+      } catch {}
+      try {
+        t.releaseLock()
+      } catch {}
+    }
+  }
+
+  function f(e, r) {
+    return "open" === e.readyState || r.aborted ? Promise.resolve() : new Promise(t => {
+      let n = () => {
+          o(), t()
+        },
+        i = () => {
+          o(), t()
+        },
+        o = () => {
+          e.removeEventListener("sourceopen", n), r.removeEventListener("abort", i)
+        };
+      e.addEventListener("sourceopen", n), r.addEventListener("abort", i, {
+        once: !0
+      }), "open" === e.readyState ? n() : r.aborted && i()
+    })
+  }
+
+  function v(e, r) {
+    return r.aborted ? Promise.resolve() : new Promise((t, n) => {
+      let i = () => {
+          l(), t()
+        },
+        o = () => {
+          l(), n(Error("SourceBuffer update error"))
+        },
+        a = () => {
+          l(), t()
+        },
+        l = () => {
+          e.removeEventListener("updateend", i), e.removeEventListener("error", o), e.removeEventListener("abort", a), r.removeEventListener("abort", a)
+        };
+      e.addEventListener("updateend", i), e.addEventListener("error", o), e.addEventListener("abort", a), r.addEventListener("abort", a, {
+        once: !0
+      }), r.aborted && a()
+    })
+  }
+
+  function p(e, r) {
+    (e.getAttribute("src") === r || e.src === r) && (e.pause(), e.removeAttribute("src"), e.load())
+  }
+  async function g(e, r, t) {
+    e.updating && await v(e, t), t.aborted || (e.appendBuffer(r), await v(e, t))
+  }
+
+  function y() {
+    let e = !1,
+      r = () => {};
+    return {
+      promise: new Promise(e => {
+        r = e
+      }),
+      resolve: () => {
+        e || (e = !0, r())
+      }
+    }
+  }
+
+  function m() {
+    let e = !1,
+      r = () => {};
+    return {
+      promise: new Promise(e => {
+        r = e
+      }),
+      resolve: t => {
+        e || (e = !0, r(t))
+      }
+    }
+  }
+
+  function b(e, r) {
+    return {
+      abort: () => {
+        r?.(), e.pause()
+      }
+    }
+  }
+  var h = e.i(269730);
+  let _ = (0, i.createClientLogger)("useVoicePreview"),
+    w = null,
+    E = new Map,
+    S = new Map;
+
+  function V(e) {
+    e.pause(), e.removeAttribute("src"), e.load()
+  }
+
+  function k(e, r) {
+    return `${e}:${r}`
+  }
+
+  function C(e, r, {
+    revokeOnEvict: t
+  }) {
+    let n = E.get(e);
+    for (null != n && (E.delete(e), n.audioUrl !== r && n.revokeOnEvict && URL.revokeObjectURL(n.audioUrl)), E.set(e, {
+        audioUrl: r,
+        revokeOnEvict: t
+      }); E.size > 40;) {
+      let e = E.keys().next().value;
+      if (null == e) return;
+      let r = E.get(e);
+      E.delete(e), r?.revokeOnEvict === !0 && URL.revokeObjectURL(r.audioUrl)
+    }
+  }
+
+  function L(e, r) {
+    r.automaticOwners.size > 0 || r.playbackClaims > 0 || S.get(e) !== r || r.released || (S.delete(e), r.released = !0, r.warmup.abort(), r.warmup.release())
+  }
+
+  function I(e) {
+    w?.id === e && (w = null)
+  }
+  e.s(["useVoicePreview", 0, function(e, r) {
+    let [n, i] = (0, t.useState)(null), [o, a] = (0, t.useState)(null), [A, O] = (0, t.useState)(null), P = (0, t.useRef)(null), R = (0, t.useRef)(null), T = (0, t.useRef)(null), N = (0, t.useRef)(null), x = (0, t.useRef)(0), H = (0, t.useRef)(0), F = (0, t.useRef)(Symbol("voice-preview-owner")), j = (0, t.useRef)(r), B = (0, t.useRef)(null);
+    j.current = r;
+    let U = (0, t.useCallback)(e => {
+        let r = B.current;
+        if (null == r || (B.current = null, null == r.playbackStartedAt)) return;
+        let t = performance.now() - r.playbackStartedAt,
+          n = {
+            ...r.operation.metadata,
+            playback_duration_bucket: (0, h.voiceDurationBucket)(t),
+            ..."completed" === e ? {
+              progress_bucket: "complete"
+            } : {},
+            started_playback: !0,
+            terminal_reason: e
+          };
+        (0, h.finishVoiceOperation)(r.operation, {
+          playback_duration_bucket: n.playback_duration_bucket,
+          ...null == n.progress_bucket ? {} : {
+            progress_bucket: n.progress_bucket
+          },
+          started_playback: !0,
+          terminal_reason: e
+        }), "completed" === e && r.onPlayEnd?.(n)
+      }, []),
+      D = (0, t.useCallback)(e => {
+        let r = B.current;
+        null != r && r.voiceId === e && null == r.playbackStartedAt && (r.playbackStartedAt = performance.now())
+      }, []),
+      M = (0, t.useCallback)((e, r) => {
+        let t = j.current;
+        if (null == t) return;
+        let n = (0, h.startVoiceOperation)("voice_preview_engagement", t.context, {
+          ...t.voiceMetadata?.(e),
+          cache_path: r,
+          criteria_kind: t.criteriaKind ?? "none",
+          voice_source: t.voiceSource ?? "system"
+        });
+        B.current = {
+          onPlayEnd: t.onPlayEnd,
+          operation: n,
+          playbackStartedAt: null,
+          voiceId: e
+        }
+      }, []),
+      Q = (0, t.useCallback)(() => {
+        x.current += 1, H.current += 1, R.current?.(), R.current = null, N.current?.abort(), N.current = null, T.current?.abort(), T.current = null
+      }, []),
+      K = (0, t.useCallback)((e = "dismissed") => {
+        U(e), Q(), P.current && V(P.current), a(null), O(null), I(F.current)
+      }, [Q, U]),
+      z = (0, t.useCallback)(() => (P.current || (P.current = new Audio), P.current), []),
+      J = (0, t.useCallback)((e, r) => {
+        Q();
+        let t = z(),
+          n = H.current + 1;
+        H.current = n, V(t), t.src = r, i(e), a(e);
+        let o = !1,
+          l = e => {
+            !o && (o = !0, t.removeEventListener("ended", s), R.current === c && (R.current = null), e && (t.getAttribute("src") === r || t.src === r) && V(t))
+          },
+          c = () => l(!0),
+          s = () => {
+            let e = H.current === n;
+            e && (H.current += 1), l(e), e && (U("completed"), a(null), O(null))
+          };
+        R.current = c, t.addEventListener("ended", s, {
+          once: !0
+        }), t.play().then(() => {
+          o || H.current !== n || (D(e), a(null), O(e))
+        }, () => {
+          let e = !o && H.current === n;
+          e && (H.current += 1), l(e), e && (U("playback_error"), a(null), O(null))
+        })
+      }, [Q, z, U, D]),
+      q = (0, t.useCallback)(r => {
+        let t = k(r, e);
+        Q(), P.current && V(P.current), i(r), O(null), a(r);
+        let n = x.current + 1;
+        x.current = n;
+        let o = new AbortController;
+        T.current = o, fetch("/api/hatch/voice/tts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            voiceId: r,
+            text: e
+          }),
+          signal: o.signal
+        }).then(e => e.ok ? e.json() : (_.error({
+          voiceId: r,
+          status: e.status
+        }, "TTS endpoint returned error"), null)).then(e => {
+          if (x.current === n) {
+            if (e?.audio_url == null) {
+              U("stream_error"), a(null);
+              return
+            }
+            C(t, e.audio_url, {
+              revokeOnEvict: !1
+            }), J(r, e.audio_url)
+          }
+        }).catch(e => {
+          e instanceof DOMException && "AbortError" === e.name || x.current === n && (_.error({
+            error: e instanceof Error ? e : Error(String(e))
+          }, "Failed to load voice preview"), U("stream_error"), a(null))
+        })
+      }, [Q, U, J, e]),
+      $ = (0, t.useCallback)(r => {
+        var t;
+        Q();
+        let n = z();
+        V(n);
+        let o = H.current + 1;
+        H.current = o, i(r), O(null), a(r), t = {
+          audio: n,
+          voiceId: r,
+          text: e,
+          callbacks: {
+            onPlaying: () => {
+              H.current === o && (D(r), a(null), O(r))
+            },
+            onEnded: () => {
+              H.current === o && (H.current += 1, U("completed"), N.current = null, a(null), O(null))
+            },
+            onError: e => {
+              H.current === o && (_.retainForBugReport("warn", "Streaming voice preview failed; falling back to buffered"), q(r))
+            }
+          }
+        }, N.current = s() ? function(e) {
+          let {
+            voiceId: r,
+            text: t,
+            audio: n,
+            callbacks: i
+          } = e, o = new AbortController, a = new MediaSource, l = URL.createObjectURL(a);
+          n.src = l;
+          let s = !1,
+            y = null,
+            m = () => {
+              s || (s = !0, o.signal.removeEventListener("abort", m), y?.(), y = null, p(n, l), URL.revokeObjectURL(l))
+            };
+          return o.signal.addEventListener("abort", m, {
+            once: !0
+          }), (async () => {
+            let e, l;
+            try {
+              e = await u(r, t, o.signal)
+            } catch (e) {
+              if (o.signal.aborted) return;
+              i.onError(e instanceof Error ? e : Error(String(e))), m();
+              return
+            }
+            if (await f(a, o.signal), o.signal.aborted) return;
+            try {
+              l = a.addSourceBuffer(c)
+            } catch (e) {
+              i.onError(e instanceof Error ? e : Error(String(e))), m();
+              return
+            }
+            let s = !1,
+              p = !1,
+              b = () => {
+                s || o.signal.aborted || (s = !0, n.play().then(() => {
+                  o.signal.aborted || i.onPlaying()
+                }, e => {
+                  o.signal.aborted || (i.onError(e instanceof Error ? e : Error(String(e))), m())
+                }))
+              },
+              h = () => {
+                y = null, o.signal.aborted || (i.onEnded(), m())
+              };
+            y = () => n.removeEventListener("ended", h), n.addEventListener("ended", h, {
+              once: !0
+            });
+            try {
+              for await (let r of d(e.body, o.signal)) {
+                if (o.signal.aborted) return;
+                if ("delta" === r.kind && (p = !0, await g(l, r.bytes, o.signal), b()), "done" === r.kind) break
+              }
+            } catch (e) {
+              if (o.signal.aborted) return;
+              i.onError(e instanceof Error ? e : Error(String(e))), m();
+              return
+            }
+            if (!o.signal.aborted) {
+              if (!p) {
+                i.onError(Error("Streaming TTS produced no audio")), m();
+                return
+              }
+              try {
+                l.updating && await v(l, o.signal), "open" === a.readyState && a.endOfStream()
+              } catch {}
+            }
+          })(), {
+            abort: () => o.abort()
+          }
+        }(t) : function(e) {
+          let {
+            voiceId: r,
+            text: t,
+            audio: n,
+            callbacks: i
+          } = e, o = new AbortController, a = null, l = null, s = !1, f = () => {
+            if (s || (s = !0, o.signal.removeEventListener("abort", f), l?.(), l = null, null == a)) return;
+            let e = a;
+            a = null, p(n, e), URL.revokeObjectURL(e)
+          };
+          return o.signal.addEventListener("abort", f, {
+            once: !0
+          }), (async () => {
+            let e;
+            try {
+              e = await u(r, t, o.signal)
+            } catch (e) {
+              if (o.signal.aborted) return;
+              f(), i.onError(e instanceof Error ? e : Error(String(e)));
+              return
+            }
+            let v = [];
+            try {
+              for await (let r of d(e.body, o.signal)) {
+                if (o.signal.aborted) return;
+                if ("delta" === r.kind && v.push(r.bytes), "done" === r.kind) break
+              }
+            } catch (e) {
+              if (o.signal.aborted) return;
+              f(), i.onError(e instanceof Error ? e : Error(String(e)));
+              return
+            }
+            if (o.signal.aborted) return;
+            if (0 === v.length) {
+              f(), i.onError(Error("Streaming TTS produced no audio"));
+              return
+            }
+            let p = new Blob(v, {
+              type: c
+            });
+            n.src = a = URL.createObjectURL(p);
+            let g = () => {
+              f(), i.onEnded()
+            };
+            l = () => n.removeEventListener("ended", g), n.addEventListener("ended", g, {
+              once: !0
+            }), n.play().then(() => {
+              o.signal.aborted || s || i.onPlaying()
+            }, e => {
+              o.signal.aborted || s || (f(), i.onError(e instanceof Error ? e : Error(String(e))))
+            })
+          })(), {
+            abort: () => o.abort()
+          }
+        }(t)
+      }, [Q, z, U, D, q, e]),
+      G = (0, t.useCallback)(r => {
+        var t;
+        let n;
+        null != B.current && U("superseded"), t = {
+          id: F.current,
+          stop: K
+        }, w?.id !== t.id && (w?.stop("superseded"), w = t);
+        let o = k(r, e),
+          l = null == (n = E.get(o)) ? null : (E.delete(o), E.set(o, n), n.audioUrl);
+        if (null != l) {
+          M(r, "hit"), J(r, l);
+          return
+        }
+        let c = S.get(o);
+        if (null != c) {
+          M(r, "shared_flight"), Q();
+          let e = H.current + 1;
+          H.current = e, i(r), O(null), a(r), c.playbackClaims += 1;
+          let t = !1,
+            n = () => {
+              t || (t = !0, c.playbackClaims = Math.max(0, c.playbackClaims - 1), L(o, c))
+            },
+            l = c.warmup.play({
+              onPlaying: () => {
+                H.current === e && (D(r), a(null), O(r))
+              },
+              onEnded: () => {
+                n(), H.current === e && (H.current += 1, U("completed"), N.current = null, a(null), O(null))
+              },
+              onError: t => {
+                n(), H.current === e && (_.retainForBugReport("warn", "Warmed voice preview failed; falling back to stream"), $(r))
+              }
+            });
+          if (null != l) {
+            N.current = {
+              abort: () => {
+                n(), l.abort()
+              }
+            };
+            return
+          }
+          if (n(), H.current !== e) return;
+          a(null)
+        }
+        null == B.current && M(r, "network"), $(r)
+      }, [Q, U, D, J, $, e, M, K]),
+      Y = (0, t.useCallback)(r => {
+        let t = Symbol("voice-preview-warmup-owner"),
+          n = Array.from(new Set(r)).flatMap(r => {
+            let n = k(r, e);
+            if (E.has(n)) return [];
+            let i = function(e, r, t) {
+              var n;
+              let i = S.get(e);
+              if (null != i) return i;
+              let o = (n = {
+                  voiceId: r,
+                  text: t
+                }, s() ? function(e) {
+                  let {
+                    voiceId: r,
+                    text: t
+                  } = e, n = new AbortController, i = new MediaSource, o = new Audio, a = URL.createObjectURL(i), s = y(), h = m(), _ = !1, w = !1, E = !1, S = null, V = null, k = !1, C = null, L = [];
+                  o.preload = "auto", o.src = a, o.load();
+                  let I = () => {
+                      _ || (_ = !0, w = !0, n.signal.removeEventListener("abort", I), S?.(), S = null, V = null, p(o, a), s.resolve(), h.resolve(null), URL.revokeObjectURL(a))
+                    },
+                    A = () => {
+                      E && null == S && I()
+                    },
+                    O = e => {
+                      C = e;
+                      let r = V;
+                      I(), r?.(e)
+                    };
+                  return n.signal.addEventListener("abort", I, {
+                    once: !0
+                  }), (async () => {
+                    let e, o;
+                    try {
+                      e = await u(r, t, n.signal), await f(i, n.signal)
+                    } catch (e) {
+                      if (!n.signal.aborted) {
+                        let r = e instanceof Error ? e : Error(String(e));
+                        l.retainForBugReport("warn", "Voice preview warmup stream failed"), O(r);
+                        return
+                      }
+                      I();
+                      return
+                    }
+                    if (n.signal.aborted) return;
+                    try {
+                      o = i.addSourceBuffer(c)
+                    } catch (r) {
+                      let e = r instanceof Error ? r : Error(String(r));
+                      l.retainForBugReport("warn", "Voice preview warmup could not create source"), O(e);
+                      return
+                    }
+                    try {
+                      for await (let r of d(e.body, n.signal)) {
+                        if (n.signal.aborted) return;
+                        if ("delta" === r.kind && (L.push(r.bytes), await g(o, r.bytes, n.signal), k = !0, s.resolve()), "done" === r.kind) break
+                      }
+                    } catch (e) {
+                      if (!n.signal.aborted) {
+                        let r = e instanceof Error ? e : Error(String(e));
+                        l.retainForBugReport("warn", "Voice preview warmup read failed"), O(r);
+                        return
+                      }
+                      I();
+                      return
+                    }
+                    if (n.signal.aborted) return;
+                    if (!k) {
+                      let e = Error("Streaming TTS produced no audio");
+                      l.retainForBugReport("warn", "Voice preview warmup produced no audio"), O(e);
+                      return
+                    }
+                    try {
+                      o.updating && await v(o, n.signal), "open" === i.readyState && i.endOfStream()
+                    } catch {}
+                    let a = URL.createObjectURL(new Blob(L, {
+                      type: c
+                    }));
+                    L.splice(0), w = !0, h.resolve(a), A()
+                  })(), {
+                    firstByteReady: s.promise,
+                    audioUrlReady: h.promise,
+                    abort: () => n.abort(),
+                    release: () => {
+                      if (!_) {
+                        if (E = !0, !w) return void n.abort();
+                        A()
+                      }
+                    },
+                    play: e => {
+                      if (n.signal.aborted) return null;
+                      if (_ || !k) return null != C && e.onError(C), null;
+                      o.pause();
+                      try {
+                        o.currentTime = 0
+                      } catch {}
+                      let r = !1,
+                        t = () => {
+                          r || (r = !0, o.removeEventListener("ended", i), S === t && (S = null, V = null), A())
+                        },
+                        i = () => {
+                          t(), e.onEnded()
+                        };
+                      return (S?.(), _) ? null : (S = t, V = e.onError, o.addEventListener("ended", i, {
+                        once: !0
+                      }), o.play().then(() => {
+                        r || e.onPlaying()
+                      }, n => {
+                        r || (t(), e.onError(n instanceof Error ? n : Error(String(n))))
+                      }), b(o, () => {
+                        t()
+                      }))
+                    }
+                  }
+                }(n) : function(e) {
+                  let {
+                    voiceId: r,
+                    text: t
+                  } = e, n = new AbortController, i = y(), o = m(), a = null, s = null, f = null, v = !1, g = !1, h = !1, _ = null, w = () => {
+                    v || (v = !0, g = !0, n.signal.removeEventListener("abort", w), _?.(), _ = null, null != a && null != s && p(a, s), a = null, s = null, i.resolve(), o.resolve(null))
+                  }, E = () => {
+                    h && null == _ && w()
+                  };
+                  return n.signal.addEventListener("abort", w, {
+                    once: !0
+                  }), (async () => {
+                    let e;
+                    try {
+                      e = await u(r, t, n.signal)
+                    } catch (e) {
+                      n.signal.aborted || (f = e instanceof Error ? e : Error(String(e)), l.retainForBugReport("warn", "Voice preview warmup stream failed")), w();
+                      return
+                    }
+                    let v = [];
+                    try {
+                      for await (let r of d(e.body, n.signal)) {
+                        if (n.signal.aborted) return;
+                        if ("delta" === r.kind && (v.push(r.bytes), i.resolve()), "done" === r.kind) break
+                      }
+                    } catch (e) {
+                      n.signal.aborted || (f = e instanceof Error ? e : Error(String(e)), l.retainForBugReport("warn", "Voice preview warmup read failed")), w();
+                      return
+                    }
+                    if (!n.signal.aborted) {
+                      if (0 === v.length) {
+                        f = Error("Streaming TTS produced no audio"), l.retainForBugReport("warn", "Voice preview warmup produced no audio"), w();
+                        return
+                      }(a = new Audio(s = URL.createObjectURL(new Blob(v, {
+                        type: c
+                      })))).preload = "auto", g = !0, o.resolve(s), E()
+                    }
+                  })(), {
+                    firstByteReady: i.promise,
+                    audioUrlReady: o.promise,
+                    abort: () => n.abort(),
+                    release: () => {
+                      if (!v) {
+                        if (h = !0, !g) return void n.abort();
+                        E()
+                      }
+                    },
+                    play: e => {
+                      if (n.signal.aborted || v || null == a) return null != f && e.onError(f), null;
+                      let r = a;
+                      r.pause(), r.currentTime = 0;
+                      let t = !1,
+                        i = () => {
+                          t || (t = !0, r.removeEventListener("ended", o), _ === i && (_ = null), E())
+                        },
+                        o = () => {
+                          i(), e.onEnded()
+                        };
+                      return (_?.(), v) ? null : (_ = i, r.addEventListener("ended", o, {
+                        once: !0
+                      }), r.play().then(() => {
+                        t || e.onPlaying()
+                      }, r => {
+                        t || (i(), e.onError(r instanceof Error ? r : Error(String(r))))
+                      }), b(r, () => {
+                        i()
+                      }))
+                    }
+                  }
+                }(n)),
+                a = {
+                  automaticOwners: new Set,
+                  playbackClaims: 0,
+                  released: !1,
+                  warmup: o
+                };
+              return S.set(e, a), o.audioUrlReady.then(r => {
+                null != r && C(e, r, {
+                  revokeOnEvict: !0
+                })
+              }).finally(() => {
+                S.get(e) === a && S.delete(e), a.released || (a.released = !0, o.release())
+              }), a
+            }(n, r, e);
+            return i.automaticOwners.add(t), [{
+              cacheKey: n,
+              entry: i
+            }]
+          }),
+          i = n[0]?.entry.warmup.firstByteReady ?? Promise.resolve(),
+          o = Promise.allSettled(n.map(({
+            entry: e
+          }) => e.warmup.audioUrlReady)).then(() => {}),
+          a = !1;
+        return {
+          completed: o,
+          firstByteReady: i,
+          release: () => {
+            if (!a)
+              for (let {
+                  cacheKey: e,
+                  entry: r
+                }
+                of(a = !0, n)) r.automaticOwners.delete(t), L(e, r)
+          }
+        }
+      }, [e]),
+      W = (0, t.useCallback)(async e => {
+        let r = Array.from(new Set(e));
+        if (null == r[0]) return;
+        let t = Y(r);
+        t.completed.then(() => t.release()), await t.firstByteReady
+      }, [Y]),
+      X = (0, t.useCallback)(e => {
+        if (o !== e) {
+          if (A === e) return void K("user_stop");
+          G(e)
+        }
+      }, [o, G, A, K]);
+    return (0, t.useEffect)(() => {
+      K("criteria_changed"), i(null)
+    }, [e, K]), (0, t.useEffect)(() => {
+      let e = F.current;
+      return () => {
+        U("dismissed"), Q(), null != P.current && V(P.current), P.current = null, I(e)
+      }
+    }, [Q, U]), {
+      activeVoiceId: n,
+      acquirePreviewWarmups: Y,
+      isPreviewLoading: e => o === e,
+      isPreviewPlaying: e => A === e,
+      playPreview: G,
+      prewarmPreviewVoices: W,
+      stopPreview: K,
+      togglePreview: X
+    }
+  }, "useVoicePreviewText", 0, function(e) {
+    let t, i = (0, r.c)(2),
+      l = (0, a.useIdentityName)();
+    if (e?.trim()) return e;
+    if (i[0] !== l) {
+      let e = l.trim() || o.PRODUCT_BRAND.assistantFallbackName;
+      t = n.fbs._("Hi, I'm {assistantName}. Glad to be here!", [n.fbs._param("assistantName", e)], {
+        hk: "1cdAPF"
+      }), i[0] = l, i[1] = t
+    } else t = i[1];
+    return t
+  }], 674533)
+}, 269730, e => {
+  "use strict";
+  var r = e.i(126607),
+    t = e.i(737942);
+  let n = {
+      voice_settings: {
+        surface: "voice_mode",
+        subsurface: "voice_settings",
+        screen: "voice_settings"
+      },
+      voice_selection: {
+        surface: "voice_mode",
+        subsurface: "voice_selection",
+        screen: "voice_selection"
+      },
+      voice_overlay: {
+        surface: "voice_mode",
+        subsurface: "composer",
+        screen: "voice_overlay"
+      }
+    },
+    i = 0;
+
+  function o(e) {
+    return n[e]
+  }
+
+  function a(e, r = {}) {
+    return {
+      ...e.metadata,
+      entry_point: e.entryPoint,
+      voice_logging_version: 1,
+      ...r
+    }
+  }
+
+  function l(e, n, i, c = {}) {
+    r.logInfra.send(t.PEL_CHANNEL_NAME, {
+      actionTarget: e,
+      actionType: n,
+      eventName: e,
+      metadata: a(i, {
+        ...o(i.page),
+        ...c
+      }),
+      timestamp: Date.now()
+    })
+  }
+  e.s(["VOICE_COMPONENT", 0, {
+    catalogState: "voice_catalog_state",
+    clearFilters: "voice_clear_filters",
+    openFilter: "voice_open_filter",
+    openVoiceList: "voice_open_voice_list",
+    playSample: "voice_play_sample",
+    selectVoice: "voice_select_voice",
+    selectionPage: "voice_selection_page",
+    settingsPage: "voice_settings_page",
+    widgetBrowseAll: "voice_onboarding_v2_browse_all",
+    widgetImpression: "voice_onboarding_v2_impression",
+    widgetPreview: "voice_onboarding_v2_preview",
+    widgetSelect: "voice_onboarding_v2_select",
+    widgetSwitch: "voice_onboarding_v2_switch"
+  }, "createVoiceVisitContext", 0, function(e, r, t) {
+    return {
+      entryPoint: e,
+      page: r,
+      metadata: {
+        ...t,
+        voice_visit_seq: i += 1
+      }
+    }
+  }, "finishVoiceOperation", 0, function(e, r) {
+    e.finished || (e.finished = !0, l(e.eventName, "outcome", e.context, {
+      ...e.metadata,
+      ...r
+    }))
+  }, "logVoiceLifecycle", 0, l, "startVoiceOperation", 0, function(e, r, t = {}) {
+    let n = i += 1;
+    return {
+      context: r,
+      eventName: e,
+      finished: !1,
+      metadata: {
+        ...t,
+        voice_operation_seq: n
+      },
+      sequence: n
+    }
+  }, "voiceDurationBucket", 0, function(e) {
+    return e < 100 ? "lt_100ms" : e < 300 ? "100_300ms" : e < 1e3 ? "300ms_1s" : e < 3e3 ? "1_3s" : e < 1e4 ? "3_10s" : e < 3e4 ? "10_30s" : "30s_plus"
+  }, "voiceIdentity", 0, function(e, r) {
+    return {
+      ...e.length > 0 ? {
+        voice_id: e
+      } : {},
+      ...null != r && r.length > 0 ? {
+        previous_voice_id: r
+      } : {}
+    }
+  }, "voicePageDimensions", 0, o, "voiceTelemetryMetadata", 0, a])
+}]);
+
+//# debugId=0a605c25-041d-8242-c90b-5703fc9fd9d8
+//# sourceMappingURL=2pktvamyfv8yp.js.map

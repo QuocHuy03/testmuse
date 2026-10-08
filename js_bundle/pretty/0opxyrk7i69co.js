@@ -1,0 +1,975 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "f9a9c1b8-38c0-76dd-083a-fd2a1405820b")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 670578, e => {
+  "use strict";
+  var t = e.i(984416),
+    r = e.i(722099),
+    a = e.i(420297),
+    l = e.i(646361),
+    n = e.i(430116),
+    i = e.i(374785);
+
+  function c(e) {
+    let c, u, s, o, f, d, y, m, h, p, g, v, _, b, S, C, k = (0, r.c)(41);
+    k[0] !== e ? ({
+      action: c,
+      className: u,
+      icon: s,
+      illustration: o,
+      subtitle: d,
+      title: m,
+      titleAs: y,
+      ...f
+    } = e, k[0] = e, k[1] = c, k[2] = u, k[3] = s, k[4] = o, k[5] = f, k[6] = d, k[7] = y, k[8] = m) : (c = k[1], u = k[2], s = k[3], o = k[4], f = k[5], d = k[6], y = k[7], m = k[8]);
+    let x = void 0 === y ? "h2" : y,
+      R = null;
+    if (null != c) {
+      let e, r, l, n, u;
+      k[9] !== c ? ({
+        className: e,
+        variant: l,
+        ...r
+      } = c, k[9] = c, k[10] = e, k[11] = r, k[12] = l) : (e = k[10], r = k[11], l = k[12]);
+      let s = "primary" === (void 0 === l ? "secondary" : l) ? "primary" : "flat";
+      k[13] !== e ? (n = (0, i.cn)("mt-3", e), k[13] = e, k[14] = n) : n = k[14], k[15] !== r || k[16] !== s || k[17] !== n ? (u = (0, t.jsx)(a.Button, {
+        type: "button",
+        ...r,
+        size: "36",
+        variant: s,
+        className: n
+      }), k[15] = r, k[16] = s, k[17] = n, k[18] = u) : u = k[18], R = u
+    }
+    return k[19] !== u ? (h = (0, i.cn)("flex w-full flex-col items-center", u), k[19] = u, k[20] = h) : h = k[20], k[21] !== s || k[22] !== o ? (p = null != s ? (0, t.jsx)(l.HatchIcon, {
+      icon: s,
+      size: 28,
+      iconSize: 28,
+      className: "text-text-secondary",
+      "aria-hidden": "true"
+    }) : o, k[21] = s, k[22] = o, k[23] = p) : p = k[23], k[24] === Symbol.for("react.memo_cache_sentinel") ? (g = {
+      fontSize: 15
+    }, k[24] = g) : g = k[24], k[25] !== m || k[26] !== x ? (v = (0, t.jsx)(n.Text, {
+      as: x,
+      variant: "subheadline-medium",
+      color: "primary",
+      style: g,
+      children: m
+    }), k[25] = m, k[26] = x, k[27] = v) : v = k[27], k[28] !== d ? (_ = null != d && (0, t.jsx)(n.Text, {
+      as: "p",
+      variant: "footnote",
+      color: "primary",
+      children: d
+    }), k[28] = d, k[29] = _) : _ = k[29], k[30] !== R || k[31] !== v || k[32] !== _ ? (b = (0, t.jsxs)("div", {
+      className: "flex w-full flex-col items-center gap-0.5",
+      children: [v, _, R]
+    }), k[30] = R, k[31] = v, k[32] = _, k[33] = b) : b = k[33], k[34] !== p || k[35] !== b ? (S = (0, t.jsxs)("div", {
+      "data-slot": "null-state-content",
+      className: "max-w-null-state mx-auto flex w-full flex-col items-center gap-1 text-center",
+      children: [p, b]
+    }), k[34] = p, k[35] = b, k[36] = S) : S = k[36], k[37] !== f || k[38] !== h || k[39] !== S ? (C = (0, t.jsx)("div", {
+      "data-slot": "null-state",
+      className: h,
+      ...f,
+      children: S
+    }), k[37] = f, k[38] = h, k[39] = S, k[40] = C) : C = k[40], C
+  }
+  c.displayName = "NullState", e.s(["NullState", 0, c])
+}, 66284, 142074, 210316, 396502, e => {
+  "use strict";
+  var t = e.i(984416),
+    r = e.i(519172),
+    a = e.i(393202),
+    l = e.i(345717),
+    n = e.i(180110),
+    i = e.i(770256),
+    c = e.i(646361),
+    u = e.i(670578),
+    s = e.i(281539),
+    o = e.i(823173),
+    f = e.i(374785),
+    d = e.i(848048),
+    y = e.i(789078);
+  e.i(522730);
+  var m = e.i(812240),
+    h = e.i(722099),
+    p = e.i(825442),
+    g = e.i(486868);
+
+  function v(e) {
+    let r, a, l, n, i, c = (0, h.c)(13),
+      {
+        label: u,
+        shortcut: s,
+        disabled: o,
+        children: f
+      } = e;
+    return c[0] !== f ? (r = (0, t.jsx)(g.TooltipTrigger, {
+      asChild: !0,
+      children: f
+    }), c[0] = f, c[1] = r) : r = c[1], c[2] !== u ? (a = (0, t.jsx)("span", {
+      children: u
+    }), c[2] = u, c[3] = a) : a = c[3], c[4] !== s ? (l = null != s && (0, t.jsx)(p.EctoKeyboardShortcut, {
+      shortcut: s,
+      className: "text-text-secondary"
+    }), c[4] = s, c[5] = l) : l = c[5], c[6] !== a || c[7] !== l ? (n = (0, t.jsx)(g.TooltipContent, {
+      side: "right",
+      sideOffset: -4,
+      children: (0, t.jsxs)("span", {
+        className: "flex items-center gap-2",
+        children: [a, l]
+      })
+    }), c[6] = a, c[7] = l, c[8] = n) : n = c[8], c[9] !== o || c[10] !== r || c[11] !== n ? (i = (0, t.jsxs)(g.Tooltip, {
+      disabled: o,
+      delayDuration: 0,
+      children: [r, n]
+    }), c[9] = o, c[10] = r, c[11] = n, c[12] = i) : i = c[12], i
+  }
+  e.s(["DockItemTooltip", 0, v], 142074), e.s(["HatchSpacesErrorFallback", 0, function({
+    onRetryError: e,
+    onRetryStart: h,
+    refresh: p,
+    reset: g,
+    surface: _,
+    compact: b = !1,
+    compactItemGap: S = 0,
+    compactItemSize: C = 36,
+    compactLabel: k,
+    includeSavedSpaces: x = !1
+  }) {
+    let R = (0, a.useQueryClient)(),
+      {
+        ref: E
+      } = (0, d.useTrackedImpressionRef)({
+        eventName: o.HatchImpressionEvent.ERROR_CONTENT_IMPRESSION,
+        actionTarget: "spaces_error_fallback",
+        metadata: {
+          surface: "spaces",
+          subsurface: _
+        }
+      }, {
+        threshold: "50%"
+      }),
+      {
+        ref: P,
+        onClick: T
+      } = (0, d.useTrackedClickRef)({
+        eventName: s.HatchClickEvent.ERROR_PAGE_TRY_AGAIN_CLICK,
+        actionTarget: "spaces_error_fallback_try_again",
+        actionType: "click",
+        metadata: {
+          surface: "spaces",
+          subsurface: _
+        }
+      }),
+      K = (0, r.useCallback)(async () => {
+        T();
+        let t = h?.() ?? null,
+          r = [null != p ? p() : R.invalidateQueries({
+            queryKey: m.spacesQueryKeys.all,
+            refetchType: "all"
+          })];
+        x && r.push(R.invalidateQueries({
+          queryKey: y.savedSpacesQueryKeys.all,
+          refetchType: "all"
+        }));
+        try {
+          await Promise.all(r), g?.()
+        } catch (r) {
+          e?.(r, t);
+          return
+        }
+      }, [x, T, e, h, R, p, g]);
+    if (b) {
+      let e = "rail-item" === _ ? l.fbs._("Retry loading this artifact", null, {
+          hk: "4CUsZh"
+        }) : "library" === _ ? l.fbs._("Retry loading artifacts", null, {
+          hk: "fcsBs"
+        }) : l.fbs._("Retry loading artifacts", null, {
+          hk: "3Eg3iF"
+        }),
+        r = null == k ? Math.round(2 / 3 * C) : 20,
+        a = "rail-item" === _ ? l.fbs._("Couldn't load artifact. Click to retry.", null, {
+          hk: "3AO8Nq"
+        }) : "library" === _ ? l.fbs._("Couldn't load artifacts. Click to retry.", null, {
+          hk: "3xdpkE"
+        }) : l.fbs._("Couldn't load artifacts. Click to retry.", null, {
+          hk: "2i0NBM"
+        }),
+        i = "library" === _ ? l.fbs._("Couldn't load artifacts", null, {
+          hk: "4vLYep"
+        }) : l.fbs._("Couldn't load artifacts", null, {
+          hk: "3vuQT0"
+        }),
+        u = (0, t.jsxs)("button", {
+          ref: P,
+          type: "button",
+          "aria-label": e,
+          className: (0, f.cn)("group text-text-primary flex w-full cursor-pointer items-center text-start whitespace-nowrap transition-colors", null == k ? "justify-center p-0" : "squircle-12 hover:bg-fill-secondary-elevated gap-2 px-2 py-1.5"),
+          onClick: K,
+          children: [(0, t.jsxs)("span", {
+            className: (0, f.cn)("bg-fill-secondary-elevated dark:bg-fill-primary relative flex shrink-0 items-center justify-center rounded-full transition-colors", null != k && "size-6"),
+            style: null == k ? {
+              width: C,
+              height: C
+            } : void 0,
+            children: [(0, t.jsx)(c.HatchIcon, {
+              icon: n.default,
+              size: r,
+              className: "text-text-destructive"
+            }), (0, t.jsx)("span", {
+              "aria-hidden": "true",
+              className: "bg-text-destructive ring-fill-primary absolute -end-0.5 -top-0.5 size-2.5 rounded-full ring-2"
+            })]
+          }), null != k && (0, t.jsx)("span", {
+            className: "text-subheadline text-text-primary min-w-0 flex-1 truncate",
+            children: k
+          })]
+        });
+      return (0, t.jsx)("div", {
+        ref: E,
+        role: "alert",
+        className: "w-full px-0",
+        title: i,
+        style: null == k ? {
+          minHeight: C,
+          paddingBlock: S / 2
+        } : void 0,
+        children: (0, t.jsx)(v, {
+          label: a,
+          disabled: null != k,
+          children: u
+        })
+      })
+    }
+    let L = "space" === _ ? l.fbs._("Couldn't load this artifact", null, {
+      hk: "4lLNDp"
+    }) : "library" === _ ? l.fbs._("Couldn't load artifacts", null, {
+      hk: "1Kvkfv"
+    }) : l.fbs._("Couldn't load artifacts", null, {
+      hk: "2JBghG"
+    });
+    return (0, t.jsx)("div", {
+      ref: E,
+      role: "alert",
+      className: "flex min-h-0 flex-1 items-center justify-center p-6",
+      children: (0, t.jsx)(u.NullState, {
+        icon: i.default,
+        title: L,
+        subtitle: l.fbs._("Please try again.", null, {
+          hk: "409PS1"
+        }),
+        action: {
+          ref: P,
+          type: "button",
+          variant: "primary",
+          leadingIcon: n.default,
+          label: l.fbs._("Try again", null, {
+            hk: "3FlFpc"
+          }),
+          onClick: K
+        }
+      })
+    })
+  }], 66284);
+  var _ = e.i(301970),
+    b = e.i(986907);
+  let S = (0, r.createContext)(null);
+
+  function C(e) {
+    return `${e.surface}:${e.spaceKey}`
+  }
+  let k = ["availability", "catalog", "shell_route", "space_route", "viewer_stage", "editor_stage"];
+
+  function x(e, t) {
+    return null == e || null == t ? e === t : e.spaceKey === t.spaceKey && e.surface === t.surface
+  }
+
+  function R(e, t, r) {
+    e.path = t, e.fallbackUsed = r, e.trace.annotate({
+      string: {
+        load_path: t
+      },
+      bool: {
+        fallback_used: r
+      }
+    })
+  }
+
+  function E(e, t) {
+    e.points.has(t) || (e.points.add(t), e.trace.markerPoint(t))
+  }
+
+  function P(e) {
+    return e + 1
+  }
+
+  function T(e) {
+    return e + 1
+  }
+
+  function K(e) {
+    return e + 1
+  }
+
+  function L() {
+    return (0, r.useContext)(S)
+  }
+  e.s(["ARTIFACT_LOAD_TIMEOUT_MS", 0, 3e4, "ArtifactLoadAttemptProvider", 0, function(e) {
+    let t, a, l = (0, h.c)(7),
+      {
+        activeSpaceKey: n,
+        children: i,
+        lifecycleStatus: c,
+        surface: u
+      } = e;
+    l[0] !== n || l[1] !== c || l[2] !== u ? (t = {
+      activeSpaceKey: n,
+      lifecycleStatus: c,
+      surface: u
+    }, l[0] = n, l[1] = c, l[2] = u, l[3] = t) : t = l[3];
+    let s = function(e) {
+      let t, a, l, n, i, c, u, s, o, f, d, y, m, p, g, v, S, L, w = (0, h.c)(43),
+        {
+          activeSpaceKey: A,
+          lifecycleStatus: N,
+          surface: I
+        } = e,
+        H = (0, r.useRef)(null),
+        j = (0, r.useRef)(null),
+        U = (0, r.useRef)(null),
+        F = (0, r.useRef)(null);
+      w[0] === Symbol.for("react.memo_cache_sentinel") ? (t = new Map, w[0] = t) : t = w[0];
+      let O = (0, r.useRef)(t),
+        M = (0, r.useRef)(0),
+        [z, Q] = (0, r.useState)(0),
+        [D, B] = (0, r.useState)(0),
+        V = (0, r.useRef)(0),
+        G = (0, r.useRef)(N),
+        $ = (0, r.useRef)(null),
+        q = (0, r.useRef)(0),
+        [W, Y] = (0, r.useState)(0);
+      w[1] === Symbol.for("react.memo_cache_sentinel") ? (a = (e, t, r, a) => {
+        H.current === e && (H.current = null, ("SUCCESS" === t || "FAIL" === t || "TIMEOUT" === t) && (U.current = {
+          spaceKey: e.spaceKey,
+          surface: e.surface
+        }), ("SUCCESS" === t || "CANCEL" === t) && (F.current = null), e.cleanupDeadline(), null != r && e.trace.annotate(r), null != a && E(e, a), (0, b.endManualTrace)(e.trace, t))
+      }, w[1] = a) : a = w[1];
+      let J = a;
+      w[2] === Symbol.for("react.memo_cache_sentinel") ? (l = (e, t) => {
+        let r = H.current;
+        null != r && J(r, void 0 === t ? "CANCEL" : t, {
+          string: {
+            cancel_reason: e
+          }
+        })
+      }, w[2] = l) : l = w[2];
+      let Z = l;
+      w[3] === Symbol.for("react.memo_cache_sentinel") ? (n = (e, t) => {
+        let r = t.path ?? e.path;
+        R(e, r, t.fallbackUsed ?? e.fallbackUsed), F.current = {
+          failureStage: t.failureStage,
+          path: r,
+          spaceKey: e.spaceKey,
+          surface: e.surface
+        }, J(e, "FAIL", {
+          string: {
+            failure_stage: t.failureStage
+          }
+        }, "load_failed")
+      }, w[3] = n) : n = w[3];
+      let X = n;
+      w[4] !== I ? (i = (e, t, r) => {
+        Z("superseded"), U.current = null, "navigation" === t && (F.current = null);
+        let a = F.current,
+          l = "navigation" !== t && null != a && a.spaceKey === e && a.surface === I ? {
+            previous_failure_stage: a.failureStage,
+            previous_load_path: a.path
+          } : {},
+          n = (0, b.startManualInteraction)(_.EctoInteractionTracePolicy.ARTIFACT_LOAD, {
+            debugName: "artifact-load",
+            includeUri: !1
+          }),
+          i = "u" > typeof document && document.hidden;
+        n.annotate({
+          string: {
+            load_path: "unresolved",
+            surface: I,
+            trigger: t,
+            ...l
+          },
+          int: {
+            retry_index: r
+          },
+          bool: {
+            fallback_used: !1,
+            ...i ? {
+              was_hidden: !0
+            } : {}
+          }
+        });
+        let c = AbortSignal.timeout(3e4),
+          u = () => {
+            let t = H.current;
+            null != t && t.spaceKey === e && t.surface === I && (F.current = {
+              failureStage: "display_timeout",
+              path: t.path,
+              spaceKey: t.spaceKey,
+              surface: t.surface
+            }, J(t, "TIMEOUT", {
+              string: {
+                failure_stage: "display_timeout",
+                load_path: t.path
+              },
+              bool: {
+                fallback_used: t.fallbackUsed
+              }
+            }, "display_timeout"))
+          };
+        c.addEventListener("abort", u, {
+          once: !0
+        });
+        let s = q.current + 1;
+        return H.current = {
+          blockerGenerationAtStart: "navigation" === t ? 0 : M.current,
+          cleanupDeadline: () => c.removeEventListener("abort", u),
+          fallbackUsed: !1,
+          path: "unresolved",
+          recoveryCommitPending: "navigation" !== t && (O.current.get(C({
+            spaceKey: e,
+            surface: I
+          }))?.size ?? 0) > 0,
+          points: new Set,
+          spaceKey: e,
+          surface: I,
+          token: s,
+          trace: n
+        }, q.current = s, Y(s), s
+      }, w[4] = I, w[5] = i) : i = w[5];
+      let ee = i;
+      w[6] !== A || w[7] !== ee || w[8] !== N || w[9] !== I ? (c = () => {
+        G.current = N;
+        let e = j.current,
+          t = null == A ? null : {
+            spaceKey: A,
+            surface: I
+          },
+          r = !x(e, t);
+        if (j.current = t, null == t) {
+          $.current = null, F.current = null, null != e && Z("route_closed");
+          return
+        }
+        if (r) {
+          if ($.current = null, Z("active_artifact_changed"), U.current = null, F.current = null, V.current = 0, "constructing" === N) return;
+          ee(t.spaceKey, "navigation", 0)
+        } else if ("constructing" === N) return void Z("artifact_constructing");
+        else if ($.current?.spaceKey === t.spaceKey && $.current.surface === t.surface) {
+          let e = $.current;
+          $.current = null, V.current = V.current + 1, ee(t.spaceKey, e.trigger, V.current)
+        } else null != H.current || x(U.current, t) || (V.current = 0, ee(t.spaceKey, "navigation", 0));
+        let a = H.current;
+        if (null != a) {
+          let e = function(e, t) {
+            if (null == e) return null;
+            for (let r of k) {
+              let a = e.get(r);
+              if (null != a && (0 === t || a.generation > t)) return a.failure
+            }
+            return null
+          }(O.current.get(C(t)), a.blockerGenerationAtStart);
+          null != e && a.spaceKey === t.spaceKey && a.surface === t.surface && X(a, e)
+        }
+      }, w[6] = A, w[7] = ee, w[8] = N, w[9] = I, w[10] = c) : c = w[10], w[11] !== A || w[12] !== ee || w[13] !== z || w[14] !== N || w[15] !== I ? (u = [A, ee, z, Z, X, J, N, I], w[11] = A, w[12] = ee, w[13] = z, w[14] = N, w[15] = I, w[16] = u) : u = w[16], (0, r.useLayoutEffect)(c, u), w[17] === Symbol.for("react.memo_cache_sentinel") ? (s = () => () => {
+        Z("surface_unmounted")
+      }, o = [Z], w[17] = s, w[18] = o) : (s = w[17], o = w[18]), (0, r.useEffect)(s, o), w[19] !== I ? (f = (e, t, r) => {
+        let a = H.current;
+        null != a && a.spaceKey === e && a.surface === I && (R(a, t, r), E(a, "stage_mounted"))
+      }, w[19] = I, w[20] = f) : f = w[20];
+      let et = f;
+      w[21] !== I ? (d = (e, t, r) => {
+        let a = H.current;
+        null != a && a.spaceKey === e && a.surface === I && (R(a, t, r), E(a, "source_ready"))
+      }, w[21] = I, w[22] = d) : d = w[22];
+      let er = d;
+      w[23] !== I ? (y = (e, t, r) => {
+        let a = H.current;
+        null == a || a.spaceKey !== e || a.surface !== I || null != r && a.token !== r || (O.current.get(C({
+          spaceKey: a.spaceKey,
+          surface: a.surface
+        }))?.size ?? 0) > 0 || a.recoveryCommitPending || (R(a, t.path, t.fallbackUsed), J(a, "SUCCESS", {
+          bool: {
+            cache_hit: t.cacheHit
+          }
+        }, "frame_presented"))
+      }, w[23] = I, w[24] = y) : y = w[24];
+      let ea = y;
+      w[25] !== I ? (m = (e, t, r) => {
+        let a = H.current;
+        null != a && a.spaceKey === e && a.surface === I && a.token === r && X(a, t)
+      }, w[25] = I, w[26] = m) : m = w[26];
+      let el = m;
+      w[27] === Symbol.for("react.memo_cache_sentinel") ? (p = (e, t, r, a) => {
+        let l = C({
+            spaceKey: e,
+            surface: t
+          }),
+          n = O.current.get(l) ?? new Map;
+        M.current = M.current + 1, n.set(r, {
+          failure: a,
+          generation: M.current
+        }), O.current.set(l, n), Q(K)
+      }, w[27] = p) : p = w[27];
+      let en = p;
+      w[28] === Symbol.for("react.memo_cache_sentinel") ? (g = (e, t, r) => {
+        let a = C({
+            spaceKey: e,
+            surface: t
+          }),
+          l = O.current.get(a);
+        l?.delete(r) === !0 && (l?.size === 0 && O.current.delete(a), Q(T))
+      }, w[28] = g) : g = w[28];
+      let ei = g;
+      w[29] === Symbol.for("react.memo_cache_sentinel") ? (v = (e, t) => {
+        let r = H.current;
+        null == r || r.spaceKey !== e || r.surface !== t || !r.recoveryCommitPending || (O.current.get(C({
+          spaceKey: e,
+          surface: t
+        }))?.size ?? 0) > 0 || (r.recoveryCommitPending = !1, B(P))
+      }, w[29] = v) : v = w[29];
+      let ec = v;
+      w[30] !== ee || w[31] !== I ? (S = (e, t) => {
+        let r = void 0 === t ? "user_retry" : t,
+          a = j.current;
+        return a?.spaceKey !== e || a.surface !== I ? null : "constructing" === G.current ? ($.current = {
+          spaceKey: e,
+          surface: I,
+          trigger: r
+        }, null) : ($.current = null, V.current = V.current + 1, ee(e, r, V.current))
+      }, w[30] = ee, w[31] = I, w[32] = S) : S = w[32];
+      let eu = S;
+      return w[33] !== W || w[34] !== z || w[35] !== el || w[36] !== er || w[37] !== et || w[38] !== D || w[39] !== eu || w[40] !== ea || w[41] !== I ? (L = {
+        attemptToken: W,
+        blockingStateVersion: z,
+        clearBlockingFailure: ei,
+        commitRecovery: ec,
+        fail: el,
+        noteSourceReady: er,
+        noteStageMounted: et,
+        presentationGateVersion: D,
+        reportBlockingFailure: en,
+        restart: eu,
+        surface: I,
+        succeed: ea
+      }, w[33] = W, w[34] = z, w[35] = el, w[36] = er, w[37] = et, w[38] = D, w[39] = eu, w[40] = ea, w[41] = I, w[42] = L) : L = w[42], L
+    }(t);
+    return l[4] !== i || l[5] !== s ? (a = (0, r.createElement)(S.Provider, {
+      value: s
+    }, i), l[4] = i, l[5] = s, l[6] = a) : a = l[6], a
+  }, "useArtifactLoadAttemptReporter", 0, L], 210316), e.s(["ArtifactLoadBlockingFailureReporter", 0, function(e) {
+    let t, a, l = (0, h.c)(10),
+      {
+        fallbackUsed: n,
+        failureStage: i,
+        path: c,
+        reporter: u,
+        source: s,
+        spaceKey: o,
+        surface: f
+      } = e,
+      d = L(),
+      y = u ?? d,
+      m = y?.clearBlockingFailure,
+      p = y?.reportBlockingFailure;
+    return l[0] !== m || l[1] !== i || l[2] !== n || l[3] !== c || l[4] !== p || l[5] !== s || l[6] !== o || l[7] !== f ? (t = () => (p?.(o, f, s, {
+      failureStage: i,
+      ...null == n ? {} : {
+        fallbackUsed: n
+      },
+      ...null == c ? {} : {
+        path: c
+      }
+    }), () => m?.(o, f, s)), a = [m, i, n, c, p, s, o, f], l[0] = m, l[1] = i, l[2] = n, l[3] = c, l[4] = p, l[5] = s, l[6] = o, l[7] = f, l[8] = t, l[9] = a) : (t = l[8], a = l[9]), (0, r.useLayoutEffect)(t, a), null
+  }, "ArtifactLoadRecoveryCommit", 0, function(e) {
+    let t, a, l = (0, h.c)(10),
+      {
+        spaceKey: n,
+        surface: i
+      } = e,
+      c = L(),
+      u = c?.attemptToken ?? 0,
+      s = c?.blockingStateVersion ?? 0,
+      o = c?.commitRecovery;
+    return l[0] !== o || l[1] !== n || l[2] !== i ? (t = () => {
+      o?.(n, i)
+    }, l[0] = o, l[1] = n, l[2] = i, l[3] = t) : t = l[3], l[4] !== u || l[5] !== s || l[6] !== o || l[7] !== n || l[8] !== i ? (a = [u, s, o, n, i], l[4] = u, l[5] = s, l[6] = o, l[7] = n, l[8] = i, l[9] = a) : a = l[9], (0, r.useEffect)(t, a), null
+  }], 396502)
+}, 351321, e => {
+  "use strict";
+  var t = e.i(984416),
+    r = e.i(519172),
+    a = e.i(848048),
+    l = e.i(763971),
+    n = e.i(393202),
+    i = e.i(271954),
+    c = e.i(731714),
+    u = e.i(22338),
+    s = e.i(439393),
+    o = e.i(720756),
+    f = e.i(62822),
+    d = e.i(764113),
+    y = e.i(304117),
+    m = e.i(546963),
+    h = e.i(915637),
+    p = e.i(685231);
+  e.s(["default", 0, function({
+    to: g,
+    children: v,
+    analytics: _,
+    noPrefetch: b = !1,
+    searchParams: S,
+    commitWrapper: C,
+    className: k,
+    ref: x,
+    onClick: R,
+    onMouseEnter: E,
+    onFocus: P,
+    ...T
+  }) {
+    let K = (0, l.usePathname)(),
+      {
+        navigate: L
+      } = (0, i.useNavigate)(),
+      w = (0, l.useSearchParams)(),
+      A = null == w ? "" : `?${w.toString()}`,
+      N = (0, n.useQueryClient)(),
+      I = (0, o.useGatewayQueryContext)(),
+      H = (0, s.useShellRouteExperiments)(),
+      j = (0, p.useShellPrimaryContentSnapshot)(),
+      U = (0, f.useHatchPostContentSafetyReady)(),
+      F = (0, u.resolveShellLocation)({
+        to: g,
+        searchParams: S,
+        currentSearch: A
+      }),
+      O = _?.actionTarget ?? "ShellLink",
+      M = (0, a.useInteractionEventHandler)(null == _ ? null : {
+        ..._,
+        actionTarget: O
+      }),
+      z = (0, c.useMergeRefs)(M, x),
+      Q = (0, r.useCallback)(() => {
+        if (b) return;
+        let t = (0, u.resolveShellLocationMatch)(K, w ?? new URLSearchParams, h.shellRouteMetadata).match;
+        if (!U || !(0, p.isShellPostContentEligibleForRoute)(j, t, I.gatewayUrl, I.vmName)) return;
+        let r = new URL(F, window.location.origin),
+          a = (0, m.getShellRoutePrefetchEpoch)();
+        e.A(722496).then(({
+          shellRoutes: e
+        }) => {
+          if (a !== (0, m.getShellRoutePrefetchEpoch)()) return;
+          let {
+            match: t
+          } = (0, u.resolveShellLocationMatch)(r.pathname, r.searchParams, e);
+          t && (0, m.scheduleShellRouteIntentPrefetch)(t, {
+            queryClient: N,
+            gatewayCtx: I,
+            experiments: H
+          })
+        }).catch(() => {})
+      }, [H, I, b, K, U, j, N, F, w]),
+      D = (0, r.useCallback)(e => {
+        var t;
+        if (R?.(e), e.defaultPrevented || 0 !== e.button || (t = e).metaKey || t.ctrlKey || t.shiftKey || t.altKey) return;
+        let r = e.currentTarget.target;
+        if (r && "_self" !== r) return;
+        e.preventDefault();
+        let a = new URL(F, window.location.origin);
+        if (!(0, y.shouldUseShellHistoryNavigation)(K, a.pathname)) return void L(F);
+        let l = () => {
+          "/" === a.pathname && "/" === K ? window.dispatchEvent(new CustomEvent("hatch-scroll-to-bottom")) : (0, d.commitShellNavigation)({
+            resolved: F,
+            fromPathname: K
+          }, {
+            queryClient: N,
+            gatewayCtx: I,
+            experiments: H
+          })
+        };
+        C ? C(l, a.pathname) : l()
+      }, [C, R, F, K, L, N, I, H]),
+      B = (0, r.useCallback)(e => {
+        E?.(e), Q()
+      }, [E, Q]),
+      V = (0, r.useCallback)(e => {
+        P?.(e), Q()
+      }, [P, Q]);
+    return (0, t.jsx)("a", {
+      ref: z,
+      href: F,
+      className: k,
+      onClick: D,
+      onMouseEnter: B,
+      onFocus: V,
+      ...T,
+      "data-hatch-shell-navigation": "true",
+      children: v
+    })
+  }])
+}, 685231, e => {
+  "use strict";
+  var t = e.i(722099),
+    r = e.i(519172),
+    a = e.i(871157),
+    l = e.i(720756),
+    n = e.i(535678),
+    i = e.i(322095),
+    c = e.i(304117);
+  let u = Object.freeze({
+      availability: Object.freeze({
+        gatewayReady: !1,
+        online: !1,
+        pageVisible: !1
+      }),
+      generation: 0,
+      gatewayIdentity: "",
+      identity: "",
+      outcome: null,
+      phase: "inactive",
+      route: null,
+      surfaceCommitted: !1
+    }),
+    s = u,
+    o = 1,
+    f = new Set,
+    d = (0, r.createContext)(null);
+
+  function y(e) {
+    if (e !== s)
+      for (let t of (s = Object.freeze(e), f)) t()
+  }
+
+  function m(e, t) {
+    "u" > typeof performance && "function" == typeof performance.mark && performance.mark(`hatch:${e}:${t}`)
+  }
+
+  function h(e) {
+    return e.gatewayReady && e.online && e.pageVisible
+  }
+
+  function p(e) {
+    var t;
+    if (null == e.outcome || null == e.route) return void y(e);
+    if (e.surfaceCommitted && h(e.availability) && ("content" === (t = e.outcome) || "empty" === t)) {
+      "post_content_eligible" !== s.phase && (m("post_content_eligible", e.route), (0, n.markInitialLoadPoint)("post_content_eligible")), y({
+        ...e,
+        phase: "post_content_eligible"
+      });
+      return
+    }
+    y({
+      ...e,
+      phase: "primary_content_settled"
+    })
+  }
+
+  function g(e) {
+    let t = e?.route.path;
+    return t === c.SHELL_PATH.chat || t === c.SHELL_PATH.thread || t === c.SHELL_PATH.threadDraft ? "chat" : t === c.SHELL_PATH.ideas ? "ideas" : t === c.SHELL_PATH.goals || t === c.SHELL_PATH.goal ? "goals" : t === c.SHELL_PATH.feed ? "feed" : t === c.SHELL_PATH.libraryArtifact ? null : t?.startsWith("/library/") === !0 ? "library" : null
+  }
+
+  function v(e, t) {
+    return (0, a.gatewayTargetKey)(e, t)
+  }
+
+  function _(e) {
+    if ("inactive" === s.phase) return;
+    let t = {
+      ...s.availability,
+      ...e
+    };
+    (t.gatewayReady !== s.availability.gatewayReady || t.online !== s.availability.online || t.pageVisible !== s.availability.pageVisible) && p({
+      ...s,
+      availability: t
+    })
+  }
+
+  function b() {
+    return s
+  }
+
+  function S(e) {
+    return f.add(e), () => f.delete(e)
+  }
+
+  function C() {
+    return u
+  }
+  e.s(["ShellPrimaryContentIdentityProvider", 0, function({
+    children: e,
+    identity: t,
+    isActive: a
+  }) {
+    return (0, r.createElement)(d.Provider, {
+      value: {
+        identity: t,
+        isActive: a
+      }
+    }, e)
+  }, "beginShellPrimaryContentLifecycle", 0, function(e, t, r, a) {
+    let l = g(e);
+    if (null == l || null == e) return "inactive" !== s.phase && y(u), s;
+    let n = v(t, r);
+    return s.route === l && s.identity === e.identity && s.gatewayIdentity === n ? _(a) : y({
+      availability: a,
+      generation: o++,
+      gatewayIdentity: n,
+      identity: e.identity,
+      outcome: null,
+      phase: "loading",
+      route: l,
+      surfaceCommitted: !1
+    }), s
+  }, "getShellPrimaryContentGatewayIdentity", 0, v, "getShellPrimaryContentRoute", 0, g, "isShellPostContentEligibleForRoute", 0, function(e, t, r, a, l) {
+    return (null == l || t?.identity === l) && (null == g(t) || null != t && "post_content_eligible" === e.phase && e.identity === t.identity && e.gatewayIdentity === v(r, a))
+  }, "isShellPrimaryContentFailureForRoute", 0, function(e, t, r, a, l) {
+    return (null == l || t?.identity === l) && null != t && e.surfaceCommitted && ("error" === e.outcome || "unavailable" === e.outcome) && e.identity === t.identity && e.gatewayIdentity === v(r, a)
+  }, "isShellSafetyWorkEligibleForRoute", 0, function(e, t, r, a) {
+    return null == g(t) || null != t && "inactive" !== e.phase && h(e.availability) && e.identity === t.identity && e.gatewayIdentity === v(r, a)
+  }, "rearmShellPrimaryContentCommit", 0, function() {
+    s.surfaceCommitted && y({
+      ...s,
+      phase: "primary_content_settled",
+      surfaceCommitted: !1
+    })
+  }, "updateShellPrimaryContentAvailability", 0, _, "useReportInitialLoadRouteContent", 0, function(e, a) {
+    let l, n, c = (0, t.c)(7),
+      u = (0, r.useContext)(d),
+      s = u?.isActive ?? a ?? !1,
+      o = u?.identity ?? null;
+    c[0] !== s || c[1] !== e ? (l = () => {
+      s && null != e && (0, i.markInitialLoadPrimaryContentVisible)(e)
+    }, c[0] = s, c[1] = e, c[2] = l) : l = c[2], c[3] !== o || c[4] !== s || c[5] !== e ? (n = [o, s, e], c[3] = o, c[4] = s, c[5] = e, c[6] = n) : n = c[6], (0, r.useLayoutEffect)(l, n)
+  }, "useReportShellPrimaryContent", 0, function(e, a, n) {
+    let c, u, o = (0, t.c)(9),
+      {
+        gatewayUrl: f,
+        vmName: y,
+        isReady: h
+      } = (0, l.useGatewayQueryContext)(),
+      g = (0, r.useContext)(d),
+      _ = n ?? g?.identity,
+      b = g?.isActive ?? null != n;
+    o[0] !== f || o[1] !== _ || o[2] !== b || o[3] !== h || o[4] !== a || o[5] !== e || o[6] !== y ? (c = () => {
+      b && h && null != a && null != _ && (s.route !== e || s.identity !== _ || s.gatewayIdentity !== v(f, y) || "inactive" === s.phase || s.outcome === a && s.surfaceCommitted && ("primary_content_settled" === s.phase || "post_content_eligible" === s.phase) || (m("primary_content_settled", e), (0, i.markInitialLoadPrimaryContentVisible)(a), p({
+        ...s,
+        outcome: a,
+        phase: "primary_content_settled",
+        surfaceCommitted: !0
+      })))
+    }, u = [f, _, b, h, a, e, y], o[0] = f, o[1] = _, o[2] = b, o[3] = h, o[4] = a, o[5] = e, o[6] = y, o[7] = c, o[8] = u) : (c = o[7], u = o[8]), (0, r.useEffect)(c, u)
+  }, "useShellPrimaryContentIdentity", 0, function() {
+    return (0, r.useContext)(d)?.identity ?? null
+  }, "useShellPrimaryContentSnapshot", 0, function() {
+    return (0, r.useSyncExternalStore)(S, b, C)
+  }])
+}, 520461, e => {
+  "use strict";
+  var t = e.i(722099),
+    r = e.i(519172),
+    a = e.i(763971),
+    l = e.i(393202),
+    n = e.i(345717),
+    i = e.i(47247),
+    c = e.i(359783),
+    u = e.i(175286),
+    s = e.i(435265),
+    o = e.i(951702),
+    f = e.i(490878),
+    d = e.i(789078);
+  e.i(522730);
+  var y = e.i(812240),
+    m = e.i(863641);
+  let h = (0, c.createClientLogger)("remove_saved_artifact");
+
+  function p() {
+    return new Set
+  }
+  e.s(["useRemoveSavedArtifact", 0, function() {
+    let e, c, g, v, _, b, S = (0, t.c)(16),
+      C = (0, l.useQueryClient)(),
+      k = (0, a.usePathname)(),
+      {
+        gatewayUrl: x,
+        vmName: R,
+        isReady: E,
+        sendRequest: P
+      } = (0, u.useHatchRpc)(),
+      {
+        navigate: T
+      } = (0, s.useShellNavigate)();
+    S[0] === Symbol.for("react.memo_cache_sentinel") ? (e = new Set, S[0] = e) : e = S[0];
+    let K = (0, r.useRef)(e),
+      [L, w] = (0, r.useState)(p);
+    S[1] === Symbol.for("react.memo_cache_sentinel") ? (c = n.fbs._("Removed from Library", null, {
+      hk: "nwnU4"
+    }), S[1] = c) : c = S[1];
+    let A = c;
+    S[2] === Symbol.for("react.memo_cache_sentinel") ? (g = n.fbs._("Failed to remove shared artifact", null, {
+      hk: "44FoAS"
+    }), S[2] = g) : g = S[2];
+    let N = g;
+    S[3] !== x || S[4] !== E || S[5] !== T || S[6] !== k || S[7] !== C || S[8] !== P || S[9] !== R ? (v = (e, t) => {
+      let r = e.trim();
+      if (0 === r.length || K.current.has(r)) return;
+      let a = (0, i.captureHatchToast)();
+      K.current.add(r), w(e => new Set(e).add(r)), (0, d.removeSavedSpace)(r, E ? P : void 0).then(() => {
+        let e;
+        null != x && (0, f.optimisticRemoveArtifact)(x, R, (0, o.artifactRefFromOpenTarget)({
+          kind: "saved_space",
+          shortcode: r
+        })), C.setQueriesData({
+          queryKey: y.spacesQueryKeys.all
+        }, e => (0, d.removeSavedSpaceFromSpacesCache)(e, r)), C.invalidateQueries({
+          queryKey: y.spacesQueryKeys.all
+        }), null != (e = function(e) {
+          let t = e.match(/^\/saved-space\/([^/]+)$/);
+          if (null == t) return null;
+          try {
+            let e = decodeURIComponent(t[1] ?? "").trim();
+            return e.length > 0 ? e : null
+          } catch {
+            let e = (t[1] ?? "").trim();
+            return e.length > 0 ? e : null
+          }
+        }(k)) && (e === r || r.endsWith(`-${e}`)) && T("/"), a.success(A)
+      }).catch(e => {
+        h.error({
+          error: e instanceof Error ? e : Error(String(e)),
+          removeSource: t.source,
+          sharedSpaceHash: (0, d.hashSavedSpaceShortcode)(r),
+          tags: (0, m.hatchSentryTags)(m.HATCH_SENTRY_SURFACES.SAVED_SPACE)
+        }, "Failed to remove saved artifact"), a.error(N)
+      }).finally(() => {
+        K.current.delete(r), w(e => {
+          if (!e.has(r)) return e;
+          let t = new Set(e);
+          return t.delete(r), t
+        })
+      })
+    }, S[3] = x, S[4] = E, S[5] = T, S[6] = k, S[7] = C, S[8] = P, S[9] = R, S[10] = v) : v = S[10];
+    let I = v;
+    S[11] !== L ? (_ = e => L.has(e.trim()), S[11] = L, S[12] = _) : _ = S[12];
+    let H = _;
+    return S[13] !== H || S[14] !== I ? (b = {
+      isRemoving: H,
+      removeSavedArtifact: I
+    }, S[13] = H, S[14] = I, S[15] = b) : b = S[15], b
+  }])
+}]);
+
+//# debugId=f9a9c1b8-38c0-76dd-083a-fd2a1405820b
+//# sourceMappingURL=233a774b4qojg.js.map

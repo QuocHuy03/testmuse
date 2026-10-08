@@ -1,0 +1,1739 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "cf840a9a-6a61-1e88-b681-f88f4bbab6ae")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 272343, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(345717),
+    r = e.i(722099),
+    n = e.i(519172),
+    i = e.i(393202),
+    l = e.i(570730),
+    o = e.i(357820),
+    s = e.i(867545),
+    c = e.i(848048),
+    d = e.i(52038),
+    u = e.i(281539),
+    h = e.i(440802),
+    m = e.i(538206),
+    f = e.i(239286),
+    p = e.i(18516),
+    C = e.i(486868),
+    g = e.i(47247),
+    b = e.i(120511),
+    x = e.i(847126),
+    y = e.i(648094),
+    k = e.i(499608),
+    S = e.i(907579),
+    v = e.i(767408),
+    H = e.i(450106),
+    w = e.i(200097);
+
+  function j({
+    fileName: e,
+    filePath: r,
+    onDownloadComplete: s,
+    variant: h
+  }) {
+    let [m, C] = (0, n.useState)(!1), H = (0, S.useHatchGatewayFs)(), M = (0, i.useQueryClient)(), {
+      vmName: _
+    } = (0, d.useHatchServerData)(), I = (0, v.fileExtensionForTelemetry)(e), P = a.fbs._("Failed to download file", null, {
+      hk: "27JKIC"
+    }), A = a.fbs._("Failed to export file", null, {
+      hk: "iU9RO"
+    }), {
+      Item: R
+    } = (0, w.hatchMenuPartsFor)(h), {
+      onClick: E
+    } = (0, c.useTrackedClickRef)({
+      eventName: u.HatchClickEvent.DOCUMENT_DOWNLOAD_CLICK,
+      actionTarget: "document_download",
+      actionType: "click",
+      vmId: _ ?? void 0,
+      fileType: I || void 0,
+      metadata: {
+        surface: "chat",
+        subsurface: "markdown_menu",
+        file_category: "markdown",
+        entry_point: (0, w.hatchMenuEntryPointFor)(h)
+      }
+    }), T = (0, n.useCallback)(async () => {
+      let t = await (0, k.ensureReadData)(M, H, r);
+      (0, y.triggerBlobDownload)(e, new Blob([t], {
+        type: (0, b.getMimeType)(e)
+      }))
+    }, [M, H, r, e]), N = (0, n.useCallback)(async t => {
+      if (m) return;
+      let a = (0, g.captureHatchToast)();
+      if (E(), "markdown" === t) {
+        try {
+          await T()
+        } catch {
+          a.error(P)
+        }
+        s?.();
+        return
+      }
+      C(!0), await new Promise(e => requestAnimationFrame(() => requestAnimationFrame(e)));
+      try {
+        "pdf" === t && await (0, x.exportMarkdownToPdf)(H, r, e), s?.()
+      } catch {
+        a.error(A)
+      } finally {
+        C(!1)
+      }
+    }, [P, A, e, r, H, T, m, E, s]);
+    return "context" === h ? (0, t.jsxs)(t.Fragment, {
+      children: [(0, t.jsx)(R, {
+        leadingIcon: l.default,
+        label: a.fbs._("Download as Markdown", null, {
+          hk: "qi2tL"
+        }),
+        onSelect: () => void N("markdown"),
+        disabled: m
+      }), (0, t.jsx)(R, {
+        leadingIcon: o.default,
+        label: a.fbs._("Download as PDF", null, {
+          hk: "2CONH1"
+        }),
+        onSelect: () => void N("pdf"),
+        disabled: m
+      })]
+    }) : (0, t.jsxs)(t.Fragment, {
+      children: [(0, t.jsx)(p.DropdownMenuItem, {
+        leadingIcon: l.default,
+        label: a.fbs._("Download as Markdown", null, {
+          hk: "qi2tL"
+        }),
+        onSelect: () => void N("markdown"),
+        disabled: m
+      }), (0, t.jsx)(p.DropdownMenuItem, {
+        leadingIcon: o.default,
+        label: a.fbs._("Download as PDF", null, {
+          hk: "2CONH1"
+        }),
+        onSelect: e => {
+          e.preventDefault(), N("pdf")
+        },
+        disabled: m,
+        addOnEnd: m ? (0, t.jsx)(f.Spinner, {
+          size: 16
+        }) : void 0
+      })]
+    })
+  }
+
+  function M(e) {
+    return e.stopPropagation()
+  }
+
+  function _(e) {
+    return e.stopPropagation()
+  }
+  e.s(["HatchArtifactMarkdownMenu", 0, function(e) {
+    let i, l, o, f, g, b, x, y, k, S, I = (0, r.c)(28),
+      {
+        createdAt: P,
+        fileName: A,
+        filePath: R,
+        triggerVariant: E
+      } = e,
+      T = void 0 === E ? "card" : E,
+      [N, D] = (0, n.useState)(!1),
+      {
+        vmName: L
+      } = (0, d.useHatchServerData)();
+    I[0] !== A ? (i = (0, v.fileExtensionForTelemetry)(A), I[0] = A, I[1] = i) : i = I[1];
+    let U = L ?? void 0,
+      F = i || void 0;
+    I[2] !== T ? (l = "rail" === T ? "hover_button" : (0, w.hatchMenuEntryPointFor)("dropdown"), I[2] = T, I[3] = l) : l = I[3], I[4] !== l ? (o = {
+      surface: "chat",
+      subsurface: "markdown_menu",
+      file_category: "markdown",
+      entry_point: l
+    }, I[4] = l, I[5] = o) : o = I[5], I[6] !== U || I[7] !== F || I[8] !== o ? (f = {
+      eventName: u.HatchClickEvent.ARTIFACT_OPTIONS_OPEN_CLICK,
+      actionTarget: "artifact_options_trigger",
+      actionType: "click",
+      vmId: U,
+      fileType: F,
+      metadata: o
+    }, I[6] = U, I[7] = F, I[8] = o, I[9] = f) : f = I[9];
+    let {
+      ref: O,
+      onClick: V
+    } = (0, c.useTrackedClickRef)(f);
+    I[10] !== V || I[11] !== O || I[12] !== T ? (g = "rail" === T ? (0, t.jsx)(C.TooltipProvider, {
+      delayDuration: 0,
+      skipDelayDuration: 1 / 0,
+      children: (0, t.jsxs)(C.Tooltip, {
+        children: [(0, t.jsx)(p.DropdownMenuTrigger, {
+          asChild: !0,
+          children: (0, t.jsx)(C.TooltipTrigger, {
+            asChild: !0,
+            children: (0, t.jsx)(m.IconRailButton, {
+              ref: O,
+              icon: s.default,
+              label: a.fbs._("More options", null, {
+                hk: "1cttts"
+              }),
+              variant: "borderless",
+              size: "24",
+              className: "text-text-secondary",
+              "data-testid": "hatch-sandbox-file-card-options",
+              onClick: V
+            })
+          })
+        }), (0, t.jsx)(C.TooltipContent, {
+          side: "bottom",
+          children: a.fbt._("More", null, {
+            hk: "3cvPws"
+          })
+        })]
+      })
+    }) : (0, t.jsx)(p.DropdownMenuTrigger, {
+      asChild: !0,
+      children: (0, t.jsx)(h.IconButton, {
+        ref: O,
+        icon: s.default,
+        label: a.fbs._("More options", null, {
+          hk: "1cttts"
+        }),
+        variant: "borderless",
+        size: "24",
+        "data-testid": "hatch-sandbox-file-card-options",
+        onClick: V
+      })
+    }), I[10] = V, I[11] = O, I[12] = T, I[13] = g) : g = I[13];
+    let B = g,
+      z = "rail" === T ? "end" : "start";
+    return I[14] !== P ? (b = null != P ? (0, t.jsx)(H.HatchMessageMenuTimestamp, {
+      createdAt: P
+    }) : null, I[14] = P, I[15] = b) : b = I[15], I[16] === Symbol.for("react.memo_cache_sentinel") ? (x = () => D(!1), I[16] = x) : x = I[16], I[17] !== A || I[18] !== R ? (y = (0, t.jsx)(j, {
+      fileName: A,
+      filePath: R,
+      onDownloadComplete: x,
+      variant: "dropdown"
+    }), I[17] = A, I[18] = R, I[19] = y) : y = I[19], I[20] !== b || I[21] !== y || I[22] !== z ? (k = (0, t.jsxs)(p.DropdownMenuContent, {
+      align: z,
+      children: [b, y]
+    }), I[20] = b, I[21] = y, I[22] = z, I[23] = k) : k = I[23], I[24] !== N || I[25] !== k || I[26] !== B ? (S = (0, t.jsx)("div", {
+      className: "shrink-0",
+      onClick: _,
+      onKeyDown: M,
+      children: (0, t.jsxs)(p.DropdownMenu, {
+        open: N,
+        onOpenChange: D,
+        children: [B, k]
+      })
+    }), I[24] = N, I[25] = k, I[26] = B, I[27] = S) : S = I[27], S
+  }, "HatchArtifactMarkdownMenuItems", 0, j])
+}, 298066, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    r = e.i(519172);
+  e.i(229118);
+  var n = e.i(991211),
+    i = e.i(371811),
+    l = e.i(746732),
+    o = e.i(791473);
+
+  function s() {
+    return {
+      type: "break"
+    }
+  }
+  var c = e.i(374785),
+    d = e.i(224520),
+    u = e.i(813280),
+    h = e.i(750386),
+    m = e.i(947572),
+    f = e.i(656379),
+    p = e.i(288146),
+    C = e.i(166562),
+    g = e.i(440643),
+    b = e.i(110421),
+    x = e.i(53418),
+    y = e.i(234740),
+    k = e.i(749137),
+    S = e.i(855548),
+    v = e.i(832964),
+    H = e.i(848048),
+    w = e.i(52038),
+    j = e.i(823173),
+    M = e.i(288119),
+    _ = e.i(383310),
+    I = e.i(483982),
+    P = e.i(499608),
+    A = e.i(907579);
+
+  function R(e) {
+    let r, n, i, l, o, s, d, u, h = (0, a.c)(32),
+      {
+        src: m,
+        alt: f,
+        className: p,
+        openOrigin: C,
+        errorSurface: g,
+        retryMetadata: b
+      } = e;
+    h[0] !== m ? (r = (0, M.getWorkspaceFileUrlPath)(m), h[0] = m, h[1] = r) : r = h[1];
+    let x = r,
+      {
+        vmName: y
+      } = (0, w.useHatchServerData)(),
+      k = y ?? void 0,
+      R = x ?? void 0;
+    h[2] === Symbol.for("react.memo_cache_sentinel") ? (n = {
+      surface: "hatch_markdown",
+      subsurface: "html_preview"
+    }, h[2] = n) : n = h[2], h[3] !== k || h[4] !== R ? (i = {
+      eventName: j.HatchImpressionEvent.MARKDOWN_HTML_PREVIEW_IMPRESSION,
+      actionTarget: "markdown_html_preview",
+      vmId: k,
+      filePath: R,
+      fileType: "html",
+      metadata: n
+    }, h[3] = k, h[4] = R, h[5] = i) : i = h[5];
+    let {
+      ref: E
+    } = (0, H.useTrackedImpressionRef)(i), {
+      data: T,
+      isLoading: N,
+      error: D
+    } = (0, P.useReadQuery)(x), L = (0, A.useHatchGatewayFs)();
+    h[6] !== x || h[7] !== L ? (l = async (e, t) => {
+      if (null == x) throw Error("Missing sandbox source path");
+      let a = (0, _.normalizeHtmlPreviewAssetPathForSource)(e.path, x);
+      if (null == a) throw Error("Invalid sandbox asset path");
+      let r = await L.rawFetch(a, {
+        signal: t,
+        urlEncodedPath: !0
+      });
+      if (!r.ok) throw Error("Unable to load sandbox asset");
+      return r.data
+    }, h[6] = x, h[7] = L, h[8] = l) : l = h[8];
+    let U = l;
+    if (null == x) return null;
+    if (null != D) {
+      let e;
+      return h[9] !== g || h[10] !== x || h[11] !== C || h[12] !== m ? (e = m.startsWith("sandbox://") ? (0, t.jsx)(S.HatchSandboxFileCard, {
+        src: m,
+        openOrigin: C,
+        errorSurface: g
+      }) : (0, t.jsx)(S.HatchSandboxFileCard, {
+        filePath: x,
+        openOrigin: C,
+        errorSurface: g
+      }), h[9] = g, h[10] = x, h[11] = C, h[12] = m, h[13] = e) : e = h[13], e
+    }
+    h[14] !== f || h[15] !== x ? (o = f?.trim() || x.split("/").pop() || "HTML preview", h[14] = f, h[15] = x, h[16] = o) : o = h[16];
+    let F = o;
+    return h[17] !== p ? (s = (0, c.cn)("border-fill-divider dark:border-fill-divider/50 rounded-8 my-3 block w-full max-w-[min(760px,100%)] overflow-hidden border bg-white dark:bg-black", p), h[17] = p, h[18] = s) : s = h[18], h[19] !== T || h[20] !== g || h[21] !== x || h[22] !== N || h[23] !== U || h[24] !== b || h[25] !== F ? (d = N || null == T ? (0, t.jsx)(v.Skeleton, {
+      as: "span",
+      className: "block h-[420px] w-full rounded-none bg-black/5 dark:bg-white/5"
+    }) : (0, t.jsx)(I.HatchHtmlPreview, {
+      content: T,
+      errorSurface: g,
+      previewIdentity: x,
+      retryMetadata: b,
+      title: F,
+      onAssetRequest: U,
+      className: "block h-[min(70vh,520px)] w-full border-0 bg-white"
+    }), h[19] = T, h[20] = g, h[21] = x, h[22] = N, h[23] = U, h[24] = b, h[25] = F, h[26] = d) : d = h[26], h[27] !== E || h[28] !== m || h[29] !== s || h[30] !== d ? (u = (0, t.jsx)("span", {
+      ref: E,
+      className: s,
+      "data-testid": "hatch-markdown-html-preview",
+      "data-src": m,
+      children: d
+    }), h[27] = E, h[28] = m, h[29] = s, h[30] = d, h[31] = u) : u = h[31], u
+  }
+  var E = e.i(429153),
+    T = e.i(140954),
+    N = e.i(792003),
+    D = e.i(345717),
+    L = e.i(698870),
+    U = e.i(941960),
+    F = e.i(397240),
+    O = e.i(359783),
+    V = e.i(281539);
+  let B = (0, O.createClientLogger)("HatchQrCodeCard");
+
+  function z(e) {
+    let n, i, l, o, s, c, d = (0, a.c)(16),
+      {
+        href: u,
+        children: h
+      } = e,
+      m = (0, F.useIsMobileBreakpoint)(),
+      [f, p] = (0, r.useState)(null);
+    d[0] === Symbol.for("react.memo_cache_sentinel") ? (n = {
+      eventName: V.HatchClickEvent.WHATSAPP_PAIRING_LINK_CLICK,
+      actionTarget: "whatsapp_pairing_link",
+      actionType: "click",
+      metadata: {
+        surface: "chat",
+        subsurface: "whatsapp_pairing"
+      }
+    }, d[0] = n) : n = d[0];
+    let {
+      ref: C,
+      onClick: g
+    } = (0, H.useTrackedClickRef)(n);
+    return d[1] !== u || d[2] !== m ? (i = () => {
+      if (m) return;
+      let e = !1;
+      return (0, L.toDataURL)(u, {
+        width: 200,
+        margin: 2
+      }).then(t => {
+        e || p(t)
+      }, W), () => {
+        e = !0
+      }
+    }, l = [u, m], d[1] = u, d[2] = m, d[3] = i, d[4] = l) : (i = d[3], l = d[4]), (0, r.useEffect)(i, l), d[5] !== h || d[6] !== u || d[7] !== g || d[8] !== C ? (o = (0, t.jsx)(U.EctoAnchor, {
+      ref: C,
+      href: u,
+      skipLinkshim: !0,
+      target: "_blank",
+      onClick: g,
+      children: h
+    }), d[5] = h, d[6] = u, d[7] = g, d[8] = C, d[9] = o) : o = d[9], d[10] !== m || d[11] !== f ? (s = !m && f && (0, t.jsxs)("div", {
+      className: "my-2 flex flex-col items-start gap-2",
+      children: [(0, t.jsx)("span", {
+        children: D.fbt._("Scan with your phone's camera:", null, {
+          hk: "4g8l0j"
+        })
+      }), (0, t.jsx)("img", {
+        src: f,
+        alt: D.fbs._("WhatsApp pairing QR code", null, {
+          hk: "E0z3K"
+        }),
+        className: "rounded-12",
+        width: 200,
+        height: 200
+      })]
+    }), d[10] = m, d[11] = f, d[12] = s) : s = d[12], d[13] !== o || d[14] !== s ? (c = (0, t.jsxs)(t.Fragment, {
+      children: [o, s]
+    }), d[13] = o, d[14] = s, d[15] = c) : c = d[15], c
+  }
+
+  function W(e) {
+    B.error({
+      error: e instanceof Error ? e : Error(String(e))
+    }, "QR code generation failed")
+  }
+  var K = e.i(51726),
+    G = e.i(960607),
+    Z = e.i(623740),
+    $ = e.i(91521),
+    q = e.i(926250),
+    Q = e.i(546211),
+    Y = e.i(601268),
+    J = e.i(258544),
+    X = e.i(437081),
+    ee = e.i(508180),
+    et = e.i(384784);
+
+  function ea(e) {
+    let r, n, i, l = (0, a.c)(20),
+      {
+        children: o,
+        sourceUrl: s,
+        replySourceUrl: c,
+        posterUrl: d,
+        cacheVersion: u,
+        mediaItem: h,
+        messageId: m,
+        createdAt: f,
+        onReply: p
+      } = e,
+      {
+        gatewayUrl: C,
+        vmName: g
+      } = (0, w.useHatchServerData)(),
+      b = g ?? C ?? "unscoped",
+      x = (0, et.useDeletedChatMediaKeys)(),
+      y = `message:${m}`,
+      k = h.path,
+      S = null != k && x.has((0, ee.getDeletedChatMediaKey)(b, y, k));
+    l[0] !== b || l[1] !== y ? (r = e => {
+      (0, ee.markChatMediaDeleted)(b, y, e.requestedPath)
+    }, l[0] = b, l[1] = y, l[2] = r) : r = l[2];
+    let v = r;
+    l[3] !== v ? (n = {
+      origin: "chat_media_context_menu",
+      onDeleted: v
+    }, l[3] = v, l[4] = n) : n = l[4];
+    let {
+      requestDelete: H
+    } = (0, X.useHatchDeleteConfirmation)(n);
+    if (S) {
+      let e;
+      return l[5] !== f || l[6] !== m ? (e = (0, t.jsx)(J.HatchDeletedMediaTombstone, {
+        kind: "video",
+        messageId: m,
+        createdAt: f
+      }), l[5] = f, l[6] = m, l[7] = e) : e = l[7], e
+    }
+    let j = h.filename ?? "video",
+      M = null != k ? H : void 0;
+    return l[8] !== u || l[9] !== o || l[10] !== f || l[11] !== h || l[12] !== m || l[13] !== p || l[14] !== d || l[15] !== c || l[16] !== s || l[17] !== j || l[18] !== M ? (i = (0, t.jsx)(J.HatchChatMediaContextMenu, {
+      shareButtonLayout: "inline",
+      mediaKind: "video",
+      sourceUrl: s,
+      replyPreviewUrl: d,
+      replySourceUrl: c,
+      replyCacheVersion: u,
+      mediaItem: h,
+      filename: j,
+      messageId: m,
+      createdAt: f,
+      onReply: p,
+      onDelete: M,
+      children: o
+    }), l[8] = u, l[9] = o, l[10] = f, l[11] = h, l[12] = m, l[13] = p, l[14] = d, l[15] = c, l[16] = s, l[17] = j, l[18] = M, l[19] = i) : i = l[19], i
+  }
+
+  function er(e) {
+    let r, n, i, l, o = (0, a.c)(31),
+      {
+        className: s,
+        src: c,
+        enableChatMediaMenu: d,
+        messageId: u,
+        createdAt: h,
+        onReply: m
+      } = e,
+      f = void 0 !== d && d,
+      p = "string" == typeof c ? c : null,
+      C = (0, Q.useHatchMessageMediaResource)(p, "video"),
+      g = C?.version;
+    o[0] !== C || o[1] !== p || o[2] !== g ? (r = {
+      sourceUrl: p,
+      media: C,
+      cacheVersion: g,
+      loadLegacyPlayback: !0,
+      generateLegacyPoster: !0
+    }, o[0] = C, o[1] = p, o[2] = g, o[3] = r) : r = o[3];
+    let b = (0, q.useResolvedHatchVideoMedia)(r);
+    o[4] !== b.playbackSrc || o[5] !== b.posterSrc || o[6] !== C || o[7] !== p ? (n = null != p ? (0, $.markdownVideoToMediaItem)(p, C, b.playbackSrc, b.posterSrc) : null, o[4] = b.playbackSrc, o[5] = b.posterSrc, o[6] = C, o[7] = p, o[8] = n) : n = o[8];
+    let x = n;
+    if ("failed" === b.resolutionStatus) {
+      let e;
+      return o[9] !== s || o[10] !== h || o[11] !== f || o[12] !== u ? (e = (0, t.jsx)(J.HatchUnavailableMediaTile, {
+        kind: "video",
+        enableContextMenu: f,
+        messageId: u,
+        createdAt: h,
+        className: s,
+        testId: "chat-video-not-found"
+      }), o[9] = s, o[10] = h, o[11] = f, o[12] = u, o[13] = e) : e = o[13], e
+    }
+    o[14] !== s || o[15] !== b.playbackSrc || o[16] !== b.posterSrc || o[17] !== b.resolutionStatus || o[18] !== x ? (i = (0, t.jsx)(Y.HatchInlineVideoPlayer, {
+      src: b.playbackSrc,
+      posterSrc: b.posterSrc,
+      mediaItem: x,
+      resolutionStatus: b.resolutionStatus,
+      className: s
+    }), o[14] = s, o[15] = b.playbackSrc, o[16] = b.posterSrc, o[17] = b.resolutionStatus, o[18] = x, o[19] = i) : i = o[19];
+    let y = i;
+    return o[20] !== h || o[21] !== f || o[22] !== b.playbackSrc || o[23] !== b.posterSrc || o[24] !== x || o[25] !== C?.version || o[26] !== u || o[27] !== m || o[28] !== y || o[29] !== p ? (l = f && null != b.playbackSrc && null != x ? null != u ? (0, t.jsx)(ea, {
+      sourceUrl: b.playbackSrc,
+      replySourceUrl: p,
+      posterUrl: b.posterSrc ?? void 0,
+      cacheVersion: C?.version,
+      mediaItem: x,
+      messageId: u,
+      createdAt: h,
+      onReply: m,
+      children: y
+    }) : (0, t.jsx)(J.HatchChatMediaContextMenu, {
+      shareButtonLayout: "inline",
+      mediaKind: "video",
+      sourceUrl: b.playbackSrc,
+      replyPreviewUrl: b.posterSrc ?? void 0,
+      replySourceUrl: p,
+      replyCacheVersion: C?.version,
+      mediaItem: x,
+      filename: x.filename ?? "video",
+      createdAt: h,
+      onReply: m,
+      children: y
+    }) : y, o[20] = h, o[21] = f, o[22] = b.playbackSrc, o[23] = b.posterSrc, o[24] = x, o[25] = C?.version, o[26] = u, o[27] = m, o[28] = y, o[29] = p, o[30] = l) : l = o[30], l
+  }
+  var en = e.i(315882),
+    ei = e.i(596860),
+    el = e.i(205254),
+    eo = e.i(760806);
+  let es = (0, O.createClientLogger)("HatchPodcastLink");
+
+  function ec(e) {
+    let n, i, l, o, s, c, d, u = (0, a.c)(20),
+      {
+        href: h,
+        children: m
+      } = e,
+      f = (0, F.useIsMobileBreakpoint)(),
+      [p, C] = (0, r.useState)(null);
+    u[0] === Symbol.for("react.memo_cache_sentinel") ? (n = {
+      eventName: j.HatchImpressionEvent.CHAT_PODCAST_QR_IMPRESSION,
+      actionTarget: "podcast_qr"
+    }, u[0] = n) : n = u[0];
+    let {
+      ref: g
+    } = (0, H.useTrackedImpressionRef)(n);
+    if (u[1] !== h || u[2] !== f ? (i = () => {
+        if (f) return;
+        C(null);
+        let e = !1;
+        return (0, L.toDataURL)(h, {
+          width: 200,
+          margin: 2
+        }).then(t => {
+          e || C(t)
+        }, ed), () => {
+          e = !0
+        }
+      }, l = [h, f], u[1] = h, u[2] = f, u[3] = i, u[4] = l) : (i = u[3], l = u[4]), (0, r.useEffect)(i, l), u[5] !== h) {
+      let e;
+      o = (e = h.toLowerCase()).startsWith("pktc://") ? "Pocket Casts" : e.startsWith("overcast://") ? "Overcast" : "", u[5] = h, u[6] = o
+    } else o = u[6];
+    let b = o;
+    if (f) {
+      let e;
+      return u[7] !== m || u[8] !== h ? (e = (0, t.jsx)(U.EctoAnchor, {
+        href: h,
+        target: "_blank",
+        children: m
+      }), u[7] = m, u[8] = h, u[9] = e) : e = u[9], e
+    }
+    return u[10] !== m || u[11] !== h ? (s = (0, t.jsx)(U.EctoAnchor, {
+      href: h,
+      target: "_blank",
+      children: m
+    }), u[10] = m, u[11] = h, u[12] = s) : s = u[12], u[13] !== b || u[14] !== g || u[15] !== p ? (c = p && (0, t.jsxs)("span", {
+      ref: g,
+      className: "inline-flex flex-col items-start gap-2",
+      children: [(0, t.jsx)("span", {
+        className: "text-text-secondary text-caption-1",
+        children: b ? D.fbt._("Scan to open in {appName}", [D.fbt._param("appName", b)], {
+          hk: "1H0PiX"
+        }) : D.fbt._("Scan to open in your podcast app", null, {
+          hk: "1AwAzu"
+        })
+      }), (0, t.jsx)("img", {
+        src: p,
+        alt: D.fbs._("Podcast QR code", null, {
+          hk: "31oBdL"
+        }),
+        className: "rounded-12",
+        width: 200,
+        height: 200
+      })]
+    }), u[13] = b, u[14] = g, u[15] = p, u[16] = c) : c = u[16], u[17] !== s || u[18] !== c ? (d = (0, t.jsxs)("span", {
+      className: "my-2 inline-flex flex-col items-start gap-2",
+      children: [s, c]
+    }), u[17] = s, u[18] = c, u[19] = d) : d = u[19], d
+  }
+
+  function ed(e) {
+    es.error({
+      error: e instanceof Error ? e : Error(String(e))
+    }, "Podcast QR code generation failed")
+  }
+  var eu = e.i(276331),
+    eh = e.i(863641);
+  let em = (0, x.getSanitizedRehypePlugins)(),
+    ef = {
+      table: !1,
+      code: !0,
+      mermaid: {
+        download: !1,
+        copy: !0,
+        fullscreen: !0,
+        panZoom: !0
+      }
+    },
+    ep = {
+      table: !1,
+      code: !1,
+      mermaid: {
+        download: !1,
+        copy: !0,
+        fullscreen: !0,
+        panZoom: !0
+      }
+    },
+    eC = {
+      ...l.cjk,
+      remarkPluginsAfter: l.cjk.remarkPluginsAfter.map(g.applySingleTildeFalse)
+    },
+    eg = "__hatch_inline_html_preview";
+
+  function eb(e) {
+    try {
+      return "1" === new URL(e).searchParams.get(eg)
+    } catch {
+      return RegExp(`[?&]${eg}=1(?:[&#]|$)`).test(e)
+    }
+  }
+  let ex = [function() {
+      return e => {
+        ! function e(t) {
+          var a;
+          let r, n, i, l;
+          if ("image" === t.type && (0, M.isSandboxHtmlFileUrl)(t.url) && !(0, M.isSandboxArtifactHtmlUrl)(t.url) && !eb(t.url) && (n = (r = (a = t.url).indexOf("#")) >= 0 ? a.slice(0, r) : a, i = r >= 0 ? a.slice(r) : "", l = n.includes("?") ? "&" : "?", t.url = `${n}${l}${eg}=1${i}`), "children" in t && Array.isArray(t.children))
+            for (let a of t.children) e(a)
+        }(e)
+      }
+    }, ...Object.values(i.defaultRemarkPlugins).map(g.applySingleTildeFalse), function() {
+      return function(e) {
+        (0, o.findAndReplace)(e, [/\r?\n|\r/g, s])
+      }
+    }],
+    ey = (0, r.createContext)(null);
+
+  function ek() {
+    let e = (0, r.useContext)(ey);
+    if (null == e) throw Error("Markdown components require their renderer context");
+    return e
+  }
+
+  function eS() {
+    return (0, t.jsx)(el.HatchAudioBubbleError, {})
+  }
+
+  function ev() {
+    return (0, t.jsx)(el.HatchAudioBubbleError, {})
+  }
+  let eH = {
+    p: function(e) {
+      let n, i, l, o = (0, a.c)(9);
+      if (o[0] !== e ? ({
+          children: n,
+          ...i
+        } = e, o[0] = e, o[1] = n, o[2] = i) : (n = o[1], i = o[2]), function e(t) {
+          return (Array.isArray(t) ? t : [t]).some(t => {
+            if (!(0, r.isValidElement)(t)) return !1;
+            let a = t.props,
+              n = ("string" == typeof a.src ? a.src : null) ?? ("string" == typeof a.href ? a.href : null);
+            return !!(null != n && (null != (0, G.parseWorkspaceAudioFile)(n) || (0, G.isHatchVideoSource)(n) || (0, M.isSandboxFileUrl)(n) || (0, M.isSandboxHtmlFileUrl)(n) && !(0, M.isSandboxArtifactHtmlUrl)(n) || null != (0, M.getSandboxSlidesInfo)(n) || (0, M.isWhatsAppPairingUrl)(n))) || null != a.children && e(a.children)
+          })
+        }(n)) {
+        let e;
+        return o[3] !== n || o[4] !== i ? (e = (0, t.jsx)("div", {
+          ...i,
+          children: n
+        }), o[3] = n, o[4] = i, o[5] = e) : e = o[5], e
+      }
+      return o[6] !== n || o[7] !== i ? (l = (0, t.jsx)("p", {
+        ...i,
+        children: n
+      }), o[6] = n, o[7] = i, o[8] = l) : l = o[8], l
+    },
+    a: function(e) {
+      let n, i, l, o, s, d, h, f, p, C, g = (0, a.c)(65),
+        {
+          artifactOpenOrigin: b,
+          htmlPreviewErrorSurface: x,
+          htmlPreviewRetryMetadata: y,
+          enableChatMediaMenu: v,
+          handleMediaReply: H,
+          mediaCreatedAt: w,
+          isSaveCardEnabled: j,
+          mediaReplyEnabled: _,
+          messageId: I,
+          settingsControl: P
+        } = ek();
+      if (g[0] !== v || g[1] !== H || g[2] !== w || g[3] !== _ || g[4] !== I || g[5] !== e.href) {
+        i = Symbol.for("react.early_return_sentinel");
+        e: {
+          if ("string" == typeof(n = "string" == typeof e.href ? (0, k.normalizeHatcheryUrl)(e.href) : e.href) && (0, G.isHatchVideoSource)(n)) {
+            i = (0, t.jsx)(er, {
+              src: n
+            });
+            break e
+          }
+          if ("string" == typeof n) {
+            let e = (0, G.parseWorkspaceAudioFile)(n);
+            if (null != e) {
+              let a, n;
+              g[8] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)(ei.HatchAudioBubbleSkeleton, {}), g[8] = a) : a = g[8];
+              let l = (0, eo.isPodcastPath)(e.path) ? (0, t.jsx)(en.HatchPodcastBubbleLazy, {
+                createdAt: w,
+                enableChatContextMenu: v,
+                file: {
+                  filename: e.filename,
+                  mimeType: e.mimeType,
+                  category: "audio",
+                  path: e.path
+                },
+                messageId: I,
+                onReply: _ ? () => H({
+                  kind: "podcast",
+                  sourceUrl: null,
+                  filePath: e.path
+                }) : void 0
+              }) : (0, t.jsx)(en.HatchAudioBubbleLazy, {
+                file: {
+                  filename: e.filename,
+                  mimeType: e.mimeType,
+                  category: "audio",
+                  path: e.path
+                }
+              });
+              g[9] !== l ? (n = (0, t.jsx)(u.EctoErrorBoundary, {
+                surface: "hatch.chat.message.audio",
+                fallback: eS,
+                children: (0, t.jsx)(r.Suspense, {
+                  fallback: a,
+                  children: l
+                })
+              }), g[9] = l, g[10] = n) : n = g[10], i = n;
+              break e
+            }
+          }
+        }
+        g[0] = v, g[1] = H, g[2] = w, g[3] = _, g[4] = I, g[5] = e.href, g[6] = n, g[7] = i
+      } else n = g[6], i = g[7];
+      if (i !== Symbol.for("react.early_return_sentinel")) return i;
+      if ("string" == typeof n) {
+        let e;
+        g[11] !== n ? (e = (0, M.getSandboxSlidesInfo)(n), g[11] = n, g[12] = e) : e = g[12];
+        let a = e;
+        if (a) {
+          let e, r = `hatch-slides://${a.projectPath}`;
+          return g[13] !== a.deckName || g[14] !== r ? (e = (0, t.jsx)(m.HatchSlidesLinkCard, {
+            href: r,
+            subtitle: "",
+            deckName: a.deckName
+          }), g[13] = a.deckName, g[14] = r, g[15] = e) : e = g[15], e
+        }
+      }
+      if ("string" == typeof n && eb(n) && (0, M.isSandboxHtmlFileUrl)(n) && !(0, M.isSandboxArtifactHtmlUrl)(n)) {
+        let a, r;
+        return g[16] !== e.children ? (a = function e(t) {
+          if ("string" == typeof t || "number" == typeof t) {
+            let e = String(t).trim();
+            return e.length > 0 ? e : void 0
+          }
+          if (Array.isArray(t)) {
+            let a = t.map(e).filter(Boolean).join(" ").trim();
+            return a.length > 0 ? a : void 0
+          }
+        }(e.children), g[16] = e.children, g[17] = a) : a = g[17], g[18] !== b || g[19] !== x || g[20] !== y || g[21] !== n || g[22] !== a ? (r = (0, t.jsx)(R, {
+          src: n,
+          alt: a,
+          openOrigin: b,
+          errorSurface: x,
+          retryMetadata: y
+        }), g[18] = b, g[19] = x, g[20] = y, g[21] = n, g[22] = a, g[23] = r) : r = g[23], r
+      }
+      if ("string" == typeof n && (0, M.isSandboxFileUrl)(n)) {
+        let e, a;
+        g[24] !== n ? (e = (0, M.getWorkspaceFileUrlPath)(n), g[24] = n, g[25] = e) : e = g[25];
+        let r = e;
+        return g[26] !== b || g[27] !== r || g[28] !== x || g[29] !== n ? (a = n.startsWith("sandbox://") ? (0, t.jsx)(S.HatchSandboxFileCard, {
+          src: n,
+          openOrigin: b,
+          errorSurface: x
+        }) : null != r ? (0, t.jsx)(S.HatchSandboxFileCard, {
+          filePath: r,
+          openOrigin: b,
+          errorSurface: x
+        }) : null, g[26] = b, g[27] = r, g[28] = x, g[29] = n, g[30] = a) : a = g[30], a
+      }
+      if ("string" == typeof n && (0, M.isWhatsAppPairingUrl)(n)) {
+        let a;
+        return g[31] !== n || g[32] !== e.children ? (a = (0, t.jsx)(z, {
+          href: n,
+          children: e.children
+        }), g[31] = n, g[32] = e.children, g[33] = a) : a = g[33], a
+      }
+      if ("string" == typeof n && (0, M.isPodcastProtocolUrl)(n)) {
+        let a;
+        return g[34] !== n || g[35] !== e.children ? (a = (0, t.jsx)(ec, {
+          href: n,
+          children: e.children
+        }), g[34] = n, g[35] = e.children, g[36] = a) : a = g[36], a
+      }
+      if ("string" != typeof n) {
+        let a;
+        return g[37] !== n || g[38] !== e ? (a = (0, t.jsx)(m.EctoMarkdownLink, {
+          ...e,
+          href: n
+        }), g[37] = n, g[38] = e, g[39] = a) : a = g[39], a
+      }
+      g[40] !== e.className ? (l = (0, c.cn)("text-text-primary-link no-underline hover:!underline", e.className), g[40] = e.className, g[41] = l) : l = g[41], g[42] !== n || g[43] !== e || g[44] !== l ? (o = (0, t.jsx)(m.EctoMarkdownLink, {
+        ...e,
+        href: n,
+        className: l
+      }), g[42] = n, g[43] = e, g[44] = l, g[45] = o) : o = g[45];
+      let A = o;
+      g[46] !== e.className ? (s = (0, c.cn)("text-text-primary-link no-underline", e.className), g[46] = e.className, g[47] = s) : s = g[47], g[48] !== e.children || g[49] !== s ? (d = (0, t.jsx)("span", {
+        "aria-busy": "true",
+        className: s,
+        "data-hatch-action-link-loading": "true",
+        children: e.children
+      }), g[48] = e.children, g[49] = s, g[50] = d) : d = g[50];
+      let E = d;
+      return g[51] !== A ? (h = () => A, g[51] = A, g[52] = h) : h = g[52], g[53] !== b || g[54] !== j || g[55] !== n || g[56] !== e || g[57] !== P ? (f = (0, t.jsx)(en.HatchChatActionLinkLazy, {
+        ...e,
+        href: n,
+        artifactOpenOrigin: b,
+        isSaveCardEnabled: j,
+        settingsControl: P
+      }), g[53] = b, g[54] = j, g[55] = n, g[56] = e, g[57] = P, g[58] = f) : f = g[58], g[59] !== E || g[60] !== f ? (p = (0, t.jsx)(r.Suspense, {
+        fallback: E,
+        children: f
+      }), g[59] = E, g[60] = f, g[61] = p) : p = g[61], g[62] !== h || g[63] !== p ? (C = (0, t.jsx)(u.EctoErrorBoundary, {
+        surface: eh.HATCH_SENTRY_SURFACES.CHAT_MESSAGE,
+        fallback: h,
+        children: p
+      }), g[62] = h, g[63] = p, g[64] = C) : C = g[64], C
+    },
+    img: function(e) {
+      let n, i = (0, a.c)(50),
+        {
+          artifactOpenOrigin: l,
+          htmlPreviewErrorSurface: o,
+          htmlPreviewRetryMetadata: s,
+          enableChatMediaMenu: c,
+          handleMediaReply: d,
+          mediaCreatedAt: h,
+          mediaReplyEnabled: p,
+          messageId: C
+        } = ek(),
+        {
+          src: g
+        } = e;
+      if (g === b.MERMAID_LOADING_PLACEHOLDER_SRC) {
+        let e;
+        return i[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(f.HatchMarkdownMermaidFallback, {}), i[0] = e) : e = i[0], e
+      }
+      if ("string" == typeof g && null != (0, M.getApiKeyServiceName)(g)) {
+        let e;
+        return i[1] !== g ? (e = (0, t.jsx)(E.HatchApiKeyLink, {
+          href: g
+        }), i[1] = g, i[2] = e) : e = i[2], e
+      }
+      if ("string" == typeof g && null != (0, M.getPasswordServiceName)(g)) {
+        let e;
+        return i[3] !== g ? (e = (0, t.jsx)(N.HatchPasswordLink, {
+          href: g
+        }), i[3] = g, i[4] = e) : e = i[4], e
+      }
+      if ("string" == typeof g && null != (0, M.getConsentServiceName)(g)) {
+        let e;
+        return i[5] !== g ? (e = (0, t.jsx)(T.HatchConsentLink, {
+          href: g
+        }), i[5] = g, i[6] = e) : e = i[6], e
+      }
+      if ("string" == typeof g && (0, G.isHatchVideoSource)(g)) {
+        let e, a = p ? d : void 0;
+        return i[7] !== c || i[8] !== h || i[9] !== C || i[10] !== g || i[11] !== a ? (e = (0, t.jsx)(er, {
+          src: g,
+          enableChatMediaMenu: c,
+          messageId: C,
+          createdAt: h,
+          onReply: a
+        }), i[7] = c, i[8] = h, i[9] = C, i[10] = g, i[11] = a, i[12] = e) : e = i[12], e
+      }
+      if ("string" == typeof g && (0, eu.isHatchUsercontentUrl)(g)) {
+        let a, r = "string" == typeof e.alt && e.alt.trim() ? e.alt : g;
+        return i[13] !== r || i[14] !== g ? (a = (0, t.jsx)(m.EctoMarkdownLink, {
+          href: g,
+          className: "text-text-primary-link no-underline hover:!underline",
+          children: r
+        }), i[13] = r, i[14] = g, i[15] = a) : a = i[15], a
+      }
+      if ("string" == typeof g) {
+        let e;
+        if (i[16] !== c || i[17] !== d || i[18] !== h || i[19] !== p || i[20] !== C || i[21] !== g) {
+          e = Symbol.for("react.early_return_sentinel");
+          e: {
+            let a = (0, G.parseWorkspaceAudioFile)(g);
+            if (null != a) {
+              let n, l;
+              i[23] === Symbol.for("react.memo_cache_sentinel") ? (n = (0, t.jsx)(ei.HatchAudioBubbleSkeleton, {}), i[23] = n) : n = i[23];
+              let o = (0, eo.isPodcastPath)(a.path) ? (0, t.jsx)(en.HatchPodcastBubbleLazy, {
+                createdAt: h,
+                enableChatContextMenu: c,
+                file: {
+                  filename: a.filename,
+                  mimeType: a.mimeType,
+                  category: "audio",
+                  path: a.path
+                },
+                messageId: C,
+                onReply: p ? () => d({
+                  kind: "podcast",
+                  sourceUrl: null,
+                  filePath: a.path
+                }) : void 0
+              }) : (0, t.jsx)(en.HatchAudioBubbleLazy, {
+                file: {
+                  filename: a.filename,
+                  mimeType: a.mimeType,
+                  category: "audio",
+                  path: a.path
+                }
+              });
+              i[24] !== o ? (l = (0, t.jsx)(u.EctoErrorBoundary, {
+                surface: "hatch.chat.message.audio",
+                fallback: ev,
+                children: (0, t.jsx)(r.Suspense, {
+                  fallback: n,
+                  children: o
+                })
+              }), i[24] = o, i[25] = l) : l = i[25], e = l;
+              break e
+            }
+          }
+          i[16] = c, i[17] = d, i[18] = h, i[19] = p, i[20] = C, i[21] = g, i[22] = e
+        } else e = i[22];
+        if (e !== Symbol.for("react.early_return_sentinel")) return e
+      }
+      if ("string" == typeof g) {
+        let e;
+        i[26] !== g ? (e = (0, M.getSandboxSlidesInfo)(g), i[26] = g, i[27] = e) : e = i[27];
+        let a = e;
+        if (a) {
+          let e, r = `hatch-slides://${a.projectPath}`;
+          return i[28] !== a.deckName || i[29] !== r ? (e = (0, t.jsx)(m.HatchSlidesLinkCard, {
+            href: r,
+            subtitle: "",
+            deckName: a.deckName
+          }), i[28] = a.deckName, i[29] = r, i[30] = e) : e = i[30], e
+        }
+      }
+      if ("string" == typeof g && (0, M.isSandboxHtmlFileUrl)(g) && !(0, M.isSandboxArtifactHtmlUrl)(g)) {
+        let a, r = "string" == typeof e.alt ? e.alt : void 0;
+        return i[31] !== l || i[32] !== o || i[33] !== s || i[34] !== g || i[35] !== r ? (a = (0, t.jsx)(R, {
+          src: g,
+          alt: r,
+          openOrigin: l,
+          errorSurface: o,
+          retryMetadata: s
+        }), i[31] = l, i[32] = o, i[33] = s, i[34] = g, i[35] = r, i[36] = a) : a = i[36], a
+      }
+      if ("string" == typeof g && (0, M.isSandboxFileUrl)(g)) {
+        let e, a;
+        i[37] !== g ? (e = (0, M.getWorkspaceFileUrlPath)(g), i[37] = g, i[38] = e) : e = i[38];
+        let r = e;
+        return i[39] !== l || i[40] !== r || i[41] !== o || i[42] !== g ? (a = g.startsWith("sandbox://") ? (0, t.jsx)(S.HatchSandboxFileCard, {
+          src: g,
+          openOrigin: l,
+          errorSurface: o
+        }) : null != r ? (0, t.jsx)(S.HatchSandboxFileCard, {
+          filePath: r,
+          openOrigin: l,
+          errorSurface: o
+        }) : null, i[39] = l, i[40] = r, i[41] = o, i[42] = g, i[43] = a) : a = i[43], a
+      }
+      let x = p ? d : void 0;
+      return i[44] !== c || i[45] !== h || i[46] !== C || i[47] !== e || i[48] !== x ? (n = (0, t.jsx)(Z.HatchMarkdownImage, {
+        ...e,
+        enableChatImageMenu: c,
+        messageId: C,
+        createdAt: h,
+        onReply: x
+      }), i[44] = c, i[45] = h, i[46] = C, i[47] = e, i[48] = x, i[49] = n) : n = i[49], n
+    }
+  };
+  e.s(["HatchMarkdownRenderer", 0, function({
+    content: e,
+    enableChatMediaMenu: a = !1,
+    messageId: i,
+    mediaCreatedAt: l,
+    onMediaReply: o,
+    className: s,
+    isStreaming: m = !1,
+    animated: g = !1,
+    artifactOpenOrigin: x,
+    htmlPreviewErrorSurface: k,
+    htmlPreviewRetryMetadata: S
+  }) {
+    let v = (0, d.useMcBool)("5e1fb489", !1),
+      H = (0, h.useHatchSaveCardEnabled)() && v,
+      w = (0, K.useHatchSettingsControl)(),
+      j = (0, r.useRef)(o);
+    j.current = o;
+    let M = null != o,
+      _ = (0, r.useCallback)(e => {
+        j.current?.(e)
+      }, []),
+      I = (0, r.useMemo)(() => ({
+        artifactOpenOrigin: x,
+        htmlPreviewErrorSurface: k,
+        htmlPreviewRetryMetadata: S,
+        enableChatMediaMenu: a,
+        handleMediaReply: _,
+        mediaCreatedAt: l,
+        isSaveCardEnabled: H,
+        mediaReplyEnabled: M,
+        messageId: i,
+        settingsControl: w
+      }), [x, k, S, a, _, l, H, M, i, w]),
+      P = (0, r.useRef)(new Map),
+      {
+        processedContent: A,
+        fallbackContent: R,
+        needsCode: E,
+        needsMath: T,
+        needsMermaid: N
+      } = (0, r.useMemo)(() => {
+        let t = e;
+        m ? t = (0, y.gateIncompleteBlocks)(t, P.current) : (t = (0, y.dedentCodeBlocks)(t), t = (0, b.normalizeLatexDelimiters)(t), P.current.clear());
+        let a = (0, b.applyGitHubMathRulesWithDetection)(t);
+        t = a.content, /\\(?:\(|\[)/.test(t) && (t = (0, b.latexDelimitersToRemarkMath)(t));
+        let r = (0, b.hasMermaidCodeFence)(t);
+        return {
+          processedContent: t,
+          fallbackContent: r ? (0, b.maskMermaidCodeFences)(a.maskedContent) : a.maskedContent,
+          needsCode: (0, b.hasFencedCodeBlock)(t),
+          needsMath: a.hasMath,
+          needsMermaid: r
+        }
+      }, [e, m]),
+      D = (0, r.useMemo)(() => ({
+        cjk: eC
+      }), []),
+      L = (0, r.useMemo)(() => m ? {
+        errorComponent: () => null
+      } : void 0, [m]),
+      U = m ? ep : ef,
+      F = (0, C.useDeferredMarkdownEnhancements)(A, R, E, T, N),
+      O = (e, a) => (0, t.jsx)(n.Streamdown, {
+        mode: m ? "streaming" : "static",
+        animated: g,
+        isAnimating: m,
+        className: "mb-6 flex flex-col gap-5",
+        components: eH,
+        plugins: a,
+        rehypePlugins: em,
+        remarkPlugins: ex,
+        shikiTheme: p.HATCH_SHIKI_THEMES,
+        controls: U,
+        mermaid: L,
+        children: e
+      }),
+      V = O(F.content, D),
+      B = O(F.fallbackContent, D);
+    return (0, t.jsxs)("div", {
+      dir: "auto",
+      className: (0, c.cn)("prose !text-[15px] !leading-[24px]", s),
+      "data-hatch-markdown-streaming": m ? "true" : "false",
+      children: [(0, t.jsx)(ey.Provider, {
+        value: I,
+        children: F.needsCode || F.needsMath || F.needsMermaid ? (0, t.jsx)(u.EctoErrorBoundary, {
+          surface: eh.HATCH_SENTRY_SURFACES.CHAT_MESSAGE,
+          fallback: () => V,
+          children: (0, t.jsx)(r.Suspense, {
+            fallback: (0, t.jsx)(f.HatchMarkdownEnhancementsFallback, {
+              children: B
+            }),
+            children: (0, t.jsx)(f.HatchLazyMarkdownPlugins, {
+              needsCode: F.needsCode,
+              needsMath: F.needsMath,
+              needsMermaid: F.needsMermaid,
+              children: e => O(F.content, {
+                ...D,
+                ...e
+              })
+            })
+          })
+        }) : V
+      }), (0, t.jsx)("div", {
+        className: "hidden bg-[var(--sdm-bg,inherit)] text-[var(--sdm-c,inherit)] dark:bg-[var(--shiki-dark-bg,var(--sdm-bg,inherit))] dark:text-[var(--shiki-dark,var(--sdm-c,inherit))]"
+      })]
+    })
+  }], 298066)
+}, 623740, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    r = e.i(519172),
+    n = e.i(345717),
+    i = e.i(374785),
+    l = e.i(176048),
+    o = e.i(832964),
+    s = e.i(441635),
+    c = e.i(509596),
+    d = e.i(993902),
+    u = e.i(258544),
+    h = e.i(437081),
+    m = e.i(52038),
+    f = e.i(508180),
+    p = e.i(384784),
+    C = e.i(840282),
+    g = e.i(341771);
+
+  function b(e) {
+    let r, n, i, l = (0, a.c)(18),
+      {
+        children: o,
+        sourceUrl: s,
+        mediaItem: c,
+        filename: d,
+        messageId: C,
+        createdAt: g,
+        onReply: b,
+        onDeleted: x
+      } = e,
+      {
+        gatewayUrl: y,
+        vmName: k
+      } = (0, m.useHatchServerData)(),
+      S = (0, p.useDeletedChatImageKeys)(),
+      v = k ?? y ?? "unscoped",
+      H = `message:${C}`,
+      w = c.path,
+      j = null != w && S.has((0, f.getDeletedChatImageKey)(v, H, w));
+    l[0] !== v || l[1] !== H || l[2] !== x ? (r = e => {
+      (0, f.markChatImageDeleted)(v, H, e.requestedPath), x()
+    }, l[0] = v, l[1] = H, l[2] = x, l[3] = r) : r = l[3];
+    let M = r;
+    l[4] !== M ? (n = {
+      origin: "chat_image_context_menu",
+      onDeleted: M
+    }, l[4] = M, l[5] = n) : n = l[5];
+    let {
+      requestDelete: _
+    } = (0, h.useHatchDeleteConfirmation)(n);
+    if (j) {
+      let e;
+      return l[6] !== g || l[7] !== C ? (e = (0, t.jsx)(u.HatchDeletedImageTombstone, {
+        className: "inline-flex size-[200px]",
+        messageId: C,
+        createdAt: g
+      }), l[6] = g, l[7] = C, l[8] = e) : e = l[8], e
+    }
+    let I = null != w ? _ : void 0;
+    return l[9] !== o || l[10] !== g || l[11] !== d || l[12] !== c || l[13] !== C || l[14] !== b || l[15] !== s || l[16] !== I ? (i = (0, t.jsx)(u.HatchChatImageContextMenu, {
+      sourceUrl: s,
+      mediaItem: c,
+      filename: d,
+      messageId: C,
+      createdAt: g,
+      onReply: b,
+      onDelete: I,
+      children: o
+    }), l[9] = o, l[10] = g, l[11] = d, l[12] = c, l[13] = C, l[14] = b, l[15] = s, l[16] = I, l[17] = i) : i = l[17], i
+  }
+  e.s(["HatchMarkdownImage", 0, function(e) {
+    let h, m, f, p, x, y, k, S, v, H, w, j, M, _, I, P, A, R, E, T, N = (0, a.c)(61);
+    if (N[0] !== e) {
+      let {
+        node: t,
+        className: a,
+        src: r,
+        alt: n,
+        enableChatImageMenu: i,
+        messageId: l,
+        createdAt: o,
+        onReply: s,
+        ...c
+      } = e;
+      m = a, k = r, h = n, S = i, p = l, f = o, x = s, y = c, N[0] = e, N[1] = h, N[2] = m, N[3] = f, N[4] = p, N[5] = x, N[6] = y, N[7] = k, N[8] = S
+    } else h = N[1], m = N[2], f = N[3], p = N[4], x = N[5], y = N[6], k = N[7], S = N[8];
+    let D = void 0 !== S && S,
+      L = "string" == typeof k ? k : void 0,
+      [U, F] = (0, r.useState)(!1),
+      O = (0, r.useRef)(null),
+      {
+        loadState: V,
+        resolvedSrc: B,
+        mediaItem: z,
+        handleLoad: W,
+        handleError: K
+      } = (0, d.useHatchMarkdownImageState)(L, !0),
+      G = "ready" === V && null != z,
+      {
+        dimensions: Z,
+        rememberDimensions: $
+      } = (0, g.useHatchImageDimensions)(B);
+    N[9] !== Z ? (v = (0, g.containedImageFrameStyle)(Z, 200, 200), N[9] = Z, N[10] = v) : v = N[10];
+    let q = v;
+    N[11] !== W || N[12] !== $ ? (H = () => {
+      let e = O.current?.querySelector("img");
+      null != e && e.naturalWidth > 0 && ($(e), W())
+    }, N[11] = W, N[12] = $, N[13] = H) : H = N[13];
+    let Q = H;
+    N[14] !== W || N[15] !== $ ? (w = e => {
+      $(e.currentTarget), W()
+    }, N[14] = W, N[15] = $, N[16] = w) : w = N[16];
+    let Y = w;
+    N[17] !== h ? (j = "string" == typeof h && h.trim().length > 0 ? n.fbs._("Open image {imageDescription}", [n.fbs._param("imageDescription", h.trim())], {
+      hk: "48I0mv"
+    }) : n.fbs._("Open image", null, {
+      hk: "37Rb2k"
+    }), N[17] = h, N[18] = j) : j = N[18];
+    let J = j;
+    if ("failed" === V) {
+      let e;
+      return N[19] !== f || N[20] !== D || N[21] !== p ? (e = (0, t.jsx)("span", {
+        className: "inline-block size-[200px] p-2.5",
+        children: (0, t.jsx)(c.HatchMarkdownImageNotFoundTile, {
+          variant: "single",
+          enableChatImageMenu: D,
+          messageId: p,
+          createdAt: f
+        })
+      }), N[19] = f, N[20] = D, N[21] = p, N[22] = e) : e = N[22], e
+    }
+    let X = G && "cursor-pointer hover:scale-[1.03]";
+    N[23] !== X ? (M = (0, i.cn)("rounded-22 group relative inline-flex max-w-full appearance-none items-center justify-center overflow-hidden border-0 bg-transparent p-0 text-inherit transition-transform duration-150 ease-out", X), N[23] = X, N[24] = M) : M = N[24];
+    let ee = !G;
+    N[25] !== G ? (_ = e => {
+      e.stopPropagation(), (0, C.handleContextMenuTriggerClick)(e, () => {
+        G && F(!0)
+      })
+    }, N[25] = G, N[26] = _) : _ = N[26], N[27] !== V ? (I = "loading" === V && (0, t.jsx)("span", {
+      className: "absolute inset-0 z-20 flex items-center justify-center p-2.5",
+      children: (0, t.jsx)(o.Skeleton, {
+        as: "span",
+        className: "rounded-22 inline-block size-[180px] bg-black/5 dark:bg-white/5"
+      })
+    }), N[27] = V, N[28] = I) : I = N[28], N[29] !== h || N[30] !== m || N[31] !== K || N[32] !== Y || N[33] !== Q || N[34] !== y || N[35] !== B || N[36] !== k ? (P = B ? (0, t.jsx)(l.EctoGracefulImage, {
+      alt: h,
+      className: (0, i.cn)("rounded-22 outline-media-protection-border absolute inset-0 z-10 h-full w-full object-contain outline-[0.5px] -outline-offset-[0.5px]", m),
+      "data-streamdown": "image",
+      "data-original-src": "string" == typeof k ? k : void 0,
+      src: B,
+      loading: "lazy",
+      fade: !1,
+      onReady: Q,
+      onLoad: Y,
+      onError: K,
+      ...y
+    }, B) : null, N[29] = h, N[30] = m, N[31] = K, N[32] = Y, N[33] = Q, N[34] = y, N[35] = B, N[36] = k, N[37] = P) : P = N[37], N[38] !== J || N[39] !== q || N[40] !== I || N[41] !== P || N[42] !== M || N[43] !== ee || N[44] !== _ ? (A = (0, t.jsxs)("button", {
+      ref: O,
+      type: "button",
+      "aria-label": J,
+      className: M,
+      style: q,
+      disabled: ee,
+      "data-streamdown": "image-wrapper",
+      onClick: _,
+      children: [I, P]
+    }), N[38] = J, N[39] = q, N[40] = I, N[41] = P, N[42] = M, N[43] = ee, N[44] = _, N[45] = A) : A = N[45];
+    let et = A;
+    return N[46] !== h || N[47] !== f || N[48] !== D || N[49] !== et || N[50] !== z || N[51] !== p || N[52] !== x || N[53] !== B ? (R = D && null != B && null != z ? null != p ? (0, t.jsx)(b, {
+      sourceUrl: B,
+      mediaItem: z,
+      filename: z.filename ?? ("string" == typeof h ? h : "image"),
+      messageId: p,
+      createdAt: f,
+      onReply: x,
+      onDeleted: () => F(!1),
+      children: et
+    }) : (0, t.jsx)(u.HatchChatImageContextMenu, {
+      sourceUrl: B,
+      mediaItem: z,
+      filename: z.filename ?? ("string" == typeof h ? h : "image"),
+      messageId: p,
+      createdAt: f,
+      onReply: x,
+      children: et
+    }) : et, N[46] = h, N[47] = f, N[48] = D, N[49] = et, N[50] = z, N[51] = p, N[52] = x, N[53] = B, N[54] = R) : R = N[54], N[55] !== U || N[56] !== z ? (E = null != z && (0, t.jsx)(s.HatchMediaLightbox, {
+      items: [z],
+      open: U,
+      onOpenChange: F
+    }), N[55] = U, N[56] = z, N[57] = E) : E = N[57], N[58] !== R || N[59] !== E ? (T = (0, t.jsxs)(t.Fragment, {
+      children: [R, E]
+    }), N[58] = R, N[59] = E, N[60] = T) : T = N[60], T
+  }])
+}, 509596, 993902, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    r = e.i(848048),
+    n = e.i(823173),
+    i = e.i(374785),
+    l = e.i(74894),
+    o = e.i(258544);
+  e.s(["HatchMarkdownImageNotFoundTile", 0, function(e) {
+    let s, c, d, u, h = (0, a.c)(12),
+      {
+        variant: m,
+        enableChatImageMenu: f,
+        className: p,
+        messageId: C,
+        createdAt: g
+      } = e,
+      b = void 0 !== f && f;
+    h[0] !== m ? (s = {
+      eventName: n.HatchImpressionEvent.MARKDOWN_IMAGE_NOT_FOUND_IMPRESSION,
+      actionTarget: "markdown_image_not_found",
+      metadata: {
+        surface: "hatch_markdown",
+        variant: m
+      }
+    }, h[0] = m, h[1] = s) : s = h[1], h[2] === Symbol.for("react.memo_cache_sentinel") ? (c = {
+      threshold: "50%"
+    }, h[2] = c) : c = h[2];
+    let {
+      ref: x
+    } = (0, r.useTrackedImpressionRef)(s, c), y = "grid" === m ? "px-3 py-4" : "px-4 py-5";
+    return h[3] !== p || h[4] !== y ? (d = (0, i.cn)(l.HATCH_IMAGE_GRID_RADIUS, "h-full w-full", y, p), h[3] = p, h[4] = y, h[5] = d) : d = h[5], h[6] !== g || h[7] !== b || h[8] !== C || h[9] !== x || h[10] !== d ? (u = (0, t.jsx)(o.HatchUnavailableMediaTile, {
+      kind: "image",
+      enableContextMenu: b,
+      messageId: C,
+      createdAt: g,
+      containerRef: x,
+      className: d,
+      testId: "chat-image-not-found"
+    }), h[6] = g, h[7] = b, h[8] = C, h[9] = x, h[10] = d, h[11] = u) : u = h[11], u
+  }], 509596);
+  var s = e.i(519172),
+    c = e.i(539522),
+    d = e.i(91521),
+    u = e.i(921192),
+    h = e.i(791661),
+    m = e.i(926250),
+    f = e.i(185576),
+    p = e.i(546211);
+  e.s(["useHatchMarkdownImageState", 0, function(e, t) {
+    let r, n, i, l, o, C, g, b, x, y, k, S = (0, a.c)(55),
+      v = void 0 !== t && t,
+      {
+        data: H
+      } = (0, h.useHatchSpacesQuery)();
+    S[0] !== H ? (r = void 0 === H ? [] : H, S[0] = H, S[1] = r) : r = S[1];
+    let w = r;
+    S[2] !== w ? (n = (0, f.buildSpaceIconSrcBySlug)(w), S[2] = w, S[3] = n) : n = S[3];
+    let j = n;
+    S[4] === Symbol.for("react.memo_cache_sentinel") ? (i = {
+      resolvedSrc: null,
+      loadState: "loading"
+    }, S[4] = i) : i = S[4];
+    let [M, _] = (0, s.useState)(i);
+    S[5] !== j || S[6] !== e ? (l = (0, f.resolveCanonicalSpaceIconSrcBySlug)(e ?? null, j), o = (0, c.resolveLocalImagePath)(l), S[5] = j, S[6] = e, S[7] = l, S[8] = o) : (l = S[7], o = S[8]);
+    let I = o,
+      P = (0, p.useHatchMessageMediaResource)(e ?? null, "image"),
+      A = (0, p.useHatchMessageMediaResource)(l, "image"),
+      R = P ?? A;
+    S[9] !== I || S[10] !== R || S[11] !== l || S[12] !== v ? (C = {
+      sourceUrl: l,
+      sourcePathUrlEncoded: v,
+      filePath: I,
+      filePathUrlEncoded: v,
+      media: R,
+      usage: "thumbnail"
+    }, S[9] = I, S[10] = R, S[11] = l, S[12] = v, S[13] = C) : C = S[13];
+    let E = (0, m.useResolvedHatchImageMedia)(C);
+    S[14] !== E.src || S[15] !== R || S[16] !== l || S[17] !== v || S[18] !== e ? (g = null != e ? (0, d.markdownImageToMediaItem)(l ?? e, R, E.src, {
+      sourcePathUrlEncoded: v
+    }) : null, S[14] = E.src, S[15] = R, S[16] = l, S[17] = v, S[18] = e, S[19] = g) : g = S[19];
+    let T = g;
+    if (S[20] !== T) {
+      let e = (0, d.getHatchMediaItemRenderSrc)(T, "thumbnail");
+      b = null != e ? (0, u.proxyExternalImageUrl)(e) : null, S[20] = T, S[21] = b
+    } else b = S[21];
+    let N = b;
+    S[22] !== N ? (x = () => {
+      null != N && _(e => e.resolvedSrc === N && "loading" !== e.loadState ? e : {
+        resolvedSrc: N,
+        loadState: "ready"
+      })
+    }, S[22] = N, S[23] = x) : x = S[23];
+    let D = x;
+    S[24] !== N ? (y = e => {
+      _({
+        resolvedSrc: N,
+        loadState: "failed"
+      })
+    }, S[24] = N, S[25] = y) : y = S[25];
+    let L = y;
+    if (!e) {
+      let e;
+      return S[26] !== L || S[27] !== D ? (e = {
+        loadState: "failed",
+        resolvedSrc: null,
+        mediaItem: null,
+        handleLoad: D,
+        handleError: L
+      }, S[26] = L, S[27] = D, S[28] = e) : e = S[28], e
+    }
+    if ("failed" === E.resolutionStatus) {
+      let e;
+      return S[29] !== L || S[30] !== D || S[31] !== T || S[32] !== N ? (e = {
+        loadState: "failed",
+        resolvedSrc: N,
+        mediaItem: T,
+        handleLoad: D,
+        handleError: L
+      }, S[29] = L, S[30] = D, S[31] = T, S[32] = N, S[33] = e) : e = S[33], e
+    }
+    if (null == N) {
+      let e;
+      if ("loading" === E.resolutionStatus) {
+        let e;
+        return S[34] !== L || S[35] !== D || S[36] !== T || S[37] !== N ? (e = {
+          loadState: "loading",
+          resolvedSrc: N,
+          mediaItem: T,
+          handleLoad: D,
+          handleError: L
+        }, S[34] = L, S[35] = D, S[36] = T, S[37] = N, S[38] = e) : e = S[38], e
+      }
+      return S[39] !== L || S[40] !== D || S[41] !== T || S[42] !== N ? (e = {
+        loadState: "failed",
+        resolvedSrc: N,
+        mediaItem: T,
+        handleLoad: D,
+        handleError: L
+      }, S[39] = L, S[40] = D, S[41] = T, S[42] = N, S[43] = e) : e = S[43], e
+    }
+    let U = M.resolvedSrc === N ? M.loadState : "loading";
+    if ("failed" === U) {
+      let e;
+      return S[44] !== L || S[45] !== D || S[46] !== T || S[47] !== N ? (e = {
+        loadState: "failed",
+        resolvedSrc: N,
+        mediaItem: T,
+        handleLoad: D,
+        handleError: L
+      }, S[44] = L, S[45] = D, S[46] = T, S[47] = N, S[48] = e) : e = S[48], e
+    }
+    let F = "ready" === U ? "ready" : "loading";
+    return S[49] !== L || S[50] !== D || S[51] !== T || S[52] !== N || S[53] !== F ? (k = {
+      loadState: F,
+      resolvedSrc: N,
+      mediaItem: T,
+      handleLoad: D,
+      handleError: L
+    }, S[49] = L, S[50] = D, S[51] = T, S[52] = N, S[53] = F, S[54] = k) : k = S[54], k
+  }], 993902)
+}, 750386, e => {
+  "use strict";
+  let {
+    write: t,
+    useValue: a
+  } = (0, e.i(270727).createDebugBoolToggle)("hatch:debug:save-card-enabled", {
+    changeEvent: "hatch:save-card-enabled-change"
+  });
+  e.s(["useHatchSaveCardEnabled", 0, a, "writeSaveCardEnabled", 0, t])
+}, 847126, e => {
+  "use strict";
+  var t = e.i(648094);
+  async function a(e, t, a) {
+    let r = await e.exportPdf(t, a);
+    if (!r.ok) throw r.error;
+    return r.data
+  }
+  async function r(e, r, n) {
+    let i, l, o = await a(e, r);
+    (0, t.triggerBlobDownload)((l = (i = n.lastIndexOf(".")) > 0 ? n.slice(0, i) : n, `${l}.pdf`), o)
+  }
+
+  function n(e) {
+    return "application/pdf" === e.type ? e : e.slice(0, e.size, "application/pdf")
+  }
+
+  function i() {
+    return new DOMException("Print aborted", "AbortError")
+  }
+  let l = null;
+
+  function o() {
+    null != l && (l.iframe.remove(), URL.revokeObjectURL(l.url), l = null)
+  }
+  let s = null;
+
+  function c() {
+    null != s && (URL.revokeObjectURL(s), s = null)
+  }
+  e.s(["PRINT_BLOCKING_THRESHOLD_MS", 0, 500, "createPrintTabUrl", 0, function(e) {
+    let t = URL.createObjectURL(n(e));
+    return c(), s = t, t
+  }, "disposePrintFrame", 0, o, "exportMarkdownPdfBlob", 0, a, "exportMarkdownToPdf", 0, r, "preparePdfPrintFrame", 0, function(e, t) {
+    o();
+    let {
+      signal: a
+    } = t;
+    if (a.aborted) return Promise.reject(i());
+    let r = URL.createObjectURL(n(e)),
+      s = document.createElement("iframe");
+    s.setAttribute("aria-hidden", "true"), s.tabIndex = -1, s.style.position = "fixed", s.style.width = "0", s.style.height = "0", s.style.border = "0", s.style.visibility = "hidden";
+    let c = {
+      iframe: s,
+      url: r
+    };
+    return l = c, new Promise((e, n) => {
+      let d = () => {
+          l === c && o()
+        },
+        u = () => {
+          d(), n(i())
+        };
+      a.addEventListener("abort", u, {
+        once: !0
+      }), s.addEventListener("load", () => {
+        a.removeEventListener("abort", u);
+        let r = !1;
+        e(() => {
+          if (r || a.aborted) return;
+          r = !0;
+          let e = s.contentWindow;
+          if (null == e) throw Error("Print frame has no window");
+          let n = performance.now();
+          e.focus(), e.print(), t.onPrintReturned?.(performance.now() - n)
+        })
+      }, {
+        once: !0
+      }), s.addEventListener("error", () => {
+        a.removeEventListener("abort", u), d(), n(Error("Print frame failed to load"))
+      }, {
+        once: !0
+      }), s.src = r, document.body.appendChild(s)
+    })
+  }, "printStrategyForUserAgent", 0, function(e) {
+    switch (e?.engine.name?.toLowerCase()) {
+      case "blink":
+      case "webkit":
+        return "iframe";
+      default:
+        return "tab"
+    }
+  }, "revokePrintTabUrl", 0, c])
+}, 165580, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    r = e.i(239286),
+    n = e.i(848048),
+    i = e.i(281539),
+    l = e.i(499608),
+    o = e.i(120511);
+
+  function s(e) {
+    return e.stopPropagation()
+  }
+
+  function c(e) {
+    return e.stopPropagation()
+  }
+  e.s(["HatchAudioSandboxPreview", 0, function(e) {
+    let d, u, h, m = (0, a.c)(8),
+      {
+        relativePath: f,
+        filename: p
+      } = e;
+    m[0] !== p ? (d = (0, o.getMimeType)(p), m[0] = p, m[1] = d) : d = m[1];
+    let C = d,
+      {
+        data: g,
+        isLoading: b
+      } = (0, l.useRawQuery)(f),
+      x = (0, l.useBlobUrl)(g, C),
+      y = (0, n.useInteractionLoggerWithLazyData)();
+    m[2] !== y ? (u = () => {
+      y({
+        eventName: i.HatchClickEvent.AUDIO_PLAY,
+        actionTarget: "sandbox_audio_player",
+        actionType: "click",
+        metadata: {
+          surface: "chat"
+        }
+      })
+    }, m[2] = y, m[3] = u) : u = m[3];
+    let k = u;
+    if (b) {
+      let e;
+      return m[4] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)("span", {
+        className: "flex justify-center px-3 pb-3",
+        children: (0, t.jsx)(r.Spinner, {
+          size: 16
+        })
+      }), m[4] = e) : e = m[4], e
+    }
+    return x ? (m[5] !== x || m[6] !== k ? (h = (0, t.jsx)("span", {
+      className: "flex px-3 pb-3",
+      onClick: c,
+      onKeyDown: s,
+      children: (0, t.jsx)("audio", {
+        controls: !0,
+        src: x,
+        preload: "metadata",
+        className: "w-full",
+        onPlay: k
+      })
+    }), m[5] = x, m[6] = k, m[7] = h) : h = m[7], h) : null
+  }])
+}, 570730, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function r(e) {
+    let r, n, i, l, o, s, c = (0, a.c)(11);
+    return c[0] !== e.title ? (r = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), c[0] = e.title, c[1] = r) : r = c[1], c[2] !== e.children ? (n = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), c[2] = e.children, c[3] = n) : n = c[3], c[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      d: "M16 17.25C16.41 17.25 16.75 17.59 16.75 18C16.75 18.41 16.41 18.75 16 18.75H8C7.59 18.75 7.25 18.41 7.25 18C7.25 17.59 7.59 17.25 8 17.25H16Z"
+    }), l = (0, t.jsx)("path", {
+      d: "M14 13.25C14.41 13.25 14.75 13.59 14.75 14C14.75 14.41 14.41 14.75 14 14.75H8C7.59 14.75 7.25 14.41 7.25 14C7.25 13.59 7.59 13.25 8 13.25H14Z"
+    }), o = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M11.06 0.13C11.91 0.14 12.52 0.17 13.12 0.32C13.82 0.48 14.49 0.76 15.11 1.14C15.82 1.58 16.42 2.19 17.43 3.19L18.81 4.57C19.81 5.58 20.42 6.18 20.86 6.89C21.24 7.51 21.52 8.18 21.68 8.88C21.83 9.48 21.86 10.09 21.87 10.94C21.87 10.96 21.88 10.98 21.88 11V16.6C21.88 17.71 21.88 18.59 21.82 19.3C21.76 20.02 21.63 20.64 21.34 21.21C20.88 22.13 20.13 22.88 19.21 23.34C18.64 23.63 18.02 23.76 17.3 23.82C16.59 23.88 15.71 23.88 14.6 23.88H9.4C8.29 23.88 7.41 23.88 6.7 23.82C5.98 23.76 5.36 23.63 4.79 23.34C3.87 22.88 3.12 22.13 2.66 21.21C2.37 20.64 2.24 20.02 2.18 19.3C2.12 18.59 2.13 17.71 2.13 16.6V7.4C2.13 6.29 2.12 5.41 2.18 4.7C2.24 3.98 2.37 3.36 2.66 2.79C3.12 1.87 3.87 1.12 4.79 0.66C5.36 0.37 5.98 0.24 6.7 0.18C7.41 0.12 8.29 0.13 9.4 0.13H11C11.02 0.13 11.04 0.13 11.06 0.13ZM9.4 1.88C8.27 1.88 7.47 1.88 6.84 1.93C6.23 1.98 5.86 2.07 5.58 2.22C4.99 2.52 4.52 2.99 4.22 3.58C4.07 3.86 3.98 4.23 3.93 4.84C3.88 5.47 3.88 6.27 3.88 7.4V16.6C3.88 17.73 3.88 18.53 3.93 19.16C3.98 19.77 4.07 20.14 4.22 20.42C4.52 21.01 4.99 21.48 5.58 21.78C5.86 21.93 6.23 22.02 6.84 22.07C7.47 22.12 8.27 22.13 9.4 22.13H14.6C15.73 22.13 16.53 22.12 17.16 22.07C17.77 22.02 18.14 21.93 18.42 21.78C19.01 21.48 19.48 21.01 19.78 20.42C19.93 20.14 20.02 19.77 20.07 19.16C20.12 18.53 20.13 17.73 20.13 16.6V11.98C20.13 11.55 20.12 11.19 20.12 10.88C20.06 10.32 19.58 9.88 19 9.88H16C13.86 9.88 12.13 8.14 12.13 6V3C12.13 2.41 11.68 1.93 11.1 1.88C10.8 1.88 10.45 1.88 10.02 1.88H9.4ZM13.82 2.42C13.85 2.61 13.88 2.8 13.88 3V6C13.88 7.17 14.83 8.13 16 8.13H19C19.2 8.13 19.39 8.14 19.58 8.18C19.51 8.05 19.44 7.93 19.37 7.81C19.07 7.31 18.64 6.87 17.57 5.81L16.19 4.43C15.13 3.36 14.69 2.93 14.19 2.63C14.07 2.55 13.94 2.49 13.82 2.42Z"
+    }), c[4] = i, c[5] = l, c[6] = o) : (i = c[4], l = c[5], o = c[6]), c[7] !== e || c[8] !== r || c[9] !== n ? (s = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [r, n, i, l, o]
+    }), c[7] = e, c[8] = r, c[9] = n, c[10] = s) : s = c[10], s
+  }
+  r._isSVG = !0, e.s(["default", 0, r])
+}, 357820, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function r(e) {
+    let r, n, i, l, o, s, c, d = (0, a.c)(12);
+    return d[0] !== e.title ? (r = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), d[0] = e.title, d[1] = r) : r = d[1], d[2] !== e.children ? (n = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), d[2] = e.children, d[3] = n) : n = d[3], d[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M11.06 0.13C11.91 0.14 12.52 0.17 13.12 0.32C13.82 0.48 14.49 0.76 15.11 1.14C15.82 1.58 16.42 2.19 17.43 3.19L18.81 4.57C19.81 5.58 20.42 6.18 20.86 6.89C21.24 7.51 21.52 8.18 21.68 8.88C21.83 9.48 21.86 10.09 21.87 10.94C21.87 10.96 21.88 10.98 21.88 11V16.6C21.88 17.71 21.88 18.59 21.82 19.3C21.76 20.02 21.63 20.64 21.34 21.21C20.88 22.13 20.13 22.88 19.21 23.34C18.64 23.63 18.02 23.76 17.3 23.82C16.59 23.88 15.71 23.88 14.6 23.88H9.4C8.29 23.88 7.41 23.88 6.7 23.82C5.98 23.76 5.36 23.63 4.79 23.34C3.87 22.88 3.12 22.13 2.66 21.21C2.46 20.84 2.35 20.44 2.27 20H4.06C4.1 20.16 4.15 20.3 4.22 20.42C4.52 21.01 4.99 21.48 5.58 21.78C5.86 21.93 6.23 22.02 6.84 22.07C7.47 22.12 8.27 22.13 9.4 22.13H14.6C15.73 22.13 16.53 22.12 17.16 22.07C17.77 22.02 18.14 21.93 18.42 21.78C19.01 21.48 19.48 21.01 19.78 20.42C19.93 20.14 20.02 19.77 20.07 19.16C20.12 18.53 20.13 17.73 20.13 16.6V11.98C20.13 11.55 20.12 11.19 20.12 10.88C20.06 10.32 19.58 9.88 19 9.88H16C13.86 9.88 12.13 8.14 12.13 6V3C12.13 2.41 11.68 1.93 11.1 1.88C10.8 1.88 10.45 1.88 10.02 1.88H9.4C8.27 1.88 7.47 1.88 6.84 1.93C6.23 1.98 5.86 2.07 5.58 2.22C4.99 2.52 4.52 2.99 4.22 3.58C4.07 3.86 3.98 4.23 3.93 4.84C3.88 5.47 3.88 6.27 3.88 7.4V10H2.13V7.4C2.13 6.29 2.12 5.41 2.18 4.7C2.24 3.98 2.37 3.36 2.66 2.79C3.12 1.87 3.87 1.12 4.79 0.66C5.36 0.37 5.98 0.24 6.7 0.18C7.41 0.12 8.29 0.13 9.4 0.13H11C11.02 0.13 11.04 0.13 11.06 0.13ZM13.82 2.42C13.85 2.61 13.88 2.8 13.88 3V6C13.88 7.17 14.83 8.13 16 8.13H19C19.2 8.13 19.39 8.14 19.58 8.18C19.51 8.06 19.44 7.93 19.37 7.81C19.07 7.31 18.64 6.87 17.57 5.81L16.19 4.43C15.13 3.36 14.69 2.93 14.19 2.63C14.07 2.55 13.94 2.49 13.82 2.42Z"
+    }), l = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M4.49 12C4.97 12 5.38 12.08 5.72 12.24C6.05 12.4 6.31 12.63 6.49 12.94C6.66 13.25 6.75 13.62 6.75 14.06C6.75 14.72 6.55 15.22 6.16 15.58C5.77 15.94 5.21 16.12 4.49 16.12H3.25V17.55C3.25 17.83 3.02 18.05 2.75 18.05H2.5C2.22 18.05 2 17.83 2 17.55V12.5C2 12.22 2.22 12 2.5 12H4.49ZM3.25 15.07H4.36C4.73 15.07 5.01 14.99 5.19 14.82C5.38 14.66 5.47 14.4 5.47 14.06C5.47 13.72 5.38 13.46 5.19 13.3C5.01 13.13 4.73 13.05 4.36 13.05H3.25V15.07Z"
+    }), o = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M10.06 12C10.7 12 11.25 12.13 11.71 12.39C12.17 12.65 12.53 13.01 12.78 13.46C13.03 13.92 13.15 14.44 13.15 15.03C13.15 15.61 13.03 16.13 12.78 16.59C12.53 17.04 12.17 17.4 11.71 17.66C11.25 17.92 10.7 18.05 10.06 18.05H8.26C7.99 18.05 7.76 17.83 7.76 17.55V12.5C7.76 12.22 7.99 12 8.26 12H10.06ZM9.02 16.99H10.05C10.43 16.99 10.76 16.91 11.02 16.75C11.29 16.58 11.5 16.35 11.65 16.06C11.79 15.76 11.87 15.42 11.87 15.03C11.87 14.63 11.79 14.28 11.65 13.99C11.5 13.7 11.29 13.47 11.02 13.31C10.76 13.15 10.43 13.06 10.05 13.06H9.02V16.99Z"
+    }), s = (0, t.jsx)("path", {
+      d: "M17.94 12C18.22 12 18.44 12.22 18.44 12.5V12.55C18.44 12.82 18.22 13.05 17.94 13.05H15.5V14.67H17.39C17.67 14.67 17.89 14.89 17.89 15.17V15.21C17.89 15.49 17.67 15.71 17.39 15.71H15.5V17.55C15.5 17.83 15.28 18.05 15 18.05H14.75C14.48 18.05 14.25 17.83 14.25 17.55V12.5C14.25 12.22 14.48 12 14.75 12H17.94Z"
+    }), d[4] = i, d[5] = l, d[6] = o, d[7] = s) : (i = d[4], l = d[5], o = d[6], s = d[7]), d[8] !== e || d[9] !== r || d[10] !== n ? (c = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [r, n, i, l, o, s]
+    }), d[8] = e, d[9] = r, d[10] = n, d[11] = c) : c = d[11], c
+  }
+  r._isSVG = !0, e.s(["default", 0, r])
+}]);
+
+//# debugId=cf840a9a-6a61-1e88-b681-f88f4bbab6ae
+//# sourceMappingURL=0swew5ceo5w48.js.map

@@ -1,0 +1,7212 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "fc64cdd1-5c7e-fa94-642a-36742162448a")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 922878, 27269, 916960, 123162, 266571, 459544, e => {
+  "use strict";
+  var t = e.i(863641);
+
+  function r(e) {
+    let t;
+    try {
+      t = new URL(e)
+    } catch {
+      return null
+    }
+    if ("hatch:" !== t.protocol.toLowerCase() || "devices" !== t.hostname.toLowerCase()) return null;
+    let r = t.pathname.split("/").filter(e => e.length > 0);
+    if (2 !== r.length || "invoke" !== r[0]) return null;
+    let a = r[1] ?? "";
+    if (0 === a.trim().length) return null;
+    let i = {};
+    for (let [e, r] of t.searchParams) i[e] = function(e) {
+      let t = e.toLowerCase();
+      if ("true" === t) return !0;
+      if ("false" === t) return !1;
+      if (/^-?\d+$/.test(e)) {
+        let t = Number(e);
+        if (Number.isSafeInteger(t)) return t
+      }
+      if (n.test(e)) {
+        let t = Number(e);
+        if (Number.isFinite(t)) return t
+      }
+      return e
+    }(r);
+    return {
+      command: a,
+      params: 0 === Object.keys(i).length ? null : i
+    }
+  }
+  let n = /^[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?$/;
+  e.s(["parseDevicesInvokeURL", 0, r], 27269);
+  var a = e.i(281539);
+  let i = {
+      "subscriptions.upgrade": {
+        generalSubView: "plans",
+        eventName: a.HatchClickEvent.STATUS_LIMIT_REACHED_UPGRADE_CLICK,
+        actionTarget: "status_limit_reached_upgrade_link",
+        ctaAction: "open_plans"
+      },
+      "subscriptions.topup": {
+        generalSubView: "buy_credits",
+        eventName: a.HatchClickEvent.STATUS_LIMIT_REACHED_BUY_USAGE_CLICK,
+        actionTarget: "status_limit_reached_buy_usage_link",
+        ctaAction: "open_buy_usage"
+      }
+    },
+    s = new Set(Object.keys(i)),
+    l = new Set;
+
+  function o(e, r) {
+    l.has(e) || (l.add(e), (0, t.captureHatchMessage)(t.HATCH_SENTRY_SURFACES.CHAT_FEED, "out-of-usage status CTA was unusable and no link was rendered", {
+      level: "warning",
+      tags: {
+        reason: e
+      },
+      ...null != r ? {
+        extra: {
+          command: r
+        }
+      } : {}
+    }))
+  }
+  e.s(["OUT_OF_USAGE_CTA_DESTINATIONS", 0, i, "parseOutOfUsageCta", 0, function(e) {
+    var t;
+    if (null == e) return null;
+    let n = "string" == typeof e.label ? e.label.trim() : "";
+    if (0 === n.length) return o("label_missing"), null;
+    let a = "string" == typeof e.url ? r(e.url)?.command ?? null : null;
+    return null == a ? (o("url_unparseable"), null) : (t = a, s.has(t)) ? {
+      command: a,
+      label: n
+    } : (o("command_unsupported", a), null)
+  }], 922878);
+  var u = e.i(984416),
+    c = e.i(722099),
+    d = e.i(519172),
+    g = e.i(885462),
+    h = e.i(845558),
+    p = e.i(666750),
+    m = e.i(175286),
+    f = e.i(941748),
+    y = e.i(816042),
+    _ = e.i(359783),
+    S = e.i(871157);
+  let v = (0, _.createClientLogger)("HatchVmUpdatingRecovery");
+
+  function C(e) {
+    return "SUSPENDED" === e || "UPDATING" === e
+  }
+  let I = (0, d.createContext)(null);
+
+  function T(e, t, r) {
+    let n, a, i, s, l, o = (0, c.c)(12);
+    o[0] !== e || o[1] !== r || o[2] !== t ? (n = () => ({
+      scope: t,
+      deadline: e ? Date.now() + r : null,
+      expired: !1
+    }), o[0] = e, o[1] = r, o[2] = t, o[3] = n) : n = o[3];
+    let [u, h] = (0, d.useState)(n);
+    return o[4] !== e || o[5] !== r || o[6] !== t ? (a = () => {
+      h(n => n.scope === t && null != n.deadline === e ? n : {
+        scope: t,
+        deadline: e ? Date.now() + r : null,
+        expired: !1
+      })
+    }, i = [e, r, t], o[4] = e, o[5] = r, o[6] = t, o[7] = a, o[8] = i) : (a = o[7], i = o[8]), (0, d.useEffect)(a, i), o[9] !== u ? (s = () => {
+      let e = u.deadline;
+      if (null == e || u.expired) return;
+      let t = Math.max(0, e - Date.now()),
+        r = () => h(e => e === u ? {
+          ...e,
+          expired: !0
+        } : e);
+      if (0 === t) return void r();
+      let n = AbortSignal.timeout(t);
+      n.addEventListener("abort", r, {
+        once: !0
+      });
+      let a = (0, g.subscribeToPageLifecycle)(t => {
+        "resume" === t.type && Date.now() >= e && r()
+      });
+      return () => {
+        n.removeEventListener("abort", r), a()
+      }
+    }, l = [u], o[9] = u, o[10] = s, o[11] = l) : (s = o[10], l = o[11]), (0, d.useEffect)(s, l), e && u.scope === t && u.expired
+  }
+
+  function A(e) {
+    return e + 1
+  }
+
+  function R(e) {
+    return e + 1
+  }
+  e.s(["HatchChatRecoveryProvider", 0, function(e) {
+    let t, r, n, a, i, s, l, o, _, b = (0, c.c)(27),
+      {
+        children: w,
+        enabled: E,
+        ready: k,
+        error: H,
+        scopeKey: x
+      } = e,
+      {
+        phase: M,
+        reason: N
+      } = (0, p.useHatchConnection)(),
+      {
+        connectionState: P,
+        onEvent: O
+      } = (0, m.useHatchRpc)(),
+      {
+        target: B,
+        refreshRevision: q,
+        connectionState: D
+      } = (0, f.useHatchVmLifecycle)(),
+      F = (0, f.useHatchVmUpdating)(),
+      L = (0, h.useRisingEdgeCount)(k),
+      [K, U] = (0, d.useState)(0);
+    b[0] !== k || b[1] !== x ? (t = {
+      scope: x,
+      hasBeenReady: k
+    }, b[0] = k, b[1] = x, b[2] = t) : t = b[2];
+    let [j, z] = (0, d.useState)(t), V = j.scope === x, G = k || V && j.hasBeenReady;
+    V && j.hasBeenReady === G || z({
+      scope: x,
+      hasBeenReady: G
+    });
+    let $ = (0, d.useRef)(!1);
+    b[3] === Symbol.for("react.memo_cache_sentinel") ? (r = () => {
+      $.current = !1
+    }, b[3] = r) : r = b[3], b[4] !== L || b[5] !== x ? (n = [L, x], b[4] = L, b[5] = x, b[6] = n) : n = b[6], (0, d.useEffect)(r, n), b[7] !== E || b[8] !== O ? (a = () => {
+      if (E) return O("service.notice", e => {
+        null == e || 1012 !== e.code && 1013 !== e.code || $.current || ($.current = !0, U(R))
+      })
+    }, b[7] = E, b[8] = O, b[9] = a) : a = b[9], b[10] !== E || b[11] !== O || b[12] !== L || b[13] !== x ? (i = [E, O, L, x], b[10] = E, b[11] = O, b[12] = L, b[13] = x, b[14] = i) : i = b[14], (0, d.useEffect)(a, i), b[15] !== E || b[16] !== k ? (s = () => {
+      if (E && !k) return (0, g.subscribeToPageLifecycle)(e => {
+        "resume" === e.type && !1 !== navigator.onLine && U(A)
+      })
+    }, l = [E, k], b[15] = E, b[16] = k, b[17] = s, b[18] = l) : (s = b[17], l = b[18]), (0, d.useEffect)(s, l);
+    let Y = function(e, t, r, n, a = "connected" === t) {
+        let i = e?.gatewayUrl ?? null,
+          s = e?.vmId ?? null,
+          l = e?.vmName ?? null,
+          o = e?.vmState ?? null,
+          u = null == i ? null : JSON.stringify([(0, S.gatewayTargetKey)(i, l), s]),
+          [c, g] = (0, d.useState)(null),
+          [h, p] = (0, d.useState)({
+            targetKey: u,
+            vmState: o
+          }),
+          m = (0, d.useRef)(u),
+          f = (0, d.useRef)(null),
+          _ = (0, d.useRef)(!1),
+          I = (0, d.useRef)({
+            revision: n,
+            targetKey: u
+          }),
+          T = (0, d.useRef)(0),
+          A = (0, d.useRef)(!1);
+        return (h.targetKey !== u || h.vmState !== o) && (p({
+          targetKey: u,
+          vmState: o
+        }), null != u && h.targetKey === u && !a && C(o) && g({
+          isUpdating: !0,
+          targetKey: u
+        })), m.current = u, (0, d.useEffect)(() => (A.current = !0, () => {
+          A.current = !1, T.current += 1, f.current?.abort()
+        }), []), (0, d.useEffect)(() => {
+          I.current.targetKey !== u && (I.current = {
+            revision: n,
+            targetKey: u
+          }, T.current += 1, f.current?.abort(), g(null), _.current = !1), a && !_.current ? (I.current = {
+            revision: n,
+            targetKey: u
+          }, T.current += 1, f.current?.abort(), g(null)) : !r && !a && null != u && C(o) && g(e => e?.targetKey === u && e.isUpdating ? e : {
+            isUpdating: !0,
+            targetKey: u
+          }), _.current = a
+        }, [a, r, n, u, o]), (0, d.useEffect)(() => {
+          if (null == i || null == u || I.current.targetKey !== u || I.current.revision >= n) return;
+          I.current = {
+            revision: n,
+            targetKey: u
+          }, f.current?.abort();
+          let e = new AbortController;
+          f.current = e;
+          let t = ++T.current,
+            r = {
+              gatewayUrl: i,
+              vmId: s,
+              vmName: l,
+              vmState: o
+            };
+          (async () => {
+            let n = () => A.current && T.current === t && m.current === u && !e.signal.aborted;
+            try {
+              let t = await fetch("/api/session?vm_state=live", {
+                cache: "no-store",
+                signal: AbortSignal.any([e.signal, AbortSignal.timeout(1e4)])
+              });
+              if (!n()) return;
+              if (!t.ok) return void v.retainForBugReport("warn", "VM lifecycle refresh was rejected during reconnect");
+              let a = await t.json();
+              if (!n()) return;
+              let i = (0, y.getAssignedVmFromSessionResponse)(a);
+              if (null == i) return void v.retainForBugReport("warn", "VM lifecycle refresh returned no assignment during reconnect");
+              if (null == i.vmState) return void v.retainForBugReport("warn", "VM lifecycle refresh omitted lifecycle state during reconnect");
+              if (null != i.vmId && null != r.vmId ? i.vmId !== r.vmId : (0, S.gatewayTargetKey)(i.endpointUrl, i.vmName) !== (0, S.gatewayTargetKey)(r.gatewayUrl, r.vmName)) return void v.retainForBugReport("warn", "VM lifecycle refresh returned a different target during reconnect");
+              if (!n()) return;
+              g(e => ({
+                isUpdating: C(i.vmState) || e?.targetKey === u && e.isUpdating,
+                targetKey: u
+              }))
+            } catch (e) {
+              if (!n()) return;
+              v.retainForBugReport("warn", "Failed to refresh VM lifecycle state during reconnect")
+            }
+          })()
+        }, [i, n, u, s, l, o]), null != u && (c?.targetKey === u && c.isUpdating || !r && !a && C(o))
+      }(E ? B : null, D ?? P, G, q + K, k),
+      W = E && (F || Y),
+      Q = E && (!k || "connected" !== M || W),
+      J = T(Q, x, 1e4),
+      X = T(W, x, 2e3),
+      Z = "browser_offline" === N || "gateway_reconnect_exhausted" === N || X || J,
+      ee = null != H;
+    return b[19] !== Q || b[20] !== Z || b[21] !== ee || b[22] !== X ? (o = {
+      recovering: Q,
+      showRecovery: Z,
+      warming: X,
+      failed: ee
+    }, b[19] = Q, b[20] = Z, b[21] = ee, b[22] = X, b[23] = o) : o = b[23], b[24] !== w || b[25] !== o ? (_ = (0, u.jsx)(I.Provider, {
+      value: o,
+      children: w
+    }), b[24] = w, b[25] = o, b[26] = _) : _ = b[26], _
+  }, "useHatchChatRecovery", 0, function() {
+    return (0, d.useContext)(I)
+  }], 916960);
+  var b = e.i(925301);
+  e.s(["HatchMessageOutbox", 0, class {
+    #e = [];
+    reserve(e, t) {
+      if (this.#e.length >= 32 || this.#e.reduce((e, t) => e + t.bytes, e) > 0x4000000) return null;
+      let r = Date.now(),
+        n = new AbortController,
+        a = !1,
+        i = !1,
+        s = null,
+        l = () => {},
+        o = new Promise(e => {
+          l = e
+        }),
+        u = e => {
+          n.signal.aborted || (s = e, n.abort()), l(!1)
+        },
+        c = () => ((g.aborted || Date.now() - r >= 3e5) && u("expired"), !a && !n.signal.aborted),
+        d = {
+          bytes: e,
+          activate: () => l(c()),
+          cancel: () => u("cancelled")
+        },
+        g = AbortSignal.timeout(3e5),
+        h = () => {
+          i || u("expired")
+        },
+        p = () => {
+          if (a) return;
+          a = !0, t?.removeEventListener("abort", d.cancel), g.removeEventListener("abort", h);
+          let e = this.#e.indexOf(d);
+          e >= 0 && this.#e.splice(e, 1), 0 === e && this.#e[0]?.activate()
+        };
+      return this.#e.push(d), g.addEventListener("abort", h, {
+        once: !0
+      }), t?.addEventListener("abort", d.cancel, {
+        once: !0
+      }), t?.aborted && d.cancel(), this.#e[0] === d && d.activate(), {
+        createdAt: r,
+        signal: n.signal,
+        get cancellationReason() {
+          return s
+        },
+        waitForTurn: async () => await o && c(),
+        canDispatch: c,
+        beginAttempt: () => !!c() && (i = !0, !0),
+        endAttempt: () => {
+          i = !1, c()
+        },
+        release: p
+      }
+    }
+    cancelAll() {
+      for (let e of this.#e) e.cancel()
+    }
+  }, "isSafeOutboxRetry", 0, function(e) {
+    return !(!(0, b.isGatewayRequestError)(e) || (0, b.isGatewayTargetChangedError)(e)) && ("not_sent" === e.deliveryState || "jarvis_rejection" === e.kind && ("startup_not_ready" === e.code || "session_busy" === e.code))
+  }, "waitForOutboxRetry", 0, function(e) {
+    return e.aborted ? Promise.resolve() : new Promise(t => {
+      let r = AbortSignal.timeout(2e3),
+        n = () => {
+          e.removeEventListener("abort", n), r.removeEventListener("abort", n), t()
+        };
+      e.addEventListener("abort", n, {
+        once: !0
+      }), r.addEventListener("abort", n, {
+        once: !0
+      })
+    })
+  }], 123162);
+  var w = e.i(62822);
+
+  function E(e) {
+    return Number.isFinite(e) ? Math.max(0, Math.trunc(e)) : 0
+  }
+
+  function k() {
+    return ["chat_cancel", "delta_stream", "custom_reactions", "custom_reactions_facebook_thumbs_up_v1"]
+  }
+  e.s(["HatchPostContentSafetyProvider", 0, function(e) {
+    let t, r = (0, c.c)(3),
+      {
+        children: n,
+        ready: a
+      } = e;
+    return r[0] !== n || r[1] !== a ? (t = (0, u.jsx)(w.HatchPostContentSafetyContext.Provider, {
+      value: a,
+      children: n
+    }), r[0] = n, r[1] = a, r[2] = t) : t = r[2], t
+  }], 266571), e.s(["advanceReplaySeqCursor", 0, function(e, t) {
+    if ("number" != typeof t || !Number.isFinite(t)) return e;
+    let r = Math.trunc(t);
+    return r <= 0 ? e : Math.max(e, r)
+  }, "buildHatchChatCapabilities", 0, k, "buildReplaySubscribeParams", 0, function(e, t = e) {
+    return {
+      after_stream_seq: E(e),
+      after_chat_event_seq: E(t),
+      capabilities: k()
+    }
+  }], 459544)
+}, 123960, e => {
+  "use strict";
+  var t = e.i(984416),
+    r = e.i(722099),
+    n = e.i(519172),
+    a = e.i(849329),
+    i = e.i(393202),
+    s = e.i(345717);
+  e.i(787845);
+  var l = e.i(25475),
+    o = e.i(47247),
+    u = e.i(365500),
+    c = e.i(863641),
+    d = e.i(535678),
+    g = e.i(359783),
+    h = e.i(922878),
+    p = e.i(885462),
+    m = e.i(204261),
+    f = e.i(916960),
+    y = e.i(123162),
+    _ = e.i(925301),
+    S = e.i(871157),
+    v = e.i(550365),
+    C = e.i(266571),
+    I = e.i(175286),
+    T = e.i(863919),
+    A = e.i(177649),
+    R = e.i(907579),
+    b = e.i(508180),
+    w = e.i(279188),
+    E = e.i(672495),
+    k = e.i(785580),
+    H = e.i(434978),
+    x = e.i(311420),
+    M = e.i(508284),
+    N = e.i(459544),
+    P = e.i(981572),
+    O = e.i(924252),
+    B = e.i(60830),
+    q = e.i(55473),
+    D = e.i(402592),
+    F = e.i(249295),
+    L = e.i(14751),
+    K = e.i(26362),
+    U = e.i(303859),
+    j = e.i(384784),
+    z = e.i(343553),
+    V = e.i(815406),
+    G = e.i(42673),
+    $ = e.i(845558),
+    Y = e.i(21483),
+    W = e.i(361896),
+    Q = e.i(506257),
+    J = e.i(891387),
+    X = e.i(398790),
+    Z = e.i(714990),
+    ee = e.i(991157),
+    et = e.i(7442),
+    er = e.i(802358),
+    en = e.i(552188),
+    ea = e.i(211712),
+    ei = e.i(238719),
+    es = e.i(713140),
+    el = e.i(720756),
+    eo = e.i(809204),
+    eu = e.i(513161),
+    ec = e.i(767369),
+    ed = e.i(235072),
+    eg = e.i(975740),
+    eh = e.i(134348),
+    ep = e.i(221988),
+    em = e.i(252116),
+    ef = e.i(771995),
+    ey = e.i(377156),
+    e_ = e.i(735231),
+    eS = e.i(745502),
+    ev = e.i(204523),
+    eC = e.i(335004),
+    eI = e.i(829051),
+    eT = e.i(305891),
+    eA = e.i(396326),
+    eR = e.i(526641),
+    eb = e.i(917694),
+    ew = e.i(984345),
+    eE = e.i(963910),
+    ek = e.i(31631),
+    eH = e.i(438451),
+    ex = e.i(390808),
+    eM = e.i(921854),
+    eN = e.i(543912),
+    eP = e.i(809870),
+    eO = e.i(955578),
+    eB = e.i(384706),
+    eq = e.i(224520),
+    eD = e.i(813280),
+    eF = e.i(630874),
+    eL = e.i(951527);
+
+  function eK(e) {
+    let t = function(e) {
+      let t = e.messagesById[e.messageId];
+      if (null == t) return null;
+      let r = (0, eF.mergeChatMessageAnalytics)(t.analytics, e.updates);
+      return r === t.analytics || null == r ? null : r
+    }(e);
+    null != t && e.reduceChat({
+      type: "message/update",
+      id: e.messageId,
+      updates: {
+        analytics: t
+      }
+    })
+  }
+
+  function eU(e, t) {
+    for (let r = e.messageIds.length - 1; r >= 0; r--) {
+      let n = e.messageIds[r];
+      if (null == n || null != t && n === t) continue;
+      let a = e.messagesById[n];
+      if (null == a) continue;
+      let i = function(e) {
+        if (("user" === e.role || "assistant" === e.role) && null == e.toolCall && e.source !== eL.VOICE_ASR_SOURCE) {
+          if (e.analytics?.clientLastTokenMs != null) return e.analytics.clientLastTokenMs;
+          if (e.analytics?.clientDoneMs != null) return e.analytics.clientDoneMs;
+          if ("user" === e.role && null != e.clientSentAt) {
+            let t = Date.parse(e.clientSentAt);
+            if (!Number.isNaN(t)) return t
+          }
+          if (null != e.createdAt && e.createdAt.length > 0) {
+            let t = Date.parse(e.createdAt);
+            if (!Number.isNaN(t)) return t
+          }
+        }
+      }(a);
+      if (null != i) return {
+        ttftBaselineMs: i,
+        sentAtMs: i
+      }
+    }
+    return {}
+  }
+  var ej = e.i(555169);
+  let ez = (0, g.createClientLogger)("HatchChat");
+
+  function eV(e) {
+    (0, c.captureHatchMessage)(c.HATCH_SENTRY_SURFACES.CHAT, "Outgoing chat message delivery was not confirmed", {
+      level: "warning",
+      tags: {
+        failure_reason: e
+      },
+      fingerprint: ["hatch.chat.outbox", e]
+    })
+  }
+
+  function eG(e, t) {
+    let r = Math.max(e.reduce((e, t) => Math.max(e, t.sortSeq ?? -1 / 0), -1 / 0), t ?? -1 / 0);
+    return Number.isFinite(r) ? r + .001 : .001
+  }
+  let e$ = "perform",
+    eY = {
+      settingsLoaded: !1,
+      enabled: !0,
+      defaultMode: e$
+    },
+    eW = [250, 1e3];
+
+  function eQ(e) {
+    let t = new Set;
+    for (let r of e.slice(0, 100)) {
+      if ("string" != typeof r) continue;
+      let e = (0, M.normalizeOptionalId)(r);
+      null != e && t.add(e)
+    }
+    return [...t]
+  }
+
+  function eJ(e) {
+    let t = new Set;
+    for (let r of e.messageIds) {
+      let n = e.messagesById[r];
+      n?.isDeleted === !0 && (t.add(n.id), null != n.messageId && t.add(n.messageId))
+    }
+    return t
+  }
+
+  function eX(e, t) {
+    for (let r of e.messageIds) {
+      let n = e.messagesById[r];
+      if (null != n && (0, ej.collectReactionTargetIds)(n).includes(t)) return !0
+    }
+    return !1
+  }
+
+  function eZ(e) {
+    return (0, _.isGatewayDisconnectError)(e) || (0, _.isGatewayTargetChangedError)(e)
+  }
+
+  function e0(e) {
+    return e.cause instanceof Error ? e.cause : Error(e.message)
+  }
+
+  function e1(e, t) {
+    return `${e.length}:${e}:${t}`
+  }
+  let e2 = 3 * H.OLDER_HISTORY_LIMIT,
+    e3 = e2 + +H.NEWER_HISTORY_LIMIT,
+    e5 = 4 * e2,
+    e4 = "hatch.chat.draft",
+    e8 = {
+      chat_events: [],
+      channel: "main",
+      has_more: !1
+    };
+
+  function e9(e, t) {
+    return {
+      ...e,
+      messageIds: [],
+      messagesById: {},
+      sxs: null,
+      isLoading: t.isLoading,
+      isStreaming: !1,
+      isExpectingBotResponse: !1,
+      expectingBotResponseAnchorIndex: null,
+      hasMore: !1,
+      hasReachedHistoryStart: t.historyLoaded,
+      isLoadingOlder: !1,
+      oldestSeq: null,
+      historyLoaded: t.historyLoaded,
+      isCheckingPersistentCache: t.isCheckingPersistentCache,
+      hasProvisionalCachedHistory: !1,
+      isRefreshingCachedHistory: !1,
+      reactions: {},
+      lastSeenTimestamp: null,
+      newestSeq: null,
+      hasMoreNewer: !1,
+      isLoadingNewer: !1,
+      isAtBottom: !0,
+      isViewingHistory: !1,
+      mainHistorySourceKey: t.sourceKey,
+      poppedMessageIds: new Set
+    }
+  }
+
+  function e6(e, t, r) {
+    return {
+      ...e,
+      agentActivityCode: null,
+      agentActivityText: null,
+      agentActivityEmoji: null,
+      agentActivityCta: null,
+      agentActivityRootAgentId: null,
+      agentSubagentCount: 0,
+      currentChatRootAgentId: r?.rootAgentId ?? null,
+      currentChatSessionId: r?.sessionId ?? null,
+      currentChatRouteKey: (0, eH.getHatchChatRouteKey)(t)
+    }
+  }
+
+  function e7(e) {
+    return e?.kind === "main" || e?.kind === "thread"
+  }
+
+  function te(e) {
+    return null == e ? null : "main" === e.kind ? "main" : "thread" === e.kind ? `thread:${e.sessionId}` : "draft" === e.kind ? "draft" : `invalid_thread:${e.rawSessionId}`
+  }
+
+  function tt(e) {
+    return e.getState().chat.mainHistorySourceKey
+  }
+
+  function tr(e) {
+    if ("number" != typeof e || !Number.isFinite(e)) return null;
+    let t = Math.trunc(e);
+    return t > 0 ? t : null
+  }
+
+  function tn(e) {
+    let t = 0;
+    for (let r of e.messageIds) {
+      let n = e.messagesById[r];
+      n?.sortSeq != null && n.sortSeq > t && (t = n.sortSeq)
+    }
+    return t
+  }
+
+  function ta(e) {
+    return "object" == typeof e && null != e ? e : {}
+  }
+
+  function ti(e) {
+    return "string" == typeof e && e.trim().length > 0 ? e : void 0
+  }
+
+  function ts(e) {
+    return "boolean" == typeof e ? e : "number" == typeof e ? !!e : null
+  }
+  let tl = new Set(["responding", "composing", "making_something", "working", "waiting_for_subagents", "compacting"]);
+
+  function to(e) {
+    return null != e && tl.has(e)
+  }
+
+  function tu({
+    activityCode: e,
+    activityText: t,
+    activityEmoji: r,
+    activityCta: n = null,
+    subagentCount: a
+  }) {
+    return {
+      agentActivityCode: e,
+      agentActivityText: t,
+      agentActivityEmoji: r,
+      agentActivityCta: "out_of_credits" === e ? n : null,
+      agentSubagentCount: a
+    }
+  }
+
+  function tc(e, t, r) {
+    var n, a, i;
+    return null == t || (n = e[t], null != n && n.agentActivityCode === r.agentActivityCode && n.agentActivityText === r.agentActivityText && (n.agentActivityEmoji ?? null) === (r.agentActivityEmoji ?? null) && (a = n.agentActivityCta ?? null, i = r.agentActivityCta ?? null, null == a || null == i ? a === i : a.command === i.command && a.label === i.label) && n.agentSubagentCount === r.agentSubagentCount) ? e : {
+      ...e,
+      [t]: r
+    }
+  }
+
+  function td(e, t) {
+    if (null == t) return e;
+    let r = e[t];
+    return to(r?.agentActivityCode ?? null) ? tc(e, t, tu({
+      activityCode: null,
+      activityText: null,
+      activityEmoji: null,
+      activityCta: null,
+      subagentCount: 0
+    })) : e
+  }
+
+  function tg(e) {
+    let t = e.currentChatRootAgentId,
+      r = td(e.agentActivitiesByRootAgentId, t),
+      n = (null == t || null == e.agentActivityRootAgentId || e.agentActivityRootAgentId === t) && to(e.agentActivityCode);
+    return r !== e.agentActivitiesByRootAgentId || n ? {
+      ...e,
+      ...n ? {
+        agentActivityCode: null,
+        agentActivityText: null,
+        agentActivityEmoji: null,
+        agentActivityCta: null,
+        agentActivityRootAgentId: null,
+        agentSubagentCount: 0
+      } : {},
+      agentActivitiesByRootAgentId: r
+    } : e
+  }
+
+  function th(e) {
+    (0, b.commitStoreUpdate)(e => {
+      let t = tg(e.activity);
+      return t === e.activity ? null : {
+        activity: t
+      }
+    }, e)
+  }
+
+  function tp() {
+    (0, b.commitStoreUpdate)(e => {
+      let t = e.chat;
+      (e.chat.isStreaming || e.chat.isExpectingBotResponse) && (t = {
+        ...t,
+        isStreaming: !1,
+        isExpectingBotResponse: !1,
+        expectingBotResponseAnchorIndex: null
+      });
+      let r = t.messageIds.filter(e => t.messagesById[e]?.isTextStreaming === !0);
+      if (r.length > 0) {
+        let e = {
+          ...t.messagesById
+        };
+        for (let t of r) {
+          let r = e[t];
+          null != r && !0 === r.isTextStreaming && (e[t] = {
+            ...r,
+            isTextStreaming: !1
+          })
+        }
+        t = {
+          ...t,
+          messagesById: e
+        }
+      }
+      let n = tg(e.activity);
+      return t === e.chat && n === e.activity ? null : {
+        chat: t,
+        activity: n
+      }
+    }, "chat/clear_busy_after_cancel")
+  }
+
+  function tm(e, t, r) {
+    let n = b.getSnapshot().chat.messagesById[e];
+    if (null == n) return !1;
+    let a = n.widgets ?? [],
+      i = a.findIndex(e => e.widgetId === t);
+    if (i >= 0) {
+      let t = a[i],
+        n = (0, ep.normalizeJSONState)(t.state);
+      if (r.version < n.version) return !1;
+      if (n.version === r.version && (0, ep.areJSONStatesEqual)(n.data, r.data)) return !0;
+      let s = a.slice();
+      return s[i] = {
+        ...t,
+        state: r
+      }, b.reduceChat({
+        type: "message/update",
+        id: e,
+        updates: {
+          widgets: s
+        }
+      }), !0
+    }
+    let s = n.presentations ?? [],
+      l = s.findIndex(e => e.presentationId === t);
+    if (l >= 0) {
+      let t = s[l],
+        n = (0, ep.normalizeJSONState)(t.state);
+      if (r.version < n.version) return !1;
+      if (n.version === r.version && (0, ep.areJSONStatesEqual)(n.data, r.data)) return !0;
+      let a = s.slice();
+      return a[l] = {
+        ...t,
+        state: r
+      }, b.reduceChat({
+        type: "message/update",
+        id: e,
+        updates: {
+          presentations: a
+        }
+      }), !0
+    }
+    return !1
+  }
+  let tf = (0, n.createContext)(null),
+    ty = (0, n.createContext)({
+      gatewayUrl: null,
+      gatewayScopeKey: null,
+      chatSubscriptionReady: !1,
+      chatSubscriptionError: null,
+      retryChatSubscription: () => {},
+      approvalSafetyError: null,
+      approvalSafetyGeneration: 0,
+      approvalSafetyReady: !1,
+      activeHistoryError: null,
+      activeHistoryFailed: !1,
+      activeHistoryReady: !1,
+      retryApprovalSafety: async () => {},
+      retryActiveHistory: () => {}
+    });
+
+  function t_() {
+    return (0, n.useContext)(tf)
+  }
+
+  function tS(e, t) {
+    let r = 0;
+    ! function n() {
+      if ("u" < typeof document) return;
+      let a = document.querySelector(`[data-message-id="${e}"]`);
+      if (a) {
+        a.scrollIntoView({
+          behavior: "instant",
+          block: "center"
+        }), t?.persistent || (a.classList.add("hatch-reply-highlight"), a.addEventListener("animationend", () => a.classList.remove("hatch-reply-highlight"), {
+          once: !0
+        }));
+        return
+      }(r += 1) < 10 && setTimeout(n, 50)
+    }()
+  }
+
+  function tv(e) {
+    let n, a = (0, r.c)(3),
+      i = (0, eN.useHatchVoiceEnabled)();
+    return a[0] !== e || a[1] !== i ? (n = (0, t.jsx)(tI, {
+      ...e,
+      voiceEnabled: i
+    }), a[0] = e, a[1] = i, a[2] = n) : n = a[2], n
+  }
+
+  function tC(e) {
+    let t, a, i = (0, r.c)(4),
+      {
+        onResolve: s
+      } = e,
+      l = (0, eq.useMcBool)("5e1fb489", !1);
+    return i[0] !== l || i[1] !== s ? (t = () => s(l), a = [l, s], i[0] = l, i[1] = s, i[2] = t, i[3] = a) : (t = i[2], a = i[3]), (0, n.useLayoutEffect)(t, a), null
+  }
+
+  function tI({
+    children: r,
+    gatewayScopeKey: g,
+    onSubscribed: eN,
+    postContentWorkEnabled: tl = !0,
+    safetyWorkEnabled: tg = tl,
+    voiceEnabled: t_,
+    workloadMode: tv = "unrestricted",
+    connectionRecoveryEnabled: tT = "guided_onboarding" !== tv
+  }) {
+    let tA, tR, tb = (0, u.useOptionalAuth)(),
+      tw = (0, n.useContext)(eq.MetaConfigContext),
+      tE = (0, n.useMemo)(() => ({
+        userId: tb?.userId ?? null,
+        sessionBindingId: tb?.sessionBindingId ?? null,
+        flagsPromise: tw
+      }), [tb?.userId, tb?.sessionBindingId, tw]),
+      [tk, tH] = (0, n.useState)(null),
+      tx = (0, n.useCallback)(e => tH({
+        scope: tE,
+        enabled: e
+      }), [tE]),
+      tM = tk?.scope === tE && tk.enabled,
+      tN = (0, n.useRef)(tM);
+    tN.current = tM;
+    let tP = (0, Y.useHatchActivationAdmissionCheck)(),
+      tO = (0, i.useQueryClient)(),
+      tB = (0, ew.useOptionalAppRouterRouteContext)(),
+      tq = tB?.location ?? {
+        pathname: window.location.pathname,
+        search: window.location.search,
+        hash: window.location.hash,
+        state: null,
+        key: "hatch-chat-provider-fallback-location"
+      },
+      tD = tB?.navigate ?? null,
+      tF = (0, n.useCallback)(e => (0, eE.applyHatchGatewayTargetToPath)(e, (0, eE.parseHatchGatewayTarget)(tq.search ?? "")), [tq.search]),
+      {
+        connectionState: tL,
+        sendRequest: tK,
+        onEvent: tU,
+        isReady: tj,
+        ensureLiveConnection: tz,
+        gatewayUrl: tV,
+        vmName: tG,
+        gatewayScopeKey: t$
+      } = (0, I.useHatchRpc)(),
+      tY = g ?? t$ ?? tV,
+      tW = s.fbs._("Couldn’t compare responses. Showing the default response.", null, {
+        hk: "38RXwe"
+      }),
+      tQ = s.fbs._("Sending is disabled until this conversation can be verified. Try again.", null, {
+        hk: "2mch7h"
+      }),
+      tJ = s.fbs._("This conversation is view only. Continue in your messaging app.", null, {
+        hk: "1lvZLC"
+      }),
+      tX = s.fbs._("This conversation is view only. Message your Muse in another chat instead.", null, {
+        hk: "39WmGT"
+      }),
+      tZ = s.fbs._("Message failed to send.", null, {
+        hk: "3Lopg1"
+      }),
+      t0 = s.fbs._("Failed to update model. Restored previous selection.", null, {
+        hk: "qTOjL"
+      }),
+      t1 = s.fbs._("Failed to update model. Restored previous selection.", null, {
+        hk: "2u30It"
+      }),
+      t2 = s.fbs._("Couldn’t delete this message. Try again.", null, {
+        hk: "1BwaGt"
+      }),
+      t3 = (0, n.useRef)(tj);
+    (0, n.useLayoutEffect)(() => {
+      t3.current = tj
+    }, [tj]);
+    let t5 = (0, $.useRisingEdgeCount)(tj),
+      t4 = (0, n.useRef)(t5);
+    (0, n.useLayoutEffect)(() => {
+      t4.current = t5
+    }, [t5]);
+    let [t8, t9] = (0, n.useState)(null), [t6, t7] = (0, n.useState)(null), [re, rt] = (0, n.useState)(0), rr = (0, n.useCallback)(() => {
+      rt(e => e + 1)
+    }, []), [rn, ra] = (0, n.useState)(null), [ri, rs] = (0, n.useState)("idle"), rl = (0, n.useRef)(rn), ro = (0, n.useRef)(ri), ru = "application" !== tv || tj && null != tY && t8 === tY && t6 === t5, rc = "application" !== tv || ru && null == rn && "idle" === ri, rd = (0, n.useRef)(rc), rg = (0, n.useCallback)(e => {
+      rl.current = e, "application" === tv && null != e && (rd.current = !1), ra(e)
+    }, [tv]), rh = (0, n.useCallback)(e => {
+      ro.current = e, "application" === tv && "idle" !== e && (rd.current = !1), rs(e)
+    }, [tv]), rp = (0, R.useHatchGatewayFs)(), rm = (0, w.useHatchStoreApi)(), rf = (0, el.useGatewayQueryContext)(), ry = es.threadSessionsListQuery.queryOptions({
+      targetKey: rf.targetKey
+    }, rf), {
+      data: r_ = null
+    } = (0, a.useQuery)({
+      queryKey: ry.queryKey,
+      queryFn: ry.queryFn,
+      enabled: !1,
+      select: e => e.find(e => e.is_primary)?.session_id ?? null
+    });
+    (0, n.useEffect)(() => {
+      (0, eu.setPrimaryChatSessionAttribution)(r_)
+    }, [r_]);
+    let rS = (0, G.useUserAgent)(),
+      rv = (0, n.useRef)("Browser");
+    tA = rS?.browser.name ?? "Browser", rv.current = (tR = rS?.os.name ?? "") ? `${tA} (${tR})` : tA;
+    let rC = (0, v.useSSRChatHistory)(),
+      rI = (0, j.useChatHistoryLoaded)(),
+      [rT, rA] = (0, n.useState)(null),
+      [rR, rb] = (0, n.useState)(null),
+      [rw, rE] = (0, n.useState)(!1),
+      rk = (0, n.useCallback)(e => rb(e), []),
+      rH = (0, n.useCallback)(() => rb(null), []),
+      rx = (0, n.useRef)(new Map),
+      rM = (0, n.useMemo)(() => (0, eH.parseHatchChatRoute)(tq.pathname), [tq.pathname]),
+      [rN, rP] = (0, n.useState)(0),
+      [rO, rB] = (0, n.useState)(!1),
+      rq = "unrestricted" === tv || "application" === tv && (tl || rN > 0),
+      rD = "unrestricted" === tv || "application" === tv && tl && ru,
+      rF = "unrestricted" === tv || "application" === tv && (tg || rO),
+      rL = (0, n.useRef)(rF);
+    rL.current = rF;
+    let [rK, rU] = (0, n.useState)(eH.HATCH_MAIN_CHAT_ROUTE);
+    (0, n.useEffect)(() => {
+      null != rM && "draft" !== rM.kind && rU(rM)
+    }, [rM]);
+    let rj = rM ?? rK,
+      rz = (0, n.useCallback)((e, t) => (rA(r => ({
+        owner: e,
+        route: t
+      })), () => {
+        rA(t => t?.owner === e ? null : t)
+      }), []),
+      rV = (0, n.useCallback)(() => rA(null), []),
+      rG = rT?.route ?? rj,
+      r$ = "unrestricted" === tv || "application" === tv && (null != rM || tl || rO),
+      rY = (0, j.useChatThreadTitleForRoute)(rG),
+      rW = "messages",
+      rQ = (0, n.useMemo)(() => te(rG), [rG]),
+      rJ = (0, n.useMemo)(() => null == rG ? null : function(e) {
+        let {
+          gatewayUrl: t,
+          transcriptMode: r,
+          route: n
+        } = e;
+        return "draft" === n.kind ? e4 : "invalid_thread" === n.kind ? `hatch.chat.invalid_thread:${n.rawSessionId}` : null == t || 0 === t.trim().length ? "main" === n.kind ? "hatch.chat.main" : `hatch.chat.thread:${n.sessionId}:${r}` : "main" === n.kind ? (0, ek.buildHatchShellMainHistorySourceKey)(t, r) : (0, eS.getHatchChatHistoryQuery)({
+          gatewayUrl: t,
+          transcriptMode: r,
+          ..."thread" === n.kind ? {
+            sessionId: n.sessionId
+          } : {}
+        }).sourceKey
+      }({
+        gatewayUrl: tY,
+        transcriptMode: "draft" !== rG.kind ? rW : "messages",
+        route: rG
+      }), [rG, tY, rW]),
+      rX = (0, n.useMemo)(() => rG?.kind === "main" ? {
+        kind: "main"
+      } : rG?.kind === "thread" ? {
+        kind: "side",
+        sessionId: rG.sessionId,
+        targetKey: rf.targetKey
+      } : null, [rG, rf.targetKey]),
+      rZ = rX?.kind ?? null,
+      r0 = null != rZ && tb?.userId != null,
+      r1 = (0, n.useMemo)(() => r0 && null != rJ && null != tY ? (0, eb.buildChatTranscriptCacheKey)(tb.userId, rJ) : null, [rJ, tb?.userId, tY, r0]),
+      [r2, r3] = (0, n.useState)(null),
+      r5 = (0, E.useHatchChatSelector)(e => e.mainHistorySourceKey),
+      [r4, r8] = (0, n.useState)(null),
+      [r9, r6] = (0, n.useState)(null),
+      r7 = (0, n.useRef)(0),
+      ne = (0, n.useRef)(null),
+      nt = r4 === rJ,
+      nr = nt ? r9 : null,
+      nn = rI && r5 === rJ,
+      na = "application" !== tv || null == rG || !e7(rG) || nn,
+      ni = "guided_onboarding" !== tv,
+      [ns, nl] = (0, n.useState)(0),
+      no = (0, n.useMemo)(() => ({
+        gatewayScopeKey: tY,
+        vmName: tG,
+        approvalSafetyConnectionGeneration: t5,
+        activeChatRouteScopeKey: rQ,
+        chatSubscriptionRevision: ns
+      }), [tY, tG, t5, rQ, ns]),
+      [nu, nc] = (0, n.useState)(null),
+      nd = tj && nu?.scope === no && nu.ready,
+      ng = tj && nu?.scope === no ? nu.error : null,
+      nh = (0, n.useRef)(nd),
+      np = (0, n.useCallback)(() => {
+        nl(e => e + 1)
+      }, []),
+      nm = (0, n.useRef)(ru),
+      nf = (0, n.useRef)(na),
+      ny = (0, n.useRef)(ni);
+    (0, n.useLayoutEffect)(() => {
+      ne.current = null
+    }, [rJ]), (0, n.useLayoutEffect)(() => {
+      nm.current = ru, rd.current = rc, rl.current = rn, nf.current = na, ny.current = ni, nh.current = nd
+    }, [na, ni, nd, ri, rn, re, ru, rc]);
+    let n_ = (0, n.useRef)(new Set),
+      nS = (0, n.useCallback)((e, t) => {
+        n_.current.delete(e) && (e.resolve(t), 0 === n_.current.size && rB(!1))
+      }, []),
+      nv = (0, n.useCallback)(e => {
+        let t = [...n_.current];
+        for (let r of (n_.current.clear(), t)) r.resolve(e)
+      }, []);
+    (0, n.useEffect)(() => {
+      for (let e of [...n_.current]) null == e.gatewayScopeKey && null != tY && (e.gatewayScopeKey = tY, e.historySourceKey = rJ), e.gatewayScopeKey !== tY || e.historySourceKey !== rJ || e.routeScopeKey !== rQ || null != rn || nt || null != ng ? nS(e, !1) : ni && rc && na && nd && nS(e, !0)
+    }, [rQ, rJ, nt, na, ni, nd, ng, rn, rc, tY, nS]), (0, n.useEffect)(() => () => {
+      nv(!1)
+    }, [nv]);
+    let nC = (0, n.useMemo)(() => null != rG && e7(rG) ? (0, eS.getHatchChatHistoryGatewayQuery)({
+        transcriptMode: rW,
+        ..."thread" === rG.kind ? {
+          sessionId: rG.sessionId
+        } : {}
+      }) : null, [rG, rW]),
+      nI = null != rC.mainHistoryPage && rC.mainHistorySourceKey === rJ,
+      nT = r0 && !nI && (null == r1 || r2 !== r1);
+    (0, n.useEffect)(() => {
+      if (null == rZ) return
+    }, [rJ, tb?.userId, tY, nI, r$, nT, r1, rZ]);
+    let nA = (0, eo.useGatewayQuery)(nC, {
+        enabled: r$ && !nn && !nI && (rG?.kind !== "main" || !rC.isLoading),
+        preload: null != nC && null != rM && !nI,
+        clientPreloads: [ev.HATCH_EARLY_CLIENT_PRELOAD.CHAT_ROUTE],
+        retry: !1
+      }),
+      nR = nA.query,
+      nb = +("fetching" === nA.fetchStatus),
+      nw = nA.refetch,
+      nE = (0, n.useCallback)(e => {
+        ne.current = e, (0, b.commitStoreUpdateTo)(rm, t => t.chat.mainHistorySourceKey === e && t.chat.isRefreshingCachedHistory ? {
+          chat: {
+            ...t.chat,
+            isRefreshingCachedHistory: !1
+          }
+        } : null, "chat/finish_cached_history_refresh")
+      }, [rm]),
+      nk = (0, n.useCallback)(e => {
+        ne.current = null, (0, b.commitStoreUpdateTo)(rm, t => t.chat.mainHistorySourceKey === e && t.chat.hasProvisionalCachedHistory && !t.chat.isRefreshingCachedHistory ? {
+          chat: {
+            ...t.chat,
+            isRefreshingCachedHistory: !0
+          }
+        } : null, "chat/begin_cached_history_refresh")
+      }, [rm]),
+      nH = (0, n.useCallback)(() => {
+        null != nR && null != rJ && ((0, eg.clearEarlyGatewayQueryPromise)(nR.sourceKey), r8(null), r6(null), nk(rJ), (0, b.commitStoreUpdateTo)(rm, e => ({
+          chat: {
+            ...e.chat,
+            isLoading: !0
+          }
+        }), "chat/retry_history"), nw())
+      }, [nR, rJ, nk, rm, nw]),
+      nx = (0, n.useRef)(null),
+      nM = (0, n.useRef)(t_);
+    nM.current = t_;
+    let nN = (0, n.useRef)(null),
+      nP = (0, n.useRef)(rG),
+      nO = (0, n.useRef)(rT),
+      nB = (0, n.useRef)(null),
+      nq = (0, n.useRef)(null),
+      nD = (0, n.useRef)(null),
+      nF = (0, n.useRef)(0),
+      nL = (0, n.useRef)(null),
+      nK = (0, n.useRef)(null),
+      [nU, nj] = (0, n.useState)(null),
+      nz = (0, n.useRef)(new Map),
+      nV = (0, n.useRef)(new Map),
+      nG = (0, n.useRef)(0),
+      n$ = (0, n.useRef)(0),
+      nY = (0, n.useRef)(null),
+      nW = (0, n.useRef)(new Map),
+      nQ = (0, n.useRef)([]),
+      nJ = (0, n.useRef)(new Set),
+      nX = (0, n.useRef)([]),
+      nZ = (0, n.useRef)(new Set),
+      n0 = (0, n.useRef)(new Map),
+      n1 = (0, n.useRef)(!1),
+      n2 = (0, n.useRef)(new Map),
+      n3 = (0, n.useRef)(null),
+      n5 = (0, n.useRef)(() => {}),
+      n4 = (0, n.useRef)(-1),
+      n8 = (0, n.useRef)(-1);
+    if (n4.current < 0 || n8.current < 0) {
+      let e = tn(rm.getState().chat);
+      n4.current = 0, n8.current = e
+    }
+    let n9 = (0, n.useRef)(0),
+      n6 = (0, n.useRef)(0),
+      n7 = (0, n.useRef)(0),
+      ae = (0, n.useRef)(null),
+      at = (0, n.useRef)(null),
+      ar = (0, n.useRef)(null),
+      [an, aa] = (0, n.useState)(eY),
+      ai = (0, n.useRef)(eY),
+      as = (0, n.useRef)((0, eF.createEmptyPendingToolAnalyticsBuffer)()),
+      al = (0, n.useRef)(null),
+      ao = (0, n.useRef)(0),
+      au = (0, n.useRef)(new Set),
+      ac = (0, n.useRef)(null),
+      ad = (0, n.useRef)(null),
+      ag = (0, n.useRef)(null),
+      ah = (0, n.useRef)(new Map),
+      ap = (0, n.useRef)(tV),
+      am = (0, n.useRef)(tG),
+      af = (0, n.useRef)(tY),
+      ay = (0, n.useRef)(tV),
+      a_ = (0, n.useRef)(tY),
+      aS = (0, n.useRef)((0, S.gatewayTargetKey)(tV, tG)),
+      av = (0, n.useRef)(tK),
+      aC = (0, n.useRef)(tz),
+      aI = (0, n.useRef)(rp),
+      aT = (0, n.useRef)(tV),
+      aA = (0, n.useRef)(tY),
+      aR = (0, n.useRef)(null),
+      ab = an.settingsLoaded && an.enabled,
+      aw = (0, n.useRef)(null),
+      aE = (0, n.useRef)(null);
+    ap.current = tV, am.current = tG, af.current = tY, aS.current = (0, S.gatewayTargetKey)(tV, tG), av.current = tK, aC.current = tz, aI.current = rp, nP.current = rG, nO.current = rT;
+    let ak = (0, n.useCallback)(e => {
+        nF.current += 1, nj({
+          ...e,
+          gatewayScopeKey: af.current,
+          originRouteKey: te(nP.current),
+          requestId: nF.current
+        })
+      }, []),
+      aH = (0, n.useCallback)(() => {
+        nF.current += 1, nj(null)
+      }, []);
+    (0, n.useLayoutEffect)(() => (ay.current = tV, a_.current = tY, () => {
+      ay.current = null, a_.current = null
+    }), [tY, tV]), (0, n.useEffect)(() => {
+      let e = nY.current;
+      null != e && e.sourceKey !== rJ && (nY.current = null, rE(!1))
+    }, [rJ]), (0, n.useEffect)(() => () => {
+      ap.current = null, af.current = null, aS.current = null, aw.current = null
+    }, []);
+    let ax = (0, n.useCallback)(() => {
+        n7.current++
+      }, []),
+      aM = (0, n.useCallback)(e => {
+        ai.current = e, b.setUiControlSettingsSnapshot(e), aa(t => t.settingsLoaded === e.settingsLoaded && t.enabled === e.enabled && t.defaultMode === e.defaultMode ? t : e)
+      }, []),
+      aN = (0, n.useCallback)(e => {
+        aM({
+          ...ai.current,
+          ...e
+        })
+      }, [aM]);
+    (0, n.useEffect)(() => {
+      (0, ee.shouldPersistResolvedThreadTitle)({
+        route: rG,
+        threadTitle: rY,
+        loadedHistorySourceKey: r5,
+        activeChatHistorySourceKey: rJ
+      }) && rG?.kind === "thread" && null != rY && b.setThreadTitleForSession(rG.sessionId, rY)
+    }, [rG, rY, r5, rJ]);
+    let aP = (0, n.useCallback)(e => {
+        "number" == typeof e && Number.isFinite(e) && (n9.current = Date.now()), n4.current = (0, N.advanceReplaySeqCursor)(n4.current, e)
+      }, []),
+      aO = (0, n.useCallback)(e => {
+        n8.current = (0, N.advanceReplaySeqCursor)(n8.current, e)
+      }, []);
+    (0, n.useEffect)(() => b.subscribe(e => ({
+      isStreaming: e.chat.isStreaming,
+      sourceKey: e.chat.mainHistorySourceKey
+    }), (e, t) => {
+      if (e.sourceKey !== t.sourceKey) {
+        n9.current = e.isStreaming ? Date.now() : 0;
+        return
+      }
+      e.isStreaming && !t.isStreaming ? n9.current = Date.now() : !e.isStreaming && t.isStreaming && (n9.current = 0)
+    }, {
+      equalityFn: (e, t) => e.isStreaming === t.isStreaming && e.sourceKey === t.sourceKey
+    }), []);
+    let aB = (0, n.useCallback)((e, t = rG) => t?.kind === "thread" ? {
+        ...e,
+        session_id: t.sessionId
+      } : e, [rG]),
+      aq = (0, n.useCallback)((e, t = rG) => aB({
+        ...e,
+        transcript_mode: rW
+      }, t), [rG, rW, aB]),
+      aD = (0, n.useCallback)(() => (null == ad.current && (ag.current = null, ad.current = crypto.randomUUID()), ad.current), []),
+      aF = (0, n.useCallback)(e => {
+        let t = nP.current;
+        if (t?.kind === "thread" && t.sessionId === e) return !0;
+        if (t?.kind !== "draft" || ad.current !== e) return !1;
+        let r = nO.current;
+        return null != r && "draft" === r.route.kind ? (rA({
+          owner: r.owner,
+          route: {
+            kind: "thread",
+            sessionId: e
+          }
+        }), !0) : null != tD && (tD(tF((0, eH.buildHatchThreadPath)(e)), {
+          replace: !0
+        }), !0)
+      }, [tF, tD]),
+      aL = (0, n.useCallback)(e => {
+        let t = nP.current;
+        return null == t || "draft" !== t.kind && "invalid_thread" !== t.kind && ("thread" === t.kind ? null != e.threadId ? e.threadId === t.sessionId : null != e.sessionId ? e.sessionId === t.sessionId : !1 !== e.isThread : null == e.threadId && (!1 === e.isThread || null == e.sessionId && !0 !== e.isThread))
+      }, []),
+      aK = (0, n.useCallback)(e => {
+        let t = ta(e),
+          r = ta(t.payload);
+        return {
+          sessionId: ti(t.session_id) ?? ti(r.session_id) ?? null,
+          threadId: ti(t.thread_id) ?? ti(r.thread_id) ?? null,
+          isThread: ts(t.is_thread) ?? ts(r.is_thread)
+        }
+      }, []),
+      aU = (0, n.useCallback)(e => {
+        let t = nP.current;
+        return t?.kind === "main" ? !1 === e.is_thread : t?.kind === "thread" && !0 === e.is_thread && (0, M.normalizeOptionalId)(e.session_id) === t.sessionId
+      }, []),
+      aj = (0, n.useCallback)(e => {
+        let t = nq.current,
+          r = aS.current;
+        if (null == t || null == r || b.getActiveHatchStore() !== rm || tt(rm) !== t) return;
+        let n = rm.getState().chat;
+        for (let a of new Set(null == e ? n.messageIds.flatMap(e => {
+            let t = n.messagesById[e];
+            return null == t ? [] : (0, ej.collectReactionTargetIds)(t)
+          }) : e)) {
+          let e = nV.current.get(a);
+          if (null == e || e.applied || e.sourceKey !== t || e.gatewayTargetKey !== r || !eX(n, a)) continue;
+          let i = nz.current.get(a);
+          (i?.sourceKey !== t || i.gatewayTargetKey !== r || i.storeApi !== rm) && (b.reduceChat({
+            type: "reactions/set_message",
+            messageId: a,
+            emojis: e.reactions
+          }), e.applied = !0)
+        }
+      }, [rm]),
+      az = (0, n.useCallback)(() => {
+        nQ.current = [], nJ.current = new Set, n1.current = !1
+      }, []),
+      aV = (0, n.useCallback)(() => {
+        nX.current = [], nZ.current = new Set, n0.current = new Map
+      }, []),
+      aG = (0, n.useCallback)((e, t) => {
+        let r = tr(t);
+        if (null == r) return;
+        let n = e1(e, r);
+        if (nJ.current.has(n)) return;
+        let a = nQ.current;
+        for (a.push(n), nJ.current.add(n); a.length > 64;) {
+          let e = a.shift();
+          null != e && nJ.current.delete(e)
+        }
+      }, []),
+      a$ = (0, n.useCallback)(e => nZ.current.has(e), []),
+      aY = (0, n.useCallback)(e => {
+        if (!nZ.current.has(e))
+          for (nX.current.push(e), nZ.current.add(e); nX.current.length > 256;) {
+            let e = nX.current.shift();
+            null != e && (nZ.current.delete(e), n0.current.delete(e))
+          }
+      }, []),
+      aW = (0, n.useCallback)(e => {
+        null != e && (nX.current = nX.current.filter(t => t !== e), nZ.current.delete(e), n0.current.delete(e))
+      }, []),
+      aQ = (0, n.useCallback)(e => {
+        let t = new Set(e);
+        for (let t of e)
+          for (let e of (nz.current.delete(t), nV.current.delete(t), n2.current.delete(t), n0.current.delete(t), aW(t), (0, en.setReplyPreview)(t, null), rx.current.keys())) e.startsWith(`${t}:`) && rx.current.delete(e);
+        rb(e => null != e && (void 0 === e.type || "message" === e.type) && t.has(e.messageId) ? null : e)
+      }, [aW]),
+      aJ = (0, n.useCallback)(() => {
+        let e = b.getSnapshot().chat;
+        if (e.messageIds.length <= e3) return;
+        let t = e.messageIds.length > e5,
+          r = !e.isAtBottom || e.isViewingHistory || e.hasMoreNewer || e.isLoadingOlder || e.isLoadingNewer;
+        !t && r || !t && (e.isStreaming || e.isExpectingBotResponse) || b.reduceChat({
+          type: "messages/compact_to_latest",
+          maxMessages: e2,
+          hardCeilingMessages: e5
+        })
+      }, []),
+      aX = (0, n.useCallback)(e => {
+        for (let t of e ?? []) aO(t.seq)
+      }, [aO]),
+      aZ = (0, n.useCallback)(e => {
+        for (let t of e ?? [])
+          if ("delta.text_append" === t.event_name) {
+            let e = (0, M.normalizeOptionalId)(t.message_id);
+            null != e && aG(e, t.seq)
+          }
+      }, [aG]),
+      a0 = (0, n.useRef)(new Map),
+      a1 = (0, n.useRef)(new Set),
+      a2 = (0, n.useCallback)(() => {
+        let e = a1.current;
+        if (0 === e.size) return;
+        let t = !1;
+        for (let r of e)
+          if (!r.pending) {
+            t = !0;
+            break
+          } if (!t) return;
+        let r = new Set,
+          n = e => {
+            for (let t of Object.values(e))
+              for (let e of t.files ?? []) null != e.previewUrl && r.add(e.previewUrl)
+          },
+          a = rm.getState();
+        for (let e of (n(a.chat.messagesById), a0.current.values())) n(e.messagesById);
+        for (let e of [...a.composer.pendingAttachments, ...a.composer.pendingSend?.attachments ?? []]) r.add(e.previewUrl);
+        for (let t of e)
+          if (!t.pending) {
+            for (let e of t.urls) r.has(e) || (URL.revokeObjectURL(e), t.urls.delete(e));
+            0 === t.urls.size && e.delete(t)
+          }
+      }, [rm]);
+    (0, n.useEffect)(() => {
+      let e = a1.current,
+        t = rm.subscribe(e => ({
+          messagesById: e.chat.messagesById,
+          pendingAttachments: e.composer.pendingAttachments,
+          pendingSend: e.composer.pendingSend
+        }), a2, {
+          equalityFn: (e, t) => e.messagesById === t.messagesById && e.pendingAttachments === t.pendingAttachments && e.pendingSend === t.pendingSend
+        });
+      return () => {
+        t();
+        let r = rm.getState().composer,
+          n = new Set([...r.pendingAttachments, ...r.pendingSend?.attachments ?? []].map(e => e.previewUrl));
+        for (let t of e)
+          for (let e of t.urls) n.has(e) || URL.revokeObjectURL(e);
+        e.clear()
+      }
+    }, [rm, a2]);
+    let a3 = (0, n.useRef)(new Map),
+      a5 = (0, n.useRef)(null),
+      a4 = (0, n.useRef)(new Set),
+      a8 = (0, n.useRef)(new Map),
+      a9 = (0, n.useCallback)((e, t) => {
+        let r = a8.current.get(e);
+        null == r && (r = Symbol(e), a8.current.set(e, r)), (0, O.retainContentVirtualizationCache)(r, t)
+      }, []),
+      a6 = (0, n.useCallback)(e => {
+        let t = a8.current.get(e);
+        null != t && ((0, O.releaseContentVirtualizationCache)(t), a8.current.delete(e))
+      }, []),
+      a7 = (0, n.useCallback)(() => {
+        for (let e of a8.current.values())(0, O.releaseContentVirtualizationCache)(e);
+        a8.current.clear(), a4.current.clear()
+      }, []),
+      ie = (0, n.useCallback)(e => {
+        a0.current.delete(e), a6(e)
+      }, [a6]);
+    (0, n.useEffect)(() => a7, [a7]), (0, n.useEffect)(() => {
+      if (null == r1 || null == rZ || null == rJ || nI) return void r3(r1);
+      let e = !1;
+      return (0, eb.readChatTranscriptCache)(rZ, r1, rJ).then(t => {
+        if (e || null == t || b.getActiveHatchStore() !== rm || nq.current !== rJ) return;
+        let r = rm.getState().chat;
+        (!r.historyLoaded || r.mainHistorySourceKey !== rJ) && (n4.current = 0, n8.current = Math.max(0, t.newestSeq ?? 0), (0, ea.noteTranscriptRevision)(nW.current, rJ, t.transcriptRevision), (0, b.commitStoreUpdateTo)(rm, e => e.chat.historyLoaded && e.chat.mainHistorySourceKey === rJ ? null : {
+          chat: {
+            ...e.chat,
+            messageIds: t.messageIds,
+            messagesById: t.messagesById,
+            reactions: t.reactions,
+            oldestSeq: t.oldestSeq,
+            newestSeq: t.newestSeq,
+            hasMore: t.hasMore,
+            hasReachedHistoryStart: !1,
+            isLoading: !1,
+            historyLoaded: !1,
+            isCheckingPersistentCache: !1,
+            hasProvisionalCachedHistory: !0,
+            isRefreshingCachedHistory: ne.current !== rJ,
+            isLoadingOlder: !1,
+            isLoadingNewer: !1,
+            hasMoreNewer: !1,
+            mainHistorySourceKey: rJ,
+            isAtBottom: !0,
+            isViewingHistory: !1,
+            poppedMessageIds: new Set
+          }
+        }, "chat/hydrate_persistent_cache"), rm.getState().chat.hasProvisionalCachedHistory && (0, d.recordInitialLoadContentSource)("cached"))
+      }).catch(e => {
+        ez.retainForBugReport("warn", "Failed to read cached chat history")
+      }).finally(() => {
+        e || ((0, b.commitStoreUpdateTo)(rm, e => e.chat.mainHistorySourceKey === rJ && e.chat.isCheckingPersistentCache ? {
+          chat: {
+            ...e.chat,
+            isCheckingPersistentCache: !1
+          }
+        } : null, "chat/finish_persistent_cache_lookup"), r3(r1))
+      }), () => {
+        e = !0
+      }
+    }, [rJ, nI, rm, r1, rZ]), (0, n.useEffect)(() => {
+      if (null == r1 || null == rX || null == rJ) return;
+      let e = rX.kind,
+        t = Promise.resolve(),
+        r = "",
+        n = (n, a) => {
+          let i = nW.current.get(rJ) ?? null,
+            s = (0, eb.buildChatTranscriptCacheEntry)(rX, r1, rJ, n, i);
+          if (null == s) {
+            let e = JSON.stringify({
+              expectingResponse: n.isExpectingBotResponse,
+              hasMoreNewer: n.hasMoreNewer,
+              historyLoaded: n.historyLoaded,
+              sourceMatches: n.mainHistorySourceKey === rJ,
+              streaming: n.isStreaming,
+              viewingHistory: n.isViewingHistory
+            });
+            e !== r && (r = e);
+            return
+          }
+          if (r = "", null != a) {
+            let e = (0, eb.buildChatTranscriptCacheEntry)(rX, r1, rJ, a, i, s.cachedAtMs);
+            if ((0, eb.areChatTranscriptCacheEntriesEquivalent)(e, s)) return
+          }
+          t = t.then(() => (0, eb.writeChatTranscriptCache)(e, s)).catch(e => {
+            ez.retainForBugReport("warn", "Failed to persist cached chat history")
+          })
+        };
+      return n(rm.getState().chat), rm.subscribe(e => e.chat, (e, t) => n(e, t))
+    }, [rJ, rm, r1, rX]);
+    let it = (0, n.useCallback)(() => !!rm.getState().chat.hasProvisionalCachedHistory && null != rJ && ((0, eb.clearChatCache)().catch(e => {
+        ez.retainForBugReport("warn", "Failed to clear chat cache after cached feed render error")
+      }), n4.current = 0, n8.current = 0, (0, d.recordInitialLoadCachedContentReconciled)("render_error"), r3(r1), (0, b.commitStoreUpdateTo)(rm, e => e.chat.hasProvisionalCachedHistory ? {
+        chat: e9(e.chat, {
+          historyLoaded: !1,
+          isCheckingPersistentCache: !1,
+          isLoading: !0,
+          sourceKey: rJ
+        })
+      } : null, "chat/recover_from_persistent_cache_render_error"), nH(), !0), [rJ, rm, r1, nH]),
+      ir = (0, n.useCallback)((e, t, r = !1) => {
+        if (null == e) return !1;
+        let n = !1,
+          a = b.getSnapshot().chat,
+          i = a.messagesById[e];
+        if (null != i) {
+          let s = null == t ? null : a.messagesById[t];
+          null == t || null != s && "user" !== s.role ? r && null == t ? (n = !0, b.reduceChat({
+            type: "message/update",
+            id: e,
+            updates: {
+              deliveryStatus: "failed",
+              deliveryPhase: void 0,
+              ...(0, ep.mergeMessageSortOrder)(i, i.sortSeq ?? eG(Object.values(a.messagesById), a.newestSeq), "delta")
+            }
+          })) : b.reduceChat({
+            type: "message/remove",
+            id: e
+          }) : (b.reduceChat({
+            type: "message/rename",
+            oldId: e,
+            newId: t
+          }), b.reduceChat({
+            type: "message/update",
+            id: t,
+            updates: {
+              deliveryStatus: "sent",
+              deliveryPhase: void 0
+            }
+          }))
+        }
+        for (let [a, i] of a0.current) {
+          let s = i.messagesById[e];
+          if (null == s) continue;
+          let l = null == t ? null : i.messagesById[t],
+            o = null == t || null != l && "user" !== l.role,
+            u = {
+              ...i.messagesById
+            };
+          if (delete u[e], o && r && null == t) {
+            n = !0, a0.current.set(a, {
+              ...i,
+              messagesById: {
+                ...i.messagesById,
+                [e]: {
+                  ...s,
+                  deliveryStatus: "failed",
+                  deliveryPhase: void 0,
+                  ...(0, ep.mergeMessageSortOrder)(s, s.sortSeq ?? eG(Object.values(i.messagesById), i.newestSeq), "delta")
+                }
+              }
+            });
+            continue
+          }
+          if (o) {
+            a0.current.set(a, {
+              ...i,
+              messageIds: i.messageIds.filter(t => t !== e),
+              messagesById: u
+            });
+            continue
+          }
+          let c = null == l ? {
+            ...s,
+            id: t,
+            messageId: t,
+            deliveryStatus: "sent",
+            deliveryPhase: void 0
+          } : {
+            ...l,
+            ...null == l.clientSentAt && null != s.clientSentAt ? {
+              clientSentAt: s.clientSentAt
+            } : {},
+            ...null == l.annotationContext && null != s.annotationContext ? {
+              annotationContext: s.annotationContext
+            } : {},
+            deliveryStatus: "sent",
+            deliveryPhase: void 0
+          };
+          u[t] = c;
+          let d = new Set,
+            g = i.messageIds.map(r => r === e ? t : r).filter(e => !d.has(e) && (d.add(e), !0));
+          a0.current.set(a, {
+            ...i,
+            messageIds: g,
+            messagesById: u,
+            isStreaming: !0,
+            isExpectingBotResponse: !0
+          })
+        }
+        return n
+      }, []);
+    (0, n.useLayoutEffect)(() => {
+      null != rQ && b.activateComposerDraftRouteForStore(rm, rQ)
+    }, [rQ, rm]), (0, n.useLayoutEffect)(() => {
+      if (null == rG || null == rJ) {
+        a5.current = null, nV.current.clear();
+        return
+      }
+      let e = e7(rG),
+        t = rm.getState().chat,
+        r = nB.current,
+        n = nq.current,
+        a = nD.current;
+      if (r === rQ && n === rJ && a === rm) return;
+      nV.current.clear();
+      let i = e ? t.historyLoaded : t.historyLoaded && !t.isLoading;
+      if (t.mainHistorySourceKey === rJ && i) {
+        a5.current = null, nB.current = rQ, nq.current = rJ, nD.current = rm;
+        return
+      }
+      nB.current = rQ, nq.current = rJ, nD.current = rm;
+      let s = rm.getState().activity,
+        l = s.currentChatRouteKey;
+      if (null != r && l === r && (null != s.currentChatRootAgentId || null != s.currentChatSessionId))
+        for (a3.current.delete(l), a3.current.set(l, {
+            rootAgentId: s.currentChatRootAgentId,
+            sessionId: s.currentChatSessionId
+          }); a3.current.size > 4;) {
+          let e = a3.current.keys().next().value;
+          null != e && a3.current.delete(e)
+        }
+      let o = (0, eH.getHatchChatRouteKey)(rG),
+        u = null == o ? void 0 : a3.current.get(o);
+      a5.current = null == u ? null : o, n5.current();
+      let c = rm.getState().chat.sxs;
+      null != c && b.resolveSxsComparison(c.sxsId);
+      let d = rm.getState().chat,
+        g = a === rm && n === e4 && "thread" === rG.kind && ad.current === rG.sessionId;
+      null == r || r === rQ || g || iH.current.cancelAll();
+      let h = g ? rJ : n === e4 ? null : n;
+      if (n === e4 && ie(n), null != h && d.messageIds.length > 0 && d.historyLoaded && !d.isViewingHistory && !d.hasMoreNewer) {
+        a0.current.set(h, {
+          messageIds: d.messageIds,
+          messagesById: d.messagesById,
+          reactions: d.reactions,
+          oldestSeq: d.oldestSeq,
+          newestSeq: d.newestSeq,
+          hasMore: d.hasMore,
+          hasReachedHistoryStart: d.hasReachedHistoryStart,
+          isStreaming: d.isStreaming,
+          isExpectingBotResponse: d.isExpectingBotResponse,
+          streamSeqCursor: n4.current,
+          chatEventSeqCursor: n8.current,
+          cachedAtMs: Date.now()
+        }), a9(h, t.messageIds);
+        let e = Date.now();
+        for (let [t, r] of a0.current) e - r.cachedAtMs > 6e4 && ie(t);
+        for (; a0.current.size > 3;) {
+          let e = a0.current.keys().next().value;
+          null != e && ie(e)
+        }
+      } else null != n && n !== rJ && a6(n);
+      let p = null != rJ ? a0.current.get(rJ) : void 0;
+      null != p && Date.now() - p.cachedAtMs >= 6e4 && (ie(rJ), p = void 0), "draft" !== rG.kind && (ad.current = null), nx.current = null, nN.current = null, al.current = null, ao.current = 0, az(), aV(), rb(e => null != e && function(e) {
+        let t = e.type;
+        switch (t) {
+          case void 0:
+          case "message":
+          case "presentation":
+            return !0;
+          case "feed_unit":
+            return !1;
+          default:
+            return t
+        }
+      }(e) ? null : e), (0, b.commitStoreUpdateTo)(rm, e => null == e.search.query && null == e.search.highlightedMessageId ? null : {
+        search: {
+          query: null,
+          highlightedMessageId: null
+        }
+      }, "search/clear"), null != p ? (n4.current = p.streamSeqCursor, n8.current = p.chatEventSeqCursor, ac.current = rW, null != rJ && (a0.current.delete(rJ), a4.current.add(rJ)), (0, b.commitStoreUpdateTo)(rm, e => ({
+        chat: {
+          ...e.chat,
+          messageIds: p.messageIds,
+          messagesById: p.messagesById,
+          reactions: p.reactions,
+          oldestSeq: p.oldestSeq,
+          newestSeq: p.newestSeq,
+          hasMore: p.hasMore,
+          hasReachedHistoryStart: p.hasReachedHistoryStart,
+          isStreaming: p.isStreaming,
+          isExpectingBotResponse: p.isExpectingBotResponse,
+          expectingBotResponseAnchorIndex: null,
+          isLoading: !1,
+          historyLoaded: !0,
+          isCheckingPersistentCache: !1,
+          hasProvisionalCachedHistory: !1,
+          isRefreshingCachedHistory: !1,
+          mainHistorySourceKey: rJ,
+          isAtBottom: !0,
+          isViewingHistory: !1,
+          isLoadingOlder: !1,
+          isLoadingNewer: !1,
+          hasMoreNewer: !1,
+          lastSeenTimestamp: null,
+          poppedMessageIds: new Set
+        },
+        activity: e6(e.activity, rG, u)
+      }), `chat/restore_cached_transcript(${rJ})`)) : (n4.current = 0, n8.current = 0, ac.current = e ? null : rW, (0, b.commitStoreUpdateTo)(rm, t => ({
+        chat: e9(t.chat, {
+          historyLoaded: !e,
+          isCheckingPersistentCache: e && nT,
+          isLoading: e,
+          sourceKey: rJ
+        }),
+        activity: e6(t.activity, rG, u)
+      }), `chat/reset_for_route(${rJ})`))
+    }, [rJ, rG, rQ, ie, nI, rm, nT, r1, a6, az, aV, a9, rW]), (0, n.useEffect)(() => {
+      if (0 !== a4.current.size) {
+        for (let e of a4.current) a6(e);
+        a4.current.clear(), (0, O.pruneContentVirtualizationCaches)(b.getSnapshot().chat.messageIds)
+      }
+    });
+    let ia = (0, n.useCallback)((e, t, r) => {
+      let n = r?.sourceKey ?? tt(rm),
+        a = rm.getState().chat,
+        i = null == n ? null : nW.current.get(n) ?? null;
+      if ((0, ea.isHistoryRevisionStale)(nW.current, n, e.transcript_revision)) {
+        let t = (0, ea.normalizeTranscriptRevision)(e.transcript_revision),
+          r = null == n ? null : nW.current.get(n) ?? null;
+        return null == t && null != r ? ez.error({
+          ...{
+            incomingRevision: t,
+            knownRevision: r,
+            sourceKey: n
+          },
+          error: Error("Chat history omitted transcript_revision after one was established"),
+          tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_FEED)
+        }, "Rejected chat history response without the required transcript revision") : ez.retainForBugReport("info", "Ignoring stale chat history response by transcript revision"), !1
+      }(0, ea.noteTranscriptRevision)(nW.current, n, e.transcript_revision);
+      let s = (0, ea.normalizeTranscriptRevision)(e.transcript_revision),
+        l = a.newestSeq,
+        o = null != l && e.chat_events.some(e => e.seq <= l),
+        u = "replace" === t && a.hasProvisionalCachedHistory && a.mainHistorySourceKey === n,
+        g = u && e.chat_events.length > 0 && o && (null == i || null == s || i === s) ? "append" : t;
+      "replace" === t && ((0, ef.resetSeenWidgetImpressions)(), (0, ey.resetEntrypointImpressions)());
+      let h = r?.preserveStreaming == null ? void 0 : {
+          preserveStreaming: r.preserveStreaming
+        },
+        p = new Set(rm.getState().chat.poppedMessageIds),
+        m = eJ(rm.getState().chat);
+      if ((0, b.commitStoreUpdateTo)(rm, n => {
+          let a = (0, eR.buildMainHistoryHydrationUpdate)(n, e, g, h),
+            i = a.chat ?? n.chat,
+            s = r?.historyWindowState == null ? i : {
+              ...i,
+              ...r.historyWindowState
+            };
+          return "replace" !== t || r?.sourceKey == null ? r?.historyWindowState == null ? a : {
+            ...a,
+            chat: s
+          } : {
+            ...a,
+            chat: {
+              ...s,
+              mainHistorySourceKey: r.sourceKey,
+              ...u ? {
+                historyLoaded: !0,
+                hasProvisionalCachedHistory: !1,
+                isRefreshingCachedHistory: !1,
+                isLoading: !1,
+                hasMore: "append" === g ? n.chat.hasMore : e.has_more,
+                hasReachedHistoryStart: "append" === g ? !n.chat.hasMore : !e.has_more
+              } : {}
+            }
+          }
+        }, `chat/hydrate_history(${g})`), u && (0, d.recordInitialLoadCachedContentReconciled)((0, eb.classifyCachedTranscriptChange)(a, rm.getState().chat)), "replace" === t && (0, d.recordInitialLoadContentSource)("fresh"), aQ([...new Set([...[...rm.getState().chat.poppedMessageIds].filter(e => !p.has(e)), ...[...eJ(rm.getState().chat)].filter(e => !m.has(e))])]), aX(e.chat_events), aZ(e.chat_events), null != n)
+        for (let [e, t] of nV.current) t.sourceKey === n && (r?.reactionGenerationAtRequestStart != null && t.generation <= r.reactionGenerationAtRequestStart ? nV.current.delete(e) : t.applied = !1);
+      return aj(), "append" === g && aJ(), !0
+    }, [aJ, aQ, rm, aj, aX, aZ]);
+    (0, n.useEffect)(() => {
+      null == rC.mainHistoryPage || null == rC.mainHistorySourceKey || rC.mainHistorySourceKey === rJ && (rm.getState().chat.hasProvisionalCachedHistory ? ia(rC.mainHistoryPage, "replace", {
+        sourceKey: rC.mainHistorySourceKey
+      }) : ((0, d.recordInitialLoadContentSource)("fresh"), b.hydrateMainHistoryIntoStore(rm, rC.mainHistoryPage, rC.mainHistorySourceKey, "bootstrap")), (0, ea.noteTranscriptRevision)(nW.current, rC.mainHistorySourceKey, rC.mainHistoryPage.transcript_revision), aX(rC.mainHistoryPage.chat_events))
+    }, [rJ, ia, rm, aX, rC.mainHistoryPage, rC.mainHistorySourceKey]), (0, n.useEffect)(() => {
+      az(), aV()
+    }, [tY, az, aV]), (0, n.useLayoutEffect)(() => {
+      if (null == tY) return;
+      let e = (0, Q.activateApprovalStateGateway)(tO, tY);
+      return aR.current = e, () => {
+        aR.current === e && (aR.current = null), (0, Q.deactivateApprovalStateGateway)(tO, e)
+      }
+    }, [tY, tO]), (0, n.useEffect)(() => {
+      if (null == tY) return;
+      let e = aR.current;
+      if (null != e && e.gatewayScopeKey === tY) return tU("approvals.snapshot", t => {
+        if (!(0, Q.isApprovalTargetTokenCurrent)(tO, e) || (tO.cancelQueries({
+            queryKey: W.approvalsListQuery.queryKey({
+              gatewayUrl: tY
+            }),
+            exact: !0
+          }), !(0, Q.commitApprovalsSnapshot)({
+            approvals: (0, W.normalizeApprovalsSnapshot)(t),
+            expectedTargetToken: e,
+            gatewayScopeKey: tY,
+            queryClient: tO
+          }))) return;
+        let r = aE.current;
+        r?.gatewayScopeKey === tY && (r.needsFollowUp = !1, r.satisfiedByCommittedAuthority = !0), rg(null), rh("idle"), t9(tY), t7(t4.current), rr()
+      })
+    }, [tY, tU, tO, rr, rh, rg]), (0, n.useEffect)(() => {
+      (aT.current !== tV || aA.current !== tY) && (aT.current = tV, aA.current = tY, ah.current = new Map, aw.current = null, t9(null), t7(null), rg(null), rh("idle"), n4.current = 0, n8.current = 0, nQ.current = [], nJ.current = new Set, nX.current = [], nZ.current = new Set, n0.current = new Map, nW.current.clear(), nY.current = null, rE(!1), al.current = null, ac.current = null, nx.current = null, nN.current = null, n6.current += 1, ae.current = null, at.current = null, ar.current = null, rb(null), null != n3.current && (cancelAnimationFrame(n3.current), n3.current = null), n2.current.clear(), a0.current.clear(), a3.current.clear(), a5.current = null, a7(), (0, O.clearContentVirtualizationCaches)(), (0, b.commitStoreUpdate)(e => {
+        let t = (0, b.buildInitialHatchStoreState)();
+        return {
+          chat: {
+            ...t.chat,
+            model: e.chat.model,
+            modelDisplayName: e.chat.modelDisplayName,
+            voiceId: e.chat.voiceId,
+            captionsEnabled: e.chat.captionsEnabled
+          },
+          activity: t.activity
+        }
+      }, "chat/reset_for_gateway_change"))
+    }, [tY, tV, a7, rh, rg]);
+    let ii = (0, n.useCallback)((e, t) => {
+        let r = (0, k.normalizeHatchChatModel)(e);
+        return null != r ? r : (0, k.normalizeHatchChatModel)(t)
+      }, []),
+      is = (0, n.useCallback)((e, t, r) => {
+        let n = {
+          eventName: "delta.text_append",
+          seq: e,
+          gatewayUrl: tV,
+          messageId: t,
+          ...null != nx.current ? {
+            chatSubscriptionConnectionId: nx.current
+          } : {},
+          ...null != r ? {
+            websocketConnectionID: r
+          } : {}
+        };
+        n1.current || (n1.current = !0, ez.error(n, "Suppressed duplicate chat event seq"))
+      }, [tV]),
+      il = (0, n.useCallback)((e, t, r) => null != e && !!nJ.current.has(e1(t, e)) && (is(e, t, r), !0), [is]),
+      io = (0, n.useRef)(null),
+      iu = (0, n.useCallback)(async (e, t) => {
+        let r = b.getSnapshot().deviceContext.local.deviceId,
+          n = (0, B.buildHatchClientCapabilities)(r, e, tM, ab),
+          a = null;
+        for (let e = 0; e < 2; e += 1) {
+          if (!t()) return;
+          try {
+            let e = await tK("client.register_capabilities", n);
+            if (!t()) return;
+            if (null != e.capabilities) {
+              let t = e.capabilities.includes(ep.VIDEO_FILE_REF_INGEST_CAPABILITY);
+              b.commitStoreUpdateTo(rm, e => e.chat.supportsVideoFileRefIngestion === t ? null : {
+                chat: {
+                  ...e.chat,
+                  supportsVideoFileRefIngestion: t
+                }
+              }, "chat/set_server_capabilities_after_registration")
+            }
+            return
+          } catch (e) {
+            a = e instanceof Error ? e : Error(String(e))
+          }
+        }
+        null != a && t() && ez.error({
+          error: a,
+          includeVoice: e,
+          uiControlRegistrationEnabled: ab,
+          tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+        }, "Failed to register client capabilities")
+      }, [rm, tM, tK, ab]),
+      ic = (0, n.useCallback)(async e => {
+        let t = nP.current;
+        if (!e7(t)) return {
+          applied: !1,
+          skipReason: "unavailable"
+        };
+        let r = e?.sourceKey ?? nq.current;
+        if (null == r) return {
+          applied: !1,
+          skipReason: "unavailable"
+        };
+        let n = async (a, i) => {
+          var s, l, o, u;
+          let c, d = new Set(rm.getState().chat.messageIds),
+            g = n8.current,
+            h = n$.current,
+            p = i ?? await (0, eC.runHatchGatewayResultOperation)(async () => {
+              let r = aq({
+                limit: H.INITIAL_HISTORY_LIMIT
+              }, t);
+              return e?.expectedGatewayTargetKey == null ? tK("chat.history", r) : tK("chat.history", r, {
+                expectedGatewayTargetKey: e.expectedGatewayTargetKey
+              })
+            });
+          if (b.getActiveHatchStore() !== rm) return {
+            applied: !1,
+            skipReason: "unavailable"
+          };
+          if (nq.current !== r) return ez.retainForBugReport("info", "Ignoring stale chat.history response after transcript change"), {
+            applied: !1,
+            skipReason: "unavailable"
+          };
+          if (p.ok) c = p.data;
+          else if ("not_found" === p.error.kind && "thread" === t.kind) {
+            let e = await (0, eC.runHatchGatewayResultOperation)(async () => tK("sessions.list", es.THREAD_SESSIONS_LIST_PARAMS));
+            if (b.getActiveHatchStore() !== rm) return {
+              applied: !1,
+              skipReason: "unavailable"
+            };
+            if (nq.current !== r) return ez.retainForBugReport("info", "Ignoring stale chat.history response after transcript change"), {
+              applied: !1,
+              skipReason: "unavailable"
+            };
+            if (e.ok && (s = e.data.sessions, l = t.sessionId, s.some(e => e.session_id === l && e.is_thread)) && 0 === (o = rm.getState().chat).messageIds.length && !o.isStreaming) ez.retainForBugReport("info", "Resolving missing thread history as empty existing thread"), c = e8;
+            else throw e0(p.error)
+          } else throw e0(p.error);
+          let m = n8.current,
+            f = n$.current,
+            y = (u = c.chat_events, u?.reduce((e, t) => Math.max(e, t.seq), 0) ?? 0);
+          if (a && (m > g && y < m || f > h)) return ez.retainForBugReport("info", "Discarding stale chat.history response after newer live events arrived"), await n(!1);
+          if (e?.guardBeforeApply === !0) {
+            let e = rm.getState().chat;
+            if (!e.isAtBottom) return {
+              applied: !1,
+              skipReason: "not_at_bottom"
+            };
+            if (e.isViewingHistory) return {
+              applied: !1,
+              skipReason: "viewing_history"
+            };
+            if (e.isStreaming) return {
+              applied: !1,
+              skipReason: "streaming"
+            }
+          }
+          if (!ia(c, "replace", {
+              reactionGenerationAtRequestStart: h,
+              sourceKey: r
+            })) return a ? await n(!1) : {
+            applied: !1,
+            skipReason: "unavailable"
+          };
+          if (null != tV) {
+            let e = (0, eS.getHatchChatHistoryQuery)({
+              gatewayUrl: tY ?? tV,
+              transcriptMode: rW,
+              ...t?.kind === "thread" ? {
+                sessionId: t.sessionId
+              } : {}
+            });
+            tO.setQueryData(e.queryKey, (0, eC.okHatchGatewayResult)(c))
+          }
+          b.reduceChat({
+            type: "chat/set_viewing_history",
+            isViewingHistory: !1
+          }), b.reduceChat({
+            type: "chat/set_newest_seq",
+            newestSeq: null
+          }), b.reduceChat({
+            type: "chat/set_has_more_newer",
+            hasMoreNewer: !1
+          }), b.restoreLastSeenTimestamp();
+          let _ = rm.getState().chat;
+          return null != _.lastSeenTimestamp && (_.messageIds.some(e => !d.has(e)) || b.markMessagesSeen()), {
+            applied: !0
+          }
+        };
+        return await n(e?.allowStaleRetry ?? !1, e?.historyResult)
+      }, [ia, tY, tV, rm, tO, tK, rW, aq]),
+      id = (0, n.useCallback)(async e => {
+        if (!e7(nP.current)) return {
+          result: "skipped",
+          skipReason: "unavailable"
+        };
+        let t = b.getSnapshot().chat;
+        if (t.isStreaming && n9.current > 0 && Date.now() - n9.current > 6e4 && (ez.retainForBugReport("warn", "Clearing stalled streaming state before chat history rehydrate"), b.reduceChat({
+            type: "chat/stop_stream"
+          }), t = b.getSnapshot().chat), !t.isAtBottom) return {
+          result: "skipped",
+          skipReason: "not_at_bottom"
+        };
+        if (t.isViewingHistory) return {
+          result: "skipped",
+          skipReason: "viewing_history"
+        };
+        if (t.isStreaming) return {
+          result: "skipped",
+          skipReason: "streaming"
+        };
+        let r = al.current;
+        if (r) return ez.retainForBugReport("info", "Joining in-flight chat history rehydrate"), await r, {
+          result: "joined"
+        };
+        if (Date.now() - ao.current < 5e3) return ez.retainForBugReport("info", "Skipping chat history rehydrate after recent successful refresh"), {
+          result: "throttled"
+        };
+        let n = (async () => {
+          try {
+            let t = await ic({
+              allowStaleRetry: !0,
+              guardBeforeApply: !0,
+              reason: e
+            });
+            if (!t.applied) return {
+              result: "skipped",
+              skipReason: t.skipReason ?? "unavailable"
+            };
+            return ac.current = rW, ao.current = Date.now(), {
+              result: "applied"
+            }
+          } catch (n) {
+            let t = n instanceof Error ? n : Error(String(n)),
+              r = {
+                error: t,
+                reason: e,
+                tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_FEED)
+              };
+            return eZ(t) ? ez.retainForBugReport("warn", "Failed to rehydrate chat history") : ez.error(r, "Failed to rehydrate chat history"), {
+              result: "failed"
+            }
+          }
+        })().finally(() => {
+          al.current === n && (al.current = null)
+        });
+        return al.current = n, await n
+      }, [ic, rW]),
+      ig = (0, n.useCallback)((e, t, r) => {
+        if (null == t || b.getActiveHatchStore() !== rm || nq.current !== t) return !1;
+        let n = eQ(e);
+        return 0 !== n.length && (aQ(n), b.reduceChat({
+          type: r,
+          ids: n
+        }), null != nR && tO.removeQueries({
+          queryKey: nR.queryKey,
+          exact: !0
+        }), !0)
+      }, [nR, aQ, rm, tO]),
+      ih = (0, n.useCallback)((e, t) => ig(e, t, "messages/tombstone_ids"), [ig]),
+      ip = (0, n.useCallback)((e, t) => ig(e, t, "messages/remove_ids"), [ig]),
+      im = (0, n.useCallback)((e, t, r) => null != t ? ih([t], r) : ip(e, r), [ip, ih]),
+      iy = (0, n.useCallback)(async (e = "background", t = !1) => {
+        let r = b.getSnapshot().activity.taskStatusesByTaskId;
+        if (!tV || null == tY) return {
+          hasPending: Object.keys(r).length > 0,
+          outcome: "unavailable"
+        };
+        let n = (0, S.gatewayTargetKey)(tV, tG),
+          a = t4.current,
+          i = aw.current;
+        if (null != i && i.connectionGeneration === a && i.gatewayUrl === tV && i.gatewayScopeKey === tY && i.queryClient === tO && (0, Q.isApprovalStateTokenCurrent)(tO, i.stateToken)) {
+          if (!t && ("blocking" === i.mode || "background" === e)) return i.promise;
+          try {
+            await i.promise
+          } catch {}
+          let r = aw.current;
+          if (null != r && r.connectionGeneration === a && r.gatewayUrl === tV && r.gatewayScopeKey === tY && r.queryClient === tO && (0, Q.isApprovalStateTokenCurrent)(tO, r.stateToken)) {
+            if ("blocking" === r.mode || "background" === e) return r.promise;
+            try {
+              await r.promise
+            } catch {}
+          }
+        }
+        let s = (0, Q.captureApprovalStateToken)(tO, tY),
+          l = {
+            connectionGeneration: a,
+            gatewayScopeKey: tY,
+            gatewayUrl: tV,
+            mode: e,
+            promise: Promise.resolve({
+              hasPending: Object.keys(r).length > 0,
+              outcome: "unavailable"
+            }),
+            queryClient: tO,
+            stateToken: s
+          };
+        return l.promise = (async () => {
+          try {
+            let t = await (0, W.fetchApprovals)(tK, {
+              expectedTargetKey: n
+            });
+            if (ay.current !== tV || a_.current !== tY || t4.current !== a) return {
+              hasPending: Object.keys(b.getSnapshot().activity.taskStatusesByTaskId).length > 0,
+              outcome: (0, Q.hasApprovalStateCommittedSince)(tO, s) ? "superseded_by_committed_authority" : "superseded_without_commit"
+            };
+            let r = !1,
+              i = ah.current;
+            if (!(0, Q.commitAcceptedApprovalsPull)({
+                expectedToken: s,
+                freshApprovals: t,
+                gatewayScopeKey: tY,
+                queryClient: tO,
+                syncActivity: t => {
+                  let n = (0, eh.approvalsToSnapshotPendingApprovals)(t.pending),
+                    a = (0, J.approvalsToSnapshotPendingApprovalScopes)(t.pending),
+                    s = (0, J.approvalsToSnapshotPendingApprovalBackgroundOnly)(t.pending),
+                    l = (0, eh.approvalsToSnapshotPendingApprovalRequestedAtMs)(t.pending);
+                  (0, b.commitStoreUpdate)(t => {
+                    let o = Date.now(),
+                      u = (0, eh.retainResolvedApprovalIdsPresentInSnapshot)(t.activity.resolvedApprovalIdsById, n),
+                      c = (0, eh.pruneExpiredResolvedTaskGraceUntil)(t.activity.resolvedTaskGraceUntilByTaskId, o),
+                      d = function(e, t, r, n, a) {
+                        let i = Date.now(),
+                          s = {},
+                          l = new Map;
+                        for (let [o, u] of Object.entries(e)) {
+                          if (!(0, eh.isPendingApprovalStatus)(u)) {
+                            (n[o] ?? 0) > i && (s[o] = u);
+                            continue
+                          }
+                          if ((0, eh.hasSnapshotPendingTaskId)(t, o)) {
+                            s[o] = u;
+                            continue
+                          }
+                          let e = (r.get(o) ?? 0) + 1;
+                          (0, eh.shouldRetainLivePendingAfterSnapshotMiss)(e, a) && (s[o] = u, l.set(o, e))
+                        }
+                        return {
+                          nextLive: s,
+                          nextMissCounts: l
+                        }
+                      }(t.activity.liveTaskStatusesByTaskId, n, ah.current, c, e),
+                      g = d.nextLive,
+                      h = (0, eh.retainLiveApprovalTaskScopes)(t.activity.liveTaskScopesByTaskId, g);
+                    i = d.nextMissCounts;
+                    let p = (0, eh.derivePendingApprovalTaskStatuses)({
+                      liveTaskStatusesByTaskId: g,
+                      snapshotPendingApprovalsById: n,
+                      resolvedApprovalIdsById: u,
+                      resolvedTaskGraceUntilByTaskId: c,
+                      now: o,
+                      mode: e
+                    });
+                    return (r = Object.keys(p).length > 0, (0, eh.sameRecord)(t.activity.liveTaskStatusesByTaskId, g) && (0, eh.sameRecord)(t.activity.snapshotPendingApprovalsById, n) && (0, eh.sameRecord)(t.activity.snapshotPendingApprovalRequestedAtMsById, l) && (0, eh.sameApprovalTaskScopeRecord)(t.activity.liveTaskScopesByTaskId, h) && (0, eh.sameApprovalTaskScopeRecord)(t.activity.snapshotPendingApprovalScopesById, a) && (0, eh.sameRecord)(t.activity.snapshotPendingApprovalBackgroundOnlyById, s) && (0, eh.sameRecord)(t.activity.resolvedApprovalIdsById, u) && (0, eh.sameRecord)(t.activity.resolvedTaskGraceUntilByTaskId, c) && (0, eh.sameRecord)(t.activity.taskStatusesByTaskId, p)) ? null : {
+                      activity: {
+                        ...t.activity,
+                        liveTaskStatusesByTaskId: g,
+                        snapshotPendingApprovalsById: n,
+                        snapshotPendingApprovalScopesById: a,
+                        snapshotPendingApprovalBackgroundOnlyById: s,
+                        snapshotPendingApprovalRequestedAtMsById: l,
+                        liveTaskScopesByTaskId: h,
+                        resolvedApprovalIdsById: u,
+                        resolvedTaskGraceUntilByTaskId: c,
+                        taskStatusesByTaskId: p
+                      }
+                    }
+                  }, "activity/sync_pending_approvals_snapshot")
+                }
+              }).accepted) return {
+              hasPending: Object.keys(b.getSnapshot().activity.taskStatusesByTaskId).length > 0,
+              outcome: (0, Q.hasApprovalStateCommittedSince)(tO, s) ? "superseded_by_committed_authority" : "superseded_without_commit"
+            };
+            return ah.current = i, rg(null), "pending" !== ro.current && rh("idle"), t7(a), t9(tY), "idle" === ro.current && rr(), {
+              hasPending: r,
+              outcome: "accepted"
+            }
+          } catch (r) {
+            if ((0, Q.hasApprovalStateCommittedSince)(tO, s)) return {
+              hasPending: Object.keys(b.getSnapshot().activity.taskStatusesByTaskId).length > 0,
+              outcome: "superseded_by_committed_authority"
+            };
+            if (!(0, Q.isApprovalStateTokenCurrent)(tO, s) || ay.current !== tV || a_.current !== tY || t4.current !== a) return {
+              hasPending: Object.keys(b.getSnapshot().activity.taskStatusesByTaskId).length > 0,
+              outcome: "superseded_without_commit"
+            };
+            let e = r instanceof Error ? r : Error(String(r));
+            rg(e), "pending" === ro.current && rh("failed");
+            let t = {
+              error: e,
+              tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_MESSAGE_APPROVAL)
+            };
+            return (0, _.isGatewayDisconnectError)(e) || (0, _.isGatewayTargetChangedError)(e) ? ez.retainForBugReport("warn", "Failed to hydrate pending approvals snapshot") : ez.error(t, "Failed to hydrate pending approvals snapshot"), {
+              error: e,
+              hasPending: Object.keys(b.getSnapshot().activity.taskStatusesByTaskId).length > 0,
+              outcome: "failed"
+            }
+          } finally {
+            aw.current === l && (aw.current = null)
+          }
+        })(), aw.current = l, l.promise
+      }, [tY, tV, tO, rr, tK, rh, rg, tG]),
+      i_ = (0, n.useRef)(id);
+    i_.current = id;
+    let iS = (0, n.useCallback)((e, t = !1, r = !1) => {
+        let n = null == tY ? null : (0, Q.captureApprovalTargetToken)(tO, tY),
+          a = aE.current;
+        if (null != a && a.gatewayScopeKey === tY && (null == a.targetToken || (0, Q.isApprovalTargetTokenCurrent)(tO, a.targetToken))) return rh("pending"), t && (a.needsFollowUp = !0, a.satisfiedByCommittedAuthority = !1), a.promise;
+        let i = {
+          gatewayScopeKey: tY,
+          needsFollowUp: !1,
+          promise: Promise.resolve(),
+          satisfiedByCommittedAuthority: !1,
+          targetToken: n
+        };
+        return rh("pending"), rg(null), aE.current = i, i.promise = (async () => {
+          let t = () => null == n ? null == tY && null == aR.current : (0, Q.isApprovalTargetTokenCurrent)(tO, n);
+          try {
+            if (!r) try {
+              await tz()
+            } catch (a) {
+              if (i.satisfiedByCommittedAuthority) {
+                t() && (rg(null), rh("idle"), rr());
+                return
+              }
+              let r = a instanceof Error ? a : Error(String(a));
+              if (!t()) return;
+              rg(r), rh("failed");
+              let n = {
+                error: r,
+                reason: e,
+                tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_MESSAGE_APPROVAL)
+              };
+              throw (0, _.isGatewayDisconnectError)(r) || (0, _.isGatewayTargetChangedError)(r) ? ez.retainForBugReport("warn", "Approval reconciliation is waiting for the gateway to reconnect") : ez.error(n, "Failed to establish a live connection for approval reconciliation"), r
+            }
+            if (!t()) return;
+            if (i.satisfiedByCommittedAuthority) {
+              t() && (rg(null), rh("idle"), rr());
+              return
+            }
+            let n = {
+              hasPending: !1,
+              outcome: "unavailable"
+            };
+            for (let e = 0; e < 3; e += 1) {
+              if (!t()) return;
+              if (i.satisfiedByCommittedAuthority) {
+                t() && (rg(null), rh("idle"), rr());
+                return
+              }
+              if (i.needsFollowUp = !1, !t()) return;
+              n = await iy("blocking", !0);
+              let e = t(),
+                r = "accepted" === n.outcome || "superseded_by_committed_authority" === n.outcome,
+                a = e && (i.needsFollowUp || "superseded_without_commit" === n.outcome);
+              if (r && !a) {
+                e && (rg(null), rh("idle"), rr());
+                return
+              }
+              if (!a || "failed" === n.outcome) break
+            }
+            let a = n.error ?? Error(`Approval reconciliation did not commit (${n.outcome})`);
+            if (!t()) return;
+            throw rg(a), rh("failed"), "failed" !== n.outcome && ez.error({
+              error: a,
+              reason: e,
+              result: n.outcome,
+              tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_MESSAGE_APPROVAL)
+            }, "Approval reconciliation finished without authoritative state"), a
+          } finally {
+            aE.current === i && (aE.current = null)
+          }
+        })(), i.promise
+      }, [tz, tY, tO, rr, rh, rg, iy]),
+      iv = (0, n.useRef)(iS);
+    (0, n.useLayoutEffect)(() => {
+      iv.current = iS
+    }, [iS]);
+    let iC = (0, n.useCallback)(async () => {
+        rg(null), await iS("manual_retry")
+      }, [iS, rg]),
+      iI = (0, n.useCallback)(() => {
+        if ("idle" !== ro.current || null != rl.current) return !0;
+        let e = b.getSnapshot().activity;
+        if ("needs_approval" === e.agentActivityCode || Object.values(e.agentActivitiesByRootAgentId).some(e => "needs_approval" === e.agentActivityCode) || Object.values(e.liveTaskStatusesByTaskId).some(eh.isPendingApprovalStatus) || Object.keys(e.taskStatusesByTaskId).length > 0 || Object.keys(e.snapshotPendingApprovalsById).length > 0) return !0;
+        if (null == tY) return !1;
+        let t = tO.getQueryData(W.approvalsListQuery.queryKey({
+          gatewayUrl: tY
+        }));
+        return (t?.pending.length ?? 0) > 0
+      }, [tY, tO]),
+      iT = (0, n.useRef)(0);
+    (0, n.useEffect)(() => {
+      if (null != tY) return (0, p.subscribeToPageLifecycle)(e => {
+        let t = iI(),
+          r = Date.now();
+        if ("resume" === e.type) {
+          let r = e.hiddenDurationMs >= 6e4;
+          if (!rL.current && !t || !r && !t) return
+        } else if ("attention" !== e.type) return;
+        else if (!t || r - iT.current < 1e3) return;
+        iT.current = r, iv.current(`page_${e.type}`).catch(() => {})
+      }, {
+        priority: 10
+      })
+    }, [tY, iI]), (0, n.useEffect)(() => {
+      if (!tj) {
+        io.current = null;
+        return
+      }
+      let e = io.current;
+      (null == e || e.scopeKey !== tY || e.connectionGeneration !== t5) && (io.current = e = {
+        scopeKey: tY,
+        connectionGeneration: t5,
+        pending: null,
+        running: !1
+      });
+      let t = e,
+        r = !0,
+        n = () => r && io.current === t;
+      return t.pending = () => iu(t_, n), t.running || (t.running = !0, (async () => {
+        try {
+          for (; null != t.pending;) {
+            let e = t.pending;
+            t.pending = null, await e()
+          }
+        } finally {
+          t.running = !1
+        }
+      })()), () => {
+        r = !1
+      }
+    }, [t5, tY, tj, iu, t_]), (0, n.useEffect)(() => {
+      !nm.current && "idle" === ro.current && rF && tj && tV && 0 !== tV.trim().length && iy("blocking")
+    }, [rF, tV, tj, rN, iy, tv]);
+    let iA = (0, n.useRef)(!1),
+      iR = (0, n.useRef)(null);
+    (0, n.useLayoutEffect)(() => {
+      b.commitStoreUpdateTo(rm, e => e.chat.supportsVideoFileRefIngestion ? {
+        chat: {
+          ...e.chat,
+          supportsVideoFileRefIngestion: !1
+        }
+      } : null, "chat/reset_server_capabilities_for_connection")
+    }, [t5, tY, rm, tj]), (0, n.useEffect)(() => {
+      if (!rq || !tj || !rI && e7(rG) || rG?.kind === "invalid_thread" || iA.current) return;
+      iA.current = !0;
+      let e = af.current,
+        t = aR.current,
+        r = t4.current,
+        n = iR.current,
+        a = n?.connectionGeneration !== r || n.gatewayScopeKey !== e,
+        i = aw.current,
+        s = null != i && !nm.current,
+        l = null;
+      a && !s && null != e && t?.gatewayScopeKey === e && null != (0, Q.advanceApprovalStateGeneration)(tO, t) && (l = (0, Q.captureApprovalStateToken)(tO, e));
+      let o = !1,
+        u = !1,
+        d = new AbortController,
+        g = e => {
+          if (o || u) return;
+          u = !0;
+          let t = e ?? `noise-${crypto.randomUUID()}`;
+          nx.current = t, nc({
+            scope: no,
+            ready: !0,
+            error: null
+          }), eN?.(t)
+        };
+      return (async () => {
+        if (await Promise.resolve(), o) return;
+        nN.current = null, (0, b.commitStoreUpdate)(e => {
+          let t = (0, eH.getHatchChatRouteKey)(rG),
+            r = e.activity.currentChatRouteKey === t,
+            n = a5.current === t ? null : e.activity.currentChatRootAgentId,
+            a = td(e.activity.agentActivitiesByRootAgentId, n);
+          return {
+            activity: {
+              ...e.activity,
+              agentActivityCode: null,
+              agentActivityText: null,
+              agentActivityEmoji: null,
+              agentActivityCta: null,
+              agentActivityRootAgentId: null,
+              agentSubagentCount: 0,
+              agentActivitiesByRootAgentId: a,
+              currentChatRootAgentId: r ? e.activity.currentChatRootAgentId : null,
+              currentChatSessionId: r ? e.activity.currentChatSessionId : null,
+              currentChatRouteKey: t
+            }
+          }
+        }, "activity/reset_before_subscribe");
+        let [n] = await Promise.allSettled([tK("chat.subscribe", aB((0, N.buildReplaySubscribeParams)(n4.current, n8.current), rG), {
+          signal: d.signal,
+          onResponseMeta: ({
+            status: e
+          }) => {
+            e >= 200 && e < 300 && g()
+          }
+        })]);
+        if (o) return;
+        let s = (0, eH.getHatchChatRouteKey)(rG);
+        if (a5.current === s && (a5.current = null), "fulfilled" === n.status) {
+          iR.current = {
+            connectionGeneration: r,
+            gatewayScopeKey: e
+          };
+          let o = n.value ?? {},
+            u = o.agent_id,
+            c = o.conn_id ?? `noise-${crypto.randomUUID()}`;
+          nx.current = c;
+          let d = (0, M.normalizeOptionalId)(u) ?? null ?? b.getSnapshot().activity.currentChatRootAgentId ?? nN.current;
+          nN.current = d;
+          let h = (0, M.normalizeOptionalId)(o.session_id) ?? ("thread" === rG.kind ? rG.sessionId : null);
+          b.setCurrentChatIdentity({
+            rootAgentId: d,
+            routeKey: s,
+            sessionId: h
+          });
+          let p = o.capabilities?.includes(ep.VIDEO_FILE_REF_INGEST_CAPABILITY) === !0;
+          b.commitStoreUpdateTo(rm, e => e.chat.supportsVideoFileRefIngestion === p ? null : {
+            chat: {
+              ...e.chat,
+              supportsVideoFileRefIngestion: p
+            }
+          }, "chat/set_server_capabilities_after_subscribe"), g(c);
+          let m = nq.current,
+            f = rm.getState().chat,
+            y = Object.values(f.messagesById).some(e => "user" === e.role && (f.reactions[e.messageId ?? e.id] ?? []).some(e => /^(👍[🏻🏼🏽🏾🏿]?|🫶)$/u.test(e)));
+          null != m && !au.current.has(m) && (au.current.add(m), y && id("custom_reactions_negotiated").then(e => {
+            ("failed" === e.result || "skipped" === e.result) && au.current.delete(m)
+          })), (0, F.resetPinReminderPresentations)(), (0, D.flushQueuedPinVerifierUpdateForGateway)(tV, tK), (0, V.registerNode)(tK, tO, rv.current);
+          let _ = !a || null != l && null != t && (0, Q.isApprovalTargetTokenCurrent)(tO, t) && (0, Q.hasLatestApprovalStateCommittedSince)(tO, l),
+            S = i ?? aw.current;
+          if (_ || null == S) _ || iv.current("subscription_ack", !1, !0).catch(() => {});
+          else {
+            let t = t => {
+              t?.outcome !== "accepted" && t?.outcome !== "superseded_by_committed_authority" && t3.current && t4.current === r && af.current === e && iv.current("subscription_ack_after_sync", !1, !0).catch(() => {})
+            };
+            S.promise.then(t, () => t(null))
+          }
+        } else {
+          let e = n.reason instanceof Error ? n.reason : Error(String(n.reason));
+          if (nc({
+              scope: no,
+              ready: !1,
+              error: (0, m.isRetryableChatSubscriptionError)(e) ? null : e
+            }), ez.error({
+              error: e,
+              tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+            }, "Chat subscription failed"), a) try {
+            await iv.current("subscription_ack_failed")
+          } catch {}
+        }
+      })(), () => {
+        o = !0, d.abort(), iA.current = !1
+      }
+    }, [rG, rq, id, tV, rm, rI, tj, eN, no, tO, tK, aB]), (0, n.useEffect)(() => {
+      if (!rI) return;
+      let e = tn(rm.getState().chat);
+      n8.current = Math.max(n8.current, e)
+    }, [rm, rI]), (0, n.useEffect)(() => {
+      if (!r$) return;
+      if (!rI) {
+        ac.current = null;
+        return
+      }
+      if (!e7(rG) || null == ac.current) {
+        ac.current = rW;
+        return
+      }
+      if (ac.current === rW) return;
+      let e = !1;
+      return ic({
+        reason: "transcript_mode_changed"
+      }).then(() => {
+        e || (ac.current = rW)
+      }).catch(e => {
+        ez.error({
+          error: e instanceof Error ? e : Error(String(e)),
+          transcriptMode: rW
+        }, "Failed to reload chat history after transcript mode change")
+      }), () => {
+        e = !0
+      }
+    }, [rG, ic, rI, r$, rW]), (0, n.useEffect)(() => {
+      if (!rD || !tj) return;
+      let e = !1,
+        t = n6.current;
+      return (async () => {
+        for (let n = 1; n <= 3; n++) {
+          if (e || n6.current !== t) return;
+          try {
+            var r;
+            let n = await tK("model.get", {});
+            if (e) return;
+            if (n6.current !== t) return void ez.retainForBugReport("info", "Ignoring stale model.get response after local model change");
+            let a = ae.current;
+            if (null != a && n.generation < a) return void ez.retainForBugReport("info", "Ignoring stale model.get response by generation");
+            let i = (r = n.model_identity_visibility, void 0 === r || "visible" === r ? "visible" : "hidden");
+            if ("hidden" === i) {
+              at.current = null, ae.current = n.generation, ar.current = null, b.setModelIdentityVisibility("hidden"), b.setAvailableChatModels([]), b.setModelDisplayName(null);
+              return
+            }
+            let s = at.current;
+            at.current = null;
+            let l = null != s && s.generation >= n.generation ? s : null,
+              o = null != l ? (0, k.normalizeHatchChatModel)(l.selected_model) : ii(n.selected_model, n.default_model);
+            if (null == o) return void ez.retainForBugReport("warn", "Ignoring unrecognized model.get payload");
+            ae.current = null != l ? l.generation : n.generation, ar.current = null, b.setModelIdentityVisibility("visible"), b.setAvailableChatModels((n.available_models ?? []).flatMap(e => {
+              let t = (0, k.normalizeHatchChatModel)(e.id);
+              return null == t ? [] : [{
+                id: t,
+                provider: e.provider.trim(),
+                model: e.model.trim(),
+                contextWindowTokens: e.context_window_tokens,
+                displayName: e.display_name?.trim() || null,
+                isPreview: e.preview_model ?? !1
+              }]
+            })), b.setChatModel(o), b.setModelDisplayName(null != l ? l.display_name ?? null : n.display_name ?? null);
+            return
+          } catch (r) {
+            r instanceof Error || Error(String(r));
+            let e = n < 3;
+            if (ez.retainForBugReport("warn", e ? "model.get failed, retrying" : "model.get failed"), !e) return;
+            let t = eW[n - 1] ?? 1e3;
+            await new Promise(e => {
+              setTimeout(e, t)
+            })
+          }
+        }
+      })(), () => {
+        e = !0
+      }
+    }, [rD, tV, tj, tK, ii]), (0, n.useEffect)(() => {
+      tj ? aM({
+        settingsLoaded: !0,
+        enabled: !0,
+        defaultMode: e$
+      }) : aN({
+        settingsLoaded: !1
+      })
+    }, [aM, tj, aN]), (0, n.useEffect)(() => {
+      let t = aR.current,
+        r = e => {
+          let t = b.reduceChat,
+            r = (0, M.normalizeOptionalId)(e.messageId);
+          if (null == r) return;
+          let n = b.getSnapshot().chat.messagesById[r],
+            a = e.content.length > 0 ? e.content : n?.content ?? "",
+            i = (0, ep.mergeMessageSortOrder)(n, e.sortSeq, e.sortSeqSource),
+            s = (0, eF.mergeChatMessageAnalytics)(n?.analytics, e.analytics),
+            l = {
+              ...n ?? {
+                id: r,
+                messageId: r,
+                role: "assistant",
+                content: "",
+                createdAt: e.createdAt,
+                isTextStreaming: e.isTextStreaming,
+                ...null != i.sortSeq ? {
+                  sortSeq: i.sortSeq
+                } : {},
+                ...null != i.sortSeqSource ? {
+                  sortSeqSource: i.sortSeqSource
+                } : {}
+              },
+              id: r,
+              messageId: r,
+              role: "assistant",
+              content: a,
+              createdAt: n?.createdAt ?? e.createdAt,
+              ...null != i.sortSeq ? {
+                sortSeq: i.sortSeq
+              } : {},
+              ...null != i.sortSeqSource ? {
+                sortSeqSource: i.sortSeqSource
+              } : {},
+              replyToMessageId: (0, M.normalizeOptionalId)(e.replyToMessageId) ?? n?.replyToMessageId,
+              isTextStreaming: e.isTextStreaming,
+              source: e.source ?? n?.source,
+              delivery: e.delivery ?? n?.delivery,
+              companionFullMessageIds: e.companionFullMessageIds ?? n?.companionFullMessageIds,
+              channelSender: e.channelSender ?? n?.channelSender,
+              widgets: (0, ep.mergeChatWidgets)(n?.widgets, e.widgets),
+              ...null != s ? {
+                analytics: s
+              } : {},
+              ...n?.presentationCarrier === !0 && a.trim().length > 0 ? {
+                presentationCarrier: !1
+              } : {}
+            };
+          t({
+            type: "message/insert",
+            message: l
+          }), aj((0, ej.collectReactionTargetIds)(l))
+        },
+        n = () => {
+          null != n3.current && (cancelAnimationFrame(n3.current), n3.current = null);
+          let e = n2.current;
+          if (0 !== e.size) {
+            for (let [t, n] of(n2.current = new Map, e)) {
+              let e = b.getSnapshot().chat.messagesById[t],
+                a = `${e?.content??""}${n.appendedText}`;
+              r({
+                messageId: t,
+                replyToMessageId: n.replyToMessageId,
+                content: a,
+                isTextStreaming: !0,
+                sortSeq: n.sortSeq,
+                sortSeqSource: n.sortSeqSource,
+                createdAt: e?.createdAt ?? n.createdAtFallback,
+                widgets: n.widgets,
+                analytics: {
+                  clientLastTokenMs: n.lastTokenMs
+                }
+              });
+              let i = b.getSnapshot().chat.messagesById[t];
+              null != i && i.analytics?.clientFirstTokenMs == null && eK({
+                messagesById: b.getSnapshot().chat.messagesById,
+                messageId: t,
+                updates: {
+                  clientFirstTokenMs: n.firstTokenMs
+                },
+                reduceChat: b.reduceChat
+              })
+            }
+            aJ()
+          }
+        };
+      n5.current = n;
+      let a = e => "main" === e.stream_lane || "main" === e.transcript_surface || "main_chat" === e.transcript_surface,
+        i = e => new Date(e ?? Date.now()).toISOString(),
+        s = (e, t) => "number" == typeof e.message_seq ? {
+          sortSeq: e.message_seq,
+          sortSeqSource: "canonical"
+        } : {
+          sortSeq: t.seq ?? e.seq,
+          sortSeqSource: "delta"
+        },
+        u = e => {
+          null != e && b.reduceChat({
+            type: "message/insert",
+            message: e
+          })
+        },
+        d = (e, t, r, n = !1) => {
+          let a = (0, M.normalizeOptionalId)(e.message_id);
+          if (null == a) return null;
+          let i = ta(e.payload),
+            s = ta(e),
+            l = ta(e.metadata),
+            o = ta(i.metadata),
+            u = "string" == typeof e.display_text || "string" == typeof e.content || "string" == typeof i.content,
+            c = (0, ep.normalizeChatReplyTarget)(i.reply_to_target ?? s.reply_to_target) ?? r?.replyToTarget,
+            d = (n ? ti(e.display_text) ?? ti(i.content) ?? ti(e.content) : ti(i.content) ?? ti(e.content) ?? ti(e.display_text)) ?? r?.content ?? "",
+            g = (0, Z.normalizeTextEntitySegments)(i.segments) ?? (0, Z.normalizeTextEntitySegments)(s.segments) ?? (u ? void 0 : r?.productSegments),
+            h = "number" == typeof e.occurred_at_ms ? e.occurred_at_ms : "number" == typeof e.display_text_updated_at_ms ? e.display_text_updated_at_ms : t ?? Date.now(),
+            p = (0, x.extractAttachmentsFromResources)(e.resources),
+            m = (0, x.extractImagesFromContent)(d),
+            f = (0, x.extractFilesFromContent)(d),
+            y = (e.resources ?? []).filter(e => "citation" === e.kind),
+            {
+              source: _,
+              channelSender: S
+            } = (0, M.resolveCanonicalChannelMetadata)(e, r),
+            v = (0, M.resolveClientParentGoalId)(e, r),
+            C = "status" in e && "string" == typeof e.status ? e.status : "string" == typeof i.status ? i.status : null,
+            I = (0, k.normalizeAssistantGenerationStatus)(C);
+          return {
+            messageId: a,
+            replyToMessageId: (0, M.normalizeOptionalId)(e.reply_to_message_id) ?? r?.replyToMessageId ?? null,
+            replyToTarget: c,
+            content: (0, x.stripImageMarkers)(d),
+            productSegments: null != g ? (0, Z.mapProductSegmentText)(g, x.stripImageMarkersPreservingEdges) : void 0,
+            createdAt: r?.createdAt ?? new Date(h).toISOString(),
+            updatedAt: null != r ? new Date(h).toISOString() : void 0,
+            images: n || !u ? (0, x.mergeMessageImages)(r?.images, p.images, m) : (0, x.mergeMessageImages)(p.images, m),
+            files: n || !u ? (0, x.mergeMessageFiles)(r?.files, p.files, f) : (0, x.mergeMessageFiles)(p.files, f),
+            source: _,
+            delivery: (0, eT.normalizeVoiceoverDeliveryFromMetadata)(o, l) ?? r?.delivery,
+            companionFullMessageIds: (0, eT.normalizeCompanionFullMessageIdsFromMetadata)(o, l) ?? r?.companionFullMessageIds,
+            channelSender: S,
+            parentGoalId: v,
+            resources: y.length > 0 ? y : void 0,
+            generationStatusUpdate: null == C ? null : {
+              generationStatus: I
+            }
+          }
+        },
+        g = (e, t) => {
+          aP(t.seq ?? e.seq), aO(e.seq);
+          let r = (0, M.normalizeOptionalId)(e.message_id),
+            n = null == r ? void 0 : b.getSnapshot().chat.messagesById[r],
+            a = d(e, t.ts_ms, n);
+          if (null == a) return;
+          let i = ta(e),
+            s = ta(e.payload),
+            l = (0, ep.normalizeChatWidgetPayloads)(s.widgets),
+            o = (0, ea.isDeletedChatMessageState)(i.state) || (0, ea.isDeletedChatMessageState)(s.state);
+          (0, eL.removeAllAsrMessages)();
+          let u = n?.clientSentAt ?? new Date().toISOString(),
+            c = {
+              ...n ?? {
+                id: a.messageId,
+                messageId: a.messageId,
+                role: "user"
+              },
+              id: a.messageId,
+              messageId: a.messageId,
+              role: "user",
+              content: a.content,
+              createdAt: a.createdAt,
+              updatedAt: a.updatedAt,
+              ...(0, ep.mergeMessageSortOrder)(n, e.seq ?? t.seq, "canonical"),
+              images: a.images,
+              files: a.files,
+              source: a.source,
+              channelSender: a.channelSender,
+              peerAuthor: (0, M.normalizePeerMessageAuthor)(i.author) ?? n?.peerAuthor,
+              parentGoalId: a.parentGoalId,
+              replyToMessageId: a.replyToMessageId ?? void 0,
+              replyToTarget: a.replyToTarget ?? n?.replyToTarget,
+              isTextStreaming: !1,
+              ...n?.isOptimistic === !0 ? {
+                isOptimistic: !1,
+                deliveryStatus: "sent",
+                deliveryPhase: void 0
+              } : {},
+              widgets: (0, ep.mergeChatWidgets)(n?.widgets, l),
+              clientSentAt: u
+            };
+          if (b.reduceChat({
+              type: "message/insert",
+              message: o ? (0, ea.tombstoneChatMessage)(c) : c
+            }), o) return void ih([a.messageId], nq.current);
+          let g = b.getSnapshot().chat,
+            h = g.messageIds.indexOf(a.messageId);
+          if (h >= 0)
+            for (let e = h + 1; e < g.messageIds.length; e++) {
+              let t = g.messageIds[e];
+              if (null == t) continue;
+              let r = g.messagesById[t];
+              if (null == r || "assistant" !== r.role || null != r.toolCall) continue;
+              if (r.analytics?.ttftBaselineMs == null) break;
+              let n = eU(g, t);
+              null != n.ttftBaselineMs && eK({
+                messagesById: g.messagesById,
+                messageId: t,
+                updates: {
+                  ttftBaselineMs: n.ttftBaselineMs,
+                  clientSentAtMs: n.sentAtMs
+                },
+                reduceChat: b.reduceChat
+              });
+              break
+            }
+          aJ()
+        },
+        p = tU("delta.message_start", (e, t) => {
+          var n, i, l;
+          if (!a(e) || !aL(aK(e))) return;
+          aP(t.seq ?? e.seq), aO(e.message_seq);
+          let o = (0, M.normalizeOptionalId)(e.message_id);
+          if (null == o) return;
+          let u = s(e, t);
+          b.reduceChat({
+            type: "chat/start_stream",
+            setExpectingBotResponse: !0
+          });
+          let c = eU(b.getSnapshot().chat, o);
+          r({
+            messageId: o,
+            replyToMessageId: e.reply_to_message_id,
+            content: "",
+            isTextStreaming: !0,
+            sortSeq: u.sortSeq,
+            sortSeqSource: u.sortSeqSource,
+            createdAt: e.metadata?.started_at_ms != null ? new Date(e.metadata.started_at_ms).toISOString() : null != t.ts_ms ? new Date(t.ts_ms).toISOString() : new Date().toISOString(),
+            source: e.metadata?.source,
+            analytics: (n = e.metadata, i = Date.now(), {
+              ...n?.model != null ? {
+                initialModel: n.model
+              } : {},
+              ...null != c.sentAtMs ? {
+                clientSentAtMs: c.sentAtMs
+              } : {},
+              ...null != c.ttftBaselineMs ? {
+                ttftBaselineMs: c.ttftBaselineMs
+              } : {},
+              ...n?.started_at_ms != null ? {
+                serverStartedAtMs: n.started_at_ms
+              } : {},
+              clientReceivedStartMs: i
+            }),
+            delivery: (0, eT.normalizeVoiceoverDeliveryFromMetadata)(e.metadata),
+            companionFullMessageIds: (0, eT.normalizeCompanionFullMessageIdsFromMetadata)(e.metadata)
+          });
+          let {
+            analytics: d,
+            nextBuffer: g
+          } = (l = as.current, {
+            analytics: (0, eF.pendingToolAnalyticsToMessageAnalytics)(l),
+            nextBuffer: (0, eF.createEmptyPendingToolAnalyticsBuffer)()
+          });
+          null != d && eK({
+            messagesById: b.getSnapshot().chat.messagesById,
+            messageId: o,
+            updates: d,
+            reduceChat: b.reduceChat
+          }), as.current = g, aJ()
+        }),
+        m = tU("delta.text_append", (e, t) => {
+          var r, i;
+          if (!a(e) || !aL(aK(e))) return;
+          let l = (r = t.seq, i = e.seq, tr(r) ?? tr(i));
+          aP(l), aO(e.message_seq);
+          let o = (0, M.normalizeOptionalId)(e.message_id);
+          if (null == o || il(l, o, t.websocketConnectionID)) return;
+          let u = b.getSnapshot().chat.sxs;
+          if (null != u && u.assistantMessageId === o) {
+            b.appendSxsPrimaryText(u.sxsId, e.text ?? ""), aG(o, l), aY(o);
+            return
+          }
+          let c = s(e, t),
+            d = b.getSnapshot().chat.messagesById[o],
+            g = e.text ?? "",
+            h = !a$(o),
+            p = d?.content ?? "",
+            m = n0.current.get(o) ?? null;
+          if (null == m && h && d?.isTextStreaming === !0 && p.length > 0 && g.length > 0 && (m = {
+              matchedText: "",
+              remainingPrefix: p
+            }), null != m && g.length > 0) {
+            let e = function(e, t) {
+              if (t.remainingPrefix.startsWith(e)) {
+                let r = t.remainingPrefix.slice(e.length);
+                return {
+                  appendText: "",
+                  state: r.length > 0 ? {
+                    matchedText: t.matchedText + e,
+                    remainingPrefix: r
+                  } : null
+                }
+              }
+              return e.startsWith(t.remainingPrefix) ? {
+                appendText: e.slice(t.remainingPrefix.length),
+                state: null
+              } : {
+                appendText: t.matchedText + e,
+                state: null
+              }
+            }(g, m);
+            g = e.appendText, null == e.state ? n0.current.delete(o) : n0.current.set(o, e.state)
+          }
+          let f = (0, ep.normalizeChatWidgetPayloads)(e.widgets);
+          if (0 === g.length && null == f) {
+            d?.isTextStreaming === !0 && b.reduceChat({
+              type: "chat/start_stream",
+              setExpectingBotResponse: !0
+            }), aG(o, l), aY(o), aJ();
+            return
+          }
+          let y = Date.now(),
+            _ = n2.current.get(o);
+          if (null == _) n2.current.set(o, {
+            replyToMessageId: e.reply_to_message_id ?? null,
+            appendedText: g,
+            widgets: f,
+            sortSeq: c.sortSeq,
+            sortSeqSource: c.sortSeqSource,
+            createdAtFallback: d?.createdAt ?? new Date(t.ts_ms ?? y).toISOString(),
+            firstTokenMs: y,
+            lastTokenMs: y
+          });
+          else {
+            _.appendedText += g, _.widgets = (0, ep.mergeChatWidgets)(_.widgets, f), null != e.reply_to_message_id && (_.replyToMessageId = e.reply_to_message_id);
+            let t = (0, ep.mergeMessageSortOrder)({
+              role: "assistant",
+              sortSeq: _.sortSeq,
+              sortSeqSource: _.sortSeqSource
+            }, c.sortSeq, c.sortSeqSource);
+            _.sortSeq = t.sortSeq, _.sortSeqSource = t.sortSeqSource, _.lastTokenMs = y
+          }
+          b.reduceChat({
+            type: "chat/start_stream",
+            setExpectingBotResponse: !0
+          }), aG(o, l), aY(o), (() => {
+            if (null == n3.current) {
+              if ("u" < typeof requestAnimationFrame) return n();
+              n3.current = requestAnimationFrame(() => {
+                n3.current = null, n()
+              })
+            }
+          })()
+        }),
+        f = tU("delta.message_done", (e, t) => {
+          var o;
+          let u, d, {
+              content: g,
+              productSegments: h
+            } = (0, X.extractDeltaMessageDoneProjections)(e),
+            p = (0, l.safetyStaticOverride)(e),
+            m = (u = ta(e.channel_context), null == e.stream_lane && null == e.transcript_surface && null != g && null == (0, M.normalizeOptionalId)(e.subagent_id) && "voice" === u.output_modality);
+          if (!a(e) && !m || !aL(aK(e))) return;
+          aP(t.seq ?? e.seq), aO(e.message_seq);
+          let f = (0, M.normalizeOptionalId)(e.message_id),
+            y = b.getSnapshot().chat.sxs;
+          if (null != y && null != f && y.assistantMessageId === f) return void b.replaceSxsPrimarySnapshot(y.sxsId, {
+            ..."refusal" === p.kind ? {
+              text: p.text
+            } : null != g && g.length > 0 ? {
+              text: g
+            } : {},
+            productSegments: "refusal" === p.kind || null == h ? void 0 : (0, Z.mapProductSegmentText)(h, x.stripImageMarkersPreservingEdges)
+          });
+          aW(f), n();
+          let _ = s(e, t),
+            S = b.getSnapshot().chat.messagesById[f ?? ""],
+            v = null != S && ((0, eI.hasVisibleAssistantOutput)(S, !0, tN.current) || (S.placeholders?.length ?? 0) > 0);
+          if ("interrupted" === e.status && !v && null == g) {
+            as.current = (0, eF.createEmptyPendingToolAnalyticsBuffer)(), null != S && b.reduceChat({
+              type: "message/remove",
+              id: S.id
+            }), b.getSnapshot().chat.isStreaming && b.reduceChat({
+              type: "chat/stop_stream"
+            }), th("activity/clear_interrupted_message_done"), aJ();
+            return
+          }
+          let {
+            source: C,
+            channelSender: I
+          } = (0, M.resolveCanonicalChannelMetadata)(e, S), T = (0, x.extractAttachmentsFromResources)(e.resources), A = null != g ? (0, x.extractImagesFromContent)(g) : void 0, R = null != g ? (0, x.extractFilesFromContent)(g) : void 0, w = (0, x.mergeMessageImages)(S?.images, T.images, A), E = (0, x.mergeMessageFiles)(S?.files, T.files, R), H = (e.resources ?? []).filter(e => "citation" === e.kind), N = (0, k.normalizeAssistantGenerationStatus)(e.status), P = (0, eT.normalizeVoiceoverDeliveryFromDonePayload)(ta(e)), O = (0, eT.normalizeCompanionFullMessageIdsFromDonePayload)(ta(e)), B = (0, ep.normalizeChatWidgetPayloads)(e.widgets);
+          null != g && (r({
+            messageId: f,
+            replyToMessageId: e.reply_to_message_id,
+            content: (0, x.stripImageMarkers)(g),
+            createdAt: S?.createdAt ?? i(t.ts_ms),
+            isTextStreaming: !1,
+            sortSeq: _.sortSeq,
+            sortSeqSource: _.sortSeqSource,
+            source: C,
+            channelSender: I
+          }), S = b.getSnapshot().chat.messagesById[f ?? ""]);
+          let q = (0, ep.mergeChatWidgets)(S?.widgets, B),
+            D = null != q ? (0, ep.ensureInlineWidgetMarkers)(S?.content ?? "", q) : S?.content ?? "";
+          "invalid" === p.kind && ez.error({
+            tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_RESPONSE_PATCH),
+            messageId: f,
+            status: e.status
+          }, "hatch_chat_response static override carried no recoverable refusal text; denied content may remain visible"), (e => {
+            let t, n = (0, M.normalizeOptionalId)(e.messageId);
+            if (null == n) return;
+            null == b.getSnapshot().chat.messagesById[n] && r({
+              messageId: n,
+              replyToMessageId: e.replyToMessageId ?? null,
+              content: "",
+              createdAt: e.createdAt,
+              isTextStreaming: !1,
+              sortSeq: e.sortSeq,
+              sortSeqSource: e.sortSeqSource
+            });
+            let a = b.getSnapshot().chat.messagesById[n];
+            b.reduceChat({
+              type: "message/update",
+              id: n,
+              updates: {
+                ...null != (t = (0, ep.mergeMessageSortOrder)(a, e.sortSeq, e.sortSeqSource)).sortSeq ? {
+                  sortSeq: t.sortSeq
+                } : {},
+                ...null != t.sortSeqSource ? {
+                  sortSeqSource: t.sortSeqSource
+                } : {},
+                replyToMessageId: (0, M.normalizeOptionalId)(e.replyToMessageId) ?? void 0,
+                ...null != e.analytics ? {
+                  analytics: (0, eF.mergeChatMessageAnalytics)(a?.analytics, e.analytics)
+                } : {},
+                ...e.updates
+              }
+            });
+            let i = b.getSnapshot().chat.messagesById[n];
+            null != i && aj((0, ej.collectReactionTargetIds)(i))
+          })({
+            messageId: f,
+            replyToMessageId: e.reply_to_message_id,
+            createdAt: S?.createdAt ?? i(t.ts_ms),
+            sortSeq: _.sortSeq,
+            sortSeqSource: _.sortSeqSource,
+            updates: {
+              isTextStreaming: !1,
+              generationStatus: N,
+              ...null != P ? {
+                delivery: P
+              } : {},
+              ...null != O ? {
+                companionFullMessageIds: O
+              } : {},
+              source: C,
+              ...null != I ? {
+                channelSender: I
+              } : {},
+              ...null != w ? {
+                images: w
+              } : {},
+              ...null != E ? {
+                files: E
+              } : {},
+              ...null != q ? {
+                widgets: q,
+                ...D !== (S?.content ?? "") ? {
+                  content: D
+                } : {}
+              } : {},
+              ...H.length > 0 ? {
+                resources: H
+              } : {},
+              productSegments: "refusal" === p.kind || null == h ? void 0 : (0, Z.mapProductSegmentText)(h, x.stripImageMarkersPreservingEdges),
+              ..."refusal" === p.kind ? {
+                content: p.text
+              } : {}
+            },
+            analytics: (o = Date.now(), d = e.transcript?.metadata, {
+              clientDoneMs: o,
+              ...d?.model != null ? {
+                finalModel: d.model
+              } : {},
+              ...d?.completed_at_ms != null ? {
+                serverCompletedAtMs: d.completed_at_ms
+              } : {}
+            })
+          }), b.getSnapshot().chat.isStreaming && b.reduceChat({
+            type: "chat/stop_stream"
+          }), "interrupted" === e.status && (as.current = (0, eF.createEmptyPendingToolAnalyticsBuffer)(), th("activity/clear_interrupted_message_done")), aJ()
+        }),
+        y = tU("delta.tool_start", (e, t) => {
+          var r, n, i;
+          let s;
+          if (!a(e) || !aL(aK(e))) return;
+          aP(t.seq ?? e.seq), aO(e.chat_event_seq);
+          let l = (0, M.normalizeOptionalId)(e.message_id),
+            o = null == l ? void 0 : b.getSnapshot().chat.messagesById[l],
+            c = "number" == typeof e.chat_event_seq ? {
+              sortSeq: e.chat_event_seq,
+              sortSeqSource: "canonical"
+            } : {
+              sortSeq: t.seq ?? e.seq,
+              sortSeqSource: "delta"
+            },
+            d = (0, eA.buildToolMessageFromLiveStart)(e, o, t, {
+              source: o?.source ?? "runtime",
+              channelSender: o?.channelSender
+            });
+          if (u(d), null != c.sortSeq) {
+            let e = b.getSnapshot().chat.messagesById[l ?? ""];
+            null != e && b.reduceChat({
+              type: "message/update",
+              id: e.id,
+              updates: {
+                sortSeq: c.sortSeq,
+                sortSeqSource: c.sortSeqSource
+              }
+            })
+          }
+          b.reduceChat({
+            type: "chat/start_stream",
+            setExpectingBotResponse: !0
+          }), r = as.current, n = e.name, i = d?.toolCall?.request, s = (0, eF.formatToolAnalyticsParams)(i), r.toolCallCount += 1, r.toolDetails.push({
+            name: n ?? "unknown",
+            ...null != s ? {
+              params: s
+            } : {}
+          }), aJ()
+        }),
+        _ = tU("delta.tool_done", (e, t) => {
+          if (!a(e) || !aL(aK(e))) return;
+          aP(t.seq ?? e.seq), aO(e.chat_event_seq);
+          let r = (0, M.normalizeOptionalId)(e.message_id),
+            n = null == r ? void 0 : b.getSnapshot().chat.messagesById[r];
+          u((0, eA.buildToolMessageFromLiveDone)(e, n, t, {
+              source: n?.source ?? "runtime",
+              channelSender: n?.channelSender
+            })),
+            function(e) {
+              let t = e.existingToolCall?.startedAtMs != null && null != e.completedAtMs ? e.completedAtMs - e.existingToolCall.startedAtMs : 0,
+                r = e.toolName ?? e.existingToolCall?.name ?? "unknown";
+              e.buffer.toolTotalMs += Math.max(0, t);
+              for (let n = e.buffer.toolDetails.length - 1; n >= 0; n--)
+                if (e.buffer.toolDetails[n]?.name === r && e.buffer.toolDetails[n]?.durationMs == null) {
+                  e.buffer.toolDetails[n] = {
+                    ...e.buffer.toolDetails[n],
+                    durationMs: Math.max(0, t)
+                  };
+                  break
+                }
+              "upgrade_agent" === r && (e.buffer.upgradedAtMs = e.nowMs)
+            }({
+              buffer: as.current,
+              toolName: e.name,
+              existingToolCall: n?.toolCall,
+              completedAtMs: e.completed_at_ms,
+              nowMs: Date.now()
+            })
+        }),
+        S = tU("delta.placeholder", (e, t) => {
+          if (!a(e) || !aL(aK(e))) return;
+          aP(t.seq ?? e.seq), aO(e.message_seq);
+          let n = (0, M.normalizeOptionalId)(e.message_id);
+          if (null == n) return;
+          let i = s(e, t);
+          ((e, t, n, a, i = "delta") => {
+            null == b.getSnapshot().chat.messagesById[e] && r({
+              messageId: e,
+              replyToMessageId: null,
+              content: "",
+              createdAt: n,
+              isTextStreaming: !0,
+              sortSeq: a,
+              sortSeqSource: i
+            });
+            let s = b.getSnapshot().chat.messagesById[e],
+              l = (0, ep.mergeMessageSortOrder)(s, a, i);
+            b.reduceChat({
+              type: "message/update",
+              id: e,
+              updates: {
+                ...null != l.sortSeq ? {
+                  sortSeq: l.sortSeq
+                } : {},
+                ...null != l.sortSeqSource ? {
+                  sortSeqSource: l.sortSeqSource
+                } : {},
+                placeholders: (0, M.mergePlaceholders)(s?.placeholders, t),
+                isTextStreaming: !0
+              }
+            })
+          })(n, {
+            placeholder_id: e.placeholder_id,
+            kind: e.kind,
+            resolved: e.resolved,
+            data: e.data
+          }, null != t.ts_ms ? new Date(t.ts_ms).toISOString() : new Date().toISOString(), i.sortSeq, i.sortSeqSource), aJ()
+        }),
+        v = tU("delta.presentation", (e, t) => {
+          if (!aL(aK(e))) return;
+          {
+            let a = "object" == typeof e.data && null != e.data ? e.data : null,
+              s = a?.type ?? e.kind;
+            if ("start_call" === s || "end_call" === s) {
+              aP(t.seq ?? e.seq), aO(e.chat_event_seq);
+              return
+            }
+            if ("call_summary" === s) {
+              var r, n;
+              aP(t.seq ?? e.seq), aO(e.chat_event_seq);
+              let s = "string" == typeof a?.id ? a.id : null,
+                l = null != s ? `voice-call-summary:${s}` : e.message_id ?? `call-summary-${Date.now()}`,
+                o = tr(e.chat_event_seq) ?? (r = t.seq, n = e.seq, tr(r) ?? tr(n)) ?? void 0,
+                u = Array.isArray(a?.topics) ? a.topics[0] : void 0,
+                c = "string" == typeof u?.summarySubtitle ? u.summarySubtitle : "string" == typeof u?.summaryTitle ? u.summaryTitle : "";
+              b.reduceChat({
+                type: "message/insert",
+                message: {
+                  id: l,
+                  role: "system",
+                  source: "voice_call_summary",
+                  content: c,
+                  createdAt: i(t.ts_ms),
+                  systemData: a ?? void 0,
+                  ...null != o ? {
+                    sortSeq: o,
+                    sortSeqSource: "canonical"
+                  } : {}
+                }
+              });
+              return
+            }
+          }
+          aP(t.seq ?? e.seq), aO(e.chat_event_seq);
+          let a = ((e, t) => {
+            var r, n;
+            if (null != e.transcript_surface && "main_chat" !== e.transcript_surface) return null;
+            let a = (0, ep.normalizeChatWidgetPayload)(e),
+              s = null == a ? (0, ep.normalizeChatPresentationPayload)(e) : null,
+              l = a?.widgetId ?? s?.presentationId;
+            if (null == l) return null;
+            let o = (0, M.normalizeOptionalId)(e.message_id),
+              u = (0, M.normalizeOptionalId)(e.host_message_id) ?? o ?? l,
+              c = tr(e.chat_event_seq) ?? (r = t.seq, n = e.seq, tr(r) ?? tr(n)) ?? void 0,
+              d = null != tr(e.chat_event_seq) ? "canonical" : null != c ? "delta" : void 0,
+              g = i(t.ts_ms),
+              h = (0, M.normalizeOptionalId)(e.reply_to_message_id) ?? void 0;
+            return {
+              messageId: u,
+              createdAt: g,
+              ...null != a ? {
+                widget: a
+              } : {},
+              ...null != s ? {
+                presentation: {
+                  ...s,
+                  ...null != o ? {
+                    presentationMessageId: s.presentationMessageId ?? o
+                  } : {},
+                  hostMessageId: s.hostMessageId ?? u,
+                  replyToMessageId: h,
+                  createdAt: g,
+                  sortSeq: c,
+                  sortSeqSource: d
+                }
+              } : {},
+              replyToMessageId: h,
+              sortSeq: c,
+              sortSeqSource: d
+            }
+          })(e, t);
+          null != a && 0 !== a.messageId.length && ((e => {
+            let t = e.messageId;
+            if (0 === t.length) return;
+            let r = b.getSnapshot().chat.messagesById[t],
+              n = (0, ep.mergeMessageSortOrder)(r, e.sortSeq, e.sortSeqSource),
+              a = {
+                ...r ?? {
+                  id: t,
+                  messageId: t,
+                  role: "assistant",
+                  content: "",
+                  createdAt: e.createdAt,
+                  isTextStreaming: !1
+                },
+                id: t,
+                messageId: t,
+                role: "assistant",
+                content: r?.content ?? "",
+                createdAt: r?.createdAt ?? e.createdAt,
+                replyToMessageId: e.replyToMessageId ?? r?.replyToMessageId,
+                ...null != e.widget ? {
+                  widgets: (0, ep.mergeChatWidgets)(r?.widgets, [e.widget])
+                } : {},
+                ...null != e.presentation ? {
+                  presentations: (0, ep.mergeChatPresentations)(r?.presentations, [e.presentation])
+                } : {},
+                presentationCarrier: (r?.content?.trim().length ?? 0) === 0,
+                isTextStreaming: !1,
+                ...null != n.sortSeq ? {
+                  sortSeq: n.sortSeq
+                } : {},
+                ...null != n.sortSeqSource ? {
+                  sortSeqSource: n.sortSeqSource
+                } : {}
+              };
+            b.reduceChat({
+              type: "message/insert",
+              message: a
+            }), aj((0, ej.collectReactionTargetIds)(a))
+          })(a), aJ())
+        }),
+        C = tU("widget.state_updated", (e, t) => {
+          if (!aL(aK(e))) return;
+          aP(t.seq ?? tr(e.seq));
+          let r = (0, M.normalizeOptionalId)("string" == typeof e.host_message_id ? e.host_message_id : null),
+            a = (0, M.normalizeOptionalId)("string" == typeof e.widget_id ? e.widget_id : null);
+          if (null == r || null == a) return;
+          n();
+          let i = (0, ep.normalizeJSONState)(e.state),
+            s = `${r}:${a}`,
+            l = rx.current.get(s);
+          null != l && i.version >= l.serverState.version && (l.serverState = i), (l?.optimisticStateData == null || (0, ep.areJSONStatesEqual)(i.data, l.optimisticStateData)) && tm(r, a, i)
+        }),
+        I = tU("message.user", (e, t) => {
+          aL(aK(e)) && g(e, t)
+        }),
+        T = tU("message.user_metadata_updated", (e, t) => {
+          aL(aK(e)) && g(e, t)
+        }),
+        R = tU("delta.message_removed", (e, t) => {
+          if (!aL(aK(e))) return;
+          aP(t.seq);
+          let r = nq.current,
+            n = (0, ea.normalizeTranscriptRevision)(e.transcript_revision),
+            a = null == r ? null : nW.current.get(r) ?? null,
+            i = Array.isArray(e.message_ids) ? e.message_ids : [],
+            s = nY.current,
+            l = null != s && s.sourceKey === r && i.includes(s.messageId),
+            o = (0, M.normalizeOptionalId)(e.selected_message_id) ?? (l ? s.messageId : null),
+            u = null != s && s.sourceKey === r && o === s.messageId;
+          (0, ea.noteTranscriptRevision)(nW.current, r, e.transcript_revision), im(i, o, r), u || null != n && null != a && n <= a || i_.current("delta.message_removed")
+        }),
+        w = tU("message.assistant", (e, t) => {
+          aL(aK(e)) && ((e, t) => {
+            aP(t.seq ?? e.seq), aO(e.seq), n();
+            let r = (0, M.normalizeOptionalId)(e.message_id),
+              a = null == r ? void 0 : b.getSnapshot().chat.messagesById[r],
+              i = ta(e),
+              s = ta(e.payload);
+            if (null != r && ((0, ea.isDeletedChatMessageState)(i.state) || (0, ea.isDeletedChatMessageState)(s.state))) return ip([r], nq.current);
+            let l = d(e, t.ts_ms, a, !0);
+            if (null == l) return;
+            let o = (0, ep.normalizeChatWidgetPayloads)(s.widgets),
+              u = {
+                ...a ?? {
+                  id: l.messageId,
+                  messageId: l.messageId,
+                  role: "assistant"
+                },
+                id: l.messageId,
+                messageId: l.messageId,
+                role: "assistant",
+                content: l.content,
+                productSegments: l.productSegments,
+                createdAt: l.createdAt,
+                updatedAt: l.updatedAt,
+                ...(0, ep.mergeMessageSortOrder)(a, e.seq ?? t.seq, "canonical"),
+                images: l.images,
+                files: l.files,
+                source: l.source,
+                delivery: l.delivery,
+                companionFullMessageIds: l.companionFullMessageIds,
+                channelSender: l.channelSender,
+                parentGoalId: l.parentGoalId,
+                replyToMessageId: l.replyToMessageId ?? void 0,
+                replyToTarget: l.replyToTarget ?? a?.replyToTarget,
+                isTextStreaming: !1,
+                widgets: (0, ep.mergeChatWidgets)(a?.widgets, o),
+                resources: l.resources ?? a?.resources,
+                ...l.generationStatusUpdate ?? {}
+              };
+            b.reduceChat({
+              type: "message/insert",
+              message: u
+            }), aj((0, ej.collectReactionTargetIds)(u)), a?.isTextStreaming === !0 && b.getSnapshot().chat.isStreaming && b.reduceChat({
+              type: "chat/stop_stream"
+            }), aW(l.messageId), aJ()
+          })(e, t)
+        }),
+        E = tU("agent.status", (e, r) => {
+          if (null == t || !(0, Q.isApprovalTargetTokenCurrent)(tO, t)) return;
+          let a = nP.current;
+          if (a?.kind === "draft" || a?.kind === "invalid_thread") return;
+          let i = (0, M.normalizeOptionalId)(e.agent_id) ?? null,
+            s = b.getSnapshot().activity,
+            l = (null == i ? s.agentActivityCode : s.agentActivitiesByRootAgentId[i]?.agentActivityCode) ?? null,
+            o = "needs_approval" === e.activity_code || "needs_approval" === l;
+          null == nN.current && null != i && (nN.current = i), aP(r.seq);
+          let u = (0, h.parseOutOfUsageCta)(e.cta),
+            c = tu({
+              activityCode: e.activity_code,
+              activityText: e.activity_text,
+              activityEmoji: e.activity_emoji ?? null,
+              activityCta: u,
+              subagentCount: e.count ?? 0
+            }),
+            d = b.getSnapshot().activity.currentChatRootAgentId ?? nN.current,
+            g = null == i || null == d || i === d,
+            p = null != i && g;
+          if ((0, b.commitStoreUpdate)(t => ({
+              activity: {
+                ...t.activity,
+                currentChatRootAgentId: t.activity.currentChatRootAgentId ?? (p ? i : null),
+                agentActivityCode: e.activity_code,
+                agentActivityText: e.activity_text,
+                agentActivityEmoji: e.activity_emoji ?? null,
+                agentActivityCta: c.agentActivityCta,
+                agentActivityRootAgentId: i,
+                agentSubagentCount: e.count ?? 0,
+                agentActivitiesByRootAgentId: tc(t.activity.agentActivitiesByRootAgentId, i, c)
+              }
+            }), `activity/agent_status(${e.activity_code})`), "application" === tv && o && rL.current && ((0, Q.advanceApprovalStateGeneration)(tO, t), iS("approval_agent_status", !0).catch(() => {})), g && !to(e.activity_code) && (n(), (() => {
+              let e = b.getSnapshot().chat;
+              for (let t = e.messageIds.length - 1; t >= 0; t -= 1) {
+                let r = e.messagesById[e.messageIds[t]];
+                if (null != r) {
+                  if ("user" === r.role) break;
+                  if ("assistant" === r.role && (0, eI.hasVisibleAssistantOutput)(r, !0, tN.current)) return !0
+                }
+              }
+              return !1
+            })())) {
+            let e = b.getSnapshot().chat;
+            (e.isStreaming || e.isExpectingBotResponse) && b.reduceChat({
+              type: "chat/stop_stream"
+            })
+          }
+        }),
+        H = tU("task.status", (e, r) => {
+          if (null == t || !(0, Q.isApprovalTargetTokenCurrent)(tO, t) || null == e || "object" != typeof e) return;
+          let n = (0, M.normalizeOptionalId)(e.task_id),
+            a = "string" == typeof e.status ? e.status.trim() : void 0;
+          if (null == n || !a) return;
+          let i = (0, eh.isPendingApprovalStatus)(a) || (0, eh.shouldStartApprovalResolutionGrace)(a),
+            s = aK(e);
+          if (!i && !aL(s)) return;
+          let l = (0, M.normalizeOptionalId)(e.agent_id) ?? null,
+            o = null == nN.current && null != l && aL(s);
+          o && (nN.current = l), aP(r.seq), i && ((0, Q.advanceApprovalStateGeneration)(tO, t), ah.current.delete(n)), (0, b.commitStoreUpdate)(t => {
+            let r = (0, eh.applyLiveApprovalTaskScope)({
+                liveTaskScopesByTaskId: t.activity.liveTaskScopesByTaskId,
+                scope: s,
+                status: a,
+                taskId: n
+              }),
+              {
+                liveTaskStatusesByTaskId: i,
+                resolvedTaskGraceUntilByTaskId: u
+              } = (0, eh.applyLiveApprovalTaskStatus)({
+                liveTaskStatusesByTaskId: t.activity.liveTaskStatusesByTaskId,
+                resolvedTaskGraceUntilByTaskId: t.activity.resolvedTaskGraceUntilByTaskId,
+                taskId: n,
+                status: a,
+                now: Date.now()
+              }),
+              c = (0, eh.derivePendingApprovalTaskStatuses)({
+                liveTaskStatusesByTaskId: i,
+                snapshotPendingApprovalsById: t.activity.snapshotPendingApprovalsById,
+                resolvedApprovalIdsById: t.activity.resolvedApprovalIdsById,
+                resolvedTaskGraceUntilByTaskId: u,
+                now: Date.now(),
+                mode: "background"
+              }),
+              d = e.active_subagent_count ?? t.activity.agentSubagentCount,
+              g = i === t.activity.liveTaskStatusesByTaskId && r === t.activity.liveTaskScopesByTaskId && u === t.activity.resolvedTaskGraceUntilByTaskId && (0, eh.sameRecord)(c, t.activity.taskStatusesByTaskId),
+              h = null == e.active_subagent_count ? t.activity.agentActivitiesByRootAgentId : function(e, t, r) {
+                if (null == t) return e;
+                let n = e[t];
+                return tc(e, t, tu({
+                  activityCode: n?.agentActivityCode ?? null,
+                  activityText: n?.agentActivityText ?? null,
+                  activityEmoji: n?.agentActivityEmoji ?? null,
+                  activityCta: n?.agentActivityCta ?? null,
+                  subagentCount: r
+                }))
+              }(t.activity.agentActivitiesByRootAgentId, l, d);
+            return g && d === t.activity.agentSubagentCount && h === t.activity.agentActivitiesByRootAgentId ? null : {
+              activity: {
+                ...t.activity,
+                agentSubagentCount: d,
+                agentActivitiesByRootAgentId: h,
+                currentChatRootAgentId: t.activity.currentChatRootAgentId ?? (o ? l : null),
+                liveTaskStatusesByTaskId: i,
+                liveTaskScopesByTaskId: r,
+                resolvedTaskGraceUntilByTaskId: u,
+                taskStatusesByTaskId: c
+              }
+            }
+          }, `activity/task_status(${a})`), (0, eh.isPendingApprovalStatus)(a) ? rL.current && iS("pending_task_status", !0).catch(() => {}) : ("user_confirmed" === a || "user_denied" === a || "resumed_after_confirmation" === a) && rL.current && iS("terminal_task_status", !0).catch(() => {})
+        }),
+        N = tU("pin.updated", e => {
+          let t = (0, D.resolvePinReminderVmId)(ap.current);
+          null != t && (0, D.applyIncomingPinSnapshot)(t, e)
+        }),
+        P = tU("model.updated", e => {
+          let t = b.getSnapshot().chat.modelIdentityVisibility;
+          if ("hidden" === t) return;
+          if (null == t) {
+            let t = at.current;
+            (null == t || e.generation >= t.generation) && (at.current = e);
+            return
+          }
+          let r = ae.current;
+          if (null != r && e.generation < r) return void ez.retainForBugReport("info", "Ignoring stale model.updated payload by generation");
+          let n = (0, k.normalizeHatchChatModel)(e.selected_model);
+          null == n ? ez.retainForBugReport("warn", "Ignoring unrecognized model.updated payload") : (ae.current = e.generation, ar.current = null, b.setChatModel(n), b.setModelDisplayName(e.display_name ?? null))
+        }),
+        O = tU("reactions.updated", (e, t) => {
+          if (!aU(e)) return;
+          let r = nq.current,
+            n = aS.current,
+            a = (0, M.normalizeOptionalId)(e.message_id);
+          if (null == r || null == n || null == a || b.getActiveHatchStore() !== rm || tt(rm) !== r) return;
+          aP(t.seq);
+          let i = (0, x.normalizeReactions)(e.reactions),
+            s = {
+              applied: !1,
+              gatewayTargetKey: n,
+              generation: ++n$.current,
+              reactions: i,
+              sourceKey: r
+            };
+          for (nV.current.delete(a), nV.current.set(a, s); nV.current.size > 256;) {
+            let e = nV.current.keys().next().value;
+            if (null == e) break;
+            nV.current.delete(e)
+          }
+          let l = nz.current.get(a);
+          (l?.sourceKey !== r || l.gatewayTargetKey !== n || l.storeApi !== rm) && eX(rm.getState().chat, a) && (b.reduceChat({
+            type: "reactions/set_message",
+            messageId: a,
+            emojis: i
+          }), s.applied = !0)
+        }),
+        B = tU("delta.marker", (t, r) => {
+          let n = nP.current;
+          if (n?.kind === "draft" || n?.kind === "invalid_thread" || (aP(r.seq), "milestone" !== t.kind)) return;
+          let a = ap.current;
+          if (!a) return;
+          let i = "milestone_achievement" === t.variant ? A.DEFAULT_HATCH_MILESTONE_ACHIEVEMENT_VIDEO : A.DEFAULT_HATCH_MILESTONE_LEVEL_UP_VIDEO,
+            s = b.getSnapshot().identity,
+            l = s.avatar,
+            o = s.avatarInfo,
+            u = s.avatar,
+            c = null != t.variant ? s.avatarInfo?.video_variants?.[t.variant] : void 0,
+            d = t.video_path ?? c ?? (null == t.variant && u.length > 0 ? `workspace/avatars/${u}-milestone.mp4` : null),
+            g = ++n7.current;
+          d ? e.A(667341).then(({
+            fetchAvatarAsBlob: e
+          }) => e(a, d, av.current)).then(e => {
+            let t = b.getSnapshot().identity;
+            if (n7.current !== g || ap.current !== a || t.avatar !== l || t.avatarInfo !== o) {
+              e && URL.revokeObjectURL(e);
+              return
+            }
+            b.setMilestoneVideoUrl(e ?? i)
+          }).catch(() => {
+            let e = b.getSnapshot().identity;
+            n7.current === g && ap.current === a && e.avatar === l && e.avatarInfo === o && b.setMilestoneVideoUrl(i)
+          }) : b.setMilestoneVideoUrl(i)
+        }),
+        q = tU("sxs.started", e => {
+          let t = (0, M.normalizeOptionalId)(e.assistant_message_id);
+          if (null == t) return;
+          let r = b.getSnapshot().chat.sxs;
+          null != r && r.sxsId !== e.sxs_id && (ez.error({
+            supersededSxsId: r.sxsId,
+            sxsId: e.sxs_id,
+            tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT)
+          }, "SxS comparison superseded before its resolution arrived"), b.resolveSxsComparison(r.sxsId)), b.startSxsComparison({
+            sxsId: e.sxs_id,
+            assistantMessageId: t,
+            replyToMessageId: (0, M.normalizeOptionalId)(e.reply_to_message_id),
+            primaryCandidateId: e.primary_candidate_id,
+            alternateCandidateId: e.alternate_candidate_id,
+            primaryModel: e.primary_model,
+            alternateModel: e.alternate_model,
+            primaryText: "",
+            alternateText: "",
+            isAlternateReady: !1,
+            isSelecting: !1,
+            isAlternateFirst: .5 > Math.random()
+          })
+        }),
+        F = tU("sxs.ready", e => {
+          b.markSxsAlternateReady(e.sxs_id, e.candidate_id, e.text ?? "");
+          let t = b.getSnapshot().chat;
+          (t.isStreaming || t.isExpectingBotResponse) && b.reduceChat({
+            type: "chat/stop_stream"
+          })
+        }),
+        L = tU("sxs.resolved", e => {
+          let t = b.getSnapshot().chat.sxs;
+          t?.sxsId === e.sxs_id && (b.resolveSxsComparison(e.sxs_id), ("alternate_error" === e.reason || "primary_only" === e.reason) && (0, o.toastForHatchPane)("chat").error(tW))
+        });
+      return () => {
+        n(), ax(), q(), F(), L(), p(), m(), f(), y(), _(), S(), v(), C(), I(), T(), R(), w(), E(), H(), N(), P(), O(), B()
+      }
+    }, [im, aj, aW, aM, aJ, tW, tY, rm, a$, ax, aL, aU, aY, aO, aP, tU, tO, iS, ip, aG, aK, il, ih, tv]), (0, n.useEffect)(() => {
+      if (!r$ || null == rG || !e7(rG) || nn) return;
+      let e = rm.getState().chat;
+      if (e.historyLoaded && e.mainHistorySourceKey === rJ || "main" === rG.kind && rC.isLoading) return;
+      let t = (0, eC.isHatchGatewayResult)(nA.data) ? nA.data : null;
+      if (nb > 0 || null != nR && "pending" === nA.status) return;
+      if (t?.ok === !0) {
+        if (ia(t.data, "replace", {
+            sourceKey: rJ
+          })) {
+          b.reduceChat({
+            type: "chat/set_viewing_history",
+            isViewingHistory: !1
+          }), b.reduceChat({
+            type: "chat/set_newest_seq",
+            newestSeq: null
+          }), b.reduceChat({
+            type: "chat/set_has_more_newer",
+            hasMoreNewer: !1
+          }), b.restoreLastSeenTimestamp(), nE(rJ);
+          return
+        }
+        null != nR && tO.removeQueries({
+          queryKey: nR.queryKey,
+          exact: !0
+        })
+      }
+      let r = t?.ok === !1 ? Promise.resolve(void 0) : nA.isError ? (0, eC.runHatchGatewayResultOperation)(() => Promise.reject(nA.error)) : null;
+      if (null != r) {
+        if (r4 === rJ) return void b.reduceChat({
+          type: "chat/set_loading",
+          isLoading: !1
+        });
+        let e = !1;
+        return nk(rJ), r8(e => e === rJ ? null : e), r6(null), r.then(e => ic({
+          ...null == e ? {} : {
+            historyResult: e
+          },
+          reason: "initial_history",
+          sourceKey: rJ
+        })).catch(t => {
+          let r = t instanceof Error ? t : Error(String(t));
+          ez.error({
+            error: r,
+            tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT)
+          }, "Failed to load chat history"), e || (r8(rJ), r6(r))
+        }).finally(() => {
+          e || (b.reduceChat({
+            type: "chat/set_loading",
+            isLoading: !1
+          }), nE(rJ))
+        }), () => {
+          e = !0
+        }
+      }
+      if (!tV) {
+        b.reduceChat({
+          type: "chat/set_loading",
+          isLoading: !1
+        }), nE(rJ);
+        return
+      }
+      if (!(0, L.isMethodReadyForTransport)({
+          method: "chat.history",
+          gatewayUrl: tV,
+          isWsReady: tj
+        })) return;
+      let n = !1,
+        a = ++r7.current;
+      return nk(rJ), r8(e => e === rJ ? null : e), r6(null), ic({
+        reason: "initial_history",
+        sourceKey: rJ
+      }).catch(e => {
+        let t = e instanceof Error ? e : Error(String(e));
+        ez.error({
+          error: t,
+          tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT)
+        }, "Failed to load chat history"), n || (r8(rJ), r6(t))
+      }).finally(() => {
+        r7.current === a && (b.reduceChat({
+          type: "chat/set_loading",
+          isLoading: !1
+        }), nE(rJ))
+      }), () => {
+        n = !0
+      }
+    }, [nR, nA.data, nA.error, nA.isError, nA.status, rJ, rG, ia, nk, r4, ic, nE, tV, nn, rm, r$, tj, nb, tO, rN, rC.isLoading]), (0, z.useHatchChatStalenessRefetch)(rD && tj && rI && e7(rG), tz, id), (0, n.useEffect)(() => {
+      if ("connected" === tL) return;
+      n5.current();
+      let e = b.getSnapshot().chat;
+      (e.isStreaming || e.isExpectingBotResponse) && b.reduceChat({
+        type: "chat/stop_stream"
+      })
+    }, [tL]);
+    let ib = (0, n.useCallback)(async () => {
+        if (b.getActiveHatchStore() !== rm) return !1;
+        let e = nP.current;
+        if (!e7(e)) return !1;
+        let t = b.getSnapshot().chat;
+        if (!t.hasMore || t.isLoadingOlder || null == t.oldestSeq) return !1;
+        if (t.messageIds.length + H.OLDER_HISTORY_LIMIT > e5) return b.reduceChat({
+          type: "chat/disable_older_history"
+        }), !1;
+        let r = t.mainHistorySourceKey,
+          n = t.oldestSeq;
+        b.reduceChat({
+          type: "chat/set_loading_older",
+          isLoadingOlder: !0
+        });
+        try {
+          let t = await tK("chat.history", aq({
+            limit: H.OLDER_HISTORY_LIMIT,
+            before_seq: n
+          }, e));
+          if (b.getActiveHatchStore() !== rm) return !1;
+          let a = tt(rm),
+            i = rm.getState(),
+            s = i.chat,
+            l = s.oldestSeq;
+          if (a !== r || l !== n) return ez.retainForBugReport("info", "Ignoring stale paginated chat.history response after transcript or cursor change"), !1;
+          let o = t.chat_events?.length ?? 0,
+            u = o > 0 ? (0, eR.buildMainHistoryHydrationUpdate)(i, t, "prepend").chat : s;
+          if (null != u && u.messageIds.length > e5) return b.reduceChat({
+            type: "chat/disable_older_history"
+          }), !1;
+          if (!ia(t, "prepend", {
+              sourceKey: r
+            })) return !1;
+          return b.reduceChat({
+            type: "chat/set_has_more",
+            hasMore: t.has_more
+          }), o > 0
+        } catch (e) {
+          return ez.error({
+            error: e instanceof Error ? e : Error(String(e))
+          }, "Failed to load older messages"), !1
+        } finally {
+          b.getActiveHatchStore() === rm && tt(rm) === r && b.reduceChat({
+            type: "chat/set_loading_older",
+            isLoadingOlder: !1
+          })
+        }
+      }, [ia, rm, tK, aq]),
+      iw = (0, n.useCallback)(async () => {
+        if (e7(nP.current)) try {
+          if (!(await ic()).applied || b.getActiveHatchStore() !== rm) return;
+          b.reduceChat({
+            type: "chat/set_viewing_history",
+            isViewingHistory: !1
+          }), requestAnimationFrame(() => {
+            if ("u" < typeof document || b.getActiveHatchStore() !== rm) return;
+            let e = document.getElementById("hatch-chat-scroll");
+            e && (e.scrollTop = 0)
+          })
+        } catch (t) {
+          let e = t instanceof Error ? t.message : String(t);
+          ez.error({
+            error: t instanceof Error ? t : Error(e)
+          }, "Return to latest failed")
+        }
+      }, [ic, rm]),
+      iE = (0, n.useCallback)(e => {
+        let t = e?.signal;
+        if (t?.aborted === !0 || b.getActiveHatchStore() !== rm) return Promise.resolve(!1);
+        if (ny.current && rd.current && nf.current && nh.current) return Promise.resolve(!0);
+        let r = null,
+          n = new Promise(e => {
+            let n = () => void 0,
+              a = {
+                gatewayScopeKey: tY,
+                historySourceKey: rJ,
+                routeScopeKey: rQ,
+                resolve: r => {
+                  t?.removeEventListener("abort", n), e(r)
+                }
+              };
+            n = () => {
+              nS(a, !1)
+            }, r = a, n_.current.add(a), t?.addEventListener("abort", n, {
+              once: !0
+            }), t?.aborted === !0 && n()
+          }),
+          a = r;
+        if (null == a) return Promise.resolve(!1);
+        if (!n_.current.has(a)) return n;
+        let i = !rd.current;
+        return rg(null), r8(null), r6(null), null != ng && np(), rB(!0), rP(e => e + 1), ny.current && (i ? iv.current("send_readiness").catch(() => {
+          nS(a, !1)
+        }) : aC.current?.().catch(() => {
+          nS(a, !1)
+        })), ny.current && rd.current && nf.current && nh.current && nS(a, !0), n
+      }, [rJ, rQ, tY, rm, rg, nS, ng, np]),
+      ik = (0, n.useRef)(iE);
+    (0, n.useLayoutEffect)(() => {
+      ik.current = iE
+    }, [iE]);
+    let iH = (0, n.useRef)(new y.HatchMessageOutbox),
+      ix = (0, n.useRef)({
+        scope: tY,
+        vmName: tG,
+        store: rm
+      });
+    (0, n.useLayoutEffect)(() => {
+      let e = ix.current;
+      (e.store !== rm || null != e.scope && (e.scope !== tY || e.vmName !== tG)) && (iH.current.cancelAll(), ag.current = null), ix.current = {
+        scope: tY,
+        vmName: tG,
+        store: rm
+      }
+    }, [tY, rm, tG]), (0, n.useEffect)(() => () => iH.current.cancelAll(), []);
+    let iM = (0, n.useCallback)(async (e, t, r) => {
+        let n = r;
+        if (b.getActiveHatchStore() !== rm) return {
+          ok: !1,
+          reason: "send_failed"
+        };
+        let a = (0, S.gatewayTargetKey)(tV, tG),
+          i = n?.waitForReadiness === !0 && null == tY,
+          s = () => b.getActiveHatchStore() === rm && aS.current === a,
+          l = () => n?.readinessSignal?.aborted === !0,
+          u = async () => {
+            let e = n?.readinessSignal;
+            if (e?.aborted === !0) return !1;
+            if (null == e) return await aC.current?.(), !0;
+            let t = () => void 0,
+              r = new Promise(r => {
+                t = () => r(), e.addEventListener("abort", t, {
+                  once: !0
+                })
+              });
+            try {
+              let t = aC.current;
+              if (null == t) return !1;
+              return await Promise.race([t(), r]), !e.aborted
+            } finally {
+              e.removeEventListener("abort", t)
+            }
+          }, d = n?.createNewThread === !0, g = d ? eH.HATCH_DRAFT_CHAT_ROUTE : n?.targetRoute ?? rG, h = te(g), p = !d && h === te(nP.current), m = p ? b.getSnapshot().chat.sxs?.sxsId ?? null : null, f = () => p && (b.getSnapshot().chat.sxs?.sxsId ?? null) !== m, v = e.trim().length > 0, C = null != t && t.length > 0;
+        if (!v && !C || g?.kind === "invalid_thread") return {
+          ok: !1,
+          reason: "empty"
+        };
+        let I = (0, o.captureHatchToast)(),
+          A = n?.waitForReadiness === !0 ? iH.current.reserve(2 * e.length + (t ?? []).reduce((e, t) => e + 2 * t.dataBase64.length + (t.rawFile?.size ?? 0), 0), n.readinessSignal) : null;
+        if (n?.waitForReadiness === !0 && null == A) return r?.readinessSignal?.aborted !== !0 && eV("queue_full"), I.error(tZ), {
+          ok: !1,
+          reason: "send_failed"
+        };
+        null != A && (n = {
+          ...n,
+          readinessSignal: A.signal
+        });
+        let R = null,
+          w = !1,
+          E = (e, t, a = "readiness_failed") => {
+            ir(e, t, n?.onQueued != null && r?.readinessSignal?.aborted !== !0) && !w && A?.cancellationReason !== "cancelled" && s() && (w = !0, eV(A?.cancellationReason === "expired" ? "outbox_expired" : a))
+          };
+        try {
+          let r = ny.current && t3.current && rd.current && nf.current && nh.current,
+            o = n?.waitForReadiness === !0;
+          if (!r && !o) return {
+            ok: !1,
+            reason: "not_ready"
+          };
+          let h = async () => {
+            if (g?.kind !== "thread") return !0;
+            let e = a,
+              t = {
+                targetKey: e,
+                sessionId: g.sessionId
+              },
+              r = (0, es.getCachedThreadSession)(tO, t);
+            try {
+              r ??= await tO.fetchQuery(es.threadSessionQuery.queryOptions(t, {
+                gatewayUrl: ap.current,
+                vmName: am.current,
+                targetKey: e,
+                sendRequest: av.current,
+                fs: aI.current,
+                isReady: t3.current,
+                waitForTransport: aC.current
+              }))
+            } catch (e) {
+              return ez.error({
+                error: e instanceof Error ? e : Error(String(e)),
+                sessionId: g.sessionId,
+                tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_CHANNEL, {
+                  failure_reason: "lookup_failed",
+                  operation: "thread_session_send_verification"
+                })
+              }, "Failed to verify thread session before send"), I.error(tQ), !1
+            }
+            return !l() && !!s() && (r.session_id !== g.sessionId ? (ez.error({
+              expectedSessionId: g.sessionId,
+              receivedSessionId: r.session_id,
+              tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_CHANNEL)
+            }, "Thread session verification returned a mismatched session"), I.error(tQ), !1) : (0, ec.isChannelProvider)(r.channel) ? (I.error(tJ), !1) : !(0, ed.isPeerSidechatSession)(r) || (I.error(tX), !1))
+          };
+          if ((!o || r) && g?.kind === "thread" && !await h()) return {
+            ok: !1,
+            reason: "send_failed"
+          };
+          let m = (0, U.buildChatRequestMetadata)((0, U.resolveActivePanelForChatRequest)(b.getSnapshot().deviceContext), n?.goalCreationTarget, n?.threadIsDictationUsed),
+            S = () => {
+              var e;
+              return e = b.getSnapshot().activity, null == g ? (0, J.hasForegroundApprovalForUnknownTargetRoute)(e.taskStatusesByTaskId, {
+                requireSnapshotMatch: !0,
+                resolvedApprovalIdsById: e.resolvedApprovalIdsById,
+                snapshotPendingApprovalBackgroundOnlyById: e.snapshotPendingApprovalBackgroundOnlyById,
+                snapshotPendingApprovalsById: e.snapshotPendingApprovalsById
+              }) : (0, J.hasBlockingApprovalForChatRoute)(e.taskStatusesByTaskId, e.liveTaskScopesByTaskId, g, {
+                companionRootAgentIdsByAgentId: e.companionRootAgentIdsByAgentId,
+                currentChatRootAgentId: e.currentChatRootAgentId,
+                currentChatRouteKey: e.currentChatRouteKey,
+                currentChatSessionId: e.currentChatSessionId,
+                includeTasklessSnapshotKey: !0,
+                requireSnapshotMatch: !0,
+                resolvedApprovalIdsById: e.resolvedApprovalIdsById,
+                snapshotPendingApprovalBackgroundOnlyById: e.snapshotPendingApprovalBackgroundOnlyById,
+                snapshotPendingApprovalsById: e.snapshotPendingApprovalsById,
+                snapshotPendingApprovalScopesById: e.snapshotPendingApprovalScopesById
+              })
+            };
+          if (r && S()) return {
+            ok: !1,
+            reason: "pending_user_confirmation"
+          };
+          let w = p ? rR : null,
+            k = function(e) {
+              if (null == e) return {};
+              if ("presentation" === e.type) return {
+                reply_to_target: {
+                  type: "presentation",
+                  presentation_event_id: e.presentationEventId
+                }
+              };
+              if ("feed_unit" === e.type) return {
+                reply_to_target: {
+                  type: "feed_unit",
+                  unit_id: e.unitId
+                }
+              };
+              let t = e.media?.kind === "image" ? (0, q.getHatchWorkspaceMediaPath)(e.media.filePath) : null;
+              return {
+                in_reply_to: e.messageId,
+                ...null != t && t.length > 0 ? {
+                  reply_to_target: {
+                    type: "image",
+                    path: t
+                  }
+                } : {}
+              }
+            }(w);
+          if (p && b.getSnapshot().chat.isViewingHistory && (await iw(), l() || !s()) || f()) return {
+            ok: !1,
+            reason: "send_failed"
+          };
+          let H = b.getSnapshot().chat,
+            x = tt(rm),
+            O = (0, K.getCachedClientIp)();
+          null == O && (0, K.fetchClientIp)();
+          let B = Intl.DateTimeFormat().resolvedOptions().timeZone,
+            D = b.getSnapshot().deviceContext.local.deviceId,
+            F = (0, N.buildHatchChatCapabilities)(),
+            L = d ? crypto.randomUUID() : g?.kind === "thread" ? g.sessionId : g?.kind === "draft" ? aD() : null,
+            j = () => {
+              let e = b.getSnapshot().chat,
+                t = nM.current,
+                r = (0, eM.shouldForceVoiceOutputModality)({
+                  voiceEnabled: t,
+                  callStatus: e.activeVoiceCallStatus,
+                  callThreadId: e.activeVoiceCallThreadId,
+                  requestedSessionId: L
+                }),
+                a = t ? n?.outputModality ?? (r ? "voice" : void 0) : void 0;
+              return a ? {
+                output_modality: a
+              } : {}
+            },
+            z = ar.current,
+            V = null != H.model && "visible" === H.modelIdentityVisibility && (null != ae.current || null != z && H.model === z) ? {
+              model: H.model
+            } : {},
+            G = (v || C && n?.onQueued != null) && (!C || n?.onQueued != null) && (g?.kind === "main" || g?.kind === "thread" || g?.kind === "draft") && p ? crypto.randomUUID() : null;
+          if (null != G) {
+            let a = new Set((t ?? []).map(e => e.previewUrl).filter(e => e.startsWith("blob:")));
+            a.size > 0 && (R = {
+              urls: a,
+              pending: !0
+            }, a1.current.add(R));
+            let i = new Date().toISOString(),
+              s = (0, e_.consumeAnnotationContext)(e),
+              l = null != w && "feed_unit" === w.type ? {
+                type: "feed_unit",
+                unitId: w.unitId,
+                ...null != w.title ? {
+                  title: w.title
+                } : {}
+              } : k.reply_to_target?.type === "image" ? {
+                type: "image",
+                path: k.reply_to_target.path
+              } : void 0,
+              o = {
+                id: G,
+                role: "user",
+                content: e,
+                createdAt: i,
+                clientSentAt: i,
+                isOptimistic: !0,
+                deliveryStatus: "sending",
+                ...C && n?.onQueued != null ? {
+                  files: (t ?? []).map(e => ({
+                    filename: e.filename,
+                    mimeType: e.mimeType,
+                    category: e.category,
+                    ...e.previewUrl ? {
+                      previewUrl: e.previewUrl
+                    } : {}
+                  }))
+                } : {},
+                deliveryPhase: r ? "preparing" : "queued_for_connection",
+                ...null != s ? {
+                  annotationContext: s
+                } : {},
+                ...null != w && (null == w.type || "message" === w.type) ? {
+                  replyToMessageId: w.messageId
+                } : {},
+                ...null != l ? {
+                  replyToTarget: l
+                } : {}
+              };
+            n?.consumeComposerInput === !0 ? b.insertOptimisticComposerMessage(o) : b.reduceChat({
+              type: "message/insert",
+              message: o
+            })
+          }
+          let $ = () => {
+            if (null == G) return;
+            let e = b.getSnapshot().chat.messagesById[G];
+            e?.deliveryStatus === "sending" && b.reduceChat({
+              type: "message/update",
+              id: G,
+              updates: {
+                deliveryPhase: "awaiting_ack"
+              }
+            })
+          };
+          if (null != G && n?.onQueued?.(), null != A && !await A.waitForTurn()) return E(G, null), {
+            ok: !1,
+            reason: "send_failed"
+          };
+          let Y = L,
+            W = !1,
+            Q = () => {
+              let e = ag.current;
+              if (g?.kind !== "draft" || null == e || e.draftId !== Y || !s()) return !1;
+              W = !0, L = e.sessionId;
+              let t = nP.current;
+              return t?.kind === "thread" && t.sessionId === e.sessionId && (x = tt(rm), !0)
+            };
+          Q();
+          let X = async () => {
+            let e = n?.readinessSignal;
+            if (null == e) return tP;
+            if (e.aborted) return null;
+            let t = () => void 0,
+              r = new Promise(r => {
+                t = () => r(null), e.addEventListener("abort", t, {
+                  once: !0
+                })
+              });
+            try {
+              return await Promise.race([tP, r])
+            } finally {
+              e.removeEventListener("abort", t)
+            }
+          }, Z = await X();
+          if (null == Z || l()) return E(G, null), {
+            ok: !1,
+            reason: "send_failed"
+          };
+          if ("invalidated" === Z.outcome) return ez.error({
+            outcome: Z.outcome,
+            reason: Z.reason,
+            tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_CHANNEL, {
+              failure_reason: "activation_invalidated"
+            })
+          }, "Blocked chat send after activation invalidation"), E(G, null), {
+            ok: !1,
+            reason: "send_failed"
+          };
+          if (Q(), !r) {
+            let e = await ik.current({
+              signal: n?.readinessSignal
+            });
+            if (!Q() || e || l() || (e = await ik.current({
+                signal: n?.readinessSignal
+              })), e && i) {
+              let e = af.current,
+                t = aS.current,
+                r = tt(rm);
+              if (null == e || null == t || null == r) return E(G, null), {
+                ok: !1,
+                reason: "send_failed"
+              };
+              a = t, x = r
+            }
+            let t = tt(rm) === x;
+            if (!e || l() || !s() || !t || g?.kind === "thread" && !await h() || f()) return E(G, null), {
+              ok: !1,
+              reason: "send_failed"
+            };
+            if (S()) return E(G, null), {
+              ok: !1,
+              reason: "pending_user_confirmation"
+            }
+          }
+          try {
+            let r;
+            if (!t3.current && !await u() || l() || !s() || (Q(), tt(rm) !== x)) return E(G, null), {
+              ok: !1,
+              reason: "send_failed"
+            };
+            if (S()) return E(G, null), {
+              ok: !1,
+              reason: "pending_user_confirmation"
+            };
+            if (f()) return E(G, null), {
+              ok: !1,
+              reason: "send_failed"
+            };
+            let i = async e => {
+              for (;;) {
+                let t = null == A ? nh.current && rd.current : await ik.current({
+                  signal: A.signal
+                });
+                if (!Q() || t || l() || (t = await ik.current({
+                    signal: n?.readinessSignal
+                  })), !t || !s() || l() || S() || f() || null != A && !A.beginAttempt()) throw Error("Outgoing message was not sent before readiness expired or its scope changed");
+                $();
+                try {
+                  return await av.current("chat.stream", W && null != L ? {
+                    ...e,
+                    session_id: L
+                  } : e, {
+                    expectedGatewayTargetKey: a
+                  })
+                } catch (e) {
+                  if (null == A || !(0, y.isSafeOutboxRetry)(e) || !A.canDispatch()) throw e;
+                  A.endAttempt(), nh.current = !1, np(), null != G && b.reduceChat({
+                    type: "message/update",
+                    id: G,
+                    updates: {
+                      deliveryPhase: "queued_for_connection"
+                    }
+                  }), await (0, y.waitForOutboxRetry)(A.signal)
+                }
+              }
+            };
+            if (C) {
+              let a = t ?? [],
+                o = await (0, ep.buildAttachmentItems)(a, (e, t, r) => {
+                  let a = new AbortController,
+                    i = null,
+                    s = rp.uploadFile(t, r, {
+                      signal: a.signal,
+                      stageBeforePublish: !0,
+                      registerTargetScopedCleanup: e => {
+                        i = e
+                      }
+                    }),
+                    l = !1;
+                  e.uploadAbortController = a, e.uploadPromise = s;
+                  let o = t => {
+                    (0, T.logHatchAttachmentUploadCleanupError)(t, {
+                      attachmentCategory: e.category,
+                      attachmentSizeBytes: e.rawFile?.size ?? 0
+                    })
+                  };
+                  e.discardUpload = async () => {
+                    if (!l) {
+                      l = !0, a.abort(), await s.catch(() => void 0);
+                      try {
+                        let e = await i?.();
+                        null == e || e.ok || o(e.error)
+                      } catch (e) {
+                        o(e)
+                      }
+                    }
+                  };
+                  let u = n?.readinessSignal,
+                    c = () => {
+                      e.discardUpload?.().catch(o)
+                    };
+                  return u?.addEventListener("abort", c, {
+                    once: !0
+                  }), s.then(() => u?.removeEventListener("abort", c), () => u?.removeEventListener("abort", c)), u?.aborted === !0 && c(), s
+                }, rm.getState().chat.supportsVideoFileRefIngestion);
+              if (l() || !s() || (Q(), tt(rm) !== x)) return E(G, null), {
+                ok: !1,
+                reason: "send_failed"
+              };
+              e.trim() && o.push({
+                type: "text",
+                text: e
+              });
+              let u = new Set(o.filter(e => "file_ref" === e.type).map(e => e.path));
+              if (!rd.current) return E(G, null), {
+                ok: !1,
+                reason: "send_failed"
+              };
+              if (S()) return E(G, null), {
+                ok: !1,
+                reason: "pending_user_confirmation"
+              };
+              if (l() || f()) return E(G, null), {
+                ok: !1,
+                reason: "send_failed"
+              };
+              for (let e of ($(), r = await i({
+                  items: o,
+                  node_id: D,
+                  ...V,
+                  capabilities: F,
+                  ...n?.hiddenPrompt && {
+                    hidden_prompt: n.hiddenPrompt
+                  },
+                  ...null != L && {
+                    session_id: L
+                  },
+                  ...n?.spaceRequest && {
+                    product_request: {
+                      space: n.spaceRequest
+                    }
+                  },
+                  ...k,
+                  ...O && {
+                    client_ip: O
+                  },
+                  ...B && {
+                    timezone: B
+                  },
+                  ...null != m && {
+                    metadata: m
+                  },
+                  ...j()
+                }), a)) null == e.uploadPath || u.has(e.uploadPath) || e.discardUpload?.().catch(t => {
+                (0, T.logHatchAttachmentUploadCleanupError)(t, {
+                  attachmentCategory: e.category,
+                  attachmentSizeBytes: e.rawFile?.size ?? 0
+                })
+              }), e.discardUpload = void 0, e.uploadAbortController = void 0, e.uploadPromise = void 0
+            } else {
+              if (l() || !s() || !rd.current) return E(G, null), {
+                ok: !1,
+                reason: "send_failed"
+              };
+              if (S()) return E(G, null), {
+                ok: !1,
+                reason: "pending_user_confirmation"
+              };
+              if (l() || f()) return E(G, null), {
+                ok: !1,
+                reason: "send_failed"
+              };
+              $(), r = await i({
+                message: e,
+                node_id: D,
+                capabilities: F,
+                ...n?.hiddenPrompt && {
+                  hidden_prompt: n.hiddenPrompt
+                },
+                ...null != L && {
+                  session_id: L
+                },
+                ...n?.spaceRequest && {
+                  product_request: {
+                    space: n.spaceRequest
+                  }
+                },
+                ...k,
+                ...O && {
+                  client_ip: O
+                },
+                ...B && {
+                  timezone: B
+                },
+                ...null != m && {
+                  metadata: m
+                },
+                ...j()
+              })
+            }
+            let o = r.session_id ?? null,
+              c = o ?? (g?.kind === "thread" ? L : null);
+            if (!s()) return {
+              ok: !0,
+              messageId: r.message_id,
+              sessionId: c
+            };
+            let h = p ? b.getSnapshot().chat.sxs : null;
+            null != h && b.resolveSxsComparison(h.sxsId), E(G, (0, M.normalizeOptionalId)(r.reply_to_message_id) ?? r.message_id);
+            let _ = tt(rm);
+            if (_ !== x) return ez.retainForBugReport("info", "Ignoring stale chat.stream response after transcript change"), {
+              ok: !0,
+              messageId: r.message_id,
+              sessionId: c
+            };
+            return null != c && e.trim().length > 0 && b.setThreadTitleForSession(c, e), g?.kind === "draft" && !W && null != o && !l() && s() && (d || ad.current === L) && (0, P.notifyHatchSideChatCreated)({
+              sessionId: o,
+              targetKey: a
+            }), d || g?.kind !== "draft" || W || null == o || (null != L && (ag.current = {
+              draftId: L,
+              sessionId: o
+            }), ad.current = o), p && (b.reduceChat({
+              type: "chat/start_stream",
+              setExpectingBotResponse: !0
+            }), window.dispatchEvent(new Event("hatch-user-message-sent"))), d || rG?.kind !== "draft" || g?.kind !== "draft" || null == o || null == tD || nP.current?.kind !== "draft" || (_ !== x ? ez.retainForBugReport("info", "Skipping draft navigation after transcript route changed") : aF(o)), {
+              ok: !0,
+              messageId: r.message_id,
+              sessionId: c
+            }
+          } catch (r) {
+            if (!s() || (E(G, null, (0, _.isGatewayRequestError)(r) ? "jarvis_rejection" === r.kind ? "send_rejected" : "not_sent" === r.deliveryState ? "readiness_failed" : "ack_uncertain" : "send_failed"), l())) return {
+              ok: !1,
+              reason: "send_failed"
+            };
+            let e = r instanceof Error ? r : Error(String(r));
+            if (n?.failureReporting !== "caller") {
+              let n = (0, em.buildImagePasteSendFailureDiagnostics)(t, r);
+              ez.error({
+                error: e,
+                tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT, n?.tags),
+                ...null != n ? {
+                  imagePasteDiagnostics: n.extra
+                } : {}
+              }, "chat.stream send failed"), I.error(tZ)
+            }
+            return {
+              ok: !1,
+              reason: "send_failed",
+              error: e
+            }
+          }
+        } finally {
+          A?.release(), null != R && (R.pending = !1, r?.readinessSignal?.aborted !== !0 && a2())
+        }
+      }, [tP, rG, aD, np, tY, tV, rm, rp, tD, tO, rR, tJ, tX, a2, iw, tZ, ir, tQ, aF, tG]),
+      iN = (0, n.useCallback)(async e => {
+        let t = b.getSnapshot().chat;
+        if ("visible" !== t.modelIdentityVisibility) return;
+        let r = t.model;
+        if (r === e) return;
+        let n = (0, o.captureHatchToast)(),
+          a = n6.current + 1;
+        n6.current = a;
+        let i = ae.current;
+        ar.current = e, b.setChatModel(e), b.setModelDisplayName(null);
+        try {
+          let t = await tK("model.set", {
+            model: e
+          });
+          if (a !== n6.current) return;
+          let s = ae.current;
+          if (null != s && t.generation < s) return void ez.retainForBugReport("info", "Ignoring stale model.set response by generation");
+          let l = ii(t.selected_model, null);
+          if (null == l) {
+            let t = b.getSnapshot().chat.model,
+              a = ae.current;
+            ez.retainForBugReport("warn", "Ignoring unrecognized model.set response payload"), t !== e || null != a && (null == i || a > i) ? ez.retainForBugReport("warn", "Skipping rollback after unrecognized model.set response due newer authoritative model state") : (ar.current = null, b.setChatModel(r), n.error(t0));
+            return
+          }
+          ae.current = t.generation, ar.current = null, b.setChatModel(l), b.setModelDisplayName(t.display_name ?? null)
+        } catch (l) {
+          if (a !== n6.current) return;
+          let t = b.getSnapshot().chat.model,
+            s = ae.current;
+          if (t !== e || null != s && (null == i || s > i)) return void ez.retainForBugReport("warn", "Skipping rollback after failed model.set due newer authoritative model state");
+          ar.current = null, b.setChatModel(r), n.error(t1), ez.error({
+            error: l instanceof Error ? l : Error(String(l)),
+            model: e
+          }, "model.set failed")
+        }
+      }, [t1, ii, tK, t0]),
+      iP = (0, n.useCallback)(async ({
+        enabled: e,
+        defaultMode: t
+      }) => {
+        aM({
+          settingsLoaded: !0,
+          enabled: e,
+          defaultMode: "suggest" === t ? "suggest" : e$
+        })
+      }, [aM]),
+      iO = (0, n.useCallback)(async (e, t) => {
+        let r = nP.current;
+        if (!e7(r)) return;
+        let n = b.getSnapshot().chat,
+          a = null != b.getSnapshot().search.query ? {
+            persistent: !0
+          } : void 0,
+          i = n.mainHistorySourceKey,
+          s = null == i ? null : nW.current.get(i) ?? null;
+        if (null != n.messagesById[e]) return void tS((0, eI.resolveVisibleMessageId)(e, n.messageIds, n.messagesById), a);
+        try {
+          let n = await tK("chat.history_window", aq({
+            anchor_seq: t,
+            before_limit: H.HISTORY_WINDOW_BEFORE,
+            after_limit: H.HISTORY_WINDOW_AFTER
+          }, r));
+          if (b.getActiveHatchStore() !== rm) return;
+          if (tt(rm) !== i) return void ez.retainForBugReport("info", "Ignoring stale chat.history_window response after transcript change");
+          if (!ia({
+              chat_events: n.chat_events,
+              has_more: n.has_older,
+              transcript_revision: n.transcript_revision ?? s ?? void 0
+            }, "replace", {
+              historyWindowState: {
+                hasMoreNewer: n.has_newer,
+                isViewingHistory: n.has_newer,
+                newestSeq: n.newest_seq
+              },
+              preserveStreaming: !1,
+              sourceKey: i
+            })) return;
+          aX(n.chat_events);
+          let l = b.getSnapshot().chat,
+            o = (0, eI.resolveVisibleMessageId)(e, l.messageIds, l.messagesById);
+          tS(o, a)
+        } catch (e) {
+          ez.error({
+            error: e instanceof Error ? e : Error(String(e))
+          }, "Failed to jump to message")
+        }
+      }, [ia, rm, aX, tK, aq]);
+    (0, n.useEffect)(() => {
+      if (null == nU) return;
+      if (nU.gatewayScopeKey !== tY) return void nj(e => e?.requestId === nU.requestId ? null : e);
+      if (rQ !== te(nU.route)) {
+        (nL.current === nU.requestId || null != rQ && rQ !== nU.originRouteKey) && nj(e => e?.requestId === nU.requestId ? null : e);
+        return
+      }
+      if (nL.current = nU.requestId, !nn || nK.current === nU.requestId) return;
+      nK.current = nU.requestId, nj(e => e?.requestId === nU.requestId ? null : e);
+      let e = rm.getState().chat;
+      b.setSearchState(nU.query, (0, eI.resolveVisibleMessageId)(nU.messageId, e.messageIds, e.messagesById)), iO(nU.messageId, nU.seq)
+    }, [rQ, tY, nn, rm, iO, nU]);
+    let iB = (0, n.useCallback)(async () => {
+        if (b.getActiveHatchStore() !== rm) return;
+        let e = nP.current;
+        if (!e7(e)) return;
+        let t = b.getSnapshot().chat;
+        if (!t.isViewingHistory || t.isLoadingNewer) return;
+        let r = t.newestSeq;
+        if (null == r) return;
+        let n = t.mainHistorySourceKey;
+        b.reduceChat({
+          type: "chat/set_loading_newer",
+          isLoadingNewer: !0
+        });
+        try {
+          let t = await tK("chat.history", aq({
+            limit: H.NEWER_HISTORY_LIMIT,
+            after_seq: r
+          }, e));
+          if (b.getActiveHatchStore() !== rm) return;
+          if (tt(rm) !== n) return void ez.retainForBugReport("info", "Ignoring stale forward pagination response after transcript change");
+          if (b.getSnapshot().chat.newestSeq !== r || !ia(t, "append", {
+              sourceKey: n
+            })) return;
+          let a = t.chat_events ?? [];
+          if (a.length > 0) {
+            let e = Math.max(...a.map(e => e.seq));
+            b.reduceChat({
+              type: "chat/set_newest_seq",
+              newestSeq: e
+            })
+          }
+          b.reduceChat({
+            type: "chat/set_has_more_newer",
+            hasMoreNewer: t.has_more
+          })
+        } catch (t) {
+          let e = t instanceof Error ? t.message : String(t);
+          ez.error({
+            error: t instanceof Error ? t : Error(e)
+          }, "Forward pagination failed")
+        } finally {
+          b.getActiveHatchStore() === rm && tt(rm) === n && b.reduceChat({
+            type: "chat/set_loading_newer",
+            isLoadingNewer: !1
+          })
+        }
+      }, [ia, rm, tK, aq]),
+      iq = (0, n.useCallback)(async e => {
+        let t = (0, eH.getHatchChatRouteKey)(e) === (0, eH.getHatchChatRouteKey)(rG);
+        try {
+          let r = await tK("chat.cancel", aB({}, e));
+          return r.cancelled && t && (n5.current(), tp()), r.cancelled
+        } catch (e) {
+          return ez.error({
+            error: e instanceof Error ? e : Error(String(e)),
+            tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_FEED)
+          }, "chat.cancel failed"), t && (n5.current(), tp()), !1
+        }
+      }, [tK, aB, rG]),
+      iD = (0, n.useCallback)(() => {
+        iq(rG)
+      }, [rG, iq]),
+      iF = (0, n.useCallback)(e => iq(e), [iq]),
+      iL = (0, n.useCallback)((e, t) => {
+        b.getActiveHatchStore() === e.storeApi && e.storeApi === rm && nq.current === e.sourceKey && aS.current === e.gatewayTargetKey && ic({
+          allowStaleRetry: !0,
+          expectedGatewayTargetKey: e.gatewayTargetKey,
+          reason: t,
+          sourceKey: e.sourceKey
+        }).catch(e => {
+          let r = e instanceof Error ? e : Error(String(e)),
+            n = {
+              error: r,
+              reason: t,
+              tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_FEED)
+            };
+          eZ(r) ? ez.retainForBugReport("warn", "Failed to reconcile reactions from chat history") : ez.error(n, "Failed to reconcile reactions from chat history")
+        })
+      }, [ic, rm]),
+      iK = (0, n.useCallback)(async (e, t) => {
+        var r;
+        let n = (0, M.normalizeOptionalId)(e),
+          a = nq.current,
+          i = aS.current,
+          s = nP.current;
+        if (null == n || !(0, x.isValidReactionValue)(t) || null == a || null == i || !e7(s) || b.getActiveHatchStore() !== rm || tt(rm) !== a) return;
+        let l = nz.current.get(n);
+        if (l?.sourceKey === a && l.gatewayTargetKey === i && l.storeApi === rm) return;
+        let o = rm.getState().chat;
+        if (! function(e, t) {
+            for (let r of e.messageIds) {
+              let n = e.messagesById[r];
+              if (null != n && (0, ej.collectInteractiveReactionTargetIds)(n).includes(t)) return !0
+            }
+            return !1
+          }(o, n)) return;
+        let u = (0, x.normalizeReactions)(o.reactions[n]),
+          d = 1 === u.length && u[0] === t,
+          g = {
+            gatewayTargetKey: i,
+            mutationId: ++nG.current,
+            previousReactions: u,
+            sourceKey: a,
+            storeApi: rm
+          };
+        nz.current.set(n, g), nV.current.delete(n), b.reduceChat({
+          type: "reactions/set_message",
+          messageId: n,
+          emojis: d ? [] : [t]
+        });
+        let h = () => {
+            let e = nz.current.get(n);
+            return e?.mutationId === g.mutationId && b.getActiveHatchStore() === g.storeApi && nq.current === g.sourceKey && aS.current === g.gatewayTargetKey && tt(g.storeApi) === g.sourceKey
+          },
+          p = () => {
+            let e = nV.current.get(n);
+            return e?.sourceKey === a && e.gatewayTargetKey === i ? e : null
+          };
+        try {
+          let e = await tK("reactions.toggle", {
+            message_id: n,
+            emoji: t
+          }, {
+            expectedGatewayTargetKey: i
+          });
+          if (!h()) return;
+          let a = (0, x.normalizeReactions)(e.reactions),
+            s = p();
+          (b.reduceChat({
+            type: "reactions/set_message",
+            messageId: n,
+            emojis: s?.reactions ?? a
+          }), null == s || (r = s.reactions, r.length === a.length && r.every((e, t) => e === a[t]))) ? nV.current.get(n) === s && nV.current.delete(n): iL(g, "reaction_live_response_conflict")
+        } catch (i) {
+          if (!h()) return;
+          let e = p();
+          b.reduceChat({
+            type: "reactions/set_message",
+            messageId: n,
+            emojis: e?.reactions ?? g.previousReactions
+          });
+          let r = i instanceof Error ? i : Error(String(i)),
+            a = {
+              error: r,
+              messageId: n,
+              emoji: t,
+              tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_FEED)
+            };
+          (eZ(r) ? ez.retainForBugReport("warn", "reactions.toggle failed") : ez.error(a, "reactions.toggle failed"), (0, _.isGatewayRequestError)(i) ? "transport" !== i.kind && "not_found" !== i.code && 404 !== i.httpStatus : 0) ? nV.current.get(n) === e && nV.current.delete(n): iL(g, "reaction_toggle_failed")
+        } finally {
+          nz.current.get(n)?.mutationId === g.mutationId && nz.current.delete(n)
+        }
+      }, [rm, iL, tK]),
+      iU = (0, n.useCallback)(async e => {
+        let t = nP.current,
+          r = nq.current,
+          n = b.getSnapshot().chat.messagesById[e];
+        if (null != nY.current || null == r || t?.kind !== "main" && t?.kind !== "thread" || null == n || "user" !== n.role || n.messageId !== e || !0 === n.isOptimistic || ei.EXTERNAL_CHANNELS.has(n.source ?? "")) return !1;
+        let a = (0, o.captureHatchToast)(),
+          i = {
+            messageId: e,
+            sourceKey: r
+          };
+        nY.current = i, rE(!0);
+        let s = !0,
+          l = () => {
+            nY.current === i && (nY.current = null, rE(!1))
+          };
+        try {
+          let n = await tK("chat.delete_turn", aB({
+              message_id: e
+            }, t)),
+            a = eQ(Array.isArray(n.deleted_message_ids) ? n.deleted_message_ids : []);
+          if (!n.ok || !a.includes(e)) throw Error("chat.delete_turn did not confirm the selected message");
+          return (0, ea.noteTranscriptRevision)(nW.current, r, n.transcript_revision), im(a, e, r), nq.current === r && (s = !1, ic({
+            allowStaleRetry: !0,
+            reason: "message_deleted",
+            sourceKey: r
+          }).catch(t => {
+            ez.error({
+              error: t instanceof Error ? t : Error(String(t)),
+              messageId: e,
+              tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_MESSAGE_DELETE)
+            }, "Message deletion succeeded but canonical history refresh failed")
+          }).finally(l)), !0
+        } catch (t) {
+          return ez.error({
+            error: t instanceof Error ? t : Error(String(t)),
+            messageId: e,
+            tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_MESSAGE_DELETE)
+          }, "Failed to delete chat message"), a.error(t2), !1
+        } finally {
+          s && l()
+        }
+      }, [im, t2, ic, tK, aB]),
+      ij = (0, n.useCallback)((e, t) => {
+        let r = b.getSnapshot().chat.messagesById[e],
+          n = r?.widgets?.find(e => e.widgetId === t);
+        if (null != n) return (0, ep.normalizeJSONState)(n.state);
+        let a = r?.presentations?.find(e => e.presentationId === t);
+        return null != a ? (0, ep.normalizeJSONState)(a.state) : null
+      }, []),
+      iz = (0, n.useCallback)((e, t, r) => tm(e, t, r), []),
+      iV = (0, n.useCallback)(async (e, t, r) => await tK("widgets.state.set", {
+        base_version: t.version,
+        mutation_id: globalThis.crypto.randomUUID(),
+        state: r,
+        widget_id: e
+      }), [tK]),
+      iG = (0, n.useCallback)(async (e, t, r, n) => {
+        let a = null,
+          i = 0;
+        for (;;) {
+          let s = n.desiredStateData;
+          if (null == s) {
+            n.inFlight = !1, rx.current.delete(e);
+            return
+          }
+          let l = n.generation;
+          a !== l && (a = l, i = 0), n.desiredStateData = null;
+          let o = n.serverState,
+            u = null;
+          try {
+            u = await iV(r, o, s)
+          } catch {
+            u = null
+          }
+          if (null != u) {
+            let e = (0, ep.normalizeJSONState)(u.state);
+            e.version >= n.serverState.version && (n.serverState = e);
+            let a = u.applied || (0, ep.areJSONStatesEqual)(e.data, s);
+            if (n.generation !== l || null != n.desiredStateData) continue;
+            if (a) {
+              n.optimisticStateData = null, iz(t, r, n.serverState);
+              continue
+            }
+            if (!(e.version > o.version) || i >= 3) {
+              n.optimisticStateData = null, iz(t, r, n.serverState), ez.error({
+                error: Error("widgets.state.set rebase limit exceeded"),
+                baseVersion: o.version,
+                responseVersion: e.version,
+                rebaseAttempts: i,
+                widgetId: r,
+                tags: (0, c.hatchSentryTags)(c.HATCH_SENTRY_SURFACES.CHAT_MESSAGE_HTMLPREVIEW)
+              }, "Widget state set did not converge");
+              continue
+            }
+            i += 1, null != n.optimisticStateData && (0, ep.areJSONStatesEqual)(n.optimisticStateData, s) && (n.desiredStateData = n.optimisticStateData);
+            continue
+          }
+          n.generation === l && null == n.desiredStateData && (n.optimisticStateData = null, iz(t, r, n.serverState))
+        }
+      }, [iV, iz]),
+      i$ = (0, n.useCallback)(async (e, t, r, n) => {
+        let a = (0, ep.normalizeJSONStateData)(r);
+        if (null == a) return !1;
+        let i = ij(e, t) ?? (null == n ? null : (0, ep.normalizeJSONState)(n));
+        if (null == i) return !1;
+        let s = `${e}:${t}`,
+          l = rx.current.get(s),
+          o = l?.optimisticStateData ?? l?.desiredStateData ?? i.data;
+        return !!(0, ep.areJSONStatesEqual)(o, a) && (null != l || i.version > 0) || (!!iz(e, t, {
+          version: l?.serverState.version ?? i.version,
+          data: a
+        }) || null != n) && (null == l && (l = {
+          desiredStateData: null,
+          optimisticStateData: null,
+          generation: 0,
+          inFlight: !1,
+          serverState: i
+        }, rx.current.set(s, l)), l.desiredStateData = a, l.optimisticStateData = a, l.generation += 1, l.inFlight || (l.inFlight = !0, iG(s, e, t, l)), !0)
+      }, [iG, ij, iz]),
+      iY = (0, n.useMemo)(() => ({
+        ensureActiveChatSendReady: iE,
+        sendMessage: iM,
+        setModel: iN,
+        setUiControlSettings: iP,
+        noteStreamSeqCursor: aP,
+        cancelStream: iD,
+        cancelStreamForRoute: iF,
+        loadOlderMessages: ib,
+        toggleReaction: iK,
+        deleteMessage: iU,
+        isMessageDeletionPending: rw,
+        quotedMessage: rR,
+        setQuotedMessage: rk,
+        clearQuotedMessage: rH,
+        jumpToMessage: iO,
+        requestSearchMessageJump: ak,
+        cancelPendingSearchMessageJump: aH,
+        returnToLatest: iw,
+        loadNewerMessages: iB,
+        requestHistoryRehydrate: id,
+        recoverFromPersistentCacheRenderError: it,
+        persistWidgetState: i$,
+        getDraftSessionId: aD,
+        promoteDraftSession: aF
+      }), [iE, iM, iN, iP, aP, iD, iF, ib, iK, iU, rw, rR, rk, rH, iO, ak, aH, iw, iB, id, it, i$, aD, aF]),
+      iW = (0, n.useMemo)(() => ({
+        gatewayUrl: tV,
+        gatewayScopeKey: tY,
+        chatSubscriptionReady: nd,
+        chatSubscriptionError: ng,
+        retryChatSubscription: np,
+        approvalSafetyError: rn,
+        approvalSafetyGeneration: t5,
+        approvalSafetyReady: rc,
+        activeHistoryError: nr,
+        activeHistoryFailed: nt,
+        activeHistoryReady: na,
+        retryApprovalSafety: iC,
+        retryActiveHistory: nH
+      }), [nr, nt, na, nd, ng, np, t5, rn, rc, tY, tV, iC, nH]);
+    return (0, t.jsx)(ex.HatchChatRouteContextProvider, {
+      activeChatRoute: rG,
+      baseChatRoute: rj,
+      clearRouteOverride: rV,
+      registerRouteOverride: rz,
+      children: (0, t.jsxs)(tf.Provider, {
+        value: iY,
+        children: [(0, t.jsx)(eD.EctoErrorBoundary, {
+          surface: c.HATCH_SENTRY_SURFACES.CHAT_AVATAR_SHARE,
+          fallback: () => null,
+          resetKeys: [tE],
+          onError: () => tx(!1),
+          children: (0, t.jsx)(n.Suspense, {
+            fallback: null,
+            children: (0, t.jsx)(tC, {
+              onResolve: tx
+            })
+          })
+        }), (0, t.jsx)(eB.HatchAvatarShareEligibilityContext.Provider, {
+          value: tM,
+          children: (0, t.jsx)(ty.Provider, {
+            value: iW,
+            children: (0, t.jsx)(f.HatchChatRecoveryProvider, {
+              enabled: tT,
+              ready: "guided_onboarding" !== tv && (rq || r$ ? nd : tj),
+              error: ng,
+              scopeKey: JSON.stringify([tY, tG]),
+              children: (0, t.jsx)(C.HatchPostContentSafetyProvider, {
+                ready: "application" !== tv || ru,
+                children: (0, t.jsx)(er.HatchMessageDeletionConfirmationProvider, {
+                  deleteMessage: iU,
+                  isMessageDeletionPending: rw,
+                  scopeKey: rJ,
+                  children: (0, t.jsx)(eP.HatchContentShareProvider, {
+                    scopeKey: rJ,
+                    children: (0, t.jsx)(eO.HatchIdeaShareProvider, {
+                      children: (0, t.jsx)(et.HatchThreadRenameProvider, {
+                        children: r
+                      })
+                    })
+                  })
+                })
+              })
+            })
+          })
+        })]
+      })
+    })
+  }
+  e.s(["HatchChatProvider", 0, function(e) {
+    let n, a, i, s = (0, r.c)(8);
+    if (s[0] !== e ? ({
+        voiceEnabled: a,
+        ...n
+      } = e, s[0] = e, s[1] = n, s[2] = a) : (n = s[1], a = s[2]), void 0 !== a) {
+      let e;
+      return s[3] !== n || s[4] !== a ? (e = (0, t.jsx)(tI, {
+        ...n,
+        voiceEnabled: a
+      }), s[3] = n, s[4] = a, s[5] = e) : e = s[5], e
+    }
+    return s[6] !== n ? (i = (0, t.jsx)(tv, {
+      ...n
+    }), s[6] = n, s[7] = i) : i = s[7], i
+  }, "useHatchChat", 0, function() {
+    let e = t_();
+    if (!e) throw Error("useHatchChat must be used within a HatchChatProvider");
+    return e
+  }, "useHatchChatReadiness", 0, function() {
+    return (0, n.useContext)(ty)
+  }, "useOptionalHatchChat", 0, t_], 123960)
+}, 924252, 418458, 60830, 242392, 196138, 402592, 249295, 26362, e => {
+  "use strict";
+  var t = e.i(195714);
+  e.s(["clearContentVirtualizationCaches", 0, function() {
+    (0, t.clearHeightCache)()
+  }, "pruneContentVirtualizationCaches", 0, function(e) {
+    (0, t.pruneHeightCache)(e)
+  }, "releaseContentVirtualizationCache", 0, function(e) {
+    (0, t.releaseHeightCacheScope)(e)
+  }, "retainContentVirtualizationCache", 0, function(e, r) {
+    (0, t.retainHeightCacheScope)(e, r)
+  }], 924252);
+  var r = e.i(255859);
+  let n = "pin.reminder";
+
+  function a(e) {
+    return "object" == typeof e && null !== e
+  }
+
+  function i(e) {
+    if (!a(e)) return null;
+    let t = e.state_revision,
+      r = e.update_id,
+      n = e.encrypted_pin_verifier,
+      i = e.last_successful_entry_at_ms,
+      s = e.reminder_interval_days,
+      l = e.replaces_update_id;
+    return "number" == typeof t && Number.isFinite(t) && !(t <= 0) && "string" == typeof r && 0 !== r.length && "string" == typeof n && 0 !== n.length && "number" == typeof i && Number.isFinite(i) && "number" == typeof s && Number.isFinite(s) && (null == l || "string" == typeof l) ? {
+      state_revision: t,
+      update_id: r,
+      replaces_update_id: l ?? null,
+      encrypted_pin_verifier: n,
+      last_successful_entry_at_ms: i,
+      reminder_interval_days: s
+    } : null
+  }
+
+  function s(e) {
+    if (!a(e) || "boolean" != typeof e.accepted) return null;
+    let t = e.current_pin_state;
+    if (null == t) return {
+      accepted: e.accepted,
+      current_pin_state: null
+    };
+    let r = i(t);
+    return null == r ? null : {
+      accepted: e.accepted,
+      current_pin_state: r
+    }
+  }
+  e.s(["PIN_REMINDER_COMMAND_ID", 0, n, "parsePinReminderOccurrence", 0, function(e) {
+    if (!a(e)) return null;
+    let t = e.reminder_id,
+      r = e.update_id,
+      n = e.state_revision,
+      i = e.reminder_interval_days;
+    return "string" == typeof t && 0 !== t.length && "string" == typeof r && 0 !== r.length && "number" == typeof n && Number.isFinite(n) && !(n <= 0) && "number" == typeof i && Number.isFinite(i) ? {
+      reminder_id: t,
+      update_id: r,
+      state_revision: n,
+      reminder_interval_days: i
+    } : null
+  }, "parsePinReminderSnapshot", 0, i, "parsePinReminderWriteResult", 0, s], 418458);
+  let l = {
+    [n]: {
+      description: "Present the PIN confirmation flow",
+      required: {
+        reminder_id: {
+          type: 1,
+          description: "Reminder UUID",
+          enum_values: []
+        },
+        update_id: {
+          type: 1,
+          description: "Verifier update UUID",
+          enum_values: []
+        },
+        state_revision: {
+          type: 2,
+          description: "PIN state revision",
+          enum_values: []
+        },
+        reminder_interval_days: {
+          type: 2,
+          description: "Elapsed interval",
+          enum_values: []
+        }
+      },
+      optional: {},
+      permissions: [],
+      datatype: "application/json",
+      timeout_ms: 1e4
+    }
+  };
+  var o = e.i(438451),
+    u = e.i(221988);
+  let c = [u.HATCH_PRESENTATION_KIND_FILE, u.HATCH_PRESENTATION_KIND_IMAGE, u.HATCH_PRESENTATION_KIND_VIDEO, u.HATCH_PRESENTATION_KIND_AUDIO, u.HATCH_PRESENTATION_KIND_SLIDES, u.HATCH_PRESENTATION_KIND_HTML, u.HATCH_PRESENTATION_KIND_LETTER, u.HATCH_PRESENTATION_KIND_LOCAL_MAP, u.HATCH_PRESENTATION_KIND_NAVIGATION, "navigation.scheduled_task", u.HATCH_PRESENTATION_KIND_IDEA, u.HATCH_PRESENTATION_KIND_IDEA_GROUP, u.HATCH_PRESENTATION_KIND_IMAGE_OPTIONS, ...u.HATCH_SHOPPING_RESULTS_KINDS, u.HATCH_PRESENTATION_KIND_SHOPPING_CART, u.HATCH_PRESENTATION_KIND_SPACE_BUILD_COMPLETED, u.HATCH_PRESENTATION_KIND_SPACE_PROPOSAL, u.HATCH_PRESENTATION_KIND_BROWSER_TASK, u.HATCH_PRESENTATION_KIND_TEXT_WITH_BUTTON, u.HATCH_PRESENTATION_KIND_COMPLIMENTARY_SUBSCRIPTION, u.HATCH_PRESENTATION_KIND_GENERIC_LIST, u.HATCH_PRESENTATION_KIND_INTERNAL_LINK_ACTION_CARD, u.HATCH_PRESENTATION_KIND_EXTERNAL_LINK, u.HATCH_PRESENTATION_KIND_PROFESSIONAL_CONSENT],
+    d = [u.HATCH_PRESENTATION_KIND_OPTION],
+    g = ["ads_entity"];
+  var h = e.i(304117);
+  let p = S('Perform the action immediately, render a suggestion, or briefly highlight the destination tab ("lightup", tab destinations only).', ["suggest", "perform", "lightup"]),
+    m = new Set([_("set", "voice.end_call")]),
+    f = {
+      ...Object.fromEntries(["chat", "chat.session", "settings", "settings.close", "settings.identity", "activity.log", "feed", "goals", "ideas", "library", "library.item", "memory", "memory.item", "scheduled.tasks", "scheduled.task", "space"].map(e => [_("navigate", e), function(e) {
+        switch (e) {
+          case "chat":
+            return v('Open the Chat tab. Use this for "go back to chat"; use ui.navigate.chat.session to open one specific thread by id.');
+          case "chat.session":
+            return v(`Open a specific ${r.PRODUCT_BRAND.shortName} chat thread.`, {
+              session_id: S(`${r.PRODUCT_BRAND.shortName} chat session id to open.`)
+            });
+          case "settings":
+            return v(`Open ${r.PRODUCT_BRAND.shortName} settings.`);
+          case "settings.close":
+            return v(`Close the ${r.PRODUCT_BRAND.shortName} settings modal.`);
+          case "settings.identity":
+            return v(`Open ${r.PRODUCT_BRAND.shortName} identity settings.`);
+          case "activity.log":
+            return v(`Open the ${r.PRODUCT_BRAND.shortName} Activity panel.`);
+          case "feed":
+            return v(`Open the ${r.PRODUCT_BRAND.shortName} Feed page — the user's personal newspaper of generated editions (distinct from the Ideas page).`);
+          case "goals":
+            return v(`Open the ${r.PRODUCT_BRAND.shortName} Goals page.`);
+          case "ideas":
+            return v(`Open the ${r.PRODUCT_BRAND.shortName} Ideas page.`);
+          case "library":
+            return v(`Open the ${r.PRODUCT_BRAND.shortName} file library.`);
+          case "library.item":
+            return v(`Open a specific item in the ${r.PRODUCT_BRAND.shortName} file library.`, {
+              item_id: S("Library item id or path to select.")
+            });
+          case "memory":
+            return v(`Open the root ${r.PRODUCT_BRAND.shortName} memory file.`);
+          case "memory.item":
+            return v(`Open a specific ${r.PRODUCT_BRAND.shortName} memory path.`, {
+              path: S("Memory file path to open.")
+            });
+          case "scheduled.tasks":
+            return v(`Open the ${r.PRODUCT_BRAND.shortName} scheduled tasks panel.`);
+          case "scheduled.task":
+            return v(`Open a specific ${r.PRODUCT_BRAND.shortName} scheduled task.`, {
+              task_id: S("Scheduled task id to select.")
+            });
+          case "space":
+            return v(`Open a ${r.PRODUCT_BRAND.shortName} Space by id or slug.`, {
+              space_id: S("Space id or slug to open.")
+            })
+        }
+      }(e)])),
+      ...Object.fromEntries(["appearance.chat_theme", "ui.highlight", "appearance.mode", "voice.end_call"].map(e => [_("set", e), function(e) {
+        switch (e) {
+          case "appearance.chat_theme":
+            return v(`Apply a ${r.PRODUCT_BRAND.shortName} chat theme color.`, {
+              theme_id: S("Theme id to apply.")
+            });
+          case "ui.highlight":
+            return v(`Highlight a ${r.PRODUCT_BRAND.shortName} UI element to draw the user's attention.`, {
+              item_id: S("Identifier of the UI element to highlight.", ["ideas_tab"])
+            });
+          case "appearance.mode":
+            return v(`Set the ${r.PRODUCT_BRAND.shortName} light, dark, or system appearance mode.`, {
+              appearance_mode: S("Appearance mode to apply.", ["light", "dark", "system"])
+            });
+          case "voice.end_call":
+            return v(`End the active ${r.PRODUCT_BRAND.shortName} voice call.`, {}, {
+              active_call_id: S("When set, end the call only if this client's active call id does NOT match it. Lets the server end other calls while keeping the one identified here running. Omit to end unconditionally.")
+            })
+        }
+      }(e)]))
+    },
+    y = Object.freeze(Object.keys(f));
+
+  function _(e, t) {
+    return `${function(e){return`ui.${e}.`}(e)}${t}`
+  }
+
+  function S(e, t = []) {
+    return {
+      type: 1,
+      description: e,
+      enum_values: t
+    }
+  }
+
+  function v(e, t = {}, r = {}) {
+    return {
+      description: e,
+      required: t,
+      optional: {
+        ...r,
+        mode: p
+      },
+      permissions: [],
+      datatype: "void",
+      timeout_ms: 6e3
+    }
+  }
+
+  function C(e) {
+    let t = e.invoke_id?.trim();
+    return null != t && t.length > 0 ? t : null
+  }
+
+  function I(e) {
+    if ("string" != typeof e) return null;
+    let t = e.trim();
+    return t.length > 0 ? t : null
+  }
+
+  function T(e) {
+    if ("string" != typeof e) return null;
+    let t = e.trim().toLowerCase();
+    return "light" === t || "dark" === t || "system" === t ? t : null
+  }
+  e.s(["HATCH_WEB_UI_CONTROL_COMMAND_IDS", 0, y, "buildHatchClientCapabilities", 0, function(e, t, n, a = !0) {
+    let i = e.trim(),
+      s = {
+        ...a ? t ? f : Object.fromEntries(Object.entries(f).filter(([e]) => !m.has(e))) : {},
+        ...l
+      };
+    return {
+      client_id: i.length > 0 ? i : "hatch-web",
+      platform: "web",
+      display_name: `${r.PRODUCT_BRAND.shortName} Web`,
+      version: "0.0.0",
+      capabilities: {
+        data_sources: {},
+        device_commands: {},
+        hatch_app_commands: s,
+        rendering: {
+          supported_presentations: [...c, ...n ? [u.HATCH_PRESENTATION_KIND_AVATAR_SHARE] : [], ...t ? [u.HATCH_PRESENTATION_KIND_VOICE_OPTIONS] : []],
+          supported_inline_presentations: [...d],
+          supported_text_entities: [...g]
+        }
+      }
+    }
+  }, "hatchClientInvokeId", 0, C, "resolveHatchClientInvokeUiControlRequest", 0, function(e) {
+    let t = C(e);
+    if (null == t) return null;
+    let r = function(e) {
+      let t = e?.trim();
+      if (null == t || 0 === t.length) return null;
+      for (let e of ["navigate", "set"]) {
+        var r;
+        let n = (r = e, `ui.${r}.`);
+        if (!t.startsWith(n)) continue;
+        let a = t.slice(n.length);
+        if (!f[t]) break;
+        return {
+          action: e,
+          target: a
+        }
+      }
+      return null
+    }(e.command_id);
+    if (null == r) return null;
+    let n = function(e) {
+      if (null == e || 0 === e.trim().length) return {};
+      try {
+        let t = JSON.parse(e);
+        if (null == t || "object" != typeof t || Array.isArray(t)) return null;
+        return t
+      } catch {
+        return null
+      }
+    }(e.params_json);
+    if (null == n) return null;
+    let a = Object.prototype.hasOwnProperty.call(n, "mode") ? n.mode : void 0,
+      i = "appearance.mode" === r.target && null != T(a) ? void 0 : a,
+      s = function(e) {
+        if ("navigate" !== e.action && "set" !== e.action) return null;
+        let t = e.target,
+          r = e.params,
+          n = function(e) {
+            if (null == e) return "perform";
+            if ("string" != typeof e) return null;
+            let t = e.trim().toLowerCase();
+            return "perform" === t || "suggest" === t || "lightup" === t ? t : null
+          }(e.mode);
+        if (null == n) return null;
+        if ("set" === e.action) switch (t) {
+          case "appearance.chat_theme": {
+            let e = I(r?.theme_id)?.toLowerCase();
+            if ("string" != typeof e || 0 === e.length) return null;
+            return {
+              target: t,
+              mode: n,
+              action: {
+                kind: "chat-theme",
+                themeId: e
+              }
+            }
+          }
+          case "ui.highlight": {
+            let e = I(r?.item_id);
+            if ("ideas_tab" !== e) return null;
+            return {
+              target: t,
+              mode: n,
+              action: {
+                kind: "ui-highlight",
+                itemId: e
+              }
+            }
+          }
+          case "appearance.mode": {
+            let e = T(r?.appearance_mode) ?? T(r?.theme_mode) ?? T(r?.color_scheme) ?? T(r?.mode);
+            if (null == e) return null;
+            return {
+              target: t,
+              mode: n,
+              action: {
+                kind: "appearance-mode",
+                themePreference: e
+              }
+            }
+          }
+          case "voice.end_call": {
+            let e = r?.restart === !0,
+              a = r?.active_call_id;
+            return {
+              target: t,
+              mode: n,
+              action: {
+                kind: "voice-end-call",
+                restart: e,
+                activeCallId: "string" == typeof a && a.length > 0 ? a : null
+              }
+            }
+          }
+          default:
+            return null
+        }
+        switch (t) {
+          case "chat":
+            return {
+              target: t, mode: n, action: {
+                kind: "route",
+                path: h.SHELL_PATH.chat,
+                replace: !0
+              }
+            };
+          case "chat.session": {
+            let e = I(r?.session_id);
+            if (null == e) return null;
+            return {
+              target: t,
+              mode: n,
+              action: {
+                kind: "route",
+                path: (0, o.buildHatchThreadPath)(e)
+              }
+            }
+          }
+          case "settings":
+            return {
+              target: t, mode: n, action: {
+                kind: "settings",
+                tab: "general"
+              }
+            };
+          case "settings.close":
+            return {
+              target: t, mode: n, action: {
+                kind: "settings-close"
+              }
+            };
+          case "settings.identity":
+            return {
+              target: t, mode: n, action: {
+                kind: "status-panel",
+                tab: "identity"
+              }
+            };
+          case "activity.log":
+            return {
+              target: t, mode: n, action: {
+                kind: "status-panel",
+                tab: "activity"
+              }
+            };
+          case "feed":
+            return {
+              target: t, mode: n, action: {
+                kind: "route",
+                path: h.SHELL_PATH.feed
+              }
+            };
+          case "goals":
+            return {
+              target: t, mode: n, action: {
+                kind: "route",
+                path: h.SHELL_PATH.goals
+              }
+            };
+          case "ideas":
+            return {
+              target: t, mode: n, action: {
+                kind: "route",
+                path: h.SHELL_PATH.ideas
+              }
+            };
+          case "library":
+            return {
+              target: t, mode: n, action: {
+                kind: "route",
+                path: h.SHELL_PATH.libraryDocuments
+              }
+            };
+          case "library.item": {
+            let e = I(r?.item_id);
+            if (null == e) return null;
+            return {
+              target: t,
+              mode: n,
+              action: {
+                kind: "route",
+                path: h.SHELL_PATH.libraryDocuments,
+                searchParams: {
+                  file: e
+                }
+              }
+            }
+          }
+          case "memory":
+            return {
+              target: t, mode: n, action: {
+                kind: "file-dialog",
+                path: "/MEMORY.md"
+              }
+            };
+          case "memory.item": {
+            let e, a = null == (e = I(r?.path)) ? null : e.startsWith("/") ? e : `/${e}`;
+            if (null == a) return null;
+            return {
+              target: t,
+              mode: n,
+              action: {
+                kind: "file-dialog",
+                path: a
+              }
+            }
+          }
+          case "scheduled.tasks":
+            return {
+              target: t, mode: n, action: {
+                kind: "status-panel",
+                tab: "upcoming"
+              }
+            };
+          case "scheduled.task": {
+            let e = I(r?.task_id);
+            if (null == e) return null;
+            return {
+              target: t,
+              mode: n,
+              action: {
+                kind: "status-panel",
+                tab: "upcoming",
+                selectedTaskId: e
+              }
+            }
+          }
+          case "space": {
+            let e = I(r?.space_id);
+            if (null == e) return null;
+            return {
+              target: t,
+              mode: n,
+              action: {
+                kind: "space-route",
+                spaceId: e,
+                path: (0, h.buildLibraryArtifactPath)(e)
+              }
+            }
+          }
+          default:
+            return null
+        }
+      }({
+        action: r.action,
+        target: r.target,
+        params: n,
+        mode: i
+      });
+    return null == s ? null : {
+      invokeId: t,
+      request: s
+    }
+  }, "resolveHatchUiControlSpaceSlug", 0, function(e, t) {
+    let r = t.trim();
+    if (0 === r.length) return null;
+    let n = e?.find(e => e.slug === r || e.space_id === r);
+    return n?.slug ?? null
+  }], 60830);
+  var A = e.i(359783),
+    R = e.i(681875),
+    b = e.i(240542),
+    w = e.i(386048);
+  let E = (0, A.createClientLogger)("HatchPinReminderApi");
+  class k extends Error {
+    code;
+    constructor(e) {
+      super(`PIN reminder request conflicted: ${e}`), this.name = "PinReminderConflictError", this.code = e
+    }
+  }
+  let H = "pin_update_id_conflict",
+    x = "pin_reminder_confirmation_conflict";
+  async function M(e, t, r) {
+    let n;
+    try {
+      n = await r(e, t)
+    } catch (r) {
+      let e, t = (e = r instanceof Error ? r.message : String(r)).includes(H) ? H : e.includes(x) ? x : null;
+      if (null != t) throw new k(t);
+      throw r
+    }
+    let a = s(n);
+    if (null == a) throw Error(`Malformed ${e} response`);
+    return a
+  }
+  async function N(e, t) {
+    let r = await M("pin.update", {
+      update_id: e.update_id,
+      replaces_update_id: e.replaces_update_id,
+      encrypted_pin_verifier: e.encrypted_pin_verifier,
+      last_successful_entry_at_ms: e.last_successful_entry_at_ms
+    }, t);
+    return r.accepted || E.retainForBugReport("warn", "pin.update rejected as stale"), r
+  }
+  async function P(e, t) {
+    let r = await M("pin.reminder_confirm", {
+      reminder_id: e.reminder_id,
+      update_id: e.update_id,
+      state_revision: e.state_revision,
+      had_wrong_guess: e.had_wrong_guess,
+      last_successful_entry_at_ms: e.last_successful_entry_at_ms
+    }, t);
+    return r.accepted || E.retainForBugReport("warn", "pin.reminder_confirm rejected as no longer current"), r
+  }
+  e.s(["sendPinReminderConfirm", 0, P, "sendPinUpdate", 0, N], 242392);
+  let O = new Map,
+    B = new Set;
+
+  function q(e) {
+    for (let t of B) t(e)
+  }
+
+  function D(e) {
+    return O.get(e) ?? null
+  }
+
+  function F(e, t) {
+    let r = O.get(e);
+    if (null != r) {
+      if (t.state_revision < r.snapshot.state_revision) return {
+        kind: "stale",
+        currentRevision: r.snapshot.state_revision
+      };
+      if (t.state_revision === r.snapshot.state_revision) return {
+        kind: "duplicate"
+      }
+    }
+    let n = {
+      snapshot: t,
+      pendingReminder: r?.pendingReminder != null && r.pendingReminder.state_revision === t.state_revision ? r.pendingReminder : null
+    };
+    return O.set(e, n), q(e), {
+      kind: "applied",
+      state: n
+    }
+  }
+  e.s(["applyPinReminderSnapshot", 0, F, "clearPendingPinReminder", 0, function(e) {
+    let t = O.get(e);
+    t?.pendingReminder != null && (O.set(e, {
+      ...t,
+      pendingReminder: null
+    }), q(e))
+  }, "readPinReminderState", 0, D, "setPendingPinReminder", 0, function(e, t) {
+    let r = O.get(e);
+    return null != r && null != t && t.state_revision === r.snapshot.state_revision && t.update_id === r.snapshot.update_id && (O.set(e, {
+      ...r,
+      pendingReminder: t
+    }), q(e), !0)
+  }, "subscribeToPinReminderState", 0, function(e) {
+    return B.add(e), () => B.delete(e)
+  }], 196138);
+  var L = e.i(476467),
+    K = e.i(863641);
+  let U = (0, A.createClientLogger)("HatchPinReminderSync"),
+    j = {
+      tags: (0, K.hatchSentryTags)(K.HATCH_SENTRY_SURFACES.CVM_PIN_REMINDER)
+    },
+    z = new Map;
+
+  function V(e) {
+    return null == e || 0 === e.trim().length ? null : (0, b.recallGatewayVmName)(e)
+  }
+  async function G(e, t) {
+    let r = i(t);
+    if (null == r) return U.retainForBugReport("warn", "Discarded malformed pin.updated payload"), null;
+    let n = D(e);
+    if (null != n && r.state_revision <= n.snapshot.state_revision) return F(e, r), n.snapshot;
+    let a = await (0, R.readCvmRecoveryKey)();
+    if (null == a) return U.retainForBugReport("debug", "No cached recovery key — ignoring pin.updated"), null;
+    try {
+      (await (0, w.decryptPinVerifier)(a, r.encrypted_pin_verifier)).fill(0)
+    } catch (t) {
+      return U.error({
+        ...j,
+        vmId: e,
+        stateRevision: r.state_revision,
+        error: t instanceof Error ? t : Error(String(t)),
+        isAeadFailure: t instanceof w.PinReminderCryptoError
+      }, "pin.updated envelope failed to authenticate — keeping existing state"), null
+    }
+    let s = F(e, r);
+    return "applied" === s.kind ? s.state.snapshot : n?.snapshot ?? null
+  }
+
+  function $(e, t) {
+    let r = G(e, t);
+    return z.set(e, r), r.then(() => {
+      z.get(e) === r && z.delete(e)
+    }, () => {
+      z.get(e) === r && z.delete(e)
+    }), r
+  }
+  async function Y(e, t, r) {
+    let n = () => {
+      let n = D(e)?.snapshot;
+      return n?.state_revision === t && n.update_id === r
+    };
+    if (n()) return !0;
+    let a = z.get(e);
+    if (null == a) return !1;
+    try {
+      await a
+    } catch {
+      return !1
+    }
+    return n()
+  }
+  async function W(e, t) {
+    t.accepted || null == t.current_pin_state || await $(e, t.current_pin_state)
+  }
+  async function Q(e, t) {
+    let r = (0, L.takeQueuedPinVerifierUpdate)();
+    if (null == r) return null;
+    let n = D(e);
+    if ("backfill" === r.reason && null != n) return U.retainForBugReport("debug", "VM already has PIN state — dropping backfill update"), null;
+    try {
+      let a = await N({
+        update_id: r.update_id,
+        replaces_update_id: n?.snapshot.update_id ?? null,
+        encrypted_pin_verifier: r.encrypted_pin_verifier,
+        last_successful_entry_at_ms: r.last_successful_entry_at_ms
+      }, t);
+      return await W(e, a), a
+    } catch (t) {
+      return U.error({
+        ...j,
+        vmId: e,
+        error: t instanceof Error ? t : Error(String(t))
+      }, "Failed to send queued pin.update — update dropped"), null
+    }
+  }
+  async function J(e, t) {
+    let r = V(e);
+    return null != r ? Q(r, t) : (null != (0, L.peekQueuedPinVerifierUpdate)() && U.error({
+      ...j
+    }, "Cannot send queued pin.update: no VM id for the active gateway"), null)
+  }
+  async function X(e, t, r) {
+    try {
+      let n = await (0, R.readCvmRecoveryKey)();
+      if (null == n) return U.retainForBugReport("debug", "No cached recovery key — skipping pin.update after PIN change"), null;
+      let a = await N({
+        update_id: crypto.randomUUID(),
+        replaces_update_id: D(e)?.snapshot.update_id ?? null,
+        encrypted_pin_verifier: await (0, w.encryptPinVerifier)(n, t),
+        last_successful_entry_at_ms: Date.now()
+      }, r);
+      return await W(e, a), a
+    } catch (t) {
+      return U.error({
+        ...j,
+        vmId: e,
+        error: t instanceof Error ? t : Error(String(t))
+      }, "Failed to send pin.update after PIN change"), null
+    }
+  }
+  e.s(["applyIncomingPinSnapshot", 0, $, "flushQueuedPinVerifierUpdateForGateway", 0, J, "resolvePinReminderVmId", 0, V, "sendPinVerifierChange", 0, X, "waitForPinReminderSnapshot", 0, Y], 402592);
+  let Z = new Set,
+    ee = null,
+    et = new Set;
+
+  function er() {
+    for (let e of et) e()
+  }
+  e.s(["claimPinReminderPresentation", 0, function(e) {
+    return Z.has(e) ? "already_presented" : (Z.add(e), "presented")
+  }, "closePinReminderDialog", 0, function(e, t) {
+    ee?.vmId === e && ee.reminderId === t && (ee = null, er())
+  }, "openPinReminderDialog", 0, function(e, t) {
+    (ee?.vmId !== e || ee.reminderId !== t) && (ee = {
+      vmId: e,
+      reminderId: t
+    }, er())
+  }, "readPinReminderDialogTarget", 0, function() {
+    return ee
+  }, "resetPinReminderPresentations", 0, function() {
+    Z.clear(), null != ee && (ee = null, er())
+  }, "subscribeToPinReminderDialog", 0, function(e) {
+    return et.add(e), () => et.delete(e)
+  }], 249295);
+  let en = null,
+    ea = null;
+  e.s(["fetchClientIp", 0, function() {
+    return null != en ? Promise.resolve(en) : null != ea ? ea : ea = (async () => {
+      try {
+        let e = new AbortController,
+          t = setTimeout(() => e.abort(), 3e3),
+          r = await fetch("/api/client-ip", {
+            signal: e.signal
+          });
+        if (clearTimeout(t), !r.ok) return null;
+        return en = (await r.json()).ip
+      } catch {
+        return null
+      } finally {
+        ea = null
+      }
+    })()
+  }, "getCachedClientIp", 0, function() {
+    return en
+  }], 26362)
+}, 981572, e => {
+  "use strict";
+  let t = "hatch-side-chat-created";
+  e.s(["HATCH_SIDE_CHAT_CREATED_EVENT", 0, t, "notifyHatchSideChatCreated", 0, function(e) {
+    window.dispatchEvent(new CustomEvent(t, {
+      detail: e
+    }))
+  }])
+}, 303859, e => {
+  "use strict";
+  var t = e.i(288119);
+  let r = ["browser", "file", "shopping", "place", "idea", "route"];
+
+  function n(e) {
+    let t = e?.trim();
+    return null != t && t.length > 0 ? t : void 0
+  }
+  e.s(["buildChatRequestMetadata", 0, function(e, t, r) {
+    if (null != e || null != t || null != r) return {
+      ...null != e ? {
+        active_panel: e
+      } : {},
+      ...null != t ? {
+        goal_creation_target: {
+          kind: t.kind
+        }
+      } : {},
+      ...null != r ? {
+        thread_is_dictation_used: r
+      } : {}
+    }
+  }, "resolveActivePanelForChatRequest", 0, function(e) {
+    if (!e.local.isVisible) return null;
+    for (let t of r) {
+      let r = e.activePanelSources[t];
+      if (null != r) return {
+        ...r
+      }
+    }
+    return null
+  }, "resolveOpenFileActivePanel", 0, function(e) {
+    let r = n(e ?? void 0);
+    if (null == r) return null;
+    let a = (0, t.getSandboxArtifactSlug)(r);
+    return null != a ? {
+      kind: "artifact",
+      resource_id: a
+    } : {
+      kind: "file",
+      resource_id: r
+    }
+  }, "resolveRouteActivePanel", 0, function(e, t) {
+    switch (e) {
+      case "ideas":
+        return {
+          kind: "ideas"
+        };
+      case "goals": {
+        let e = n(t.goalId);
+        return {
+          kind: "goals",
+          ...null != e ? {
+            resource_id: e
+          } : {}
+        }
+      }
+      case "space":
+      case "space_edit": {
+        let e = n(t.slug) ?? n(t.shortcode);
+        return {
+          kind: "artifact",
+          ...null != e ? {
+            resource_id: e
+          } : {}
+        }
+      }
+      case "artifacts":
+        return {
+          kind: "artifact"
+        };
+      case "files":
+        return {
+          kind: "file"
+        };
+      case "feed":
+      case "chat":
+      case "agents":
+        return null
+    }
+  }])
+}, 318023, e => {
+  "use strict";
+  var t = e.i(984416),
+    r = e.i(722099),
+    n = e.i(519172),
+    a = e.i(813280),
+    i = e.i(870228),
+    s = e.i(863641),
+    l = e.i(321427);
+
+  function o() {
+    return (0, n.lazy)(() => e.A(581315).then(e => ({
+      default: e.HatchIdeaShareDialogContent
+    })))
+  }
+  e.s(["HatchIdeaShareDialogBody", 0, function(e) {
+    let u, c, d, g, h, p, m = (0, r.c)(17),
+      {
+        ideaCardId: f,
+        shareRevision: y,
+        isOpen: _
+      } = e,
+      [S, v] = (0, n.useState)(o);
+    return m[0] !== f || m[1] !== _ || m[2] !== y ? (u = [f, y, _], m[0] = f, m[1] = _, m[2] = y, m[3] = u) : u = m[3], m[4] === Symbol.for("react.memo_cache_sentinel") ? (c = e => {
+      let {
+        error: r,
+        reset: n
+      } = e;
+      return (0, t.jsx)(i.HatchContentErrorFallback, {
+        error: r,
+        hideTechnicalDetails: !0,
+        alwaysShowRetry: !0,
+        onRetry: () => {
+          v(o), n()
+        }
+      })
+    }, m[4] = c) : c = m[4], m[5] !== f ? (d = (0, t.jsx)(l.HatchIdeaShareDialogSkeleton, {
+      ideaCardId: f
+    }), m[5] = f, m[6] = d) : d = m[6], m[7] !== S || m[8] !== f || m[9] !== y ? (g = (0, t.jsx)(S, {
+      ideaCardId: f,
+      shareRevision: y
+    }, f), m[7] = S, m[8] = f, m[9] = y, m[10] = g) : g = m[10], m[11] !== d || m[12] !== g ? (h = (0, t.jsx)(n.Suspense, {
+      fallback: d,
+      children: g
+    }), m[11] = d, m[12] = g, m[13] = h) : h = m[13], m[14] !== u || m[15] !== h ? (p = (0, t.jsx)(a.EctoErrorBoundary, {
+      surface: s.HATCH_SENTRY_SURFACES.IDEAS_SHARE,
+      resetKeys: u,
+      fallback: c,
+      children: h
+    }), m[14] = u, m[15] = h, m[16] = p) : p = m[16], p
+  }])
+}, 955578, 630874, e => {
+  "use strict";
+  var t = e.i(984416),
+    r = e.i(722099),
+    n = e.i(519172),
+    a = e.i(393202),
+    i = e.i(543912),
+    s = e.i(867258),
+    l = e.i(720756),
+    o = e.i(281539),
+    u = e.i(999498),
+    c = e.i(947643),
+    d = e.i(318023),
+    g = e.i(423533);
+
+  function h() {
+    return Promise.reject(Error("Idea share re-check ran before the provider committed"))
+  }
+  async function p({
+    ideaId: e,
+    queryClient: t,
+    gatewayContext: r,
+    colorIcons: n
+  }) {
+    try {
+      let a = await t.fetchQuery({
+        ...s.exploreIdeaPreviewQuery.queryOptions({
+          gatewayUrl: r.gatewayUrl ?? "",
+          gatewayScopeKey: r.gatewayScopeKey ?? r.targetKey,
+          ideaCardId: e,
+          colorIcons: n
+        }, r),
+        staleTime: 0
+      });
+      return a?.idea.sharing ?? null
+    } catch (e) {
+      if ((0, s.isMissingIdeaError)(e)) return null;
+      throw e
+    }
+  }
+  let m = {
+    eventName: o.HatchClickEvent.IDEA_SHARE_CLOSE_CLICK,
+    actionTarget: "idea_share_close",
+    surface: "idea_share"
+  };
+  e.s(["HatchIdeaShareProvider", 0, function(e) {
+    let s, o, f, y, _, S, v, C, I, T, A = (0, r.c)(22),
+      {
+        children: R
+      } = e,
+      [b] = (0, n.useState)(c.createHatchIdeaShareRetirementStore),
+      [w, E] = (0, n.useState)(null),
+      [k, H] = (0, n.useState)(!1),
+      x = (0, n.useRef)(null),
+      M = (0, a.useQueryClient)(),
+      N = (0, l.useGatewayQueryContext)(),
+      P = (0, i.useHatchIdeaColorIconsWithoutExposure)(),
+      O = (0, n.useRef)(h);
+    A[0] !== P || A[1] !== N || A[2] !== M ? (s = () => {
+      O.current = e => p({
+        ideaId: e,
+        queryClient: M,
+        gatewayContext: N,
+        colorIcons: P
+      })
+    }, o = [M, N, P], A[0] = P, A[1] = N, A[2] = M, A[3] = s, A[4] = o) : (s = A[3], o = A[4]), (0, n.useEffect)(s, o), A[5] !== b ? (f = () => b.connect(e => O.current(e)), y = [b], A[5] = b, A[6] = f, A[7] = y) : (f = A[6], y = A[7]), (0, n.useEffect)(f, y);
+    let B = (0, n.useRef)(!1);
+    A[8] === Symbol.for("react.memo_cache_sentinel") ? (_ = e => {
+      B.current = e, H(e)
+    }, A[8] = _) : _ = A[8];
+    let q = _;
+    A[9] !== b ? (S = e => {
+      if (e.preventDefault(), B.current) return;
+      let t = x.current;
+      if (x.current = null, null == t) return;
+      let r = null != t.cardFocus && b.isRetired(t.ideaCardId, t.revision) ? t.cardFocus : t.returnFocus;
+      r?.isConnected && r.focus({
+        preventScroll: !0
+      })
+    }, A[9] = b, A[10] = S) : S = A[10];
+    let D = S;
+    A[11] === Symbol.for("react.memo_cache_sentinel") ? (v = (e, t, r) => {
+      0 !== e.trim().length && (x.current = {
+        ideaCardId: e,
+        revision: t,
+        returnFocus: r?.returnFocus ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null),
+        cardFocus: r?.cardFocus ?? null
+      }, E({
+        ideaCardId: e,
+        revision: t
+      }), q(!0))
+    }, A[11] = v) : v = A[11];
+    let F = v;
+    return A[12] !== D || A[13] !== k || A[14] !== w ? (C = null != w && (0, t.jsx)(g.HatchMediaShareLinkDialogFrame, {
+      isOpen: k,
+      onOpenChange: q,
+      onCloseAutoFocus: D,
+      source: "idea",
+      closeEvent: m,
+      children: (0, t.jsx)(d.HatchIdeaShareDialogBody, {
+        ideaCardId: w.ideaCardId,
+        shareRevision: w.revision,
+        isOpen: k
+      })
+    }), A[12] = D, A[13] = k, A[14] = w, A[15] = C) : C = A[15], A[16] !== R || A[17] !== C ? (I = (0, t.jsxs)(u.HatchIdeaShareContext.Provider, {
+      value: F,
+      children: [R, C]
+    }), A[16] = R, A[17] = C, A[18] = I) : I = A[18], A[19] !== b || A[20] !== I ? (T = (0, t.jsx)(u.HatchIdeaShareRetirementContext.Provider, {
+      value: b,
+      children: I
+    }), A[19] = b, A[20] = I, A[21] = T) : T = A[21], T
+  }], 955578), e.s(["createEmptyPendingToolAnalyticsBuffer", 0, function() {
+    return {
+      toolCallCount: 0,
+      toolTotalMs: 0,
+      toolDetails: []
+    }
+  }, "formatToolAnalyticsParams", 0, function(e) {
+    if (e?.detail != null && e.detail.trim().length > 0) return e.detail.trim();
+    let t = e?.metadata;
+    if (null == t) return;
+    let r = Object.entries(t).filter(([, e]) => null != e).slice(0, 3).map(([e, t]) => {
+      let r = "string" == typeof t ? t : "number" == typeof t || "boolean" == typeof t ? String(t) : Array.isArray(t) ? `${t.length} items` : "…";
+      return `${e}=${r}`
+    });
+    return r.length > 0 ? r.join(", ") : void 0
+  }, "mergeChatMessageAnalytics", 0, function(e, t) {
+    if (null == t || 0 === Object.keys(t).length) return e;
+    if (null == e) return {
+      ...t
+    };
+    let r = {
+      ...e,
+      ...t
+    };
+    for (let t of Object.keys(r))
+      if (e[t] !== r[t]) return r;
+    return e
+  }, "pendingToolAnalyticsToMessageAnalytics", 0, function(e) {
+    return e.toolCallCount <= 0 ? null : {
+      toolCallCount: e.toolCallCount,
+      toolTotalMs: e.toolTotalMs,
+      toolDetails: [...e.toolDetails],
+      ...null != e.upgradedAtMs ? {
+        upgradedAtMs: e.upgradedAtMs
+      } : {}
+    }
+  }], 630874)
+}, 343553, 815406, 991157, 500953, 351633, 7442, 980540, 802358, 552188, 252116, 377156, 735231, 745502, 921854, 423533, 809870, e => {
+  "use strict";
+  var t, r = e.i(519172),
+    n = e.i(863641),
+    a = e.i(359783),
+    i = e.i(508180);
+  let s = (0, a.createClientLogger)("HatchChatStaleness"),
+    l = (e, t) => {
+      e().catch(e => s.error({
+        error: e instanceof Error ? e : Error(String(e)),
+        reason: t,
+        tags: (0, n.hatchSentryTags)(n.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+      }, `Failed to run stale-chat recovery: ${t}`))
+    };
+
+  function o(e) {
+    let {
+      chat: t
+    } = e;
+    return {
+      isAtBottom: t.isAtBottom,
+      isViewingHistory: t.isViewingHistory,
+      isStreaming: t.isStreaming,
+      mainHistorySourceKey: t.mainHistorySourceKey
+    }
+  }
+
+  function u(e, t) {
+    return e.isAtBottom === t.isAtBottom && e.isViewingHistory === t.isViewingHistory && e.isStreaming === t.isStreaming && e.mainHistorySourceKey === t.mainHistorySourceKey
+  }
+  e.s(["useHatchChatStalenessRefetch", 0, function(e, t, n) {
+    let a = (0, r.useRef)(!1),
+      c = (0, r.useRef)(0),
+      d = (0, r.useRef)(null),
+      g = (0, r.useRef)(null),
+      h = (0, r.useCallback)(() => {
+        d.current = null
+      }, []),
+      p = (0, r.useCallback)(e => {
+        d.current === e && h()
+      }, [h]),
+      m = (0, r.useCallback)((e, t) => {
+        let r = i.getSnapshot().chat.mainHistorySourceKey;
+        d.current = {
+          reason: e,
+          requiresLiveness: t?.requiresLiveness ?? !1,
+          sourceKey: r
+        }
+      }, []),
+      f = (0, r.useCallback)(async () => {
+        let r = g.current;
+        if (null != r) {
+          await r, null != d.current && await f();
+          return
+        }
+        let a = (async () => {
+          if (!e) return;
+          let r = d.current;
+          if (null == r) return;
+          let a = i.getSnapshot().chat;
+          if (a.mainHistorySourceKey !== r.sourceKey) return void p(r);
+          if (!a.isAtBottom || a.isViewingHistory) return void s.retainForBugReport("info", "Chat history refresh deferred");
+          r.requiresLiveness && await t();
+          let l = await n(r.reason);
+          if ("applied" === l.result || "joined" === l.result || "throttled" === l.result || "skipped" === l.result && (s.retainForBugReport("info", "Chat history refresh skipped"), "unavailable" === l.skipReason)) return void p(r)
+        })();
+        g.current = a;
+        try {
+          await a
+        } finally {
+          g.current === a && (g.current = null)
+        }
+      }, [p, t, e, n]);
+    (0, r.useEffect)(() => {
+      if (!a.current) {
+        a.current = e;
+        return
+      }
+      e && (s.retainForBugReport("info", "Gateway reconnected; scheduling chat history rehydrate"), m("reconnect"), l(() => f(), "reconnect"))
+    }, [e, m, f]), (0, r.useEffect)(() => {
+      let e = (e, t) => {
+          m(e, {
+            requiresLiveness: t
+          }), l(() => f(), e)
+        },
+        t = () => {
+          if (0 === c.current) return 0;
+          let e = Date.now() - c.current;
+          return c.current = 0, e
+        },
+        r = (t, r, n) => {
+          (n || !(r <= 1e4)) && e(t, !0)
+        },
+        n = () => {
+          if (document.hidden) {
+            c.current = Date.now();
+            return
+          }
+          r("tab_return", t(), !1)
+        },
+        a = () => {
+          r("focus", t(), !1)
+        },
+        i = e => {
+          e.persisted && r("pageshow", t(), !0)
+        },
+        s = () => {
+          e("online", !0)
+        };
+      document.addEventListener("visibilitychange", n), window.addEventListener("focus", a), window.addEventListener("pageshow", i), window.addEventListener("online", s);
+      let o = "1" === new URLSearchParams(window.location.search).get("ci_ws_lifecycle");
+      return o && (window.__HATCH_WS_LIFECYCLE_TEST__ = {
+        simulateStaleTabReturn(e = 11e3) {
+          r("tab_return", e, !1)
+        }
+      }), () => {
+        document.removeEventListener("visibilitychange", n), window.removeEventListener("focus", a), window.removeEventListener("pageshow", i), window.removeEventListener("online", s), o && delete window.__HATCH_WS_LIFECYCLE_TEST__
+      }
+    }, [m, f]), (0, r.useEffect)(() => i.subscribe(o, (e, t) => {
+      e.mainHistorySourceKey !== t.mainHistorySourceKey ? h() : null != d.current && e.isAtBottom && !e.isViewingHistory && (!e.isStreaming || t.isStreaming) && l(() => f(), "guard transition")
+    }, {
+      equalityFn: u
+    }), [h, f])
+  }], 343553);
+  var c = e.i(498054);
+  let d = (0, a.createClientLogger)("HatchNodeRegister");
+  async function g(e, t, r) {
+    let {
+      deviceId: n,
+      platform: a
+    } = i.getSnapshot().deviceContext.local;
+    d.retainForBugReport("info", "registerNode: sending node.register");
+    try {
+      await e("node.register", {
+        node_id: n,
+        display_name: r,
+        platform: a,
+        commands_v2: {
+          ping: {
+            description: "Connection liveness check"
+          }
+        }
+      }), d.retainForBugReport("info", "Registered web client as node"), c.nodeListQuery.invalidateAll(t)
+    } catch (e) {
+      d.error({
+        error: e instanceof Error ? e : Error(String(e)),
+        nodeId: n,
+        tags: {
+          surface: "hatch.settings.devices"
+        }
+      }, "node.register failed")
+    }
+  }
+  e.s(["registerNode", 0, g], 815406), e.s(["shouldPersistResolvedThreadTitle", 0, function({
+    route: e,
+    threadTitle: t,
+    loadedHistorySourceKey: r,
+    activeChatHistorySourceKey: n
+  }) {
+    return e?.kind === "thread" && null != t && null != n && r === n
+  }], 991157);
+  var h = e.i(984416),
+    p = e.i(722099),
+    m = e.i(255859),
+    f = e.i(345717),
+    y = e.i(180110),
+    _ = e.i(420297),
+    S = e.i(832964),
+    v = e.i(295967),
+    C = e.i(325814),
+    I = e.i(813280),
+    T = e.i(281539),
+    A = e.i(848048);
+  let R = null,
+    b = null;
+
+  function w() {
+    return null != b ? Promise.resolve(b) : R ??= e.A(49510).then(e => (b = e, e)).catch(e => {
+      throw R = null, e
+    })
+  }
+
+  function E() {
+    let e = (0, r.lazy)(w);
+    return function(t) {
+      return null == b ? (0, r.createElement)(e, t) : (0, r.createElement)(b.default, t)
+    }
+  }
+  let k = [/Failed to load chunk/i, /Loading (?:CSS )?chunk .* failed/i, /Failed to fetch dynamically imported module/i, /Importing a module script failed/i, /error loading dynamically imported module/i];
+
+  function H(e) {
+    return "ChunkLoadError" === e.name || k.some(t => t.test(e.message))
+  }
+
+  function x() {
+    let e, t, r, n = (0, p.c)(3);
+    return n[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, h.jsx)(C.DialogDescription, {
+      className: "text-subheadline",
+      role: "status",
+      "aria-busy": "true",
+      children: f.fbs._("Loading rename controls", null, {
+        hk: "1maPAh"
+      })
+    }), t = (0, h.jsx)(S.Skeleton, {
+      className: "mt-4 h-10 w-full"
+    }), n[0] = e, n[1] = t) : (e = n[0], t = n[1]), n[2] === Symbol.for("react.memo_cache_sentinel") ? (r = (0, h.jsx)(v.LoadingState, {
+      name: "chat_thread_rename",
+      children: (0, h.jsxs)("div", {
+        className: "motion-reduce:[&_*]:!animate-none",
+        children: [e, t, (0, h.jsxs)("div", {
+          className: "mt-6 flex gap-2",
+          children: [(0, h.jsx)(S.Skeleton, {
+            className: "h-9 flex-1"
+          }), (0, h.jsx)(S.Skeleton, {
+            className: "h-9 flex-1"
+          })]
+        })]
+      })
+    }), n[2] = r) : r = n[2], r
+  }
+
+  function M(e) {
+    let t, r, n, a, i, s, l, o, u = (0, p.c)(22),
+      {
+        error: c,
+        onRetry: d,
+        onReload: g
+      } = e;
+    u[0] !== c ? (t = H(c), u[0] = c, u[1] = t) : t = u[1];
+    let S = t,
+      v = S ? "reload" : "retry";
+    u[2] !== v ? (r = {
+      eventName: T.HatchClickEvent.ERROR_TRY_AGAIN_CLICK,
+      actionTarget: "side_chat_rename_load_retry",
+      actionType: "click",
+      metadata: {
+        surface: "chat",
+        subsurface: "thread_options",
+        recovery_type: v
+      }
+    }, u[2] = v, u[3] = r) : r = u[3];
+    let {
+      ref: I,
+      onClick: R
+    } = (0, A.useTrackedClickRef)(r);
+    return u[4] !== S ? (n = S ? f.fbs._("The rename controls couldn’t load. Reload {productShortName} to try again.", [f.fbs._param("productShortName", m.PRODUCT_BRAND.shortName)], {
+      hk: "1CgYit"
+    }) : f.fbs._("Couldn’t open the rename controls. Try loading them again.", null, {
+      hk: "QzGmI"
+    }), u[4] = S, u[5] = n) : n = u[5], u[6] !== n ? (a = (0, h.jsx)(C.DialogDescription, {
+      children: n
+    }), u[6] = n, u[7] = a) : a = u[7], u[8] !== S ? (i = S ? f.fbs._("Reload {productShortName}", [f.fbs._param("productShortName", m.PRODUCT_BRAND.shortName)], {
+      hk: "F57rh"
+    }) : f.fbs._("Try again", null, {
+      hk: "31FlAx"
+    }), u[8] = S, u[9] = i) : i = u[9], u[10] !== R || u[11] !== g || u[12] !== d || u[13] !== S ? (s = () => {
+      R(), S ? g() : d()
+    }, u[10] = R, u[11] = g, u[12] = d, u[13] = S, u[14] = s) : s = u[14], u[15] !== I || u[16] !== i || u[17] !== s ? (l = (0, h.jsx)("div", {
+      className: "mt-6 flex justify-end",
+      children: (0, h.jsx)(_.Button, {
+        ref: I,
+        variant: "primary",
+        size: "36",
+        leadingIcon: y.default,
+        label: i,
+        onClick: s
+      })
+    }), u[15] = I, u[16] = i, u[17] = s, u[18] = l) : l = u[18], u[19] !== a || u[20] !== l ? (o = (0, h.jsxs)("div", {
+      role: "alert",
+      children: [a, l]
+    }), u[19] = a, u[20] = l, u[21] = o) : o = u[21], o
+  }
+
+  function N({
+    sessionId: e,
+    currentTitle: t,
+    onClose: a
+  }) {
+    let [i, s] = (0, r.useState)(0), l = (0, r.useMemo)(E, [i]), o = (0, r.useCallback)(e => {
+      H(e) && (0, n.captureHatchMessage)(n.HATCH_SENTRY_SURFACES.CHAT_RENAME, "Side chat rename chunk failed to load", {
+        level: "warning",
+        extra: {
+          errorName: e.name,
+          errorMessage: e.message
+        }
+      })
+    }, []);
+    return (0, h.jsx)(C.Dialog, {
+      open: !0,
+      onOpenChange: e => !e && a(),
+      children: (0, h.jsx)(C.DialogContent, {
+        header: (0, h.jsx)(C.DialogHeader, {
+          children: (0, h.jsx)(C.DialogTitle, {
+            children: f.fbs._("Rename", null, {
+              hk: "1Q1gnp"
+            })
+          })
+        }),
+        children: (0, h.jsx)(I.EctoErrorBoundary, {
+          surface: n.HATCH_SENTRY_SURFACES.CHAT_RENAME,
+          resetKeys: [i],
+          withQueryReset: !1,
+          onError: o,
+          fallback: ({
+            error: e,
+            reset: t
+          }) => (0, h.jsx)(M, {
+            error: e,
+            onRetry: () => {
+              s(e => e + 1), t()
+            },
+            onReload: () => window.location.reload()
+          }),
+          children: (0, h.jsx)(r.Suspense, {
+            fallback: (0, h.jsx)(x, {}),
+            children: (0, h.jsx)(l, {
+              sessionId: e,
+              currentTitle: t,
+              onClose: a
+            })
+          })
+        })
+      })
+    })
+  }
+  e.s(["createLazyThreadRenameDialog", 0, E, "isThreadRenameChunkLoadError", 0, H, "preloadThreadRenameDialog", 0, function() {
+    return w().then(() => void 0, () => void 0)
+  }], 500953);
+  let P = (0, r.createContext)(null),
+    O = {
+      openThreadRename: () => {}
+    };
+  e.s(["HatchThreadRenameContext", 0, P, "useThreadRename", 0, function() {
+    return (0, r.useContext)(P) ?? O
+  }], 351633), e.s(["HatchThreadRenameProvider", 0, function(e) {
+    let t, a, i, s, l, o = (0, p.c)(8),
+      {
+        children: u
+      } = e,
+      [c, d] = (0, r.useState)(null);
+    o[0] === Symbol.for("react.memo_cache_sentinel") ? (t = e => d(e), o[0] = t) : t = o[0];
+    let g = t;
+    o[1] === Symbol.for("react.memo_cache_sentinel") ? (a = () => d(null), o[1] = a) : a = o[1];
+    let m = a;
+    o[2] === Symbol.for("react.memo_cache_sentinel") ? (i = {
+      openThreadRename: g
+    }, o[2] = i) : i = o[2];
+    let f = i;
+    return o[3] !== c ? (s = null != c && (0, h.jsx)(I.EctoErrorBoundary, {
+      surface: n.HATCH_SENTRY_SURFACES.CHAT_RENAME,
+      onError: m,
+      children: (0, h.jsx)(N, {
+        sessionId: c.sessionId,
+        currentTitle: c.title,
+        onClose: m
+      }, c.sessionId)
+    }), o[3] = c, o[4] = s) : s = o[4], o[5] !== u || o[6] !== s ? (l = (0, h.jsxs)(P.Provider, {
+      value: f,
+      children: [u, s]
+    }), o[5] = u, o[6] = s, o[7] = l) : l = o[7], l
+  }], 7442);
+  var B = e.i(925494),
+    q = e.i(823173),
+    D = e.i(870228);
+  let F = (0, r.createContext)(null);
+  e.s(["MessageDeletionConfirmationContext", 0, F, "useHatchMessageDeletionConfirmation", 0, function() {
+    let e = (0, r.useContext)(F);
+    if (null == e) throw Error("useHatchMessageDeletionConfirmation must be used within HatchMessageDeletionConfirmationProvider");
+    return e
+  }], 980540);
+  let L = "aria-disabled:bg-fill-secondary aria-disabled:text-text-primary aria-disabled:cursor-not-allowed aria-disabled:shadow-none aria-disabled:hover:filter-none aria-disabled:hover:after:hidden aria-disabled:active:filter-none";
+
+  function K(e) {
+    let t, r, n, a, i, s, l, o, u, c, d, g, m, y, S = (0, p.c)(36),
+      {
+        confirmBlocked: v,
+        onCancel: C,
+        onConfirm: I,
+        onLearnMore: R
+      } = e;
+    S[0] === Symbol.for("react.memo_cache_sentinel") ? (t = {
+      eventName: q.HatchImpressionEvent.CHAT_MESSAGE_DELETE_CONFIRMATION_IMPRESSION,
+      actionTarget: "message_delete_confirmation",
+      metadata: {
+        surface: "chat",
+        subsurface: "message_delete_confirmation"
+      }
+    }, S[0] = t) : t = S[0];
+    let {
+      ref: b
+    } = (0, A.useTrackedImpressionRef)(t);
+    S[1] === Symbol.for("react.memo_cache_sentinel") ? (r = {
+      eventName: T.HatchClickEvent.CHAT_MESSAGE_DELETE_CONFIRMATION_CONFIRM,
+      actionTarget: "message_delete_confirmation_confirm",
+      actionType: "click",
+      metadata: {
+        surface: "chat",
+        subsurface: "message_delete_confirmation"
+      }
+    }, S[1] = r) : r = S[1];
+    let {
+      ref: w,
+      onClick: E
+    } = (0, A.useTrackedClickRef)(r);
+    S[2] === Symbol.for("react.memo_cache_sentinel") ? (n = {
+      eventName: T.HatchClickEvent.CHAT_MESSAGE_DELETE_CONFIRMATION_CANCEL,
+      actionTarget: "message_delete_confirmation_cancel",
+      actionType: "click",
+      metadata: {
+        surface: "chat",
+        subsurface: "message_delete_confirmation",
+        deletion_in_flight: !1
+      }
+    }, S[2] = n) : n = S[2];
+    let {
+      ref: k,
+      onClick: H
+    } = (0, A.useTrackedClickRef)(n);
+    S[3] === Symbol.for("react.memo_cache_sentinel") ? (a = {
+      eventName: T.HatchClickEvent.CHAT_MESSAGE_DELETE_CONFIRMATION_LEARN_MORE,
+      actionTarget: "message_delete_confirmation_learn_more",
+      actionType: "click",
+      metadata: {
+        surface: "chat",
+        subsurface: "message_delete_confirmation"
+      }
+    }, S[3] = a) : a = S[3];
+    let {
+      ref: x,
+      onClick: M
+    } = (0, A.useTrackedClickRef)(a);
+    return S[4] === Symbol.for("react.memo_cache_sentinel") ? (i = f.fbs._("Delete", null, {
+      hk: "1IehL9"
+    }), S[4] = i) : i = S[4], S[5] !== v || S[6] !== E || S[7] !== I ? (s = () => {
+      v || (E(), I())
+    }, S[5] = v, S[6] = E, S[7] = I, S[8] = s) : s = S[8], S[9] !== v || S[10] !== w || S[11] !== s ? (l = (0, h.jsx)(_.Button, {
+      ref: w,
+      variant: "destructive-secondary",
+      radius: "large",
+      size: "36",
+      fullWidth: !0,
+      "aria-busy": v,
+      "aria-disabled": v,
+      className: L,
+      labelClassName: "text-subheadline",
+      label: i,
+      onClick: s
+    }), S[9] = v, S[10] = w, S[11] = s, S[12] = l) : l = S[12], S[13] === Symbol.for("react.memo_cache_sentinel") ? (o = f.fbs._("Cancel", null, {
+      hk: "3aX06V"
+    }), S[13] = o) : o = S[13], S[14] !== v || S[15] !== H || S[16] !== C ? (u = () => {
+      v || (H(), C())
+    }, S[14] = v, S[15] = H, S[16] = C, S[17] = u) : u = S[17], S[18] !== k || S[19] !== v || S[20] !== u ? (c = (0, h.jsx)(_.Button, {
+      ref: k,
+      variant: "flat",
+      radius: "large",
+      size: "36",
+      fullWidth: !0,
+      "aria-disabled": v,
+      className: L,
+      labelClassName: "text-subheadline",
+      label: o,
+      onClick: u
+    }), S[18] = k, S[19] = v, S[20] = u, S[21] = c) : c = S[21], S[22] === Symbol.for("react.memo_cache_sentinel") ? (d = f.fbs._("Learn more", null, {
+      hk: "37IsUY"
+    }), S[22] = d) : d = S[22], S[23] !== v || S[24] !== M || S[25] !== R ? (g = () => {
+      v || (M(), R())
+    }, S[23] = v, S[24] = M, S[25] = R, S[26] = g) : g = S[26], S[27] !== v || S[28] !== x || S[29] !== g ? (m = (0, h.jsx)(_.Button, {
+      ref: x,
+      variant: "flat",
+      radius: "large",
+      size: "36",
+      fullWidth: !0,
+      "aria-disabled": v,
+      className: L,
+      labelClassName: "text-subheadline",
+      label: d,
+      onClick: g
+    }), S[27] = v, S[28] = x, S[29] = g, S[30] = m) : m = S[30], S[31] !== b || S[32] !== c || S[33] !== m || S[34] !== l ? (y = (0, h.jsxs)("div", {
+      ref: b,
+      className: "flex flex-col gap-1.5",
+      children: [l, c, m]
+    }), S[31] = b, S[32] = c, S[33] = m, S[34] = l, S[35] = y) : y = S[35], y
+  }
+  e.s(["HatchMessageDeletionConfirmationProvider", 0, function({
+    children: e,
+    deleteMessage: t,
+    isMessageDeletionPending: a,
+    scopeKey: i
+  }) {
+    let [s, l] = (0, r.useState)(null), [o, u] = (0, r.useState)(!1), c = (0, r.useRef)(null);
+    (0, r.useEffect)(() => {
+      l(null)
+    }, [i]);
+    let d = (0, r.useCallback)(e => {
+        a || null != c.current || l(e)
+      }, [a]),
+      g = (0, r.useCallback)(async () => {
+        if (null != s && !a && null == c.current) {
+          c.current = s, u(!0);
+          try {
+            await t(s) && l(e => e === s ? null : e)
+          } finally {
+            c.current === s && (c.current = null, u(!1))
+          }
+        }
+      }, [t, a, s]),
+      p = (0, r.useCallback)(() => {
+        l(null)
+      }, []),
+      m = (0, r.useCallback)(() => {
+        l(null), window.open(B.TermsOfServiceLinks.LEARN_MORE_ABOUT_PRIVACY_POLICY, "_blank", "noopener,noreferrer")
+      }, []),
+      y = (0, r.useMemo)(() => ({
+        requestMessageDeletion: d
+      }), [d]),
+      _ = null != s,
+      S = o || a,
+      {
+        ref: v,
+        onClick: R
+      } = (0, A.useTrackedClickRef)({
+        eventName: T.HatchClickEvent.CHAT_MESSAGE_DELETE_CONFIRMATION_DISMISS,
+        actionTarget: "message_delete_confirmation_dismiss",
+        actionType: "click",
+        metadata: {
+          surface: "chat",
+          subsurface: "message_delete_confirmation",
+          deletion_in_flight: S
+        }
+      }),
+      b = (0, r.useCallback)(e => {
+        e || (R(), l(null))
+      }, [R]);
+    return (0, h.jsxs)(F.Provider, {
+      value: y,
+      children: [e, (0, h.jsx)(C.Dialog, {
+        open: _,
+        onOpenChange: b,
+        children: (0, h.jsxs)(C.DialogPortal, {
+          children: [(0, h.jsx)(C.DialogOverlay, {}), (0, h.jsxs)(C.DialogContentPrimitive, {
+            ref: v,
+            className: "squircle-16 bg-fill-blur-thick backdrop-blur-elevation-03 shadow-blur-elevation-03 inset-0 m-auto flex h-fit w-[min(280px,calc(100%-2rem))] flex-col gap-1.5 p-3",
+            children: [(0, h.jsxs)(C.DialogHeader, {
+              className: "items-start gap-1.5 px-2 py-1.5 text-start",
+              children: [(0, h.jsx)(C.DialogTitle, {
+                className: "text-subheadline-medium text-text-primary",
+                children: f.fbt._("Delete this message?", null, {
+                  hk: "14X6vR"
+                })
+              }), (0, h.jsx)(C.DialogDescription, {
+                className: "text-subheadline text-text-primary text-start",
+                children: f.fbt._("This permanently deletes your message. This can’t be undone.", null, {
+                  hk: "3T6ZdK"
+                })
+              })]
+            }), (0, h.jsx)(I.EctoErrorBoundary, {
+              surface: n.HATCH_SENTRY_SURFACES.CHAT_MESSAGE_DELETE,
+              fallback: ({
+                error: e,
+                reset: t
+              }) => (0, h.jsx)(D.HatchContentErrorFallback, {
+                error: e,
+                onRetry: t,
+                alwaysShowRetry: !0
+              }),
+              children: (0, h.jsx)(K, {
+                confirmBlocked: S,
+                onCancel: p,
+                onConfirm: () => {
+                  g()
+                },
+                onLearnMore: m
+              })
+            })]
+          })]
+        })
+      })]
+    })
+  }], 802358);
+  var U = e.i(658895);
+  let j = new Map;
+
+  function z(e) {
+    for (let t of j.get(e) ?? []) t()
+  }
+  let V = new U.LRUCache(200, z);
+  e.s(["hasReplyPreview", 0, function(e) {
+    return V.has(e)
+  }, "peekReplyPreview", 0, function(e) {
+    return V.peek(e)
+  }, "setReplyPreview", 0, function(e, t) {
+    let r = V.has(e);
+    V.set(e, t), r || z(e)
+  }, "subscribeReplyPreview", 0, function(e, t) {
+    let r = j.get(e) ?? new Set;
+    return r.add(t), j.set(e, r), () => {
+      r.delete(t), 0 === r.size && j.delete(e)
+    }
+  }], 552188);
+  var G = e.i(925301);
+  let $ = "image_paste_send_v1",
+    Y = new WeakMap,
+    W = {
+      "application/octet-stream": "octet_stream",
+      "image/avif": "avif",
+      "image/gif": "gif",
+      "image/heic": "heic",
+      "image/heic-sequence": "heic",
+      "image/heif": "heif",
+      "image/heif-sequence": "heif",
+      "image/jpeg": "jpeg",
+      "image/jpg": "jpeg",
+      "image/png": "png",
+      "image/tiff": "tiff",
+      "image/webp": "webp",
+      "image/x-heic": "heic",
+      "image/x-heif": "heif",
+      "public.heic": "heic",
+      "public.heif": "heif",
+      "public.jpeg": "jpeg",
+      "public.png": "png"
+    },
+    Q = {
+      avif: "avif",
+      gif: "gif",
+      heic: "heic",
+      heif: "heif",
+      jpeg: "jpeg",
+      jpg: "jpeg",
+      png: "png",
+      tif: "tiff",
+      tiff: "tiff",
+      webp: "webp"
+    },
+    J = new Set([...Object.keys(W), "public.file-url", "public.url", "text/plain", "text/uri-list"]);
+
+  function X(e) {
+    let t = e.trim().toLowerCase();
+    return "" === t ? "unknown" : W[t] ?? (t.startsWith("image/") ? "other" : "unknown")
+  }
+
+  function Z(e) {
+    let t = e.lastIndexOf(".");
+    return t < 0 ? "unknown" : Q[e.slice(t + 1).trim().toLowerCase()] ?? "other"
+  }
+
+  function ee(e) {
+    return !["octet_stream", "other", "unknown"].includes(e)
+  }
+
+  function et(e) {
+    return 0 === e ? "empty" : e < 1048576 ? "under_1_mib" : e < 5242880 ? "1_to_5_mib" : e < 0xa00000 ? "5_to_10_mib" : e < 0xf00000 ? "10_to_15_mib" : "15_mib_or_more"
+  }
+
+  function er(e) {
+    if (0 === e.length) return 0;
+    let t = e.endsWith("==") ? 2 : +!!e.endsWith("=");
+    return Math.max(0, Math.floor(3 * e.length / 4) - t)
+  }
+
+  function en(e) {
+    let t = e[0];
+    return null != t && e.every(e => e === t) ? t : "mixed"
+  }
+  e.s(["buildImagePasteSendFailureDiagnostics", 0, function(e, t) {
+    var r;
+    let n = (e ?? []).flatMap(e => {
+      if (null == e.rawFile) return [];
+      let t = Y.get(e.rawFile);
+      if (null == t) return [];
+      let r = X(e.rawFile.type),
+        n = Z(e.rawFile.name),
+        a = X(e.mimeType),
+        i = Z(e.filename),
+        s = t.itemTypes.map(X).filter(ee);
+      return "image" === e.category || [r, n, a, i].some(ee) || s.length > 0 ? [{
+        attachment: e,
+        clipboard: t,
+        clipboardImageFormat: s.length > 0 ? en(s) : "unknown",
+        inputMimeFormat: r,
+        inputExtensionFormat: n,
+        outputMimeFormat: a,
+        outputExtensionFormat: i
+      }] : []
+    });
+    if (0 === n.length) return null;
+    let a = n.slice(0, 8).map(e => {
+        let {
+          attachment: t,
+          clipboard: r,
+          clipboardImageFormat: n,
+          inputMimeFormat: a,
+          inputExtensionFormat: i,
+          outputMimeFormat: s,
+          outputExtensionFormat: l
+        } = e, o = !["other", "unknown"].includes(s) && !["other", "unknown"].includes(l);
+        return {
+          inputMimeFormat: a,
+          inputExtensionFormat: i,
+          clipboardImageFormat: n,
+          outputCategory: t.category,
+          outputMimeFormat: s,
+          outputExtensionFormat: l,
+          outputMetadataMismatch: o ? s !== l : null,
+          inputSizeBytes: t.rawFile?.size ?? null,
+          inlinePayloadBytes: er(t.dataBase64),
+          clipboard: r
+        }
+      }),
+      i = n.reduce((e, {
+        attachment: t
+      }) => e + (t.rawFile?.size ?? 0), 0),
+      s = n.reduce((e, {
+        attachment: t
+      }) => e + er(t.dataBase64), 0),
+      l = a.map(e => e.outputMetadataMismatch),
+      o = l.every(e => !1 === e) ? "aligned" : l.every(e => !0 === e) ? "mismatched" : l.every(e => null == e) ? "unknown" : "mixed";
+    return {
+      tags: {
+        diagnostic: $,
+        attachment_source: "clipboard",
+        input_image_format: en(a.map(e => e.inputMimeFormat)),
+        input_extension_format: en(a.map(e => e.inputExtensionFormat)),
+        clipboard_image_format: en(a.map(e => e.clipboardImageFormat)),
+        input_size_bucket: et(i),
+        inline_payload_bucket: et(s),
+        clipboard_extraction_path: en(a.map(e => e.clipboard.extractionPath)),
+        output_image_format: en(a.map(e => e.outputMimeFormat)),
+        output_extension_format: en(a.map(e => e.outputExtensionFormat)),
+        output_attachment_category: en(a.map(e => e.outputCategory)),
+        output_metadata_alignment: o
+      },
+      extra: {
+        version: $,
+        attachmentCount: e?.length ?? 0,
+        clipboardImageAttachmentCount: n.length,
+        attachmentsTruncated: n.length > 8,
+        totalInputBytes: i,
+        totalInlinePayloadBytes: s,
+        gatewayError: (0, G.isGatewayRequestError)(t) ? {
+          name: t.name,
+          kind: t.kind,
+          code: null == (r = t.code) ? null : /^[a-zA-Z0-9_.:-]{1,64}$/.test(r) ? r : "other",
+          httpStatus: t.httpStatus ?? null
+        } : {
+          name: t instanceof Error ? t.name : "unknown",
+          kind: null,
+          code: null,
+          httpStatus: null
+        },
+        attachments: a
+      }
+    }
+  }, "rememberClipboardAttachmentInputDiagnostics", 0, function(e, t, r) {
+    let n = Array.from(t.items),
+      a = Array.from(new Set(n.map(e => {
+        let t;
+        return "" === (t = e.type.trim().toLowerCase()) ? "empty" : J.has(t) ? t : t.startsWith("image/") ? "image/other" : "other"
+      }))),
+      i = {
+        extractionPath: r,
+        itemCount: n.length,
+        fileItemCount: n.filter(e => "file" === e.kind).length,
+        stringItemCount: n.filter(e => "string" === e.kind).length,
+        itemTypes: a.slice(0, 8),
+        itemTypesTruncated: a.length > 8
+      };
+    for (let t of e) Y.set(t, i)
+  }], 252116);
+  let ea = new Set;
+  e.s(["claimEntrypointImpression", 0, function(e) {
+    return !ea.has(e) && (ea.add(e), !0)
+  }, "resetEntrypointImpressions", 0, function() {
+    ea.clear()
+  }], 377156);
+  let ei = 0,
+    es = [];
+  e.s(["consumeAnnotationContext", 0, function(e) {
+    let t = es.findIndex(t => t.messageText === e);
+    if (-1 === t) return null;
+    let r = es.splice(t, 1);
+    return r[0]?.context ?? null
+  }, "discardAnnotationContext", 0, function(e) {
+    let t = es.findIndex(t => t.id === e); - 1 !== t && es.splice(t, 1)
+  }, "stageAnnotationContext", 0, function(e, t) {
+    let r = ei++;
+    return es.push({
+      id: r,
+      messageText: e,
+      context: t
+    }), r
+  }], 735231);
+  var el = e.i(434978),
+    eo = e.i(281851),
+    eu = e.i(228750);
+  let ec = {
+    id: (t = {
+      id: "hatch.chatHistory",
+      queryKey: ({
+        gatewayUrl: e,
+        limit: t,
+        transcriptMode: r,
+        sessionId: n
+      }) => (function(e, t = el.INITIAL_HISTORY_LIMIT, r = "messages", n = null) {
+        return ["hatch", "chat-history", e, t, r, null == n ? ["main"] : ["session", n]]
+      })(e, t, r, n),
+      staleTime: 3e4
+    }).id,
+    queryKey: t.queryKey,
+    instance(e) {
+      let r = t.queryKey(e);
+      return {
+        id: t.id,
+        params: e,
+        queryKey: r,
+        sourceKey: JSON.stringify(r),
+        staleTime: t.staleTime
+      }
+    }
+  };
+
+  function ed({
+    limit: e = el.INITIAL_HISTORY_LIMIT,
+    transcriptMode: t = "messages",
+    sessionId: r = null
+  }, {
+    gatewayUrl: n,
+    targetKey: a
+  }) {
+    let i = ec.instance({
+        gatewayUrl: n,
+        limit: e,
+        transcriptMode: t,
+        sessionId: r
+      }),
+      s = {
+        version: 1,
+        queryKey: i.queryKey,
+        sourceKey: i.sourceKey,
+        staleTimeMs: i.staleTime,
+        targetKey: a,
+        request: {
+          method: "chat.history",
+          params: {
+            limit: e,
+            transcript_mode: t,
+            ...null == r ? {} : {
+              session_id: r
+            }
+          },
+          resultMode: "hatch_gateway_result"
+        },
+        dependency: {
+          queryKey: (0, eu.buildOnboardingStartQueryKey)(a),
+          skipWhen: {
+            field: "variant",
+            equals: eo.UI_DRIVEN_ONBOARDING_VARIANT
+          }
+        }
+      };
+    return {
+      ...i,
+      descriptor: s
+    }
+  }
+  e.s(["getHatchChatHistoryGatewayQuery", 0, function({
+    limit: e = el.INITIAL_HISTORY_LIMIT,
+    transcriptMode: t = "messages",
+    sessionId: r = null
+  } = {}) {
+    return {
+      bind: n => ed({
+        limit: e,
+        transcriptMode: t,
+        sessionId: r
+      }, n),
+      transform: e => e,
+      staleTime: 3e4
+    }
+  }, "getHatchChatHistoryQuery", 0, function({
+    gatewayUrl: e,
+    targetKey: t = e,
+    ...r
+  }) {
+    return ed(r, {
+      gatewayUrl: e,
+      targetKey: t
+    })
+  }], 745502);
+  e.s(["shouldForceVoiceOutputModality", 0, function({
+    voiceEnabled: e,
+    callStatus: t,
+    callThreadId: r,
+    requestedSessionId: n
+  }) {
+    return !!e && ("connecting" === t || "connected" === t) && (r ?? null) === (n ?? null)
+  }], 921854);
+  var eg = e.i(365500),
+    eh = e.i(588741),
+    ep = e.i(585152),
+    em = e.i(384706),
+    ef = e.i(207274);
+  let ey = (0, a.createClientLogger)("hatchShareEligibility"),
+    e_ = new Set(["allow", "block", "friction", "not_required", "pending", "review_missing", "review_error", "review_not_applicable"]);
+
+  function eS(e) {
+    return "string" == typeof e && e_.has(e) ? e : "unrecognized"
+  }
+  let ev = "assistant-msg-";
+
+  function eC(e) {
+    return e.startsWith(ev) && e.length > ev.length && !/\s/.test(e)
+  }
+  async function eI(e, t, r) {
+    if (r.aborted) throw (0, ef.createGatewayAbortError)();
+    let {
+      contentType: n,
+      contentId: a
+    } = t;
+    if ("message" !== n && "media" !== n || "string" != typeof a || 0 === a.trim().length || "message" === n && !eC(a)) throw Error("Invalid share eligibility identity");
+    let i = await e("sharing.eligibility", {
+      content_type: n,
+      content_id: a
+    }, {
+      signal: r
+    });
+    if (r.aborted) throw (0, ef.createGatewayAbortError)();
+    if (null == i || "object" != typeof i || !("can_broadcast_share" in i) || "boolean" != typeof i.can_broadcast_share) throw Error("Invalid share eligibility response");
+    return i.can_broadcast_share
+  }
+  async function eT(e, t, r, a) {
+    if (a.aborted) throw (0, ef.createGatewayAbortError)();
+    if (!eC(t) || 0 === r.trim().length) throw Error("Invalid message share attempt identity");
+    let i = await e("sharing.attempt", {
+      content_type: "message",
+      content_id: t,
+      share_operation_id: r
+    }, {
+      signal: a
+    });
+    if (a.aborted) throw (0, ef.createGatewayAbortError)();
+    if (null == i || "object" != typeof i || !("share_operation_id" in i) || i.share_operation_id !== r || !("can_broadcast_share" in i) || "boolean" != typeof i.can_broadcast_share) throw Error("Invalid message share attempt response");
+    let s = eS("status" in i ? i.status : null);
+    if (!i.can_broadcast_share) {
+      let e = eS("decision" in i ? i.decision : null);
+      ey.retainForBugReport("warn", "Message share attempt denied"), (0, n.captureHatchMessage)(n.HATCH_SENTRY_SURFACES.MEDIA_SHARE_CREATE, "Message share attempt denied", {
+        level: "warning",
+        tags: {
+          reason: s,
+          decision: e
+        }
+      })
+    }
+    if ("unrecognized" === s) throw Error("Invalid message share attempt status");
+    if (i.can_broadcast_share) return !0;
+    if ("block" === s || "friction" === s) return !1;
+    throw Error("Message share review is unavailable")
+  }
+  var eA = e.i(91521),
+    eR = e.i(960607),
+    eb = e.i(921192),
+    ew = e.i(907579),
+    eE = e.i(175286),
+    ek = e.i(157139),
+    eH = e.i(44698),
+    ex = e.i(397240),
+    eM = e.i(374785),
+    eN = e.i(581386),
+    eP = e.i(25527),
+    eO = e.i(916981);
+  let eB = {
+    eventName: T.HatchClickEvent.MEDIA_SHARE_CLOSE,
+    actionTarget: "media_share_close",
+    surface: "media_share"
+  };
+
+  function eq(e) {
+    let t, n, a, i, s, l, o, u, c = (0, p.c)(46),
+      {
+        isOpen: d,
+        onOpenChange: g,
+        onCloseAutoFocus: m,
+        source: y,
+        closeEvent: _,
+        children: S
+      } = e,
+      v = void 0 === _ ? eB : _,
+      I = (0, ex.useIsMobileBreakpoint)(),
+      T = "idea" === y,
+      R = (0, r.useId)();
+    c[0] !== T ? (t = T ? f.fbs._("Share", null, {
+      hk: "1j67SU"
+    }) : f.fbs._("Share", null, {
+      hk: "1XzLhm"
+    }), c[0] = T, c[1] = t) : t = c[1];
+    let b = t;
+    c[2] !== v.surface || c[3] !== y ? (n = {
+      surface: v.surface,
+      subsurface: "create",
+      source: y
+    }, c[2] = v.surface, c[3] = y, c[4] = n) : n = c[4], c[5] !== v.actionTarget || c[6] !== v.eventName || c[7] !== n ? (a = {
+      eventName: v.eventName,
+      actionTarget: v.actionTarget,
+      actionType: "click",
+      metadata: n
+    }, c[5] = v.actionTarget, c[6] = v.eventName, c[7] = n, c[8] = a) : a = c[8];
+    let {
+      onClick: w
+    } = (0, A.useTrackedClickRef)(a);
+    c[9] !== w || c[10] !== g ? (i = function(e) {
+      e || w(), g(e)
+    }, c[9] = w, c[10] = g, c[11] = i) : i = c[11];
+    let E = i;
+    c[12] !== S || c[13] !== E || c[14] !== T || c[15] !== I || c[16] !== R || c[17] !== b ? (s = T ? (0, h.jsxs)(eO.HatchShareLinkDialogPresentationContext.Provider, {
+      value: I ? "sheet" : "dialog",
+      children: [I && (0, h.jsx)(eN.HatchShareDialogHeader, {
+        variant: "idea",
+        titleId: R,
+        onClose: () => E(!1)
+      }), S]
+    }) : (0, h.jsxs)(h.Fragment, {
+      children: [(0, h.jsx)(eN.HatchShareDialogHeader, {
+        title: b,
+        showCloseButton: !0,
+        onClose: () => E(!1)
+      }), S]
+    }), c[12] = S, c[13] = E, c[14] = T, c[15] = I, c[16] = R, c[17] = b, c[18] = s) : s = c[18];
+    let k = s;
+    if (I) {
+      let e, t, r, n;
+      return c[19] !== T || c[20] !== R ? (e = T ? {
+        "aria-labelledby": R
+      } : {}, c[19] = T, c[20] = R, c[21] = e) : e = c[21], c[22] !== b ? (t = (0, h.jsx)(eH.SheetTitle, {
+        asChild: !0,
+        className: "sr-only",
+        children: (0, h.jsx)("span", {
+          children: b
+        })
+      }), c[22] = b, c[23] = t) : t = c[23], c[24] !== k || c[25] !== m || c[26] !== e || c[27] !== t ? (r = (0, h.jsxs)(eH.SheetContent, {
+        ...e,
+        onCloseAutoFocus: m,
+        side: "bottom",
+        showDragHandle: !1,
+        showCloseButton: !1,
+        className: "rounded-t-32 max-h-dvh !gap-0 overflow-y-auto !p-0",
+        children: [t, k]
+      }), c[24] = k, c[25] = m, c[26] = e, c[27] = t, c[28] = r) : r = c[28], c[29] !== E || c[30] !== d || c[31] !== r ? (n = (0, h.jsx)(eH.Sheet, {
+        open: d,
+        onOpenChange: E,
+        children: r
+      }), c[29] = E, c[30] = d, c[31] = r, c[32] = n) : n = c[32], n
+    }
+    let H = T ? "bg-fill-primary !rounded-22" : void 0,
+      x = T ? "max-w-idea-share-dialog !rounded-22" : void 0,
+      M = T ? "p-0" : void 0;
+    c[33] !== b ? (l = (0, h.jsx)(C.DialogHeader, {
+      children: (0, h.jsx)(C.DialogTitle, {
+        children: b
+      })
+    }), c[33] = b, c[34] = l) : l = c[34];
+    let N = T ? k : S;
+    return c[35] !== m || c[36] !== l || c[37] !== N || c[38] !== H || c[39] !== x || c[40] !== M ? (o = (0, h.jsx)(C.DialogContent, {
+      onCloseAutoFocus: m,
+      backgroundClassName: H,
+      className: x,
+      contentClassName: M,
+      header: l,
+      children: N
+    }), c[35] = m, c[36] = l, c[37] = N, c[38] = H, c[39] = x, c[40] = M, c[41] = o) : o = c[41], c[42] !== E || c[43] !== d || c[44] !== o ? (u = (0, h.jsx)(C.Dialog, {
+      open: d,
+      onOpenChange: E,
+      children: o
+    }), c[42] = E, c[43] = d, c[44] = o, c[45] = u) : u = c[45], u
+  }
+
+  function eD(e) {
+    let t, r, n = (0, p.c)(3),
+      {
+        source: a
+      } = e,
+      i = void 0 === a ? "message" : a;
+    return n[0] === Symbol.for("react.memo_cache_sentinel") ? (t = (0, h.jsx)(v.LoadingState, {
+      name: "media_share_create",
+      className: "w-full max-w-83",
+      children: (0, h.jsx)("div", {
+        role: "status",
+        "aria-busy": "true",
+        "aria-label": f.fbs._("Loading share options", null, {
+          hk: "2g5B8S"
+        }),
+        className: (0, eM.cn)(eP.MEDIA_SHARE_PREVIEW_CLASS, "motion-reduce:[&_*]:!animate-none"),
+        children: (0, h.jsx)(S.Skeleton, {
+          "aria-hidden": "true",
+          className: "size-full",
+          strength: "light"
+        })
+      })
+    }), n[0] = t) : t = n[0], n[1] !== i ? (r = (0, h.jsx)(eP.HatchMediaShareDialogLayout, {
+      source: i,
+      preview: t,
+      shareUrl: null,
+      onCopy: eF
+    }), n[1] = i, n[2] = r) : r = n[2], r
+  }
+
+  function eF() {}
+
+  function eL(e) {
+    let t, r = (0, p.c)(3),
+      {
+        error: n,
+        onRetry: a
+      } = e;
+    return r[0] !== n || r[1] !== a ? (t = (0, h.jsx)(D.HatchContentErrorFallback, {
+      error: n,
+      onRetry: a,
+      hideTechnicalDetails: !0,
+      alwaysShowRetry: !0
+    }), r[0] = n, r[1] = a, r[2] = t) : t = r[2], t
+  }
+
+  function eK() {
+    return (0, r.lazy)(() => e.A(469682).then(e => ({
+      default: e.HatchMediaShareLinkDialogContent
+    })))
+  }
+  e.s(["HatchMediaShareLinkDialogError", 0, eL, "HatchMediaShareLinkDialogFrame", 0, eq, "HatchMediaShareLinkDialogLoading", 0, eD], 423533), e.s(["HatchContentShareProvider", 0, function({
+    children: t,
+    scopeKey: a
+  }) {
+    let [i, s] = (0, r.useState)(eK), l = (0, em.useHatchAvatarShareEligibility)(), {
+      connectionAuthority: o,
+      gatewayScopeKey: u,
+      isReady: c,
+      sendRequest: d
+    } = (0, eE.useHatchRpc)(), g = (0, eg.useOptionalAuth)(), p = g?.userId ?? null, m = g?.sessionBindingId ?? null, y = (0, ew.useHatchGatewayFs)(), {
+      theme: _
+    } = (0, ep.useTheme)(), {
+      locale: S,
+      translationLocale: v
+    } = (0, eh.useLocaleViewerContext)(), C = f.fbs._("Shared media", null, {
+      hk: "1GeygT"
+    }).toString(), T = JSON.stringify([p, m, o?.targetKey, u, a]), A = (0, r.useMemo)(() => ({
+      identity: T,
+      current: null
+    }), [T]), R = l && null != p && c && null != o, b = (0, r.useRef)({
+      identity: T,
+      allowed: R
+    });
+    b.current = {
+      identity: T,
+      allowed: R
+    };
+    let [w, E] = (0, r.useState)(null), [k, H] = (0, r.useState)(!1), x = (0, r.useRef)(null), M = (0, r.useRef)(!1), N = (0, r.useCallback)(e => {
+      if (e.preventDefault(), M.current) return;
+      let t = x.current;
+      x.current = null, t?.identity === b.current.identity && t.element?.isConnected && t.element.focus({
+        preventScroll: !0
+      })
+    }, []);
+    (0, r.useEffect)(() => {
+      E(e => e?.identity === T ? e : null), H(!1)
+    }, [T]);
+    let P = (0, r.useCallback)(e => {
+        if (e.throwIfAborted(), b.current.identity !== T || !b.current.allowed) throw new DOMException("The share source changed", "AbortError")
+      }, [T]),
+      O = (0, r.useCallback)((t, r) => {
+        if (!R) return;
+        let n = globalThis.crypto.randomUUID(),
+          a = {
+            key: JSON.stringify([T, t, _, S, v]),
+            source: "message",
+            checkEligibility: async e => {
+              P(e);
+              let r = await eT(d, t.messageId, n, e);
+              return P(e), r
+            },
+            prepareFile: async r => {
+              P(r);
+              let {
+                prepareHatchMessageShareFile: n
+              } = await e.A(173132);
+              P(r);
+              let a = await n({
+                ...t,
+                locale: S,
+                translationLocale: v,
+                fs: y,
+                signal: r
+              });
+              return P(r), a
+            }
+          };
+        x.current = {
+          identity: T,
+          element: r ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null)
+        }, E({
+          identity: T,
+          request: a
+        }), H(!0)
+      }, [R, P, y, T, S, d, _, v]),
+      B = (0, r.useCallback)((t, r, n) => {
+        let a = t.originalSource?.trim(),
+          i = a ? void 0 : t.path?.trim() || void 0,
+          s = a || i || t.variants.original?.trim();
+        if (!R || !s || 0 === r.contentId.trim().length) return;
+        let l = (0, eA.getHatchMediaItemRenderSrc)(t, "full"),
+          o = null == l || (0, eR.isHatchVmMediaUrl)(l) ? null : "image" === t.kind ? (0, eb.proxyExternalImageUrl)(l) : l,
+          u = "video" === t.kind ? t.variants.thumbnail : null,
+          c = null == u || (0, eR.isHatchVmMediaUrl)(u) ? void 0 : (0, eb.proxyExternalImageUrl)(u) ?? void 0,
+          g = globalThis.crypto.randomUUID(),
+          h = {
+            key: JSON.stringify([T, t, r]),
+            source: "media",
+            ...null != o ? {
+              preview: {
+                kind: t.kind,
+                src: o,
+                alt: C,
+                posterSrc: c
+              }
+            } : {},
+            checkEligibility: async e => {
+              P(e);
+              let t = "message" === r.contentType ? await eT(d, r.contentId, g, e) : await eI(d, r, e);
+              return P(e), t
+            },
+            prepareFile: async r => {
+              P(r);
+              let {
+                prepareHatchMediaShareFile: n
+              } = await e.A(962526);
+              P(r);
+              let l = await n({
+                sourceUrl: s,
+                kind: t.kind,
+                path: i,
+                ...a && !0 === t.originalSourceUrlEncoded ? {
+                  sourcePathUrlEncoded: !0
+                } : {},
+                fs: y,
+                signal: r
+              });
+              return P(r), l
+            }
+          };
+        x.current = {
+          identity: T,
+          element: n ?? (document.activeElement instanceof HTMLElement ? document.activeElement : null)
+        }, E({
+          identity: T,
+          request: h
+        }), H(!0)
+      }, [R, P, y, T, C, d]),
+      q = (0, r.useMemo)(() => R ? {
+        shareMessage: O,
+        shareMedia: B
+      } : null, [R, O, B]),
+      D = k && R && w?.identity === T;
+    return M.current = D, (0, h.jsxs)(ek.HatchContentShareContext.Provider, {
+      value: q,
+      children: [t, null != w && w.identity === T && (0, h.jsx)(eq, {
+        isOpen: D,
+        onOpenChange: H,
+        onCloseAutoFocus: N,
+        source: w.request.source,
+        children: (0, h.jsx)(I.EctoErrorBoundary, {
+          surface: n.HATCH_SENTRY_SURFACES.MEDIA_SHARE_CREATE,
+          resetKeys: [w.request.key, D],
+          fallback: ({
+            error: e,
+            reset: t
+          }) => (0, h.jsx)(eL, {
+            error: e,
+            onRetry: () => {
+              s(eK), t()
+            }
+          }),
+          children: (0, h.jsx)(r.Suspense, {
+            fallback: (0, h.jsx)(eD, {
+              source: w.request.source
+            }),
+            children: (0, h.jsx)(i, {
+              isOpen: D,
+              request: w.request,
+              isEligible: R,
+              cacheRef: A
+            })
+          })
+        })
+      })]
+    })
+  }], 809870)
+}, 951527, e => {
+  "use strict";
+  var t = e.i(722099),
+    r = e.i(519172),
+    n = e.i(508180);
+  let a = "voice-asr:",
+    i = "voice_asr";
+
+  function s() {
+    for (let e of n.getSnapshot().chat.messageIds) e.startsWith(a) && n.reduceChat({
+      type: "message/remove",
+      id: e
+    })
+  }
+
+  function l(e) {
+    let t = `${a}${crypto.randomUUID()}`;
+    return n.reduceChat({
+      type: "message/insert",
+      message: {
+        id: t,
+        role: "user",
+        content: e,
+        createdAt: new Date().toISOString(),
+        isOptimistic: !0,
+        isTextStreaming: !0,
+        sortSeq: function() {
+          let e = n.getSnapshot().chat,
+            t = e.newestSeq ?? 0;
+          for (let r of e.messageIds) {
+            let n = e.messagesById[r];
+            n?.sortSeq != null && n.sortSeq > t && (t = n.sortSeq)
+          }
+          return Math.floor(t) + 1
+        }(),
+        sortSeqSource: "delta",
+        source: i
+      }
+    }), window.dispatchEvent(new Event("hatch-user-message-sent")), t
+  }
+  e.s(["VOICE_ASR_SOURCE", 0, i, "removeAllAsrMessages", 0, s, "useVoiceAsrMessages", 0, function(e, a, i) {
+    let o, u, c = (0, t.c)(5),
+      d = (0, r.useRef)(null);
+    c[0] !== i || c[1] !== a || c[2] !== e ? (o = () => {
+      let t = function() {
+        null != d.current && (s(), d.current = null)
+      };
+      if ("connected" !== a || !i) return void t();
+      let r = function(e) {
+        for (let t = e.length - 1; t >= 0; t--) {
+          let r = e[t];
+          if ("user" === r.role && r.text && !r.isFinal) return {
+            idx: t,
+            text: r.text
+          }
+        }
+        return null
+      }(e);
+      if (null == r) return void t();
+      let {
+        idx: o,
+        text: u
+      } = r, c = d.current;
+      if (null != c && c.idx === o) {
+        let e = n.getSnapshot().chat.messagesById;
+        null != c.msgId && c.msgId in e ? (n.reduceChat({
+          type: "message/update",
+          id: c.msgId,
+          updates: {
+            content: u
+          }
+        }), d.current = {
+          idx: o,
+          msgId: c.msgId,
+          text: u
+        }) : u !== c.text ? d.current = {
+          idx: o,
+          msgId: l(u),
+          text: u
+        } : d.current = {
+          idx: o,
+          msgId: null,
+          text: u
+        };
+        return
+      }
+      null != c && null != c.msgId && c.msgId in n.getSnapshot().chat.messagesById && n.reduceChat({
+        type: "message/update",
+        id: c.msgId,
+        updates: {
+          isTextStreaming: !1
+        }
+      }), d.current = {
+        idx: o,
+        msgId: l(u),
+        text: u
+      }
+    }, u = [e, a, i], c[0] = i, c[1] = a, c[2] = e, c[3] = o, c[4] = u) : (o = c[3], u = c[4]), (0, r.useEffect)(o, u)
+  }])
+}]);
+
+//# debugId=fc64cdd1-5c7e-fa94-642a-36742162448a
+//# sourceMappingURL=3weid3phy5__2.js.map

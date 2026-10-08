@@ -1,0 +1,942 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "252e29c1-4305-483c-a716-f2a2b0b76a62")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 71308, e => {
+  "use strict";
+  var t = e.i(863641);
+  let i = new Map,
+    r = !1;
+
+  function n(e, t) {
+    return JSON.stringify([e, t])
+  }
+
+  function a(e) {
+    return Math.min(1e3 * 2 ** Math.max(e - 1, 0), 8e3)
+  }
+  e.s(["awaitTrustedNetworkContactVerification", 0, function(e, t, r, a = Date.now()) {
+    let s = n(e, t);
+    for (i.delete(s), i.set(s, {
+        generationId: r,
+        startedAtMs: a,
+        attempts: 0,
+        lastObservedUpdateMs: 0
+      }); i.size > 8;) {
+      let e = i.keys().next().value;
+      if (null == e) break;
+      i.delete(e)
+    }
+  }, "trustedNetworkContactsReconcileInterval", 0, function(e, s, o, l, _ = Date.now()) {
+    let u = n(e, s),
+      d = i.get(u);
+    return null != d && (l > d.lastObservedUpdateMs && l >= d.startedAtMs ? (d.lastObservedUpdateMs = l, "pending" !== function(e, t) {
+      for (let i of e ?? [])
+        for (let e of i.items)
+          if (e.disconnectBinding?.relationship_generation_id === t) {
+            if ("verified" === e.status) return "verified";
+            if ("unpaired" === e.status || "identity_changed" === e.status) return "terminal";
+            return "pending"
+          } return "pending"
+    }(o, d.generationId)) ? (i.delete(u), !1) : (d.attempts += 1, d.attempts < 8 && _ - d.startedAtMs < 6e4) ? a(d.attempts) : (i.delete(u), r || (r = !0, (0, t.captureHatchMessage)(t.HATCH_SENTRY_SURFACES.SETTINGS_TRUSTED_NETWORK, "Trusted Network contact did not report verified after a connected confirmation", {
+      level: "warning",
+      extra: {
+        attempts: d.attempts
+      }
+    })), !1) : a(d.attempts))
+  }])
+}, 884440, 468832, 430306, e => {
+  "use strict";
+  var t = e.i(359783),
+    i = e.i(701021);
+  let r = Object.freeze(["list_contacts", "list_invitations", "list_issued_access"]),
+    n = ["restricted", "collaborator", "trusted"];
+  class a extends Error {
+    code;
+    field;
+    constructor(e, t) {
+      super(`Invalid Trusted Network contract field: ${t}`), this.name = "TrustedNetworkContractError", this.code = e, this.field = t
+    }
+  }
+
+  function s(e, t) {
+    throw new a(e, t)
+  }
+
+  function o(e) {
+    return null !== e && "object" == typeof e && !Array.isArray(e)
+  }
+
+  function l(e, t) {
+    return o(e) ? e : s("invalid_field", t)
+  }
+
+  function _(e, t, i) {
+    return Object.prototype.hasOwnProperty.call(e, t) ? e[t] : s("missing_field", i)
+  }
+
+  function u(e, t) {
+    return "boolean" != typeof e ? s("invalid_field", t) : e
+  }
+
+  function d(e, t) {
+    return "number" != typeof e || !Number.isSafeInteger(e) || e < 0 ? s("invalid_field", t) : e
+  }
+
+  function c(e, t, i) {
+    return "string" != typeof e || 0 === e.length || e.length > i || e.trim() !== e ? s("invalid_field", t) : e
+  }
+
+  function p(e) {
+    return "create_invitation" === e || "accept_invitation" === e || "read_safety_code" === e || "confirm_safety_code" === e
+  }
+
+  function f(e, t, i) {
+    let r = d(_(e, t, `limits.${t}`), `limits.${t}`),
+      n = d(_(e, i, `limits.${i}`), `limits.${i}`);
+    return r < 1 || r > n ? s("invalid_field", `limits.${t}`) : n < 1 || n > 100 ? s("invalid_field", `limits.${i}`) : {
+      defaultPageSize: r,
+      maxPageSize: n
+    }
+  }
+
+  function m(e) {
+    var t;
+    let i = l(e, "status");
+    if (1 !== _(i, "contract_version", "contract_version")) return s("unsupported_contract_version", "contract_version");
+    let a = l(_(i, "identity", "identity"), "identity"),
+      m = {
+        museId: c(_(a, "muse_id", "identity.muse_id"), "identity.muse_id", 128),
+        keyEpoch: d(_(a, "key_epoch", "identity.key_epoch"), "identity.key_epoch")
+      },
+      g = u(_(i, "supported", "supported"), "supported"),
+      y = "enabled" === (t = _(i, "availability", "availability")) || "management_only" === t || "disabled" === t ? t : s("invalid_field", "availability"),
+      v = u(_(i, "has_existing_state", "has_existing_state"), "has_existing_state");
+    ("management_only" === y && !v || "disabled" === y && v) && s("invalid_field", "has_existing_state");
+    let h = function(e) {
+        if (!Array.isArray(e) || e.length > 64) return s("invalid_field", "allowed_operations");
+        let t = new Set,
+          i = [];
+        for (let r of e) {
+          let e = c(r, "allowed_operations", 64);
+          if (t.has(e)) return s("duplicate_allowed_operation", "allowed_operations");
+          t.add(e), ("list_contacts" === e || "list_invitations" === e || "list_issued_access" === e || "list_requests" === e || "create_invitation" === e || "accept_invitation" === e || "read_safety_code" === e || "confirm_safety_code" === e || "change_trust_preset" === e || "disconnect" === e) && i.push(e)
+        }
+        return {
+          known: Object.freeze(i),
+          wireCount: t.size
+        }
+      }(_(i, "allowed_operations", "allowed_operations")),
+      w = l(_(i, "features", "features"), "features"),
+      T = {
+        pairing: u(_(w, "pairing", "features.pairing"), "features.pairing"),
+        backgroundCoordination: u(_(w, "background_coordination", "features.background_coordination"), "features.background_coordination"),
+        coordinationStatus: u(_(w, "coordination_status", "features.coordination_status"), "features.coordination_status"),
+        customAccess: u(_(w, "custom_access", "features.custom_access"), "features.custom_access"),
+        circles: u(_(w, "circles", "features.circles"), "features.circles"),
+        peerSpaces: u(_(w, "peer_spaces", "features.peer_spaces"), "features.peer_spaces"),
+        foregroundChat: u(_(w, "foreground_chat", "features.foreground_chat"), "features.foreground_chat"),
+        managementInvalidation: u(_(w, "management_invalidation", "features.management_invalidation"), "features.management_invalidation")
+      },
+      $ = function(e) {
+        let t = Object.prototype.hasOwnProperty.call(e, "capability_catalog_version"),
+          i = Object.prototype.hasOwnProperty.call(e, "presets");
+        if (!t && !i) return null;
+        if (1 !== d(_(e, "capability_catalog_version", "capability_catalog_version"), "capability_catalog_version")) return s("unsupported_contract_version", "capability_catalog_version");
+        let r = _(e, "presets", "presets");
+        if (!Array.isArray(r) || 1 !== r.length) return s("invalid_field", "presets");
+        let n = l(r[0], "presets[0]");
+        if ("restricted" !== _(n, "id", "presets[0].id")) return s("invalid_field", "presets[0].id");
+        let a = _(n, "capabilities", "presets[0].capabilities");
+        if (!Array.isArray(a) || 2 !== a.length) return s("invalid_field", "presets[0].capabilities");
+        let o = new Set,
+          u = a.map((e, t) => {
+            let i = `presets[0].capabilities[${t}]`,
+              r = l(e, i),
+              n = c(_(r, "name", `${i}.name`), `${i}.name`, 64);
+            return "chat.send" !== n && "chat.read_history" !== n || o.has(n) ? s("invalid_field", `${i}.name`) : (o.add(n), "" !== _(r, "resource_selector", `${i}.resource_selector`)) ? s("invalid_field", `${i}.resource_selector`) : null !== _(r, "until_ms", `${i}.until_ms`) ? s("invalid_field", `${i}.until_ms`) : null !== _(r, "max_per_day", `${i}.max_per_day`) ? s("invalid_field", `${i}.max_per_day`) : {
+              name: n,
+              resourceSelector: "",
+              untilMs: null,
+              maxPerDay: null
+            }
+          });
+        return o.has("chat.send") && o.has("chat.read_history") ? {
+          version: 1,
+          presets: [{
+            id: "restricted",
+            capabilities: u
+          }]
+        } : s("invalid_field", "presets[0].capabilities")
+      }(i);
+    ! function(e, t, i, n, a) {
+      if ("disabled" === e) {
+        0 !== t.wireCount && s("invalid_operation_policy", "allowed_operations");
+        return
+      }
+      r.some(e => !t.known.includes(e)) && s("invalid_operation_policy", "allowed_operations"), !t.known.some(p) || "enabled" === e && i && n && null !== a || s("invalid_operation_policy", "allowed_operations")
+    }(y, h, g, T.pairing, $);
+    let b = l(_(i, "limits", "limits"), "limits"),
+      S = {
+        contacts: f(b, "peers_page_default", "peers_page_max"),
+        invitations: f(b, "invitations_page_default", "invitations_page_max"),
+        issuedAccess: f(b, "issued_grants_page_default", "issued_grants_page_max")
+      },
+      N = h.known.includes("list_requests") ? d(_(b, "requests_page_max", "limits.requests_page_max"), "limits.requests_page_max") : null;
+    if (null !== N && (N < 1 || N > 100)) return s("invalid_field", "limits.requests_page_max");
+    let k = c(_(i, "default_preset_id", "default_preset_id"), "default_preset_id", 64);
+    if (null !== $ && "restricted" !== k) return s("invalid_field", "default_preset_id");
+    let A = function(e) {
+      let t = e => ({
+        presets: null,
+        rejection: e
+      });
+      if (!Object.prototype.hasOwnProperty.call(e, "trust_presets") || null == e.trust_presets) return {
+        presets: null,
+        rejection: null
+      };
+      let i = e.trust_presets;
+      if (!Array.isArray(i)) return t("not_a_list");
+      if (i.length !== n.length) return t("unexpected_preset_count");
+      let r = [];
+      for (let [e, a] of i.entries()) {
+        if (!o(a) || a.id !== n[e]) return t("unexpected_preset");
+        let i = a.id;
+        if (! function(e) {
+            return n.some(t => t === e)
+          }(i)) return t("unexpected_preset");
+        let s = a.capabilities;
+        if (!Array.isArray(s) || s.length > 32) return t("invalid_capabilities");
+        let l = [];
+        for (let e of s) {
+          let i = o(e) ? e.name : void 0;
+          if ("string" != typeof i || 0 === i.length || i.length > 64 || i.trim() !== i) return t("invalid_capabilities");
+          l.push(i)
+        }
+        r.push({
+          id: i,
+          capabilityNames: Object.freeze(l)
+        })
+      }
+      return {
+        presets: Object.freeze(r),
+        rejection: null
+      }
+    }(i);
+    return {
+      contractVersion: 1,
+      identity: m,
+      supported: g,
+      availability: y,
+      hasExistingState: v,
+      allowedOperations: h.known,
+      ignoredAllowedOperationCount: h.wireCount - h.known.length,
+      features: T,
+      pageLimits: S,
+      requestsPageMax: N,
+      defaultPresetId: k,
+      capabilityCatalog: $,
+      trustPresets: A.presets,
+      trustPresetsRejection: A.rejection
+    }
+  }
+  e.s(["TRUSTED_NETWORK_MAX_MUSE_ID_LENGTH", 0, 128, "TRUSTED_NETWORK_MAX_PAGE_SIZE", 0, 100, "TRUSTED_NETWORK_MAX_PRESET_ID_LENGTH", 0, 64, "TrustedNetworkContractError", 0, a, "isJsonObject", 0, o, "isTrustedNetworkPairingOperation", 0, p, "parseTrustedNetworkStatus", 0, m, "requireBoolean", 0, u, "requireBoundedIdentifier", 0, c, "requireField", 0, _, "requireNonnegativeSafeInteger", 0, d, "requireObject", 0, l], 468832);
+  let g = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
+    y = /^[A-Za-z0-9_-]+$/,
+    v = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/,
+    h = /^[A-Za-z0-9_-]{21}[AQgw]$/,
+    w = /^[A-Za-z0-9+/]{21}[AQgw]==$/,
+    T = /^[0-9]{4} [0-9]{4}$/,
+    $ = /^[a-z]{1,32}$/;
+
+  function b(e) {
+    throw new a("invalid_field", e)
+  }
+
+  function S(e, t) {
+    let i = c(e, t, 36);
+    return g.test(i) && "00000000-0000-0000-0000-000000000000" !== i ? i : b(t)
+  }
+
+  function N(e, t) {
+    let i = d(e, t);
+    return i > 864e13 ? b(t) : i
+  }
+
+  function k(e, t) {
+    let i = d(e, t);
+    return i < 1 ? b(t) : i
+  }
+
+  function A(e, t) {
+    let r = c(e, t, i.HATCH_PEER_INVITE_FRAGMENT_MAX_LENGTH);
+    return y.test(r) && r.length % 4 != 1 ? r : b(t)
+  }
+
+  function R(e) {
+    let t = l(e, "disconnect"),
+      i = c(_(t, "muse_id", "muse_id"), "muse_id", 128),
+      r = S(_(t, "relationship_generation_id", "relationship_generation_id"), "relationship_generation_id"),
+      n = k(_(t, "relationship_revision", "relationship_revision"), "relationship_revision"),
+      a = N(_(t, "relationship_started_at_ms", "relationship_started_at_ms"), "relationship_started_at_ms"),
+      s = N(_(t, "request_expires_at_ms", "request_expires_at_ms"), "request_expires_at_ms");
+    return s <= a ? b("request_expires_at_ms") : {
+      muse_id: i,
+      relationship_generation_id: r,
+      relationship_revision: n,
+      relationship_started_at_ms: a,
+      request_expires_at_ms: s
+    }
+  }
+
+  function x(e) {
+    let t = l(e, "confirm_safety_code");
+    return {
+      relationship_generation_id: S(_(t, "relationship_generation_id", "relationship_generation_id"), "relationship_generation_id"),
+      ceremony_id: S(_(t, "ceremony_id", "ceremony_id"), "ceremony_id"),
+      confirm_request_id: S(_(t, "confirm_request_id", "confirm_request_id"), "confirm_request_id")
+    }
+  }
+  e.s(["parseTrustedNetworkAcceptInviteParams", 0, function(e) {
+    return {
+      fragment: A(_(l(e, "accept_invitation"), "fragment", "fragment"), "fragment")
+    }
+  }, "parseTrustedNetworkAcceptInviteResponse", 0, function(e) {
+    let t = l(e, "accepted_invitation");
+    return {
+      museId: c(_(t, "muse_id", "muse_id"), "muse_id", 128),
+      relationshipGenerationId: S(_(t, "relationship_generation_id", "relationship_generation_id"), "relationship_generation_id"),
+      relationshipRevision: k(_(t, "relationship_revision", "relationship_revision"), "relationship_revision")
+    }
+  }, "parseTrustedNetworkConfirmSafetyCodeParams", 0, x, "parseTrustedNetworkConfirmSafetyCodeResponse", 0, function(e, t) {
+    let i = x(t),
+      r = l(e, "confirmed_safety_code"),
+      n = S(_(r, "relationship_generation_id", "relationship_generation_id"), "relationship_generation_id");
+    if (n !== i.relationship_generation_id) return b("relationship_generation_id");
+    let a = S(_(r, "ceremony_id", "ceremony_id"), "ceremony_id");
+    if (a !== i.ceremony_id) return b("ceremony_id");
+    let s = S(_(r, "confirm_request_id", "confirm_request_id"), "confirm_request_id");
+    if (s !== i.confirm_request_id) return b("confirm_request_id");
+    let o = _(r, "status", "status");
+    if ("confirmed_local" !== o && "verified" !== o) return b("status");
+    let u = l(_(r, "initial_access", "initial_access"), "initial_access");
+    if ("restricted" !== _(u, "preset_id", "initial_access.preset_id")) return b("initial_access.preset_id");
+    let d = _(u, "state", "initial_access.state");
+    return "active" !== d && "proposed" !== d || "verified" === o && "active" !== d || "confirmed_local" === o && "proposed" !== d ? b("initial_access.state") : {
+      relationshipGenerationId: n,
+      relationshipRevision: k(_(r, "relationship_revision", "relationship_revision"), "relationship_revision"),
+      ceremonyId: a,
+      confirmRequestId: s,
+      status: o,
+      initialAccess: {
+        presetId: "restricted",
+        state: d
+      }
+    }
+  }, "parseTrustedNetworkDisconnectParams", 0, R, "parseTrustedNetworkDisconnectResponse", 0, function(e, t) {
+    let i = l(e, "disconnect");
+    return !0 !== i.accepted || "unpaired" !== i.status || i.muse_id !== t.muse_id || i.relationship_generation_id !== t.relationship_generation_id || i.relationship_revision !== t.relationship_revision ? b("disconnect") : {
+      accepted: !0,
+      status: "unpaired",
+      muse_id: t.muse_id,
+      relationship_generation_id: t.relationship_generation_id,
+      relationship_revision: t.relationship_revision
+    }
+  }, "parseTrustedNetworkMintInviteParams", 0, function(e) {
+    let t, i, r = l(e, "create_invitation"),
+      n = S(_(r, "create_request_id", "create_request_id"), "create_request_id");
+    if (Object.prototype.hasOwnProperty.call(r, "label")) {
+      let e = r.label;
+      if ("string" != typeof e || e.length > 512 || e.trim() !== e) return b("label");
+      t = e
+    }
+    if (Object.prototype.hasOwnProperty.call(r, "offered_preset")) {
+      if ("restricted" !== r.offered_preset) return b("offered_preset");
+      i = "restricted"
+    }
+    return {
+      create_request_id: n,
+      ...void 0 !== t ? {
+        label: t
+      } : {},
+      ...void 0 !== i ? {
+        offered_preset: i
+      } : {}
+    }
+  }, "parseTrustedNetworkMintInviteResponse", 0, function(e, t) {
+    let i = S(t, "create_request_id"),
+      r = l(e, "minted_invitation"),
+      n = S(_(r, "create_request_id", "create_request_id"), "create_request_id");
+    if (n !== i) return b("create_request_id");
+    let a = S(_(r, "relationship_generation_id", "relationship_generation_id"), "relationship_generation_id"),
+      s = N(_(r, "relationship_started_at_ms", "relationship_started_at_ms"), "relationship_started_at_ms"),
+      o = N(_(r, "request_expires_at_ms", "request_expires_at_ms"), "request_expires_at_ms");
+    if (o <= s || o - s > 6048e5) return b("request_expires_at_ms");
+    let u = c(_(r, "invite_id_b64", "invite_id_b64"), "invite_id_b64", 22);
+    if (!h.test(u)) return b("invite_id_b64");
+    let d = c(_(r, "invite_b64", "invite_b64"), "invite_b64", 4096);
+    if (d.length % 4 != 0 || !v.test(d)) return b("invite_b64");
+    let p = A(_(r, "fragment", "fragment"), "fragment"),
+      f = N(_(r, "expires_at_ms", "expires_at_ms"), "expires_at_ms");
+    return f !== o ? b("expires_at_ms") : {
+      createRequestId: n,
+      relationshipGenerationId: a,
+      relationshipStartedAtMs: s,
+      requestExpiresAtMs: o,
+      inviteId: u,
+      inviteB64: d,
+      fragment: p,
+      expiresAtMs: f
+    }
+  }, "parseTrustedNetworkRevokeInviteParams", 0, function(e) {
+    let t = c(_(l(e, "revoke_invitation"), "invite_id", "invite_id"), "invite_id", 24);
+    return h.test(t) || w.test(t) ? {
+      invite_id: t
+    } : b("invite_id")
+  }, "parseTrustedNetworkRevokeInviteResponse", 0, function(e) {
+    return !0 !== l(e, "revoke_invitation").accepted ? b("revoke_invitation") : {
+      accepted: !0
+    }
+  }, "parseTrustedNetworkSafetyCodeParams", 0, function(e) {
+    return {
+      relationship_generation_id: S(_(l(e, "read_safety_code"), "relationship_generation_id", "relationship_generation_id"), "relationship_generation_id")
+    }
+  }, "parseTrustedNetworkSafetyCodeResponse", 0, function(e, t) {
+    let i = S(t, "relationship_generation_id"),
+      r = l(e, "safety_code"),
+      n = S(_(r, "relationship_generation_id", "relationship_generation_id"), "relationship_generation_id");
+    if (n !== i) return b("relationship_generation_id");
+    let a = c(_(r, "digits", "digits"), "digits", 9);
+    if (!T.test(a)) return b("digits");
+    let s = _(r, "words", "words");
+    if (!Array.isArray(s) || 3 !== s.length) return b("words");
+    let o = s.map((e, t) => {
+      let i = `words[${t}]`,
+        r = c(e, i, 32);
+      return $.test(r) ? r : b(i)
+    });
+    return {
+      relationshipGenerationId: n,
+      relationshipRevision: k(_(r, "relationship_revision", "relationship_revision"), "relationship_revision"),
+      ceremonyId: S(_(r, "ceremony_id", "ceremony_id"), "ceremony_id"),
+      digits: a,
+      words: o
+    }
+  }, "parseTrustedNetworkUpdateTrustPresetParams", 0, function(e) {
+    let t = l(e, "change_trust_preset"),
+      i = c(_(t, "muse_id", "muse_id"), "muse_id", 128),
+      r = _(t, "trust_preset", "trust_preset");
+    return "restricted" !== r && "collaborator" !== r && "trusted" !== r ? b("trust_preset") : {
+      muse_id: i,
+      trust_preset: r
+    }
+  }, "parseTrustedNetworkUpdateTrustPresetResponse", 0, function(e) {
+    return !0 !== l(e, "change_trust_preset").accepted ? b("change_trust_preset") : {
+      accepted: !0
+    }
+  }], 430306);
+  let q = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
+    E = /^[A-Za-z0-9_-]+$/;
+
+  function O(e) {
+    throw new a("invalid_field", e)
+  }
+
+  function C(e, t, i) {
+    return "string" != typeof e || e.length > i ? O(t) : e
+  }
+
+  function P(e, t, i) {
+    return null === e ? null : c(e, t, i)
+  }
+
+  function I(e, t) {
+    let i = d(e, t);
+    return i > 864e13 ? O(t) : i
+  }
+
+  function M(e, t) {
+    return null === e ? null : I(e, t)
+  }
+
+  function K(e, t, i, r) {
+    if (r.remaining -= 1, r.remaining < 0 || i > 8) return O(t);
+    if (null === e || "boolean" == typeof e) return e;
+    if ("number" == typeof e) return Number.isFinite(e) ? e : O(t);
+    if ("string" == typeof e) return C(e, t, 4096);
+    if (Array.isArray(e)) return e.length > 100 ? O(t) : e.map((e, n) => K(e, `${t}[${n}]`, i + 1, r));
+    if (!o(e)) return O(t);
+    let n = Object.entries(e);
+    return n.length > 100 ? O(t) : Object.fromEntries(n.map(([e, n]) => ((0 === e.length || e.length > 128) && O(t), [e, K(n, `${t}.${e}`, i + 1, r)])))
+  }
+
+  function U(e, t, i = 4096) {
+    let r = l(e, "page"),
+      n = _(r, "items", "items");
+    if (!Array.isArray(n) || n.length > 100) return O("items");
+    let a = [],
+      s = 0;
+    return n.forEach((e, i) => {
+      let r = t(e, `items[${i}]`);
+      null != r ? a.push(r) : s += 1
+    }), {
+      items: a,
+      nextCursor: function(e, t = 4096) {
+        return null === e ? null : c(e, "next_cursor", t)
+      }(_(r, "next_cursor", "next_cursor"), i),
+      ignoredItemCount: s
+    }
+  }
+
+  function j(e, t) {
+    let i = l(e, t),
+      r = c(_(i, "relationship_generation_id", `${t}.relationship_generation_id`), `${t}.relationship_generation_id`, 36);
+    if (!q.test(r) || "00000000-0000-0000-0000-000000000000" === r) return O(`${t}.relationship_generation_id`);
+    let n = d(_(i, "relationship_revision", `${t}.relationship_revision`), `${t}.relationship_revision`);
+    if (n < 1) return O(`${t}.relationship_revision`);
+    let a = I(_(i, "relationship_started_at_ms", `${t}.relationship_started_at_ms`), `${t}.relationship_started_at_ms`),
+      s = I(_(i, "request_expires_at_ms", `${t}.request_expires_at_ms`), `${t}.request_expires_at_ms`);
+    if (a >= s) return O(`${t}.request_expires_at_ms`);
+    let o = _(i, "direction", `${t}.direction`);
+    if ("incoming" !== o && "outgoing" !== o) return O(`${t}.direction`);
+    let p = _(i, "status", `${t}.status`);
+    if ("pending" !== p && "awaiting_sas" !== p && "confirmed_local" !== p) return O(`${t}.status`);
+    let f = _(i, "ceremony_state", `${t}.ceremony_state`);
+    if ("waiting" !== f && "ready" !== f && "confirmed_local" !== f && "unavailable" !== f) return O(`${t}.ceremony_state`);
+    let m = l(_(i, "initial_access", `${t}.initial_access`), `${t}.initial_access`),
+      g = _(m, "state", `${t}.initial_access.state`);
+    if ("proposed" !== g) return O(`${t}.initial_access.state`);
+    let y = _(i, "allowed_actions", `${t}.allowed_actions`);
+    if (!Array.isArray(y) || y.length > 64) return O(`${t}.allowed_actions`);
+    let v = new Set,
+      h = [];
+    for (let e of y) {
+      let i = c(e, `${t}.allowed_actions`, 64);
+      if (v.has(i)) return O(`${t}.allowed_actions`);
+      v.add(i), ("read_safety_code" === i || "confirm_safety_code" === i || "decline_request" === i || "withdraw_request" === i) && h.push(i)
+    }
+    return {
+      relationshipGenerationId: r,
+      relationshipRevision: n,
+      relationshipStartedAtMs: a,
+      requestExpiresAtMs: s,
+      museId: c(_(i, "muse_id", `${t}.muse_id`), `${t}.muse_id`, 128),
+      displayName: C(_(i, "display_name", `${t}.display_name`), `${t}.display_name`, 512),
+      agentName: C(_(i, "agent_name", `${t}.agent_name`), `${t}.agent_name`, 512),
+      direction: o,
+      status: p,
+      ceremonyState: f,
+      attested: u(_(i, "attested", `${t}.attested`), `${t}.attested`),
+      initialAccess: {
+        presetId: c(_(m, "preset_id", `${t}.initial_access.preset_id`), `${t}.initial_access.preset_id`, 64),
+        capabilityCatalogVersion: d(_(m, "capability_catalog_version", `${t}.initial_access.capability_catalog_version`), `${t}.initial_access.capability_catalog_version`),
+        state: g
+      },
+      allowedActions: h
+    }
+  }
+
+  function Q(e, t) {
+    let i, r, n, a = l(e, t),
+      s = c(_(a, "muse_id", `${t}.muse_id`), `${t}.muse_id`, 128),
+      o = C(_(a, "display_name", `${t}.display_name`), `${t}.display_name`, 512),
+      d = C(_(a, "agent_name", `${t}.agent_name`), `${t}.agent_name`, 512),
+      p = "pending" === (r = c(_(a, "status", `${t}.status`), `${t}.status`, 64)) || "awaiting_sas" === r || "confirmed_local" === r || "verified" === r || "identity_changed" === r || "unpaired" === r ? r : null,
+      f = c(_(a, "trust_preset", `${t}.trust_preset`), `${t}.trust_preset`, 64),
+      m = u(_(a, "sas_confirmed_local", `${t}.sas_confirmed_local`), `${t}.sas_confirmed_local`),
+      g = M(_(a, "paired_at_ms", `${t}.paired_at_ms`), `${t}.paired_at_ms`),
+      y = I(_(a, "created_at_ms", `${t}.created_at_ms`), `${t}.created_at_ms`),
+      v = u(_(a, "attested", `${t}.attested`), `${t}.attested`);
+    if (null == p) return null;
+    try {
+      i = R(a)
+    } catch {}
+    let h = "string" == typeof(n = a.chat_session_id) && n.length > 0 && n.length <= 64 && n.trim() === n ? n : null;
+    return {
+      museId: s,
+      ...null == i ? {} : {
+        disconnectBinding: i
+      },
+      ...null == h ? {} : {
+        chatSessionId: h
+      },
+      displayName: o,
+      agentName: d,
+      status: p,
+      trustPreset: f,
+      sasConfirmedLocal: m,
+      pairedAtMs: g,
+      createdAtMs: y,
+      attested: v
+    }
+  }
+
+  function G(e, t) {
+    let i = l(e, t),
+      r = Object.prototype.hasOwnProperty.call(i, "create_request_id") ? P(i.create_request_id, `${t}.create_request_id`, 256) : null;
+    return {
+      inviteId: c(_(i, "invite_id_b64", `${t}.invite_id_b64`), `${t}.invite_id_b64`, 256),
+      createRequestId: r,
+      label: C(_(i, "label", `${t}.label`), `${t}.label`, 512),
+      offeredPreset: c(_(i, "offered_preset", `${t}.offered_preset`), `${t}.offered_preset`, 64),
+      createdAtMs: I(_(i, "created_at_ms", `${t}.created_at_ms`), `${t}.created_at_ms`),
+      expiresAtMs: I(_(i, "expires_at_ms", `${t}.expires_at_ms`), `${t}.expires_at_ms`),
+      claimedByMuse: P(_(i, "claimed_by_muse", `${t}.claimed_by_muse`), `${t}.claimed_by_muse`, 128),
+      claimedAtMs: M(_(i, "claimed_at_ms", `${t}.claimed_at_ms`), `${t}.claimed_at_ms`),
+      revokedAtMs: M(_(i, "revoked_at_ms", `${t}.revoked_at_ms`), `${t}.revoked_at_ms`)
+    }
+  }
+
+  function H(e, t) {
+    let i = l(e, t);
+    return {
+      grantId: c(_(i, "grant_id", `${t}.grant_id`), `${t}.grant_id`, 256),
+      subjectKind: c(_(i, "subject_kind", `${t}.subject_kind`), `${t}.subject_kind`, 256),
+      subjectId: c(_(i, "subject_id", `${t}.subject_id`), `${t}.subject_id`, 256),
+      capabilities: K(_(i, "capabilities", `${t}.capabilities`), `${t}.capabilities`, 0, {
+        remaining: 1024
+      }),
+      revision: d(_(i, "revision", `${t}.revision`), `${t}.revision`),
+      notBeforeMs: I(_(i, "not_before_ms", `${t}.not_before_ms`), `${t}.not_before_ms`),
+      expiresAtMs: M(_(i, "expires_at_ms", `${t}.expires_at_ms`), `${t}.expires_at_ms`),
+      revokedAtMs: M(_(i, "revoked_at_ms", `${t}.revoked_at_ms`), `${t}.revoked_at_ms`),
+      provenance: K(_(i, "provenance", `${t}.provenance`), `${t}.provenance`, 0, {
+        remaining: 1024
+      }),
+      createdAtMs: I(_(i, "created_at_ms", `${t}.created_at_ms`), `${t}.created_at_ms`)
+    }
+  }
+  var z = e.i(925301),
+    F = e.i(790170),
+    D = e.i(863641);
+  let W = Object.freeze({
+      kind: "unsupported"
+    }),
+    L = (0, t.createClientLogger)("TrustedNetworkQueries"),
+    Y = !1,
+    B = !1,
+    Z = !1,
+    V = {
+      all: ["trusted-network"],
+      status: e => [...V.all, e, "status"],
+      contacts: (e, t, i) => [...V.all, e, "identity-generation", t, "contacts", i],
+      invitations: (e, t, i) => [...V.all, e, "identity-generation", t, "invitations", i],
+      issuedAccess: (e, t, i, r) => [...V.all, e, "identity-generation", t, "issued-access", i, r],
+      requests: (e, t, i, r) => [...V.all, e, "identity-generation", t, "requests", i, r]
+    };
+
+  function X(e, t) {
+    return e.supported && "disabled" !== e.availability && e.allowedOperations.includes(t) && ("disconnect" !== t && "change_trust_preset" !== t || "enabled" === e.availability) && (!p(t) || "enabled" === e.availability && e.features.pairing && e.capabilityCatalog?.version === 1 && "restricted" === e.defaultPresetId)
+  }
+
+  function J(e, t) {
+    if (e.targetKey !== t) throw Error("Trusted Network query target does not match the active gateway target")
+  }
+
+  function ee(e, t) {
+    if (!Number.isSafeInteger(e) || e < 1 || e > 100) throw Error("Trusted Network page limit is outside the bounded contract");
+    return null == t ? {
+      limit: e
+    } : {
+      limit: e,
+      cursor: t
+    }
+  }
+  let et = (0, F.createGatewayQuery)({
+      id: "peers.status",
+      queryKey: ({
+        targetKey: e
+      }) => V.status(e),
+      noiseFn: async (e, {
+        targetKey: t
+      }) => {
+        J(e, t);
+        try {
+          let t = m(await e.sendRequest("peers.status", {}));
+          return t.ignoredAllowedOperationCount > 0 && !B && (B = !0, (0, D.captureHatchMessage)(D.HATCH_SENTRY_SURFACES.SETTINGS_TRUSTED_NETWORK, "Ignored unsupported Trusted Network status operations", {
+            level: "warning",
+            extra: {
+              ignoredOperationCount: t.ignoredAllowedOperationCount
+            }
+          })), null != t.trustPresetsRejection && t.allowedOperations.includes("change_trust_preset") && !Z && (Z = !0, (0, D.captureHatchMessage)(D.HATCH_SENTRY_SURFACES.SETTINGS_TRUSTED_NETWORK, "Rejected Trusted Network access-level catalog", {
+            level: "warning",
+            extra: {
+              reason: t.trustPresetsRejection
+            }
+          })), t.supported ? {
+            kind: "status",
+            status: t
+          } : W
+        } catch (e) {
+          if ((0, z.isGatewayNotFoundError)(e)) return W;
+          throw e
+        }
+      },
+      staleTime: 0,
+      meta: {
+        sentrySurface: D.HATCH_SENTRY_SURFACES.SETTINGS_TRUSTED_NETWORK
+      }
+    }),
+    ei = (0, F.createGatewayInfiniteQuery)({
+      id: "peers.list",
+      queryKey: ({
+        targetKey: e,
+        identityGeneration: t,
+        limit: i
+      }) => V.contacts(e, t, i),
+      noiseFn: async (e, {
+        targetKey: t,
+        limit: i
+      }, r) => {
+        J(e, t);
+        let n = function(e) {
+          let {
+            items: t,
+            nextCursor: i,
+            ignoredItemCount: r
+          } = U(e, Q);
+          return {
+            items: t,
+            nextCursor: i,
+            ignoredStatusCount: r
+          }
+        }(await e.sendRequest("peers.list", ee(i, r)));
+        return n.ignoredStatusCount > 0 && (L.retainForBugReport("warn", "Ignored Trusted Network contacts with unsupported status"), Y || (Y = !0, (0, D.captureHatchMessage)(D.HATCH_SENTRY_SURFACES.SETTINGS_TRUSTED_NETWORK, "Ignored Trusted Network contacts with unsupported status", {
+          level: "warning",
+          extra: {
+            ignoredContactCount: n.ignoredStatusCount
+          }
+        }))), n
+      },
+      invalidationKey: () => V.all,
+      initialPageParam: null,
+      getNextPageParam: e => e.nextCursor ?? void 0,
+      staleTime: 0,
+      meta: {
+        sentrySurface: D.HATCH_SENTRY_SURFACES.SETTINGS_TRUSTED_NETWORK
+      }
+    }),
+    er = (0, F.createGatewayInfiniteQuery)({
+      id: "peers.invites.list",
+      queryKey: ({
+        targetKey: e,
+        identityGeneration: t,
+        limit: i
+      }) => V.invitations(e, t, i),
+      noiseFn: async (e, {
+        targetKey: t,
+        limit: i
+      }, r) => (J(e, t), function(e) {
+        let {
+          items: t,
+          nextCursor: i
+        } = U(e, G);
+        return {
+          items: t,
+          nextCursor: i
+        }
+      }(await e.sendRequest("peers.invites.list", ee(i, r)))),
+      invalidationKey: () => V.all,
+      initialPageParam: null,
+      getNextPageParam: e => e.nextCursor ?? void 0,
+      staleTime: 0,
+      meta: {
+        sentrySurface: D.HATCH_SENTRY_SURFACES.SETTINGS_TRUSTED_NETWORK
+      }
+    }),
+    en = (0, F.createGatewayInfiniteQuery)({
+      id: "grants.list",
+      queryKey: ({
+        targetKey: e,
+        identityGeneration: t,
+        limit: i,
+        includeRevoked: r
+      }) => V.issuedAccess(e, t, i, r),
+      noiseFn: async (e, {
+        targetKey: t,
+        limit: i,
+        includeRevoked: r
+      }, n) => (J(e, t), function(e) {
+        let {
+          items: t,
+          nextCursor: i
+        } = U(e, H);
+        return {
+          items: t,
+          nextCursor: i
+        }
+      }(await e.sendRequest("grants.list", {
+        ...ee(i, n),
+        include_revoked: r
+      }))),
+      invalidationKey: () => V.all,
+      initialPageParam: null,
+      getNextPageParam: e => e.nextCursor ?? void 0,
+      staleTime: 0,
+      meta: {
+        sentrySurface: D.HATCH_SENTRY_SURFACES.SETTINGS_TRUSTED_NETWORK
+      }
+    }),
+    ea = (0, F.createGatewayInfiniteQuery)({
+      id: "peers.requests.list",
+      queryKey: ({
+        targetKey: e,
+        identityGeneration: t,
+        direction: i,
+        limit: r
+      }) => V.requests(e, t, i, r),
+      noiseFn: async (e, {
+        targetKey: t,
+        direction: i,
+        limit: r
+      }, n) => {
+        let a;
+        return J(e, t), null == (a = U(await e.sendRequest("peers.requests.list", {
+          ...ee(r, n),
+          ..."incoming" === i ? {
+            direction: i
+          } : {}
+        }), j, 1024)).nextCursor || E.test(a.nextCursor) ? {
+          items: a.items,
+          nextCursor: a.nextCursor
+        } : O("next_cursor")
+      },
+      invalidationKey: () => V.all,
+      initialPageParam: null,
+      getNextPageParam: e => e.nextCursor ?? void 0,
+      staleTime: 0,
+      meta: {
+        sentrySurface: D.HATCH_SENTRY_SURFACES.SETTINGS_TRUSTED_NETWORK
+      }
+    });
+  e.s(["canMountTrustedNetworkPairing", 0, function(e) {
+    return X(e, "create_invitation") && X(e, "accept_invitation") && X(e, "read_safety_code") && X(e, "confirm_safety_code")
+  }, "isTrustedNetworkOperationAllowed", 0, X, "trustedNetworkContactsQuery", 0, ei, "trustedNetworkIdentityGeneration", 0, function(e) {
+    return JSON.stringify([e.contractVersion, e.identity.museId, e.identity.keyEpoch])
+  }, "trustedNetworkInvitationsQuery", 0, er, "trustedNetworkIssuedAccessQuery", 0, en, "trustedNetworkQueryKeys", 0, V, "trustedNetworkRequestsQuery", 0, ea, "trustedNetworkStatusQuery", 0, et], 884440)
+}, 274169, e => {
+  "use strict";
+  var t = e.i(722099),
+    i = e.i(293760),
+    r = e.i(849329),
+    n = e.i(14751),
+    a = e.i(720756),
+    s = e.i(71308),
+    o = e.i(884440);
+  e.s(["useTrustedNetworkManagementQueries", 0, function(e) {
+    let r, n, l, _, u, d, c, p, f, m, g, y, v, h, w, T, $ = (0, t.c)(55),
+      {
+        enteredFeature: b,
+        currentStatus: S,
+        requestedReads: N
+      } = e,
+      k = (0, a.useGatewayQueryContext)(),
+      A = null != S && S.targetKey === k.targetKey ? S : null,
+      R = A?.identityGeneration ?? "disabled",
+      x = A?.status ?? null,
+      q = b && null != k.gatewayUrl && k.isReady && null != x && x.supported && "disabled" !== x.availability;
+    $[0] !== q || $[1] !== x ? (r = e => q && null != x && (0, o.isTrustedNetworkOperationAllowed)(x, e), $[0] = q, $[1] = x, $[2] = r) : r = $[2];
+    let E = r;
+    $[3] !== N ? (n = e => null == N || !0 === N[e], $[3] = N, $[4] = n) : n = $[4];
+    let O = n;
+    $[5] !== k || $[6] !== R || $[7] !== x?.pageLimits.contacts.defaultPageSize ? (l = o.trustedNetworkContactsQuery.infiniteQueryOptions({
+      targetKey: k.targetKey,
+      identityGeneration: R,
+      limit: x?.pageLimits.contacts.defaultPageSize ?? 1
+    }, k), $[5] = k, $[6] = R, $[7] = x?.pageLimits.contacts.defaultPageSize, $[8] = l) : l = $[8], $[9] !== E || $[10] !== O ? (_ = O("contacts") && E("list_contacts"), $[9] = E, $[10] = O, $[11] = _) : _ = $[11], $[12] !== k.targetKey || $[13] !== R ? (u = e => (0, s.trustedNetworkContactsReconcileInterval)(k.targetKey, R, e.state.data?.pages, Math.max(e.state.dataUpdatedAt, e.state.errorUpdatedAt)), $[12] = k.targetKey, $[13] = R, $[14] = u) : u = $[14], $[15] !== l || $[16] !== _ || $[17] !== u ? (d = {
+      ...l,
+      enabled: _,
+      refetchOnMount: "always",
+      refetchInterval: u
+    }, $[15] = l, $[16] = _, $[17] = u, $[18] = d) : d = $[18];
+    let C = (0, i.useInfiniteQuery)(d);
+    $[19] !== k || $[20] !== R || $[21] !== x?.pageLimits.invitations.defaultPageSize ? (c = o.trustedNetworkInvitationsQuery.infiniteQueryOptions({
+      targetKey: k.targetKey,
+      identityGeneration: R,
+      limit: x?.pageLimits.invitations.defaultPageSize ?? 1
+    }, k), $[19] = k, $[20] = R, $[21] = x?.pageLimits.invitations.defaultPageSize, $[22] = c) : c = $[22], $[23] !== E || $[24] !== O ? (p = O("invitations") && E("list_invitations"), $[23] = E, $[24] = O, $[25] = p) : p = $[25], $[26] !== c || $[27] !== p ? (f = {
+      ...c,
+      enabled: p,
+      refetchOnMount: "always"
+    }, $[26] = c, $[27] = p, $[28] = f) : f = $[28];
+    let P = (0, i.useInfiniteQuery)(f);
+    $[29] !== k || $[30] !== R || $[31] !== x?.pageLimits.issuedAccess.defaultPageSize ? (m = o.trustedNetworkIssuedAccessQuery.infiniteQueryOptions({
+      targetKey: k.targetKey,
+      identityGeneration: R,
+      limit: x?.pageLimits.issuedAccess.defaultPageSize ?? 1,
+      includeRevoked: !1
+    }, k), $[29] = k, $[30] = R, $[31] = x?.pageLimits.issuedAccess.defaultPageSize, $[32] = m) : m = $[32], $[33] !== E || $[34] !== O ? (g = O("issuedAccess") && E("list_issued_access"), $[33] = E, $[34] = O, $[35] = g) : g = $[35], $[36] !== m || $[37] !== g ? (y = {
+      ...m,
+      enabled: g,
+      refetchOnMount: "always"
+    }, $[36] = m, $[37] = g, $[38] = y) : y = $[38];
+    let I = (0, i.useInfiniteQuery)(y);
+    $[39] !== k || $[40] !== R || $[41] !== x?.requestsPageMax ? (v = o.trustedNetworkRequestsQuery.infiniteQueryOptions({
+      targetKey: k.targetKey,
+      identityGeneration: R,
+      direction: "all",
+      limit: Math.min(x?.requestsPageMax ?? 1, 50)
+    }, k), $[39] = k, $[40] = R, $[41] = x?.requestsPageMax, $[42] = v) : v = $[42], $[43] !== E || $[44] !== O || $[45] !== x?.requestsPageMax ? (h = O("requests") && E("list_requests") && x?.requestsPageMax != null, $[43] = E, $[44] = O, $[45] = x?.requestsPageMax, $[46] = h) : h = $[46], $[47] !== v || $[48] !== h ? (w = {
+      ...v,
+      enabled: h,
+      refetchOnMount: "always",
+      refetchOnWindowFocus: "always",
+      refetchOnReconnect: "always"
+    }, $[47] = v, $[48] = h, $[49] = w) : w = $[49];
+    let M = (0, i.useInfiniteQuery)(w);
+    return $[50] !== C || $[51] !== P || $[52] !== I || $[53] !== M ? (T = {
+      contacts: C,
+      invitations: P,
+      issuedAccess: I,
+      requests: M
+    }, $[50] = C, $[51] = P, $[52] = I, $[53] = M, $[54] = T) : T = $[54], T
+  }, "useTrustedNetworkStatusQuery", 0, function(e) {
+    let i, s, l, _, u, d = (0, t.c)(17),
+      {
+        enabled: c
+      } = e,
+      p = (0, a.useGatewayQueryContext)();
+    d[0] !== p.gatewayUrl || d[1] !== p.isReady ? (i = (0, n.isMethodReadyForTransport)({
+      method: "peers.status",
+      gatewayUrl: p.gatewayUrl,
+      isWsReady: p.isReady
+    }), d[0] = p.gatewayUrl, d[1] = p.isReady, d[2] = i) : i = d[2];
+    let f = i;
+    d[3] !== p ? (s = o.trustedNetworkStatusQuery.queryOptions({
+      targetKey: p.targetKey
+    }, p), d[3] = p, d[4] = s) : s = d[4];
+    let m = c && null != p.gatewayUrl && f;
+    d[5] !== s || d[6] !== m ? (l = {
+      ...s,
+      enabled: m,
+      refetchOnMount: "always",
+      refetchOnReconnect: "always"
+    }, d[5] = s, d[6] = m, d[7] = l) : l = d[7];
+    let g = (0, r.useQuery)(l),
+      y = f && g.isSuccess && !g.isFetching && g.isFetchedAfterMount;
+    d[8] !== p.targetKey || d[9] !== g.data ? (_ = g.data?.kind === "status" ? {
+      targetKey: p.targetKey,
+      identityGeneration: (0, o.trustedNetworkIdentityGeneration)(g.data.status),
+      status: g.data.status
+    } : null, d[8] = p.targetKey, d[9] = g.data, d[10] = _) : _ = d[10];
+    let v = _,
+      h = y ? v : null,
+      w = v?.status.availability === "disabled" ? null : v,
+      T = h ?? (g.isFetching ? w : null),
+      $ = y && g.data?.kind === "unsupported";
+    return d[11] !== w || d[12] !== h || d[13] !== T || d[14] !== g || d[15] !== $ ? (u = {
+      query: g,
+      current: h,
+      mounted: T,
+      cachedMountableStatus: w,
+      isUnsupported: $
+    }, d[11] = w, d[12] = h, d[13] = T, d[14] = g, d[15] = $, d[16] = u) : u = d[16], u
+  }])
+}]);
+
+//# debugId=252e29c1-4305-483c-a716-f2a2b0b76a62
+//# sourceMappingURL=2v24_662sw1n0.js.map

@@ -1,0 +1,2134 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "35620a26-18e4-113a-e3fd-2374dd7ec716")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 361896, 506257, e => {
+  "use strict";
+  var t = e.i(359783),
+    n = e.i(874514),
+    r = e.i(863641),
+    l = e.i(790170),
+    o = e.i(925301);
+
+  function a(e, t, n, r) {
+    return null == r ? e(t, n) : e(t, n, r)
+  }
+  let i = new Set(["pending", "approved", "denied", "timed_out"]),
+    s = new Set(["allow_once", "allow_session", "allow_always", "auto_allow", "deny_always", "deny", "timed_out"]),
+    u = new Set(["destination", "destination_domain", "entity", "connector_all_actions", "recipient"]),
+    c = new Set(["auto_allow", "always_ask"]),
+    p = new Set(["disabled", "full"]),
+    d = new Set(["enabled", "disabled"]),
+    _ = new Set(["allow", "ask", "deny"]),
+    y = new Set(["auth", "policy_only", "internal"]),
+    m = new Set(["connector_override", "network_rule", "transient_connector_grant", "transient_network_grant"]),
+    f = new Set(["durable", "session", "today"]),
+    h = new Set(["schedule", "space", "idea", "feed"]),
+    v = (0, t.createClientLogger)("egressApprovalsQueries"),
+    g = new Set,
+    b = new Set,
+    w = new Set,
+    k = {
+      all: ["approvals"],
+      list: e => ["approvals", e],
+      historyRoot: e => ["approvals", e, "history"],
+      history: (e, t) => [...k.historyRoot(e), t?.limit ?? null, t?.record_schema ?? "legacy"],
+      detail: (e, t) => ["approvals", e, t]
+    },
+    A = {
+      all: ["permissions"],
+      detail: e => ["permissions", e],
+      activeRoot: e => ["permissions", e, "active"],
+      active: (e, t) => null == t ? A.activeRoot(e) : [...A.activeRoot(e), t.limit ?? null, t.lifetime ?? null, t.target_type ?? null, t.scope_type ?? null, t.kind ?? null, t.mode ?? null],
+      activeGrouped: (e, t) => [...A.activeRoot(e), t.group_by, t.limit ?? null, t.lifetime ?? null, t.scope_type ?? null, t.kind ?? null, t.mode ?? null],
+      settings: e => ["permissions", e, "settings"]
+    },
+    S = (0, l.createGatewayQuery)({
+      id: "approvals.list",
+      queryKey: ({
+        gatewayUrl: e
+      }) => k.list(e),
+      noiseFn: async e => eU(await e.sendRequest("egress.approvals", {})),
+      invalidationKey: () => k.all,
+      staleTime: 5e3
+    }),
+    j = (0, l.createGatewayQuery)({
+      id: "approvals.detail",
+      queryKey: ({
+        gatewayUrl: e,
+        approvalId: t
+      }) => k.detail(e, t),
+      noiseFn: async (e, t) => {
+        let n = await e.sendRequest("egress.approval", {
+          approval_id: t.approvalId
+        });
+        return "object" != typeof n.approval || null == n.approval ? null : eM(n.approval)
+      },
+      staleTime: 5e3
+    }),
+    E = (0, l.createGatewayQuery)({
+      id: "permissions.detail",
+      queryKey: ({
+        gatewayUrl: e
+      }) => A.detail(e),
+      noiseFn: async e => ez(await e.sendRequest("egress.permissions", {})),
+      invalidationKey: () => A.all,
+      staleTime: 5e3
+    }),
+    x = (0, l.createGatewayQuery)({
+      id: "permissions.settings",
+      queryKey: ({
+        gatewayUrl: e
+      }) => A.settings(e),
+      noiseFn: async e => eQ(await e.sendRequest("permissions.settings", {})),
+      invalidationKey: () => A.all,
+      meta: {
+        sentrySurface: r.HATCH_SENTRY_SURFACES.SETTINGS_CONNECTORS
+      },
+      staleTime: 5e3
+    }),
+    I = (0, l.createGatewayInfiniteQuery)({
+      id: "approvals.history",
+      queryKey: ({
+        gatewayUrl: e,
+        input: t
+      }) => k.history(e, t),
+      noiseFn: (e, t, n) => T(e.sendRequest, t.input, n),
+      invalidationKey: () => k.all,
+      initialPageParam: null,
+      getNextPageParam: e => e.nextCursor,
+      staleTime: 5e3
+    });
+  async function T(e, t, n) {
+    var r, l;
+    let a, i = {
+      ...t,
+      cursor: "string" == typeof n && n.length > 0 ? n : null
+    };
+    try {
+      a = await e("egress.approval.history", i)
+    } catch (l) {
+      if (t?.record_schema !== "snapshot_v1" || ! function(e) {
+          if (!(0, o.isGatewayRequestError)(e) || "jarvis_rejection" !== e.kind) return !1;
+          let t = e.code?.trim().toLowerCase(),
+            n = e.message.toLowerCase();
+          return "invalid_params" === t && n.includes("record_schema") && (n.includes("unsupported") || n.includes("unknown"))
+        }(l)) throw l;
+      let {
+        record_schema: n,
+        ...r
+      } = i;
+      a = await e("egress.approval.history", r)
+    }
+    return "object" != typeof(r = a) || null == r ? {
+      items: [],
+      nextCursor: null
+    } : {
+      items: Array.isArray(l = r.items) ? eH(l.map(e => {
+        let t = G(e);
+        return null != t && null != G(t.display) && null != G(t.scope) && null != G(t.process) && null != G(t.payload) ? eK(e) : eM(t ?? {})
+      })) : [],
+      nextCursor: R(r.next_cursor)
+    }
+  }
+  let C = (0, l.createGatewayInfiniteQuery)({
+      id: "permissions.active",
+      queryKey: ({
+        gatewayUrl: e,
+        input: t
+      }) => A.active(e, t),
+      noiseFn: async (e, t, n) => {
+        try {
+          let r = await e.sendRequest("egress.permissions.active", {
+            ...t.input,
+            cursor: "string" == typeof n && n.length > 0 ? n : null
+          });
+          return eY(eJ(r))
+        } catch (e) {
+          if ("not_found" === (null != e && "object" == typeof e && "code" in e ? e.code : null)) return {
+            items: [],
+            nextCursor: null
+          };
+          throw e
+        }
+      },
+      invalidationKey: () => A.all,
+      meta: {
+        sentrySurface: r.HATCH_SENTRY_SURFACES.SETTINGS_CONNECTORS
+      },
+      initialPageParam: null,
+      getNextPageParam: e => e?.nextCursor ?? null,
+      staleTime: 5e3
+    }),
+    M = (0, l.createGatewayInfiniteQuery)({
+      id: "permissions.active.grouped",
+      queryKey: ({
+        gatewayUrl: e,
+        input: t
+      }) => A.activeGrouped(e, t),
+      noiseFn: async (e, t, n) => {
+        try {
+          var r;
+          let l = await e.sendRequest("egress.permissions.active", {
+            ...t.input,
+            cursor: "string" == typeof n && n.length > 0 ? n : null
+          });
+          return r = eJ(l), "object" != typeof r || null == r ? {
+            groups: [],
+            nextCursor: null
+          } : {
+            groups: Array.isArray(r.groups) ? r.groups.map(e => (function(e) {
+              if ("object" != typeof e || null == e) return null;
+              let t = X(e.scope);
+              return t?.scopeType == null || null == t.sessionScopeId ? null : {
+                scope: {
+                  ...t,
+                  scopeType: t.scopeType,
+                  sessionScopeId: t.sessionScopeId
+                },
+                items: Array.isArray(e.items) ? e.items.map(e => eW(e)).filter(e => null != e) : []
+              }
+            })(e)).filter(e => null != e) : [],
+            nextCursor: R(r.next_cursor)
+          }
+        } catch (e) {
+          if ("not_found" === (null != e && "object" == typeof e && "code" in e ? e.code : null)) return {
+            groups: [],
+            nextCursor: null
+          };
+          throw e
+        }
+      },
+      invalidationKey: () => A.all,
+      meta: {
+        sentrySurface: r.HATCH_SENTRY_SURFACES.SETTINGS_CONNECTORS
+      },
+      initialPageParam: null,
+      getNextPageParam: e => e?.nextCursor ?? null,
+      staleTime: 5e3
+    });
+
+  function R(e) {
+    if ("string" != typeof e) return null;
+    let t = e.trim();
+    return t.length > 0 ? t : null
+  }
+
+  function P(e) {
+    return Array.isArray(e) ? e.map(e => R(e)).filter(e => null != e) : []
+  }
+
+  function q(e) {
+    return !0 === e
+  }
+
+  function O(e) {
+    return null != e && "object" == typeof e ? R(e.space_display_name) : null
+  }
+
+  function L(e) {
+    if (!Array.isArray(e)) return [];
+    let t = new Set,
+      n = [];
+    for (let r of e) {
+      let e = null != r && "object" == typeof r ? R(r.host) : null;
+      null == e || t.has(e) || (t.add(e), n.push(e))
+    }
+    return n
+  }
+
+  function N(e) {
+    return "boolean" == typeof e ? e : null
+  }
+
+  function K(e) {
+    return "number" == typeof e && Number.isFinite(e) ? e : null
+  }
+
+  function G(e) {
+    return "object" != typeof e || null == e || Array.isArray(e) ? null : e
+  }
+  let U = ["token", "bearer", "authorization", "password", "api_key", "apikey", "client_secret", "clientsecret", "credential", "secret", "surrogate"],
+    B = new Set(["image/jpeg", "image/png", "image/gif", "image/webp", "image/avif", "image/heic", "image/heif"]),
+    D = new Set(["video/mp4", "video/quicktime", "video/webm"]);
+
+  function H(e, t) {
+    return {
+      value: null,
+      rejection: {
+        code: e,
+        blockType: t
+      }
+    }
+  }
+
+  function F(e, t) {
+    let n = new Set(t);
+    return Object.keys(e).every(e => n.has(e))
+  }
+
+  function z(e) {
+    return Array.from(e).length
+  }
+
+  function Q(e) {
+    let t = e.trim().replace(/^-+/, "").replaceAll("-", "_").toLowerCase();
+    return U.some(e => t.includes(e))
+  }
+
+  function W(e, t = !0) {
+    return "string" == typeof e && e.trim().length > 0 && new TextEncoder().encode(e).byteLength <= 64 && (t || !Q(e))
+  }
+
+  function Y(e, t) {
+    if (null != e) return ! function(e, t = {}) {
+      return "number" == typeof e && Number.isSafeInteger(e) && (!0 === t.positive ? e > 0 : e >= 0) && (null == t.max || e <= t.max)
+    }(e, t) ? null : e
+  }
+
+  function J(e) {
+    let t = e.codePointAt(0) ?? 0;
+    return t <= 31 || t >= 127 && t <= 159
+  }
+
+  function V(e, t) {
+    return t && (null == e || void 0 === e) ? null : "string" != typeof e || 0 === e.trim().length || z(e) > 80 ? void 0 : e
+  }
+
+  function $(e, t) {
+    if (e.has(t)) return !1;
+    if (e.size >= 1e3) {
+      let t = e.values().next().value;
+      null != t && e.delete(t)
+    }
+    return e.add(t), !0
+  }
+
+  function X(e) {
+    let t, n = G(e);
+    if (null == n) return null;
+    let r = null != (t = R(n.scope_type)) && h.has(t) ? t : null,
+      l = {
+        sessionScopeId: R(n.session_scope_id),
+        ...null == r ? {} : {
+          scopeType: r
+        },
+        threadId: R(n.thread_id),
+        displayName: R(n.display_name),
+        spaceSlug: R(n.space_slug),
+        scheduleId: R(n.schedule_id),
+        ideaScopeId: R(n.idea_scope_id)
+      };
+    return Object.values(l).some(e => null != e) ? l : null
+  }
+
+  function Z(e) {
+    return X(e.scope) ?? X({
+      session_scope_id: e.session_scope_id,
+      thread_id: e.thread_id,
+      space_slug: e.space_slug,
+      schedule_id: e.schedule_id,
+      idea_scope_id: e.idea_scope_id
+    })
+  }
+
+  function ee(e) {
+    let t = K(e);
+    return null == t || !Number.isInteger(t) || t < 0 || t > 65535 ? null : t
+  }
+
+  function et(e) {
+    let t = R(e);
+    if (null != t) return t;
+    if (null == e) return null;
+    try {
+      let t = JSON.stringify(e, null, 2);
+      return "string" == typeof t && t.trim().length > 0 ? t : null
+    } catch {
+      return null
+    }
+  }
+
+  function en(e) {
+    let t = R(e);
+    return null != t && i.has(t) ? t : null
+  }
+
+  function er(e) {
+    let t = R(e);
+    return null != t && s.has(t) ? t : null
+  }
+
+  function el(e) {
+    let t = R(e);
+    return null != t && u.has(t) ? t : null
+  }
+
+  function eo(e) {
+    let t = R(e);
+    return null != t && p.has(t) ? t : null
+  }
+
+  function ea(e) {
+    let t = R(e);
+    return null != t && d.has(t) ? t : null
+  }
+
+  function ei(e) {
+    let t = R(e);
+    return null != t && c.has(t) ? t : null
+  }
+
+  function es(e) {
+    let t = G(e);
+    if (null == t) return null;
+    let n = R(t.title),
+      r = R(t.description);
+    return null != n && null != r ? {
+      title: n,
+      description: r
+    } : null
+  }
+
+  function eu(e) {
+    let t = G(e),
+      n = G(t?.options),
+      r = R(t?.heading),
+      l = es(n?.auto_allow),
+      o = es(n?.always_ask);
+    return null == r || null == l || null == o ? null : {
+      heading: r,
+      options: {
+        auto_allow: l,
+        always_ask: o
+      }
+    }
+  }
+
+  function ec(e) {
+    let t = R(e);
+    return null != t && _.has(t) ? t : null
+  }
+
+  function ep(e) {
+    return "object" != typeof e || null == e || Array.isArray(e) ? {} : Object.fromEntries(Object.entries(e).map(([e, t]) => {
+      let n = R(e),
+        r = ec(t);
+      return null == n || null == r ? null : [n, r]
+    }).filter(e => null != e))
+  }
+
+  function ed(e) {
+    return Array.isArray(e) ? e.map(e => {
+      if ("object" != typeof e || null == e) return null;
+      let t = K(e.ts_ms),
+        n = R(e.path),
+        r = R(e.kind);
+      return null == t || null == n || null == r ? null : {
+        tsMs: t,
+        path: n,
+        kind: r,
+        sensitive: q(e.sensitive)
+      }
+    }).filter(e => null != e) : []
+  }
+
+  function e_(e, t) {
+    let n, r, l, o, a, i, s = R(e.approval_id) ?? (n = K(e.requested_at_ms), r = K(e.decided_at_ms), l = R(e.host) ?? "unknown", o = R(e.path) ?? "", a = en(e.status) ?? "pending", i = JSON.stringify(e), `malformed-approval-${function(e){let t=0x811c9dc5;for(let n=0;n<e.length;n+=1)t^=e.charCodeAt(n),t=Math.imul(t,0x1000193);return(t>>>0).toString(16)}([n??"",r??"",l,o,a,i].join("|"))}`),
+      u = K(e.requested_at_ms) ?? K(e.decided_at_ms) ?? 0,
+      c = R(e.display_name),
+      p = R(e.host) ?? "unknown",
+      d = ee(e.port) ?? 0,
+      _ = R(e.scheme) ?? (0 === d ? "connector" : "unknown"),
+      y = R(e.method),
+      m = R(e.path),
+      f = R(e.binary_path) ?? "",
+      h = R(e.reason) ?? "Approval payload is incomplete. Review the raw payload for the missing fields.",
+      g = en(e.status) ?? "pending",
+      b = et(e.payload_preview ?? e.payload ?? e),
+      w = Z(e),
+      k = O(e.runtime_request_trace);
+    return v.error({
+      approvalId: s,
+      issues: t,
+      hasHost: null != e.host,
+      hasStatus: null != e.status,
+      hasBinaryPath: null != e.binary_path
+    }, "Malformed approval payload received"), {
+      approvalId: s,
+      requestedAtMs: u,
+      requestExpiresAtMs: K(e.request_expires_at_ms),
+      decidedAtMs: K(e.decided_at_ms),
+      expiresAtMs: K(e.expires_at_ms),
+      ...null != c ? {
+        displayName: c
+      } : {},
+      policySubject: R(e.policy_subject),
+      host: p,
+      port: d,
+      scheme: _,
+      method: y,
+      path: m,
+      binaryPath: f,
+      binaryPid: K(e.binary_pid),
+      ancestors: P(e.ancestors),
+      cmdlinePaths: P(e.cmdline_paths),
+      reason: h,
+      shortExplanation: R(e.short_explanation),
+      richExplanation: R(e.rich_explanation),
+      matchedPolicy: R(e.matched_policy),
+      taskId: R(e.task_id),
+      messageId: R(e.message_id),
+      sessionScopeId: w?.sessionScopeId ?? R(e.session_scope_id),
+      scope: w,
+      requesterSource: R(e.requester_source),
+      requestOrigin: R(e.request_origin),
+      initiatorId: R(e.initiator_id),
+      initiatorLabel: R(e.initiator_label),
+      actionLabel: R(e.action_label),
+      actionDescription: R(e.action_description),
+      turnGrantEligible: q(e.turn_grant_eligible),
+      spaceReaderGrantEligible: q(e.space_reader_grant_eligible),
+      scheduleId: w?.scheduleId ?? R(e.schedule_id),
+      cronWebGrantEligible: q(e.cron_web_grant_eligible),
+      cronWebAllHostsGrantEligible: q(e.cron_web_all_hosts_grant_eligible),
+      isExclusive: q(e.is_exclusive),
+      spaceDisplayName: w?.spaceSlug != null ? w.displayName ?? k ?? w.spaceSlug : k,
+      declaredHosts: L(e.declared_hosts),
+      purposeSummary: R(e.purpose_summary),
+      workload: R(e.workload),
+      requestId: R(e.request_id),
+      rootAgentId: R(e.root_agent_id),
+      agentId: R(e.agent_id),
+      parentAgentId: R(e.parent_agent_id),
+      agentDepth: K(e.agent_depth),
+      parentMessageId: R(e.parent_message_id),
+      submissionMessageId: R(e.submission_message_id),
+      streamOwnerMessageId: R(e.stream_owner_message_id),
+      rootMessageExecutionId: R(e.root_message_execution_id),
+      toolCallId: R(e.tool_call_id),
+      resumeKind: R(e.resume_kind),
+      resumeStrategy: R(e.resume_strategy),
+      command: R(e.command),
+      resolvedPeerBinary: R(e.resolved_peer_binary),
+      recentFileContext: ed(e.recent_file_context),
+      notificationTargets: P(e.notification_targets),
+      ...null != b ? {
+        payloadPreview: b
+      } : {},
+      status: g,
+      decision: er(e.decision),
+      allowAlwaysScope: el(e.always_scope ?? e.allow_always_scope),
+      decisionReason: R(e.decision_reason),
+      appliedRuleEntries: P(e.applied_rule_entries),
+      decidedBy: R(e.decided_by),
+      notificationChannel: R(e.notification_channel),
+      outgoingMediaApproval: null,
+      approvalType: R(e.approval_type),
+      decisionOptions: eT(e.decision_options),
+      serverPresentation: null,
+      browserCheckoutApproval: null,
+      shopifyCheckoutApproval: null,
+      stripeLinkCheckoutApproval: null,
+      isMalformed: !0,
+      isActionable: null != R(e.approval_id),
+      normalizationIssues: t
+    }
+  }
+  let ey = ["image", "video", "audio", "voice", "document"];
+
+  function em(e) {
+    if (null == e || "object" != typeof e) return null;
+    let t = function(e) {
+      if ("string" != typeof e) return null;
+      let t = e.trim().toLowerCase();
+      return ey.includes(t) ? t : null
+    }(e.kind);
+    return null == t ? null : {
+      kind: t,
+      caption: R(e.caption),
+      fileName: R(e.file_name),
+      fileSize: K(e.file_size),
+      media: function(e) {
+        if (null == e || "object" != typeof e) return null;
+        let t = R(e.url);
+        return null == t ? null : {
+          url: t,
+          width: K(e.width),
+          height: K(e.height),
+          contentType: R(e.content_type),
+          updatedAtMs: K(e.updated_at_ms)
+        }
+      }(e.media)
+    }
+  }
+
+  function ef(e) {
+    if (null == e || "object" != typeof e) return null;
+    let t = Array.isArray(e.items) ? e.items.map(em).filter(e => null != e) : [];
+    return 0 === t.length ? null : {
+      version: K(e.version) ?? 1,
+      recipientDisplay: R(e.recipient_display),
+      messageText: R(e.message_text),
+      items: t
+    }
+  }
+
+  function eh(e) {
+    if (null == e || "object" != typeof e) return null;
+    let t = {
+      paymentMethod: R(e.payment_method),
+      paymentType: R(e.payment_type),
+      paymentId: R(e.payment_id)
+    };
+    return null == t.paymentMethod && null == t.paymentType && null == t.paymentId ? null : t
+  }
+
+  function ev(e) {
+    if (null == e || "object" != typeof e) return null;
+    let t = R(e.payment_id);
+    return null == t ? null : {
+      paymentMethod: R(e.payment_method),
+      paymentType: R(e.payment_type),
+      paymentId: t,
+      paymentMethodLabel: R(e.payment_method_label),
+      cardBrand: R(e.card_brand),
+      cardLast4: R(e.card_last4),
+      isEligible: !1 !== q(e.is_eligible)
+    }
+  }
+
+  function eg(e) {
+    return Array.isArray(e) ? e.map(ev).filter(e => null != e) : []
+  }
+
+  function eb(e) {
+    if (null == e || "object" != typeof e) return null;
+    let t = K(e.version);
+    return null == t ? null : {
+      version: t,
+      browserTaskId: R(e.browser_task_id),
+      merchantUrl: R(e.merchant_url),
+      paymentMethodLabel: R(e.payment_method_label),
+      cardBrand: R(e.card_brand),
+      cardLast4: R(e.card_last4),
+      amount: R(e.amount),
+      currency: R(e.currency),
+      tab: function(e) {
+        if (null == e || "object" != typeof e) return null;
+        let t = {
+          title: R(e.title),
+          url: R(e.url),
+          domain: R(e.domain)
+        };
+        return null == t.title && null == t.url && null == t.domain ? null : t
+      }(e.tab),
+      screenshot: function(e) {
+        if (null == e || "object" != typeof e) return null;
+        let t = R(e.url);
+        return null == t ? null : {
+          url: t,
+          width: K(e.width),
+          height: K(e.height),
+          contentType: R(e.content_type),
+          updatedAtMs: K(e.updated_at_ms)
+        }
+      }(e.screenshot),
+      paymentSelection: eh(e.payment_selection),
+      paymentOptions: eg(e.payment_options)
+    }
+  }
+
+  function ew(e) {
+    if (null == e || "object" != typeof e) return null;
+    let t = {
+      id: R(e.id),
+      name: R(e.name),
+      quantity: K(e.quantity),
+      unitAmount: R(e.unit_amount),
+      totalAmount: R(e.total_amount),
+      currency: R(e.currency),
+      imageUrl: R(e.image_url),
+      productUrl: R(e.product_url),
+      variantOptions: function(e) {
+        if (!Array.isArray(e)) return null;
+        let t = e.map(R).filter(e => null != e);
+        return t.length > 0 ? t : null
+      }(e.variant_options)
+    };
+    return null == t.name && null == t.unitAmount && null == t.totalAmount ? null : t
+  }
+
+  function ek(e) {
+    if (null == e || "object" != typeof e) return null;
+    let t = {
+      type: R(e.type),
+      displayText: R(e.display_text),
+      amount: R(e.amount),
+      currency: R(e.currency)
+    };
+    return null == t.displayText && null == t.amount ? null : t
+  }
+
+  function eA(e) {
+    if (null == e || "object" != typeof e) return null;
+    let t = R(e.url);
+    return null == t ? null : {
+      label: R(e.label),
+      url: t
+    }
+  }
+
+  function eS(e, t) {
+    var n;
+    let r, l;
+    if (null == e || "object" != typeof e) return null;
+    let o = K(e.version);
+    if (null == o) return null;
+    let a = Array.isArray(e.items) ? e.items.map(ew).filter(e => null != e) : [],
+      i = Array.isArray(e.totals) ? e.totals.map(ek).filter(e => null != e) : [],
+      s = Array.isArray(e.legal_links) ? e.legal_links.map(eA).filter(e => null != e) : [];
+    return {
+      version: o,
+      flowId: R(e.flow_id),
+      checkoutId: R(e.checkout_id),
+      merchant: (n = e.merchant, null == (l = {
+        name: R((r = null != n && "object" == typeof n ? n : {}).name),
+        url: R(r.url),
+        iconUrl: R(r.icon_url) ?? t
+      }).name && null == l.url && null == l.iconUrl ? null : l),
+      contact: function(e) {
+        if (null == e || "object" != typeof e) return null;
+        let t = {
+          email: R(e.email),
+          phoneNumber: R(e.phone_number),
+          countryCode: R(e.country_code)
+        };
+        return null == t.email && null == t.phoneNumber && null == t.countryCode ? null : t
+      }(e.contact),
+      shippingAddress: function(e) {
+        if (null == e || "object" != typeof e) return null;
+        let t = {
+          firstName: R(e.first_name),
+          lastName: R(e.last_name),
+          street1: R(e.street1),
+          street2: R(e.street2),
+          city: R(e.city),
+          state: R(e.state),
+          postalCode: R(e.postal_code),
+          country: R(e.country)
+        };
+        return Object.values(t).some(e => null != e) ? t : null
+      }(e.shipping_address),
+      delivery: function(e) {
+        if (null == e || "object" != typeof e) return null;
+        let t = {
+          id: R(e.id),
+          label: R(e.label),
+          amount: R(e.amount),
+          currency: R(e.currency),
+          carrier: R(e.carrier),
+          estimatedDelivery: R(e.estimated_delivery)
+        };
+        return Object.values(t).some(e => null != e) ? t : null
+      }(e.delivery),
+      items: a,
+      totals: i,
+      amount: R(e.amount),
+      currency: R(e.currency),
+      legalLinks: s,
+      paymentMethodLabel: R(e.payment_method_label),
+      cardBrand: R(e.card_brand),
+      cardLast4: R(e.card_last4),
+      paymentSelection: eh(e.payment_selection),
+      paymentOptions: eg(e.payment_options)
+    }
+  }
+
+  function ej(e) {
+    return Array.isArray(e) ? e.map(e => {
+      let t = G(e);
+      if (null == t) return null;
+      let n = R(t.name);
+      return null == n ? null : {
+        name: n
+      }
+    }).filter(e => null != e) : []
+  }
+
+  function eE(e) {
+    return null == e || "object" != typeof e ? null : {
+      version: K(e.version) ?? 0,
+      merchantName: R(e.merchant_name),
+      merchantUrl: R(e.merchant_url),
+      amount: R(e.amount),
+      currency: R(e.currency),
+      paymentMethodLabel: R(e.payment_method_label),
+      cardBrand: R(e.card_brand),
+      cardLast4: R(e.card_last4),
+      paymentSelection: eh(e.payment_selection),
+      paymentOptions: eg(e.payment_options),
+      lineItems: ej(e.line_items)
+    }
+  }
+
+  function ex(e) {
+    let t = G(e.total);
+    if (null != t) return t.amount;
+    if (Array.isArray(e.totals)) {
+      let t = e.totals.find(e => {
+          let t = G(e);
+          return R(t?.type)?.toLocaleLowerCase() === "total"
+        }),
+        n = G(t);
+      if (null != n) return n.amount
+    }
+    return e.amount
+  }
+  let eI = ["allow_once", "allow_session", "allow_always", "deny_always", "deny"];
+
+  function eT(e) {
+    if (!Array.isArray(e)) return null;
+    let t = new Set;
+    for (let n of e) {
+      if ("string" != typeof n) continue;
+      let e = n.trim().toLowerCase();
+      eI.includes(e) && t.add(e)
+    }
+    return [...t]
+  }
+
+  function eC(e, t, n, r) {
+    return null != e && R(t) === r && q(n) ? e : null
+  }
+
+  function eM(e) {
+    let t = R(e.approval_id),
+      r = K(e.requested_at_ms),
+      l = R(e.display_name),
+      o = R(e.host),
+      a = ee(e.port),
+      i = R(e.scheme) ?? "https",
+      s = R(e.binary_path),
+      u = et(e.payload_preview ?? e.payload),
+      c = R(e.reason),
+      p = en(e.status),
+      d = R(e.policy_subject),
+      _ = "device" === i.toLowerCase(),
+      y = q(e.is_exclusive),
+      m = q(e.space_reader_grant_eligible),
+      f = o ?? (m ? "" : null),
+      h = Z(e),
+      v = O(e.runtime_request_trace),
+      g = eC(eE(e.stripe_link_checkout_approval), e.approval_type, e.is_exclusive, "stripe_link_checkout_approval") ?? function(e) {
+        var t;
+        let r, l, o, a, i, s;
+        if (null != (r = R(e.approval_type)) && "stripe_link_checkout_approval" !== r || !(!Array.isArray(t = e.decision_options) || t.every(e => {
+            let t = R(e)?.toLocaleLowerCase();
+            return "allow_once" === t || "deny" === t
+          }))) return null;
+        let u = G(e.payload) ?? function(e) {
+          if (null == e) return null;
+          try {
+            return G(JSON.parse(e))
+          } catch {
+            return null
+          }
+        }(et(e.payload_preview ?? e.payload));
+        if (null == u || (o = (l = [e.approval_type, e.display_name, e.host, e.binary_path, e.reason, e.short_explanation, e.rich_explanation, e.action_label, e.action_description, e.policy_subject, e.requester_source].map(e => R(e)?.toLocaleLowerCase() ?? "").join(" ")).includes("stripe link") || l.includes("stripe_link") || l.includes("stripe-link") || l.includes("link checkout"), a = l.includes("delegated spend") || l.includes("spend request") || l.includes("virtual card"), i = Array.isArray(u.line_items) && u.line_items.length > 0, s = "boolean" == typeof u.request_approval, !o || !a || !i || !s || null == R(u.merchant_url) || null == R(u.currency) || null == ex(u))) return null;
+        let c = R(u.currency);
+        return {
+          version: 0,
+          merchantName: R(u.merchant_name),
+          merchantUrl: R(u.merchant_url),
+          amount: function(e, t) {
+            let r = R(e);
+            if (null != r && !/^-?\d+$/.test(r)) return r;
+            let l = "number" == typeof e && Number.isFinite(e) ? e : null != r ? Number(r) : null;
+            return null != l && Number.isSafeInteger(l) ? (0, n.minorUnitsToMajorUnitsString)(l, t ?? "USD") : null
+          }(ex(u), c),
+          currency: c,
+          paymentMethodLabel: null,
+          cardBrand: null,
+          cardLast4: null,
+          paymentSelection: null,
+          paymentOptions: [],
+          lineItems: ej(u.line_items)
+        }
+      }(e),
+      b = [];
+    return (null == t && b.push("Missing approval id"), null == r && b.push("Missing requested timestamp"), null == f && b.push("Missing host"), null == a && b.push("Missing or invalid port"), null != s || _ || b.push("Missing binary path"), null == c && b.push("Missing reason"), null == p && b.push("Missing or invalid status"), b.length > 0) ? e_(e, b) : {
+      approvalId: t,
+      requestedAtMs: r,
+      requestExpiresAtMs: K(e.request_expires_at_ms),
+      decidedAtMs: K(e.decided_at_ms),
+      expiresAtMs: K(e.expires_at_ms),
+      ...null != l ? {
+        displayName: l
+      } : {},
+      policySubject: d,
+      host: f,
+      port: a,
+      scheme: i,
+      method: R(e.method),
+      path: R(e.path),
+      binaryPath: s ?? "",
+      binaryPid: K(e.binary_pid),
+      ancestors: P(e.ancestors),
+      cmdlinePaths: P(e.cmdline_paths),
+      reason: c,
+      shortExplanation: R(e.short_explanation),
+      richExplanation: R(e.rich_explanation),
+      matchedPolicy: R(e.matched_policy),
+      taskId: R(e.task_id),
+      messageId: R(e.message_id),
+      sessionScopeId: h?.sessionScopeId ?? R(e.session_scope_id),
+      scope: h,
+      requesterSource: R(e.requester_source),
+      requestOrigin: R(e.request_origin),
+      initiatorId: R(e.initiator_id),
+      initiatorLabel: R(e.initiator_label),
+      actionLabel: R(e.action_label),
+      actionDescription: R(e.action_description),
+      turnGrantEligible: q(e.turn_grant_eligible),
+      spaceReaderGrantEligible: m,
+      scheduleId: h?.scheduleId ?? R(e.schedule_id),
+      cronWebGrantEligible: q(e.cron_web_grant_eligible),
+      cronWebAllHostsGrantEligible: q(e.cron_web_all_hosts_grant_eligible),
+      isExclusive: y || null != g,
+      spaceDisplayName: h?.spaceSlug != null ? h.displayName ?? v ?? h.spaceSlug : v,
+      declaredHosts: L(e.declared_hosts),
+      purposeSummary: R(e.purpose_summary),
+      workload: R(e.workload),
+      requestId: R(e.request_id),
+      rootAgentId: R(e.root_agent_id),
+      agentId: R(e.agent_id),
+      parentAgentId: R(e.parent_agent_id),
+      agentDepth: K(e.agent_depth),
+      parentMessageId: R(e.parent_message_id),
+      submissionMessageId: R(e.submission_message_id),
+      streamOwnerMessageId: R(e.stream_owner_message_id),
+      rootMessageExecutionId: R(e.root_message_execution_id),
+      toolCallId: R(e.tool_call_id),
+      resumeKind: R(e.resume_kind),
+      resumeStrategy: R(e.resume_strategy),
+      command: R(e.command),
+      resolvedPeerBinary: R(e.resolved_peer_binary),
+      recentFileContext: ed(e.recent_file_context),
+      notificationTargets: P(e.notification_targets),
+      ...null != u ? {
+        payloadPreview: u
+      } : {},
+      status: p,
+      decision: er(e.decision),
+      allowAlwaysScope: el(e.always_scope ?? e.allow_always_scope),
+      decisionReason: R(e.decision_reason),
+      appliedRuleEntries: P(e.applied_rule_entries),
+      decidedBy: R(e.decided_by),
+      notificationChannel: R(e.notification_channel),
+      outgoingMediaApproval: ef(e.outgoing_media_approval),
+      approvalType: R(e.approval_type),
+      decisionOptions: eT(e.decision_options),
+      serverPresentation: null,
+      browserCheckoutApproval: eC(eb(e.browser_checkout_approval), e.approval_type, e.is_exclusive, "browser_checkout_approval"),
+      shopifyCheckoutApproval: eC(eS(e.shopify_checkout_approval, R(e.icon_url)), e.approval_type, e.is_exclusive, "shopify_checkout_approval"),
+      stripeLinkCheckoutApproval: g,
+      isMalformed: !1,
+      isActionable: "pending" === p,
+      normalizationIssues: []
+    }
+  }
+
+  function eR(e) {
+    return Array.isArray(e) ? eH(e.map(e => "object" != typeof e || null == e ? e_({
+      payload: e,
+      reason: "Approval payload is not an object."
+    }, ["Approval payload is not an object"]) : eM(e)).filter(e => null != e)) : []
+  }
+  let eP = ["browser_task_confirmation", "browser_checkout", "stripe_link_checkout", "shopify_checkout", "outgoing_media", "browser_action", "network", "device", "connector"],
+    eq = ["network", "warning", "connector", "browser", "tool", "checkout", "media", "device"];
+
+  function eO(e) {
+    return "string" != typeof e ? null : eq.includes(e) ? e : null
+  }
+
+  function eL(e) {
+    if (!Array.isArray(e)) return [];
+    let t = [];
+    for (let n of e) {
+      let e = G(n);
+      if (null == e) continue;
+      let r = R(e.label),
+        l = "string" == typeof e.value ? e.value : null;
+      null != r && null != l && t.push({
+        label: r,
+        value: l
+      })
+    }
+    return t
+  }
+
+  function eN(e, t, n, r, l) {
+    return {
+      payloadType: t,
+      summaryTitle: R(e.summary_title),
+      iconKey: eO(e.icon_key),
+      attentionLabel: R(e.attention_label),
+      iconUrl: R(e.icon_url),
+      permissionQuestion: n,
+      permissionCaption: R(e.permission_caption),
+      decisionOptions: r,
+      presentationKind: "rich" === e.presentation_kind ? "rich" : "generic",
+      requestPresentation: "inline" === e.request_presentation ? "inline" : "details",
+      ...null != l ? {
+        requestPreviewDocument: l
+      } : {},
+      attentionMode: function(e) {
+        if ("background" === e || "foreground" === e) return e
+      }(e.attention_mode),
+      detailRows: eL(e.detail_rows),
+      scopeSummary: R(e.scope_summary),
+      outcomeLabel: "string" == typeof e.outcome_label && e.outcome_label.trim().length > 0 ? e.outcome_label : null
+    }
+  }
+
+  function eK(e) {
+    var t;
+    let n = G(e) ?? {},
+      l = G(n.display) ?? {},
+      o = G(n.scope) ?? {},
+      a = G(n.process) ?? {},
+      i = G(n.payload) ?? {},
+      s = function(e) {
+        if ("string" != typeof e) return null;
+        let t = e.trim().toLowerCase();
+        return eP.includes(t) ? t : null
+      }(i.type),
+      u = G(i.network_payload),
+      c = G(i.connector_payload),
+      p = G(i.device_payload),
+      d = u ?? c ?? p ?? {},
+      _ = "browser_task_confirmation" === s,
+      y = R(n.approval_id),
+      m = K(n.requested_at_ms),
+      f = R(d.host),
+      h = ee(d.port),
+      k = R(d.scheme) ?? (_ ? "browser" : 0 === h ? "connector" : "https"),
+      A = R(a.binary_path),
+      S = "device" === s || "device" === k.toLowerCase(),
+      j = R(l.reason),
+      E = en(n.status),
+      x = function(e) {
+        let t = G(e);
+        if (null == t) return null;
+        let n = "string" == typeof t.kind ? t.kind.trim().toLowerCase() : null,
+          r = "string" == typeof t.text ? t.text : "";
+        switch (n) {
+          case "browser_action":
+            return {
+              kind: "browser_action", text: r, action: "string" == typeof t.action ? t.action : "", question: "string" == typeof t.question ? t.question : ""
+            };
+          case "space_reader_web_read":
+            return {
+              kind: "space_reader_web_read", text: r, spaceSlug: R(t.space_slug)
+            };
+          case "cron_web_read":
+            return {
+              kind: "cron_web_read", text: r, scheduleId: R(t.schedule_id)
+            };
+          case "network_turn_grant":
+            return {
+              kind: "network_turn_grant", text: r
+            };
+          case "connector_action":
+            return {
+              kind: "connector_action", text: r, connector: R(t.connector), action: R(t.action)
+            };
+          case "network_access":
+            return {
+              kind: "network_access", text: r, scope: R(t.scope)
+            };
+          case "generic":
+            return {
+              kind: "generic", text: r, subject: R(t.subject), action: R(t.action), summary: R(t.summary)
+            };
+          default:
+            return null
+        }
+      }(l.permission_question),
+      I = Object.prototype.hasOwnProperty.call(n, "decision_options") ? function(e, t) {
+        if (!Array.isArray(e)) return [];
+        let n = [];
+        for (let l of e) {
+          let e = G(l);
+          if (null == e) continue;
+          let o = function(e) {
+              if ("string" != typeof e) return null;
+              let t = e.trim().toLowerCase();
+              return eI.includes(t) ? t : null
+            }(e.kind),
+            a = function(e) {
+              let t = G(e);
+              if (null == t) return null;
+              let n = "string" == typeof t.kind ? t.kind.trim().toLowerCase() : null;
+              switch (n) {
+                case "allow":
+                case "allow_once":
+                case "allow_for_this_task":
+                case "allow_all_web_access_for_this_task":
+                case "allow_for_this_scheduled_task":
+                case "allow_for_this_artifact":
+                case "allow_for_your_feed":
+                case "allow_always":
+                case "deny":
+                case "deny_for_this_scheduled_task":
+                case "deny_for_this_task":
+                case "deny_for_this_artifact":
+                  return {
+                    kind: n
+                  };
+                case "allow_always_scoped": {
+                  let e = el(t.scope);
+                  return null != e ? {
+                    kind: "allow_always_scoped",
+                    scope: e
+                  } : null
+                }
+                default:
+                  return null
+              }
+            }(e.label),
+            i = G(e.label);
+          if (null == a && i?.kind === "allow_always_scoped" && null != t && $(g, t)) {
+            let e = "Rejected approval option with unsupported grant scope";
+            v.retainForBugReport("warn", e), (0, r.captureHatchMessage)(r.HATCH_SENTRY_SURFACES.STATUS_APPROVALS, e, {
+              level: "warning",
+              tags: {
+                reason_code: "unsupported_grant_scope"
+              }
+            })
+          }
+          if (null == o || null == a) continue;
+          let s = "string" == typeof e.label_text ? e.label_text : "";
+          n.push({
+            kind: o,
+            label: a,
+            labelText: s
+          })
+        }
+        return n
+      }(n.decision_options, y) : null,
+      T = q(u?.space_reader_grant_eligible) || x?.kind === "space_reader_web_read",
+      C = f ?? (T || _ ? "" : null),
+      M = h ?? (_ ? 0 : null),
+      N = [];
+    if (null == y && N.push("Missing approval id"), null == m && N.push("Missing requested timestamp"), null == C && N.push("Missing host"), null == M && N.push("Missing or invalid port"), null != A || S || N.push("Missing binary path"), null == j && N.push("Missing reason"), null == E && N.push("Missing or invalid status"), N.length > 0) return {
+      ...e_({
+        approval_id: n.approval_id,
+        requested_at_ms: n.requested_at_ms,
+        decided_at_ms: n.decided_at_ms,
+        host: d.host,
+        port: d.port,
+        scheme: d.scheme,
+        binary_path: a.binary_path,
+        reason: l.reason,
+        status: n.status,
+        scope: n.scope,
+        payload_preview: d.payload_preview
+      }, N),
+      decisionOptions: I?.map(e => e.kind) ?? null,
+      serverPresentation: eN(l, s, x, I, null)
+    };
+    null == s && "pending" === E && function(e) {
+      if (!$(w, e)) return;
+      let t = "unsupported_snapshot_payload_type";
+      v.error({
+        approvalId: e,
+        reasonCode: t,
+        tags: {
+          surface: r.HATCH_SENTRY_SURFACES.STATUS_APPROVALS,
+          reason_code: t
+        }
+      }, "Rejected pending approval with unsupported snapshot payload type")
+    }(y);
+    let U = et(d.payload_preview),
+      Z = null != l.request_preview_document ? function(e) {
+        let t = G(e);
+        if (null == t || !F(t, ["version", "truncated", "blocks"])) return H("invalid_structure", "document");
+        if (1 !== t.version && 2 !== t.version) return H(Object.prototype.hasOwnProperty.call(t, "version") ? "unsupported_version" : "invalid_structure", "document");
+        if ("boolean" != typeof t.truncated || !Array.isArray(t.blocks)) return H("invalid_structure", "document");
+        if (0 === t.blocks.length || t.blocks.length > 8) return H("block_count_out_of_bounds", "document");
+        let n = [];
+        for (let e of t.blocks) {
+          let r = function(e, t) {
+            let n = G(e);
+            if (null == n || "string" != typeof n.type) return H("invalid_structure", "unknown");
+            switch (n.type) {
+              case "fields": {
+                if (!F(n, ["type", "rows"]) || !Array.isArray(n.rows)) return H("invalid_structure", "fields");
+                if (0 === n.rows.length || n.rows.length > 32) return H("row_count_out_of_bounds", "fields");
+                let e = [];
+                for (let t of n.rows) {
+                  let n = G(t);
+                  if (null == n || !F(n, ["key", "label", "value"])) return H("invalid_structure", "fields");
+                  let r = V(n.label, !1);
+                  if (!W(n.key)) return H("invalid_key", "fields");
+                  if (null == r) return H("invalid_label", "fields");
+                  if ("string" != typeof n.value || z(n.value) > 1024) return H("invalid_value", "fields");
+                  e.push({
+                    key: n.key,
+                    label: r,
+                    value: n.value
+                  })
+                }
+                return {
+                  value: {
+                    type: "fields",
+                    rows: e
+                  },
+                  rejection: null
+                }
+              }
+              case "text": {
+                if (!F(n, ["type", "key", "label", "text"])) return H("invalid_structure", "text");
+                let e = V(n.label, !0);
+                if (!W(n.key)) return H("invalid_key", "text");
+                if (void 0 === e) return H("invalid_label", "text");
+                if ("string" != typeof n.text) return H("invalid_value", "text");
+                return {
+                  value: {
+                    type: "text",
+                    key: n.key,
+                    label: e,
+                    text: n.text
+                  },
+                  rejection: null
+                }
+              }
+              case "list": {
+                if (!F(n, ["type", "key", "label", "items"]) || !Array.isArray(n.items)) return H("invalid_structure", "list");
+                if (0 === n.items.length || n.items.length > 32) return H("item_count_out_of_bounds", "list");
+                let e = V(n.label, !0);
+                if (!W(n.key)) return H("invalid_key", "list");
+                if (void 0 === e) return H("invalid_label", "list");
+                let t = [];
+                for (let e of n.items) {
+                  if ("string" != typeof e || z(e) > 1024) return H("invalid_value", "list");
+                  t.push(e)
+                }
+                return {
+                  value: {
+                    type: "list",
+                    key: n.key,
+                    label: e,
+                    items: t
+                  },
+                  rejection: null
+                }
+              }
+              case "links": {
+                if (2 !== t) return H("block_requires_newer_version", "links");
+                if (!F(n, ["type", "key", "label", "items"]) || !Array.isArray(n.items)) return H("invalid_structure", "links");
+                if (0 === n.items.length || n.items.length > 32) return H("item_count_out_of_bounds", "links");
+                let e = V(n.label, !0);
+                if (!W(n.key, !1)) return H("invalid_key", "links");
+                if (void 0 === e) return H("invalid_label", "links");
+                let r = [];
+                for (let e of n.items) {
+                  let t = G(e);
+                  if (null == t || !F(t, ["label", "url"])) return H("invalid_structure", "links");
+                  let n = V(t.label, !1);
+                  if (null == n) return H("invalid_label", "links");
+                  if ("string" != typeof t.url || ! function(e) {
+                      if (new TextEncoder().encode(e).byteLength > 2048) return !1;
+                      try {
+                        let t = new URL(e);
+                        return "https:" === t.protocol && t.hostname.length > 0 && 0 === t.username.length && 0 === t.password.length && !Array.from(t.searchParams.keys()).some(Q)
+                      } catch {
+                        return !1
+                      }
+                    }(t.url)) return H("invalid_url", "links");
+                  r.push({
+                    label: n,
+                    url: t.url
+                  })
+                }
+                return {
+                  value: {
+                    type: "links",
+                    key: n.key,
+                    label: e,
+                    items: r
+                  },
+                  rejection: null
+                }
+              }
+              case "attachments": {
+                if (2 !== t) return H("block_requires_newer_version", "attachments");
+                if (!F(n, ["type", "key", "label", "items"]) || !Array.isArray(n.items)) return H("invalid_structure", "attachments");
+                if (0 === n.items.length || n.items.length > 32) return H("item_count_out_of_bounds", "attachments");
+                let e = V(n.label, !0);
+                if (!W(n.key, !1)) return H("invalid_key", "attachments");
+                if (void 0 === e) return H("invalid_label", "attachments");
+                let r = [];
+                for (let e of n.items) {
+                  let t = G(e);
+                  if (null == t || !F(t, ["kind", "file_name", "size_bytes", "resource"]) || "image" !== t.kind && "video" !== t.kind && "file" !== t.kind || "string" != typeof t.file_name || 0 === t.file_name.trim().length || z(t.file_name) > 255 || t.file_name.includes("/") || t.file_name.includes("\\") || Array.from(t.file_name).some(J)) return H("invalid_attachment", "attachments");
+                  let n = Y(t.size_bytes, {
+                      max: 0x40000000
+                    }),
+                    l = function(e, t) {
+                      var n;
+                      if (null == e) return;
+                      let r = G(e);
+                      if (null == r || !F(r, ["url", "width", "height", "content_type", "updated_at_ms"]) || "string" != typeof r.url || ! function(e) {
+                          if (new TextEncoder().encode(e).byteLength > 2048 || !e.startsWith("sandbox://workspace/")) return !1;
+                          try {
+                            let t = new URL(e);
+                            if ("sandbox:" !== t.protocol || "workspace" !== t.hostname || t.username.length > 0 || t.password.length > 0 || t.port.length > 0 || t.search.length > 0 || t.hash.length > 0 || "/" === t.pathname) return !1;
+                            return e.slice(20).split("/").every(e => {
+                              try {
+                                let t = decodeURIComponent(e);
+                                return t.length > 0 && "." !== t && ".." !== t && !t.includes("/") && !t.includes("\\") && !Array.from(t).some(J)
+                              } catch {
+                                return !1
+                              }
+                            })
+                          } catch {
+                            return !1
+                          }
+                        }(r.url)) return null;
+                      let l = Y(r.width, {
+                          positive: !0,
+                          max: 32768
+                        }),
+                        o = Y(r.height, {
+                          positive: !0,
+                          max: 32768
+                        }),
+                        a = Y(r.updated_at_ms),
+                        i = (n = r.content_type, null == n ? "file" === t ? void 0 : null : "string" != typeof n || 0 === n.length || new TextEncoder().encode(n).byteLength > 127 || n.trim() !== n || n !== n.toLowerCase() || n.includes(";") || 2 !== n.split("/").length || !Array.from(n).every(e => {
+                          let t = e.codePointAt(0) ?? 0;
+                          return t >= 33 && t <= 126
+                        }) || "image" === t && !B.has(n) || "video" === t && !D.has(n) ? null : n);
+                      return null === l || null === o || null === a || null === i ? null : {
+                        url: r.url,
+                        ...null != l ? {
+                          width: l
+                        } : {},
+                        ...null != o ? {
+                          height: o
+                        } : {},
+                        ...null != i ? {
+                          contentType: i
+                        } : {},
+                        ...null != a ? {
+                          updatedAtMs: a
+                        } : {}
+                      }
+                    }(t.resource, t.kind);
+                  if (null === n || null === l) return H("invalid_attachment", "attachments");
+                  r.push({
+                    kind: t.kind,
+                    fileName: t.file_name,
+                    ...null != n ? {
+                      sizeBytes: n
+                    } : {},
+                    ...null != l ? {
+                      resource: l
+                    } : {}
+                  })
+                }
+                return {
+                  value: {
+                    type: "attachments",
+                    key: n.key,
+                    label: e,
+                    items: r
+                  },
+                  rejection: null
+                }
+              }
+              default:
+                return H("unsupported_block_type", "unknown")
+            }
+          }(e, t.version);
+          if (null == r.value) return r;
+          n.push(r.value)
+        }
+        let r = {
+          version: t.version,
+          truncated: t.truncated,
+          blocks: n
+        };
+        return new TextEncoder().encode(JSON.stringify(r)).byteLength > 4096 ? H("serialized_size_out_of_bounds", "document") : {
+          value: r,
+          rejection: null
+        }
+      }(l.request_preview_document) : null;
+    Z?.rejection != null && (t = Z.rejection, $(b, y) && v.error({
+      approvalId: y,
+      reasonCode: t.code,
+      blockType: t.blockType,
+      tags: {
+        surface: r.HATCH_SENTRY_SURFACES.STATUS_APPROVALS,
+        reason_code: t.code,
+        block_type: t.blockType
+      }
+    }, "Rejected approval request preview document"));
+    let eo = Z?.value ?? null,
+      ea = R(l.display_name),
+      ei = X(o),
+      es = O(o.runtime_request_trace),
+      eu = eN(l, s, x, I, eo);
+    return {
+      approvalId: y,
+      requestedAtMs: m,
+      requestExpiresAtMs: K(n.request_expires_at_ms),
+      decidedAtMs: K(n.decided_at_ms),
+      expiresAtMs: K(n.expires_at_ms),
+      ...null != ea ? {
+        displayName: ea
+      } : {},
+      policySubject: R(d.policy_subject),
+      host: C,
+      port: M,
+      scheme: k,
+      method: R(d.method),
+      path: R(d.path),
+      binaryPath: A ?? "",
+      binaryPid: K(a.binary_pid),
+      ancestors: P(a.ancestors),
+      cmdlinePaths: P(a.cmdline_paths),
+      reason: j,
+      shortExplanation: R(l.short_explanation),
+      richExplanation: R(l.rich_explanation),
+      matchedPolicy: R(d.matched_policy),
+      taskId: R(o.task_id),
+      messageId: R(o.message_id),
+      sessionScopeId: ei?.sessionScopeId ?? R(o.session_scope_id),
+      scope: ei,
+      requesterSource: R(o.requester_source),
+      requestOrigin: null,
+      initiatorId: null,
+      initiatorLabel: null,
+      actionLabel: R(l.action_label),
+      actionDescription: R(l.action_description),
+      turnGrantEligible: q(u?.turn_grant_eligible) || q(c?.turn_grant_eligible),
+      spaceReaderGrantEligible: T,
+      scheduleId: ei?.scheduleId ?? R(o.schedule_id),
+      cronWebGrantEligible: x?.kind === "cron_web_read",
+      cronWebAllHostsGrantEligible: q(o.cron_web_all_hosts_grant_eligible),
+      isExclusive: q(n.is_exclusive),
+      spaceDisplayName: ei?.spaceSlug != null ? ei.displayName ?? es ?? ei.spaceSlug : es,
+      declaredHosts: L(u?.declared_hosts),
+      purposeSummary: R(l.purpose_summary),
+      workload: R(o.workload),
+      requestId: R(o.request_id),
+      rootAgentId: R(o.root_agent_id),
+      agentId: R(o.agent_id),
+      parentAgentId: R(o.parent_agent_id),
+      agentDepth: K(o.agent_depth),
+      parentMessageId: R(o.parent_message_id),
+      submissionMessageId: R(o.submission_message_id),
+      streamOwnerMessageId: R(o.stream_owner_message_id),
+      rootMessageExecutionId: R(o.root_message_execution_id),
+      toolCallId: R(o.tool_call_id),
+      resumeKind: R(o.resume_kind),
+      resumeStrategy: R(o.resume_strategy),
+      command: R(a.registered_command ?? a.observed_command),
+      resolvedPeerBinary: R(a.resolved_peer_binary),
+      recentFileContext: ed(o.recent_file_context),
+      notificationTargets: P(o.notification_targets),
+      ...null != U ? {
+        payloadPreview: U
+      } : {},
+      status: E,
+      decision: er(n.decision),
+      allowAlwaysScope: el(n.always_scope),
+      decisionReason: R(n.decision_reason),
+      appliedRuleEntries: [],
+      decidedBy: null,
+      notificationChannel: R(o.notification_channel),
+      outgoingMediaApproval: ef(i.outgoing_media_payload),
+      approvalType: R(n.approval_type),
+      decisionOptions: I?.map(e => e.kind) ?? null,
+      serverPresentation: eu,
+      browserCheckoutApproval: eb(i.browser_checkout_payload),
+      shopifyCheckoutApproval: eS(i.shopify_checkout_payload, R(l.icon_url)),
+      stripeLinkCheckoutApproval: eE(i.stripe_link_checkout_payload),
+      isMalformed: !1,
+      isActionable: "pending" === E,
+      normalizationIssues: []
+    }
+  }
+
+  function eG(e) {
+    return Array.isArray(e) ? eH(e.map(e => eK(e)).filter(e => null != e)) : []
+  }
+
+  function eU(e) {
+    let t = G(e) ?? {},
+      n = Object.prototype.hasOwnProperty.call(t, "pending_approvals"),
+      r = Object.prototype.hasOwnProperty.call(t, "recent_approvals");
+    return {
+      pending: n ? eG(t.pending_approvals) : eR(t.pending),
+      recent: r ? eG(t.recent_approvals) : eR(t.recent),
+      ...n || r ? {
+        source: "snapshot"
+      } : {}
+    }
+  }
+
+  function eB(e, t) {
+    if (null == t) return e;
+    let n = new Map([...t.pending, ...t.recent].map(e => [e.approvalId, e])),
+      r = e => {
+        let t = n.get(e.approvalId);
+        return null == t ? e : {
+          ...e,
+          serverPresentation: t.serverPresentation
+        }
+      };
+    return {
+      pending: e.pending.map(r),
+      recent: e.recent.map(r),
+      source: "snapshot" === t.source ? "snapshot" : e.source
+    }
+  }
+
+  function eD(e) {
+    let t = 4 * !e.isMalformed;
+    return (null != e.browserCheckoutApproval || null != e.shopifyCheckoutApproval || null != e.stripeLinkCheckoutApproval) && (t += 3), null != e.outgoingMediaApproval && (t += 2), null != e.payloadPreview && (t += 1), t
+  }
+
+  function eH(e) {
+    let t = [],
+      n = new Map;
+    for (let r of e) {
+      let e = n.get(r.approvalId);
+      if (null == e) {
+        t.push(r.approvalId), n.set(r.approvalId, r);
+        continue
+      }
+      eD(r) > eD(e) && n.set(r.approvalId, r)
+    }
+    return t.map(e => n.get(e)).filter(e => null != e)
+  }
+
+  function eF(e, t) {
+    return "chat_crons_spaces" === e ? "chat_crons_spaces" : "only_chat" === e ? "only_chat" : !0 === N(t) ? "chat_crons_spaces" : "only_chat"
+  }
+
+  function ez(e) {
+    if ("object" != typeof e || null == e) return {
+      hitlMode: "disabled",
+      connectorsEnabled: !1,
+      networkEnabled: !1,
+      connectorDefault: "auto_allow",
+      networkDefault: "auto_allow",
+      connectorScope: "only_chat",
+      networkScope: "only_chat",
+      backgroundSelectorsEnabled: !1,
+      snoozedUntilMs: null,
+      tproxyMode: "disabled",
+      mitmMode: "disabled",
+      sniRejectionMode: "enabled",
+      connectors: [],
+      recentEvents: []
+    };
+    let t = eo(e.hitl_mode),
+      n = N(e.connectors_enabled) ?? "full" === t,
+      r = N(e.network_enabled) ?? "full" === t;
+    return {
+      hitlMode: t ?? (n || r ? "full" : "disabled"),
+      connectorsEnabled: n,
+      networkEnabled: r,
+      connectorDefault: ei(e.connector_default) ?? "auto_allow",
+      networkDefault: ei(e.network_default) ?? "auto_allow",
+      connectorScope: eF(e.connector_scope, e.background_selectors_enabled),
+      networkScope: eF(e.network_scope, e.background_selectors_enabled),
+      backgroundSelectorsEnabled: N(e.background_selectors_enabled) ?? !1,
+      snoozedUntilMs: K(e.hitl_snoozed_until_ms),
+      tproxyMode: ea(e.tproxy_mode) ?? "disabled",
+      mitmMode: ea(e.mitm_always_mode) ?? "disabled",
+      sniRejectionMode: ea(e.sni_rejection_mode) ?? "enabled",
+      connectors: Array.isArray(e.connectors) ? e.connectors.map(e => (function(e) {
+        var t, n, r;
+        if ("object" != typeof e || null == e) return null;
+        let l = R(e.connector);
+        if (null == l) return null;
+        let o = "object" == typeof e.display && null != e.display ? e.display : null,
+          a = R(o?.display_name) ?? R(o?.displayName) ?? l,
+          i = R(o?.description) ?? "",
+          s = R(o?.icon),
+          u = R(o?.icon_url) ?? R(o?.iconUrl),
+          c = function(e) {
+            let t;
+            if ("object" != typeof e || null == e || Array.isArray(e)) return null;
+            let n = null != (t = R(e.management_kind ?? e.managementKind)) && y.has(t) ? t : null;
+            return null == n ? null : {
+              visible: q(e.visible),
+              managementKind: n
+            }
+          }(o?.settings),
+          p = "object" != typeof(t = o?.methods ?? o?.actions) || null == t || Array.isArray(t) ? {} : Object.fromEntries(Object.entries(t).map(([e, t]) => {
+            let n = R(e);
+            if (null == n || "object" != typeof t || null == t) return null;
+            let r = R(t.label) ?? n;
+            return [n, {
+              label: r,
+              description: R(t.description) ?? "",
+              approvalPrompt: R(t.approval_prompt) ?? R(t.approvalPrompt) ?? ""
+            }]
+          }).filter(e => null != e)),
+          d = "object" != typeof(n = o?.action_groups ?? o?.actionGroups ?? o?.actions) || null == n || Array.isArray(n) ? {} : Object.fromEntries(Object.entries(n).map(([e, t]) => {
+            var n;
+            let r = R(e);
+            if (null == r || "object" != typeof t || null == t) return null;
+            let l = R(t.label) ?? r,
+              o = Array.isArray(n = t.methods ?? t.method_keys ?? t.methodKeys) ? n.map(e => R(e)).filter(e => null != e) : [];
+            return 0 === o.length ? null : [r, {
+              label: l,
+              methods: o,
+              category: R(t.category)
+            }]
+          }).filter(e => null != e)),
+          _ = ep(e.methods),
+          m = ep(e.actions),
+          f = Object.keys(_).length > 0,
+          h = f ? _ : m,
+          v = "object" != typeof(r = e.method_sources) || null == r || Array.isArray(r) ? {} : Object.fromEntries(Object.entries(r).flatMap(([e, t]) => {
+            let n = R(e);
+            return null == n ? [] : [
+              [n, "user_override" === t ? "user_override" : "default"]
+            ]
+          })),
+          g = Object.fromEntries(Object.keys(h).map(e => [e, v[e] ?? "default"]));
+        return {
+          connector: l,
+          displayName: a,
+          description: i,
+          icon: s,
+          iconUrl: u,
+          settings: c,
+          methods: h,
+          methodSources: g,
+          methodDisplays: p,
+          actionGroups: d,
+          usesMethodPermissions: f,
+          actions: h,
+          actionDisplays: p
+        }
+      })(e)).filter(e => null != e) : [],
+      recentEvents: Array.isArray(e.recent_events) ? e.recent_events.map(e => (function(e) {
+        if ("object" != typeof e || null == e) return null;
+        let t = K(e.ts_ms),
+          n = R(e.actor),
+          r = R(e.action);
+        return null == t || null == n || null == r ? null : {
+          tsMs: t,
+          actor: n,
+          action: r,
+          connector: R(e.connector),
+          hitlMode: eo(e.hitl_mode),
+          connectorsEnabled: N(e.connectors_enabled),
+          networkEnabled: N(e.network_enabled),
+          connectorDefault: ei(e.connector_default),
+          networkDefault: ei(e.network_default),
+          backgroundSelectorsEnabled: N(e.background_selectors_enabled),
+          connectorActions: ep(e.connector_actions),
+          reason: R(e.reason)
+        }
+      })(e)).filter(e => null != e) : []
+    }
+  }
+
+  function eQ(e) {
+    let t = "object" == typeof e && null != e ? e : {},
+      n = null;
+    if (Object.prototype.hasOwnProperty.call(t, "default_content")) {
+      var l;
+      let e = function(e) {
+        let t = G(e);
+        if (null == t) return {
+          content: null,
+          rejectionCode: "default_content_invalid"
+        };
+        let n = eu(t?.connector);
+        if (null == n) return {
+          content: null,
+          rejectionCode: "connector_content_invalid"
+        };
+        let r = eu(t?.network);
+        return null == r ? {
+          content: null,
+          rejectionCode: "network_content_invalid"
+        } : {
+          content: {
+            connector: n,
+            network: r
+          },
+          rejectionCode: null
+        }
+      }(t.default_content);
+      n = e.content, null != e.rejectionCode && (l = e.rejectionCode, v.retainForBugReport("warn", "Rejected permission defaults display content"), (0, r.captureHatchMessage)(r.HATCH_SENTRY_SURFACES.SETTINGS_CONNECTORS, "Rejected permission defaults display content", {
+        level: "warning",
+        tags: {
+          reason_code: l
+        }
+      }))
+    }
+    return {
+      connectorDefault: ei(t.connector_default) ?? "auto_allow",
+      networkDefault: ei(t.network_default) ?? "auto_allow",
+      defaultContent: n,
+      tproxyMode: ea(t.tproxy_mode) ?? "disabled",
+      mitmMode: ea(t.mitm_mode) ?? "disabled",
+      sniRejectionMode: ea(t.sni_rejection_mode) ?? "enabled",
+      protocolsHeading: R(t.protocols_heading),
+      protocols: Array.isArray(t.protocols) ? function(e) {
+        let t = [],
+          n = new Set;
+        for (let r of e) {
+          let e = function(e) {
+            let t = G(e);
+            if (null == t) return {
+              row: null,
+              rejectionCode: "invalid_row"
+            };
+            let n = R(t.key);
+            if (null == n) return {
+              row: null,
+              rejectionCode: "missing_key"
+            };
+            let r = R(t.title);
+            if (null == r) return {
+              row: null,
+              rejectionCode: "missing_title"
+            };
+            let l = R(t.mode);
+            return "deny" !== l && "ask" !== l ? {
+              row: null,
+              rejectionCode: "unknown_mode"
+            } : {
+              row: {
+                key: n,
+                title: r,
+                description: R(t.description),
+                iconKey: R(t.icon_key),
+                mode: l
+              },
+              rejectionCode: null
+            }
+          }(r);
+          null != e.row ? t.push(e.row) : n.add(e.rejectionCode)
+        }
+        for (let e of n) {
+          var l;
+          l = e, v.retainForBugReport("warn", "Rejected protocol permission row"), (0, r.captureHatchMessage)(r.HATCH_SENTRY_SURFACES.SETTINGS_CONNECTORS, "Rejected protocol permission row", {
+            level: "warning",
+            tags: {
+              reason_code: l
+            }
+          })
+        }
+        return t
+      }(t.protocols) : null
+    }
+  }
+
+  function eW(e) {
+    let t, n;
+    if ("object" != typeof e || null == e) return null;
+    let r = R(e.permission_id),
+      l = null != (t = R(e.kind)) && m.has(t) ? t : null,
+      o = null != (n = R(e.lifetime)) && f.has(n) ? n : null,
+      a = R(e.label);
+    return null == r || null == l || null == o || null == a ? null : {
+      permissionId: r,
+      kind: l,
+      lifetime: o,
+      label: a,
+      connector: R(e.connector),
+      connectorAction: R(e.connector_action),
+      displayLabel: R(e.display_label),
+      displayPrompt: R(e.display_prompt),
+      mode: ec(e.mode),
+      modeOptions: Array.isArray(e.mode_options) ? e.mode_options.flatMap(e => {
+        let t = ec(e);
+        return null == t ? [] : [t]
+      }) : [],
+      policyRuleKey: R(e.policy_rule_key),
+      policySubject: R(e.policy_subject),
+      destination: R(e.destination),
+      sessionScopeId: R(e.session_scope_id),
+      expiresAtMs: K(e.expires_at_ms),
+      createdAtMs: K(e.created_at_ms),
+      source: R(e.source),
+      revocable: q(e.revocable),
+      display: function(e) {
+        let t = G(e);
+        if (null == t) return null;
+        let n = R(t.summary_title),
+          r = eO(t.icon_key);
+        return null == n || null == r ? null : {
+          summaryTitle: n,
+          permissionCaption: R(t.permission_caption) ?? R(t.subtitle),
+          iconKey: r,
+          iconUrl: R(t.icon_url),
+          modeLabel: R(t.mode_label),
+          detailRows: eL(t.detail_rows)
+        }
+      }(e.display),
+      target: function(e) {
+        let t = G(e),
+          n = R(t?.type);
+        if ("network" === n) {
+          let e = G(t?.network);
+          return null == e ? null : {
+            type: n,
+            endpoints: Array.isArray(e.endpoints) ? e.endpoints.flatMap(e => {
+              let t = G(e),
+                n = R(t?.host);
+              return null == n ? [] : [{
+                host: n,
+                ports: Array.isArray(t?.ports) ? t.ports.flatMap(e => {
+                  let t = K(e);
+                  return null != t && Number.isInteger(t) && t > 0 && t <= 65535 ? [t] : []
+                }) : []
+              }]
+            }) : []
+          }
+        }
+        if ("connector" === n) {
+          let e = G(t?.connector),
+            r = R(e?.key),
+            l = R(e?.display_name);
+          return null == e || null == r || null == l ? null : {
+            type: n,
+            key: r,
+            displayName: l,
+            actions: Array.isArray(e.actions) ? e.actions.flatMap(e => {
+              let t = G(e),
+                n = R(t?.key),
+                r = R(t?.display_label),
+                l = ec(t?.mode),
+                o = R(t?.mode_label);
+              return null == n || null == r || null == l || null == o ? [] : [{
+                key: n,
+                displayLabel: r,
+                mode: l,
+                modeLabel: o
+              }]
+            }) : []
+          }
+        }
+        return null
+      }(e.target),
+      scope: X(e.scope)
+    }
+  }
+
+  function eY(e) {
+    return "object" != typeof e || null == e ? {
+      items: [],
+      nextCursor: null
+    } : {
+      items: Array.isArray(e.items) ? e.items.map(e => eW(e)).filter(e => null != e) : [],
+      nextCursor: R(e.next_cursor)
+    }
+  }
+
+  function eJ(e) {
+    return "object" != typeof e || null == e ? e : e.active_permissions ?? e.payload ?? e.permissions ?? e
+  }
+  async function eV(e, t) {
+    return eU(await a(e, "egress.approvals", {}, t))
+  }
+  async function e$(e, t, n) {
+    let r = "allow_always" === e.decision || "deny_always" === e.decision ? e.allowAlwaysScope ?? void 0 : void 0,
+      l = {
+        approval_id: e.approvalId,
+        decision: e.decision,
+        ...void 0 !== r ? {
+          always_scope: r
+        } : {},
+        ..."allow_always" === e.decision && void 0 !== r ? {
+          allow_always_scope: r
+        } : {},
+        reason: e.reason ?? void 0,
+        expires_at_ms: e.expiresAtMs ?? void 0,
+        notification_channel: e.notificationChannel ?? void 0
+      },
+      o = await (null == n ? t("egress.approval.decide", l) : t("egress.approval.decide", l, n));
+    return "object" != typeof o.approval || null == o.approval ? null : eM(o.approval)
+  }
+  async function eX(e, t, n) {
+    let r = {
+      actor: e.actor ?? void 0,
+      reason: e.reason ?? void 0
+    };
+    return null != e.mode && (r.mode = e.mode), null != e.connectorsEnabled && (r.connectors_enabled = e.connectorsEnabled), null != e.networkEnabled && (r.network_enabled = e.networkEnabled), null != e.connectorScope && (r.connector_scope = e.connectorScope), null != e.networkScope && (r.network_scope = e.networkScope), null != e.backgroundSelectorsEnabled && (r.background_selectors_enabled = e.backgroundSelectorsEnabled), ez((await a(t, "egress.permissions.hitl", r, n)).permissions)
+  }
+  async function eZ(e, t) {
+    return ez((await a(e, "egress.permissions.hitl.snooze.delete", {}, t)).permissions)
+  }
+  async function e0(e, t, n) {
+    let r = {
+      mode: e.mode,
+      actor: e.actor ?? void 0,
+      reason: e.reason ?? void 0
+    };
+    return ez((await a(t, "egress.permissions.tproxy", r, n)).permissions)
+  }
+  async function e1(e, t, n) {
+    let r = {
+      connector_default: e.connectorDefault,
+      network_default: e.networkDefault,
+      protocols: e.protocols,
+      reason: e.reason ?? void 0
+    };
+    return eQ(await a(t, "permissions.settings.update", r, n))
+  }
+  async function e3(e, t, n) {
+    let r = {
+      mode: e.mode,
+      actor: e.actor ?? void 0,
+      reason: e.reason ?? void 0
+    };
+    return ez((await a(t, "egress.permissions.mitm", r, n)).permissions)
+  }
+  async function e2(e, t, n) {
+    let r = {
+      mode: e.mode,
+      actor: e.actor ?? void 0,
+      reason: e.reason ?? void 0
+    };
+    return ez((await a(t, "egress.permissions.sni_rejection", r, n)).permissions)
+  }
+  async function e5(e, t, n) {
+    let r = e.methods ?? e.actions ?? {},
+      l = {
+        connector: e.connector,
+        methods: null != e.methods ? r : void 0,
+        actions: null == e.methods ? r : void 0,
+        actor: e.actor ?? void 0,
+        reason: e.reason ?? void 0
+      };
+    return ez((await a(t, "egress.permissions.connector", l, n)).permissions)
+  }
+  async function e4(e, t, n) {
+    return ez((await a(t, "egress.permissions.connector.reset", {
+      connector: e.connector,
+      reason: e.reason ?? void 0
+    }, n)).permissions)
+  }
+  async function e8(e, t, n) {
+    let r = {
+      permission_id: e.permissionId,
+      kind: e.kind,
+      actor: e.actor ?? void 0,
+      reason: e.reason ?? void 0
+    };
+    return eY(eJ(await a(t, "egress.permissions.revoke", r, n)))
+  }
+  async function e6(e, t, n) {
+    return eY(eJ(await a(t, "egress.permissions.active.update", {
+      permission_id: e.permissionId,
+      kind: e.kind,
+      mode: e.mode,
+      actor: e.actor ?? void 0,
+      reason: e.reason ?? void 0
+    }, n)))
+  }
+  async function e7(e = {}, t, n) {
+    var r;
+    let l = {
+        reason: e.reason ?? void 0
+      },
+      o = await a(t, "egress.permissions.reset", l, n);
+    return {
+      permissions: ez(o.permissions),
+      activePermissions: eY(eJ(o)),
+      reset: "object" != typeof(r = o.reset) || null == r ? {
+        connectorOverrides: 0,
+        networkRules: 0
+      } : {
+        connectorOverrides: K(r.connector_overrides) ?? 0,
+        networkRules: K(r.network_rules) ?? 0
+      }
+    }
+  }
+  e.s(["activePermissionsQuery", 0, C, "approvalHistoryQuery", 0, I, "approvalsDetailQuery", 0, j, "approvalsListQuery", 0, S, "approvalsQueryKeys", 0, k, "decideApproval", 0, e$, "deleteHitlSnooze", 0, eZ, "fetchApprovals", 0, eV, "groupedActivePermissionsQuery", 0, M, "normalizeActivePermissions", 0, eY, "normalizeApprovalsSnapshot", 0, function(e) {
+    let t = G(e) ?? {};
+    return {
+      pending: eG(t.pending_approvals),
+      recent: eG(t.recent_approvals),
+      source: "snapshot"
+    }
+  }, "patchConnectorPermissions", 0, e5, "patchHitlMode", 0, eX, "patchMitmMode", 0, e3, "patchPermissionDefaults", 0, e1, "patchSniRejectionMode", 0, e2, "patchTproxyMode", 0, e0, "permissionsDetailQuery", 0, E, "permissionsQueryKeys", 0, A, "permissionsSettingsQuery", 0, x, "reconcileApprovalsWithCachedPresentation", 0, eB, "resetConnectorPermissions", 0, e4, "resetPermissions", 0, e7, "revokePermission", 0, e8, "trimToNonEmptyString", 0, R, "updateActivePermission", 0, e6], 361896);
+  var e9 = e.i(134348),
+    te = e.i(891387),
+    tt = e.i(508180);
+  let tn = new WeakMap;
+
+  function tr(e) {
+    let t = tn.get(e);
+    if (null != t) return t;
+    let n = {
+      activeGatewayScopeKey: null,
+      activationEpoch: 0,
+      committedEpoch: 0,
+      epoch: 0
+    };
+    return tn.set(e, n), n
+  }
+
+  function tl(e, t) {
+    let n = tr(e);
+    return ti(e, t) ? (n.epoch += 1, n.epoch) : null
+  }
+
+  function to(e, t) {
+    let n = tr(e);
+    return n.activeGatewayScopeKey === t.gatewayScopeKey && n.activationEpoch === t.activationEpoch && n.epoch === t.epoch
+  }
+
+  function ta(e, t) {
+    let n = tr(e);
+    ti(e, t) && (n.committedEpoch = n.epoch)
+  }
+
+  function ti(e, t) {
+    let n = tr(e);
+    return n.activeGatewayScopeKey === t.gatewayScopeKey && n.activationEpoch === t.activationEpoch
+  }
+
+  function ts(e) {
+    let t = new Set;
+    for (let n of Object.values(e)) null != n && n.length > 0 && t.add(n);
+    return t
+  }
+
+  function tu(e) {
+    let t = (0, e9.approvalsToSnapshotPendingApprovals)(e.pending),
+      n = (0, te.approvalsToSnapshotPendingApprovalScopes)(e.pending),
+      r = (0, te.approvalsToSnapshotPendingApprovalBackgroundOnly)(e.pending),
+      l = (0, e9.approvalsToSnapshotPendingApprovalRequestedAtMs)(e.pending);
+    tt.commitStoreUpdate(e => {
+      let o = Date.now(),
+        a = function(e, t, n) {
+          let r = ts(t);
+          if (0 === r.size) return e;
+          let l = ts(n),
+            o = e;
+          for (let t of r) {
+            if (l.has(t)) continue;
+            let n = e[t];
+            null != n && (0, e9.isPendingApprovalStatus)(n) && (o === e && (o = {
+              ...e
+            }), delete o[t])
+          }
+          return o
+        }(e.activity.liveTaskStatusesByTaskId, e.activity.snapshotPendingApprovalsById, t),
+        i = (0, e9.retainLiveApprovalTaskScopes)(e.activity.liveTaskScopesByTaskId, a),
+        s = (0, e9.retainResolvedApprovalIdsPresentInSnapshot)(e.activity.resolvedApprovalIdsById, t),
+        u = (0, e9.pruneExpiredResolvedTaskGraceUntil)(e.activity.resolvedTaskGraceUntilByTaskId, o),
+        c = (0, e9.derivePendingApprovalTaskStatuses)({
+          liveTaskStatusesByTaskId: a,
+          snapshotPendingApprovalsById: t,
+          resolvedApprovalIdsById: s,
+          resolvedTaskGraceUntilByTaskId: u,
+          now: o,
+          mode: "background"
+        });
+      return (0, e9.sameRecord)(e.activity.liveTaskStatusesByTaskId, a) && (0, e9.sameApprovalTaskScopeRecord)(e.activity.liveTaskScopesByTaskId, i) && (0, e9.sameRecord)(e.activity.snapshotPendingApprovalsById, t) && (0, e9.sameApprovalTaskScopeRecord)(e.activity.snapshotPendingApprovalScopesById, n) && (0, e9.sameRecord)(e.activity.snapshotPendingApprovalBackgroundOnlyById, r) && (0, e9.sameRecord)(e.activity.snapshotPendingApprovalRequestedAtMsById, l) && (0, e9.sameRecord)(e.activity.resolvedApprovalIdsById, s) && (0, e9.sameRecord)(e.activity.resolvedTaskGraceUntilByTaskId, u) && (0, e9.sameRecord)(e.activity.taskStatusesByTaskId, c) ? null : {
+        activity: {
+          ...e.activity,
+          liveTaskStatusesByTaskId: a,
+          liveTaskScopesByTaskId: i,
+          snapshotPendingApprovalsById: t,
+          snapshotPendingApprovalScopesById: n,
+          snapshotPendingApprovalBackgroundOnlyById: r,
+          snapshotPendingApprovalRequestedAtMsById: l,
+          resolvedApprovalIdsById: s,
+          resolvedTaskGraceUntilByTaskId: u,
+          taskStatusesByTaskId: c
+        }
+      }
+    }, "activity/sync_pending_approvals_query")
+  }
+  e.s(["activateApprovalStateGateway", 0, function(e, t) {
+    let n = tr(e);
+    return n.activeGatewayScopeKey = t, n.activationEpoch += 1, n.epoch += 1, {
+      activationEpoch: n.activationEpoch,
+      gatewayScopeKey: t
+    }
+  }, "advanceApprovalStateGeneration", 0, tl, "captureApprovalStateToken", 0, function(e, t) {
+    let n = tr(e);
+    return null == n.activeGatewayScopeKey && 0 === n.activationEpoch && (n.activeGatewayScopeKey = t), {
+      activationEpoch: n.activationEpoch,
+      committedEpoch: n.committedEpoch,
+      epoch: n.epoch,
+      gatewayScopeKey: t
+    }
+  }, "captureApprovalTargetToken", 0, function(e, t) {
+    let n = tr(e);
+    return null == n.activeGatewayScopeKey && 0 === n.activationEpoch && (n.activeGatewayScopeKey = t), {
+      activationEpoch: n.activationEpoch,
+      gatewayScopeKey: t
+    }
+  }, "commitAcceptedApprovalsPull", 0, function(e) {
+    let {
+      expectedToken: t,
+      freshApprovals: n,
+      gatewayScopeKey: r,
+      queryClient: l,
+      syncActivity: o = tu
+    } = e;
+    if (t.gatewayScopeKey !== r || !to(l, t)) return {
+      accepted: !1
+    };
+    let a = eB(n, l.getQueryData(S.queryKey({
+      gatewayUrl: r
+    })));
+    S.setData(l, {
+      gatewayUrl: r
+    }, a), o(a);
+    let i = {
+      activationEpoch: t.activationEpoch,
+      gatewayScopeKey: r
+    };
+    return tl(l, i), ta(l, i), {
+      accepted: !0,
+      approvals: a
+    }
+  }, "commitApprovalsSnapshot", 0, function(e) {
+    let {
+      approvals: t,
+      expectedTargetToken: n,
+      gatewayScopeKey: r,
+      queryClient: l
+    } = e;
+    return n.gatewayScopeKey === r && null != tl(l, n) && (S.setData(l, {
+      gatewayUrl: r
+    }, t), tu(t), ta(l, n), !0)
+  }, "deactivateApprovalStateGateway", 0, function(e, t) {
+    let n = tr(e);
+    return !!ti(e, t) && (n.activeGatewayScopeKey = null, n.activationEpoch += 1, n.epoch += 1, !0)
+  }, "hasApprovalStateCommittedSince", 0, function(e, t) {
+    let n = tr(e);
+    return n.activeGatewayScopeKey === t.gatewayScopeKey && n.activationEpoch === t.activationEpoch && n.committedEpoch > t.committedEpoch
+  }, "hasLatestApprovalStateCommittedSince", 0, function(e, t) {
+    let n = tr(e);
+    return n.activeGatewayScopeKey === t.gatewayScopeKey && n.activationEpoch === t.activationEpoch && n.committedEpoch > t.committedEpoch && n.committedEpoch === n.epoch
+  }, "isApprovalStateTokenCurrent", 0, to, "isApprovalTargetTokenCurrent", 0, ti], 506257)
+}]);
+
+//# debugId=35620a26-18e4-113a-e3fd-2374dd7ec716
+//# sourceMappingURL=0mmz8pxavab5w.js.map

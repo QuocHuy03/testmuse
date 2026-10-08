@@ -1,0 +1,1002 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "e36d9a75-47e3-06ff-f3a8-5be688f6c614")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 385246, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    r = e.i(519172),
+    n = e.i(635527),
+    i = e.i(813280),
+    l = e.i(863641),
+    u = e.i(224520);
+  let s = (0, r.lazy)(() => e.A(698400).then(e => ({
+    default: e.HatchWorkOidcAutoTriggerImpl
+  })));
+
+  function o() {
+    let e, n = (0, a.c)(1);
+    return (0, u.useMcBool)("f9ea7727", !1) ? (n[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(i.EctoErrorBoundary, {
+      surface: l.HATCH_SENTRY_SURFACES.WORK_OIDC,
+      fallback: c,
+      children: (0, t.jsx)(r.Suspense, {
+        fallback: null,
+        children: (0, t.jsx)(s, {})
+      })
+    }), n[0] = e) : e = n[0], e) : null
+  }
+
+  function c() {
+    return null
+  }
+  var y = e.i(393202),
+    f = e.i(175286),
+    h = e.i(52038),
+    d = e.i(907579),
+    v = e.i(359783),
+    m = e.i(207274),
+    p = e.i(925301),
+    g = e.i(249872),
+    A = e.i(522730),
+    _ = e.i(812240),
+    b = e.i(942970),
+    C = e.i(171311),
+    T = e.i(644036),
+    Q = e.i(653388),
+    w = e.i(498054),
+    E = e.i(308206),
+    R = e.i(3116),
+    P = e.i(713140),
+    I = e.i(438451),
+    H = e.i(829098),
+    K = e.i(384390),
+    U = e.i(93731),
+    S = e.i(543912),
+    k = e.i(711541),
+    L = e.i(499608);
+  let D = ["workspace", "USER.md", U.VOICE_SELECTION_PATH, K.VOICE_NUX_PATH, k.SAVED_VOICES_PATH],
+    O = (0, v.createClientLogger)("HatchQuerySubscriptions");
+
+  function x(e, t) {
+    let a = null;
+    return {
+      call: (...r) => {
+        a && clearTimeout(a), a = setTimeout(() => {
+          a = null, e(...r)
+        }, t)
+      },
+      cancel: () => {
+        a && (clearTimeout(a), a = null)
+      }
+    }
+  }
+  var F = e.i(791661),
+    q = e.i(739747),
+    j = e.i(585152),
+    V = e.i(175521),
+    B = e.i(823879),
+    M = e.i(539739),
+    N = e.i(167985),
+    G = e.i(661368);
+  let z = (0, v.createClientLogger)("useHatchChatThemeSubscription");
+  var W = e.i(508180),
+    $ = e.i(80312),
+    Y = e.i(720756);
+  let J = (0, v.createClientLogger)("useHatchIdentity");
+
+  function X() {}
+
+  function Z(e) {
+    let t = (0, $.fallbackIdentityOnFetchFailure)(W.getSnapshot().identity.name);
+    t && W.setIdentity(t, "fallback"), J.retainForBugReport("debug", "GET /identity failed, using defaults")
+  }
+
+  function ee(e) {
+    let t = (0, $.mapGatewayIdentityToHatch)(e);
+    W.setIdentity(t)
+  }
+  var et = e.i(424509);
+  let ea = (0, r.lazy)(() => e.A(11740));
+
+  function er(e) {
+    let i, l = (0, a.c)(2),
+      {
+        gatewayUrl: u
+      } = e;
+    return ! function() {
+      let e, t, i = (0, a.c)(4),
+        [l, u] = (0, r.useState)(!1);
+      return !0 !== i[0] || i[1] !== l ? (e = () => {
+        if (!l) return (0, n.requestIdleCallbackAfterLoad)(() => u(!0))
+      }, t = [!0, l], i[0] = !0, i[1] = l, i[2] = e, i[3] = t) : (e = i[2], t = i[3]), (0, r.useEffect)(e, t), l
+    }() ? null : (l[0] !== u ? (i = (0, t.jsx)(r.Suspense, {
+      fallback: null,
+      children: (0, t.jsx)(ea, {
+        gatewayUrl: u
+      })
+    }), l[0] = u, l[1] = i) : i = l[1], i)
+  }
+  e.s(["default", 0, function(e) {
+    let n, i, u, s = (0, a.c)(5),
+      {
+        gatewayUrl: c
+      } = e;
+    return ! function() {
+      let e, t, n, i, l, u, s, o = (0, a.c)(30),
+        {
+          isReady: c,
+          onEvent: h,
+          sendRequest: d,
+          gatewayUrl: v
+        } = (0, f.useHatchRpc)(),
+        m = (0, y.useQueryClient)(),
+        p = (0, Y.useGatewayQueryContext)();
+      o[0] !== v ? (e = (0, G.chatThemesQueryParamsForGatewayUrl)(v), o[0] = v, o[1] = e) : e = o[1];
+      let g = e;
+      o[2] !== g || o[3] !== c || o[4] !== m || o[5] !== p || o[6] !== d ? (t = () => {
+        c && (G.chatThemesQuery.prefetch(m, g, p), d("identity", {}).then(ee).catch(Z))
+      }, o[2] = g, o[3] = c, o[4] = m, o[5] = p, o[6] = d, o[7] = t) : t = o[7], o[8] !== g || o[9] !== v || o[10] !== c || o[11] !== m || o[12] !== p || o[13] !== d ? (n = [c, d, v, m, p, g], o[8] = g, o[9] = v, o[10] = c, o[11] = m, o[12] = p, o[13] = d, o[14] = n) : n = o[14], (0, r.useEffect)(t, n), o[15] !== c || o[16] !== d ? (i = () => {
+        c && d("identity.subscribe", {}).catch(X)
+      }, l = [c, d], o[15] = c, o[16] = d, o[17] = i, o[18] = l) : (i = o[17], l = o[18]), (0, r.useEffect)(i, l), o[19] !== g || o[20] !== c || o[21] !== h || o[22] !== m ? (u = () => {
+        if (c) return h("identity.updated", e => {
+          let t = (0, $.mapGatewayIdentityToHatch)(e);
+          W.setIdentity(t), G.chatThemesQuery.invalidate(m, g)
+        })
+      }, o[19] = g, o[20] = c, o[21] = h, o[22] = m, o[23] = u) : u = o[23], o[24] !== g || o[25] !== v || o[26] !== c || o[27] !== h || o[28] !== m ? (s = [c, h, v, m, g], o[24] = g, o[25] = v, o[26] = c, o[27] = h, o[28] = m, o[29] = s) : s = o[29], (0, r.useEffect)(u, s)
+    }(), ! function() {
+      let e, t, n, i = (0, a.c)(10),
+        {
+          gatewayUrl: l,
+          vmName: u
+        } = (0, h.useHatchServerData)(),
+        {
+          chatTheme: s,
+          chatThemeCookieCache: o,
+          setChatThemeCookieCache: c
+        } = (0, j.useTheme)(),
+        y = (0, M.useVmChatThemeSyncEnabled)(l),
+        {
+          data: f
+        } = (0, N.useChatThemesQuery)();
+      e: {
+        let t;
+        if (null == f) {
+          e = void 0;
+          break e
+        }
+        let a = y ? f.selectedThemeId : s;
+        if (a === V.DEFAULT_CHAT_THEME_ID) {
+          e = null;
+          break e
+        }
+        let r = f.options[a];
+        if (null == r) {
+          e = void 0;
+          break e
+        }
+        i[0] !== l || i[1] !== a || i[2] !== r || i[3] !== u ? (t = (0, B.buildChatThemeCookieCache)({
+          gatewayUrl: l,
+          vmName: u,
+          themeId: a,
+          variants: r
+        }), i[0] = l, i[1] = a, i[2] = r, i[3] = u, i[4] = t) : t = i[4],
+        e = t
+      }
+      let d = e;
+      i[5] !== o || i[6] !== d || i[7] !== c ? (t = () => {
+        void 0 === d || (0, B.chatThemeCookieCachesEqual)(o, d) || c(d)
+      }, n = [o, d, c], i[5] = o, i[6] = d, i[7] = c, i[8] = t, i[9] = n) : (t = i[8], n = i[9]), (0, r.useEffect)(t, n)
+    }(), ! function() {
+      let e, t, n, i = (0, a.c)(15),
+        {
+          isReady: l,
+          onEvent: u,
+          sendRequest: s,
+          gatewayUrl: o
+        } = (0, f.useHatchRpc)(),
+        c = (0, y.useQueryClient)();
+      i[0] !== o ? (e = (0, G.chatThemesQueryParamsForGatewayUrl)(o), i[0] = o, i[1] = e) : e = i[1];
+      let h = e;
+      i[2] !== l || i[3] !== u || i[4] !== c || i[5] !== h || i[6] !== s ? (t = () => {
+        if (!l) return;
+        let e = u("theme.updated", e => {
+            let t = e.selected_theme_id;
+            null == t ? G.chatThemesQuery.invalidate(c, h) : G.chatThemesQuery.setData(c, h, e => null == e || e.selectedThemeId === t ? e : {
+              ...e,
+              selectedThemeId: t
+            })
+          }),
+          t = !1;
+        return (async () => {
+          if (await Promise.resolve(), !t) try {
+            await s("theme.subscribe", {})
+          } catch (e) {
+            z.retainForBugReport("debug", "theme.subscribe failed (older gateway?)")
+          }
+        })(), () => {
+          t = !0, e()
+        }
+      }, i[2] = l, i[3] = u, i[4] = c, i[5] = h, i[6] = s, i[7] = t) : t = i[7], i[8] !== o || i[9] !== l || i[10] !== u || i[11] !== c || i[12] !== h || i[13] !== s ? (n = [l, u, s, c, h, o], i[8] = o, i[9] = l, i[10] = u, i[11] = c, i[12] = h, i[13] = s, i[14] = n) : n = i[14], (0, r.useEffect)(t, n)
+    }(), (0, q.useHatchAvatar)(), ! function() {
+      let {
+        gatewayScopeKey: e,
+        isReady: t,
+        sendRequest: a,
+        onEvent: n
+      } = (0, f.useHatchRpc)(), {
+        gatewayUrl: i
+      } = (0, h.useHatchServerData)(), u = (0, d.useHatchGatewayFs)(), s = (0, S.useHatchVoiceEnabled)(), o = (0, y.useQueryClient)(), c = (0, r.useRef)(!1), v = (0, r.useRef)(null), F = (0, r.useRef)(t), q = (0, r.useRef)(s), j = (0, r.useRef)(e);
+      q.current = s, j.current = e;
+      let V = (0, r.useRef)(x(() => {
+          A.spacesListQuery.invalidateAll(o)
+        }, 300)).current,
+        B = (0, r.useRef)(x(e => {
+          T.goalsListQuery.invalidate(o, {
+            gatewayUrl: e
+          })
+        }, 2e3)).current,
+        M = (0, r.useRef)(x(() => {
+          w.nodeListQuery.invalidateAll(o)
+        }, 300)).current;
+      (0, r.useEffect)(() => {
+        if (!t) {
+          v.current = null, F.current = !1;
+          return
+        }
+        let r = F.current;
+        F.current = !0;
+        let n = e ?? i ?? "__ready_gateway__";
+        if (v.current !== n) {
+          if (v.current = n, a("fs.subscribe", {
+              paths: [...D]
+            }).catch(e => {
+              (0, m.isGatewayAbortError)(e) || (0, p.isGatewayDisconnectError)(e) || O.error({
+                error: e instanceof Error ? e : Error(String(e)),
+                tags: {
+                  surface: l.HATCH_SENTRY_SURFACES.LIBRARY
+                }
+              }, "Failed to subscribe to filesystem updates")
+            }), a("spaces.subscribe", {}).catch(() => {}), (0, L.retryFailedRawFileQueries)(o), c.current && !r && (V.call(), M.call(), o.invalidateQueries({
+              queryKey: C.feedQueryKeys.all
+            }), q.current)) {
+            let e = j.current;
+            o.invalidateQueries({
+              queryKey: (0, U.hatchVoiceSelectionQueryKey)(e)
+            }), o.invalidateQueries({
+              queryKey: (0, K.hatchVoiceNuxQueryKey)(e)
+            }), o.invalidateQueries({
+              queryKey: (0, k.savedVoicesQueryKey)(e)
+            })
+          }
+          c.current = !0
+        }
+      }, [i, e, t, M, V, o, a]), (0, r.useEffect)(() => {
+        if (!t) return;
+        let a = e ?? i,
+          r = null,
+          l = new Map,
+          s = (e, t) => {
+            if (function(e, t, a) {
+                if (null == t.ts_ms || !Number.isFinite(t.ts_ms)) return !1;
+                let r = (0, E.normalizeFsEventPath)(t.path);
+                if (null == r) return !1;
+                let n = `${t.op}\u0000${r}\u0000${t.ts_ms}`,
+                  i = Date.now(),
+                  l = a.get(n);
+                if (null != l && l.eventName !== e && i - l.receivedAtMs <= 5e3) return a.delete(n), !0;
+                if (a.set(n, {
+                    eventName: e,
+                    receivedAtMs: i
+                  }), a.size > 256) {
+                  let e = a.keys().next().value;
+                  null != e && a.delete(e)
+                }
+                return !1
+              }(e, t, l)) return;
+            let n = (0, E.normalizeFsEventPath)(t.path);
+            if (null != n) {
+              let e;
+              ("workspace/artifacts" === n || n.startsWith("workspace/artifacts/") || "workspace/your_files" === n || n.startsWith("workspace/your_files/") || (e = n.split("/").filter(Boolean)).length >= 4 && "workspace" === e[0] && "goals" === e[1] && "" !== e[2] && "files" === e[3]) && (r && clearTimeout(r), r = setTimeout(() => {
+                null != i && a && o.invalidateQueries({
+                  queryKey: (0, R.hatchLibraryArtifactsQueryKey)(i, a)
+                })
+              }, 500))
+            }(e => {
+              let t = function(e) {
+                if (null == e) return null;
+                let t = e.split("/");
+                if (t.length < 4 || "workspace" !== t[0]) return null;
+                let a = t[1];
+                if ("spaces" !== a && "space_data" !== a) return null;
+                let r = t[2],
+                  n = t[3]?.toLowerCase() ?? "";
+                return r && ("icon" === n || n.startsWith("icon.") || ".previews" === n || "previews" === n || ".thumbnails" === n) ? r : null
+              }((0, E.normalizeFsEventPath)(e.path));
+              if (null == t) return;
+              let a = e.ts_ms ?? Date.now();
+              o.setQueriesData({
+                queryKey: _.spacesQueryKeys.all
+              }, e => {
+                if (!Array.isArray(e)) return e;
+                let r = !1,
+                  n = e.map(e => {
+                    if (e.slug !== t) return e;
+                    let n = e.updated_at_ms ?? 0,
+                      i = Math.max(n, a);
+                    return i === n ? e : (r = !0, {
+                      ...e,
+                      updated_at_ms: i
+                    })
+                  });
+                return r ? n : e
+              }), V.call()
+            })(t);
+            let s = (0, E.normalizeFsEventPath)(t.path);
+            q.current && s === U.VOICE_SELECTION_PATH && o.invalidateQueries({
+              queryKey: (0, U.hatchVoiceSelectionQueryKey)(j.current)
+            }), q.current && s === K.VOICE_NUX_PATH && o.invalidateQueries({
+              queryKey: (0, K.hatchVoiceNuxQueryKey)(j.current)
+            }), q.current && s === k.SAVED_VOICES_PATH && o.invalidateQueries({
+              queryKey: (0, k.savedVoicesQueryKey)(j.current)
+            }), null != i && a && (0, g.handleFsEvent)(t, o, u, i, a)
+          },
+          c = [n("spaces.updated", () => {
+            V.call()
+          }), n("sessions.updated", e => {
+            let t = function(e) {
+                if (null == e || "object" != typeof e || "string" != typeof e.session_id || "string" != typeof e.change) return null;
+                let t = "number" == typeof e.updated_at_ms ? e.updated_at_ms : void 0;
+                return {
+                  sessionId: e.session_id,
+                  change: e.change,
+                  updatedAt: (0, P.normalizeThreadSessionTimestamp)(t)
+                }
+              }(e),
+              a = t?.change ?? null;
+            (null != t && "activity" !== a && o.invalidateQueries({
+              queryKey: P.threadSessionQueryKeys.all,
+              ..."pinned" === a ? {} : {
+                predicate: e => e.queryKey[2] === t.sessionId
+              }
+            }), t?.change === "activity") ? o.cancelQueries({
+              queryKey: P.threadSessionsQueryKeys.all
+            }, {
+              revert: !1
+            }).then(() => {
+              let e = !1;
+              for (let a of o.getQueryCache().findAll({
+                  queryKey: P.threadSessionsQueryKeys.all
+                })) {
+                let r = a.state.data;
+                if (!Array.isArray(r)) continue;
+                let n = (0, P.isHydrateOnlySessionList)(a.queryKey),
+                  i = r.map(e => e.session_id !== t.sessionId ? e : {
+                    ...e,
+                    updated_at: Math.max(e.updated_at, t.updatedAt),
+                    unread_count: ! function(e) {
+                      let t = (0, I.parseHatchChatRoute)(window.location.pathname);
+                      return t?.kind === "main" ? e.is_primary : t?.kind === "thread" && t.sessionId === e.session_id
+                    }(e) ? Math.max(e.unread_count ?? 0, 1) : e.unread_count
+                  });
+                if (n) {
+                  o.setQueryData(a.queryKey, i, {
+                    updatedAt: a.state.dataUpdatedAt
+                  });
+                  continue
+                }
+                e = !0, o.setQueryData(a.queryKey, i)
+              }
+              e || o.invalidateQueries({
+                queryKey: P.threadSessionsQueryKeys.all
+              })
+            }): (o.invalidateQueries({
+              queryKey: P.threadSessionsQueryKeys.all
+            }), ("pinned" === a || "unpinned" === a) && o.resetQueries({
+              queryKey: H.HATCH_CHAT_SEARCH_QUERY_KEY
+            }), ("archived" === a || "unarchived" === a || "deleted" === a) && o.invalidateQueries({
+              queryKey: P.archivedSessionsQueryKeys.all
+            }))
+          }), n("feed.updated", e => {
+            let t = "string" == typeof e.prompt_id ? e.prompt_id : "";
+            t.length > 0 ? o.invalidateQueries({
+              queryKey: C.feedQueryKeys.all,
+              predicate: e => (0, b.feedQueryMatchesPromptScope)(e.queryKey, t)
+            }) : o.invalidateQueries({
+              queryKey: C.feedQueryKeys.all
+            })
+          }), n("fs.updated", e => {
+            s("fs.updated", e)
+          }), n("files.updated", e => {
+            s("files.updated", e)
+          }), n("goal.updated", e => {
+            if (null == a) return;
+            let t = (0, T.extractGoalDetail)(e);
+            null != t && T.goalsDetailQuery.setData(o, {
+              gatewayUrl: a,
+              goalId: t.goal.id
+            }, t), o.isMutating({
+              mutationKey: T.goalMoveMutationKey
+            }) > 0 || T.goalsListQuery.invalidate(o, {
+              gatewayUrl: a
+            })
+          }), n("activity.updated", e => {
+            if ("goal" !== e.type || null == a) return;
+            let t = function(e) {
+              if ("goal" !== e.type) return null;
+              let t = function(e) {
+                  if (null == e) return null;
+                  if ("string" == typeof e) try {
+                    let t = JSON.parse(e);
+                    return null == t || "object" != typeof t || Array.isArray(t) ? null : t
+                  } catch {
+                    return null
+                  }
+                  return e
+                }(e.details),
+                a = t?.goal;
+              if (null != a && "object" == typeof a && !Array.isArray(a)) {
+                let e = a.id;
+                if ("string" == typeof e && "" !== e.trim()) return e
+              }
+              return "string" == typeof e.message_id && "" !== e.message_id.trim() ? e.message_id : null
+            }(e);
+            null != t && Q.activityDetailQuery.setData(o, {
+              gatewayUrl: a,
+              activityId: t
+            }, e), B.call(a)
+          }), ...["node.connected", "node.disconnected", "node.unpaired"].map(e => n(e, () => M.call()))];
+        return () => {
+          r && clearTimeout(r), V.cancel(), B.cancel(), M.cancel(), l.clear(), c.forEach(e => e())
+        }
+      }, [i, e, B, M, V, t, n, o, u, a])
+    }(), (0, et.useInitVoiceFromFile)(), (0, F.usePendingSavedSpacesCacheBridge)(), s[0] !== c ? (n = (0, t.jsx)(er, {
+      gatewayUrl: c
+    }), s[0] = c, s[1] = n) : n = s[1], s[2] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)(o, {}), s[2] = i) : i = s[2], s[3] !== n ? (u = (0, t.jsxs)(t.Fragment, {
+      children: [n, i]
+    }), s[3] = n, s[4] = u) : u = s[4], u
+  }], 385246)
+}, 829098, e => {
+  "use strict";
+  let t = ["hatch-chat-search"];
+  e.s(["HATCH_CHAT_SEARCH_QUERY_KEY", 0, t, "hatchChatSearchQueryKey", 0, function(e, a) {
+    return [...t, e ? "all-sessions" : "active-session", a]
+  }])
+}, 880061, e => {
+  "use strict";
+  var t = e.i(863919);
+  e.s(["getHatchGatewayDataOrFallback", 0, function(e, a, r) {
+    if (!e.ok) return (0, t.logHatchGatewayError)(e.error, r), "function" == typeof a ? a() : a;
+    return e.data
+  }, "getHatchGatewayDataOrThrow", 0, function(e, a) {
+    if (!e.ok) throw (0, t.logHatchGatewayError)(e.error, a), e.error;
+    return e.data
+  }])
+}, 653388, e => {
+  "use strict";
+  var t = e.i(790170);
+  async function a(e, t) {
+    return function(e) {
+      var t = null != e && "object" == typeof e && !Array.isArray(e) && "result" in e ? e.result : e;
+      if (null == t || "object" != typeof t || Array.isArray(t)) return null;
+      let a = "string" == typeof t.timestamp ? t.timestamp : null,
+        r = "string" == typeof t.type ? t.type : null,
+        n = "string" == typeof t.title ? t.title : null,
+        i = "string" == typeof t.status ? t.status : null;
+      return null == a || null == r || null == n || null == i ? null : {
+        timestamp: a,
+        type: r,
+        message_id: "string" == typeof t.message_id ? t.message_id : null,
+        title: n,
+        subtitle: "string" == typeof t.subtitle ? t.subtitle : null,
+        details: null == t.details || "string" == typeof t.details ? t.details : "object" != typeof t.details || Array.isArray(t.details) ? null : t.details,
+        status: i,
+        task_label: "string" == typeof t.task_label ? t.task_label : null
+      }
+    }(await e("activity.get", {
+      id: t
+    }))
+  }
+  let r = (0, t.createGatewayQuery)({
+    id: "activity.detail",
+    queryKey: ({
+      gatewayUrl: e,
+      activityId: t
+    }) => ["activity", e, "detail", t],
+    noiseFn: (e, t) => a(e.sendRequest, t.activityId),
+    invalidationKey: () => ["activity"],
+    staleTime: 2e3
+  });
+  e.s(["activityDetailQuery", 0, r])
+}, 308206, e => {
+  "use strict";
+  var t = e.i(826972);
+  e.s(["normalizeFsEventPath", 0, function(e) {
+    if ("string" != typeof e) return null;
+    let a = (0, t.toHatchGatewayApiPath)(e);
+    return a || null
+  }])
+}, 590152, e => {
+  "use strict";
+  var t = e.i(722469);
+
+  function a(e) {
+    return [...e.filter(e => !(0, t.shouldHidePath)(e.path))].sort((e, t) => e.type !== t.type ? "directory" === e.type ? -1 : 1 : e.name.localeCompare(t.name))
+  }
+  e.s(["filterDirectoryEntries", 0, a, "getParentDirectoryPath", 0, function(e) {
+    let a = (0, t.normalizePath)(e);
+    if ("/" === a) return "/";
+    let r = a.lastIndexOf("/");
+    return r <= 0 ? "/" : a.slice(0, r)
+  }, "removeDirectoryEntry", 0, function(e, t) {
+    return a(e.filter(e => e.path !== t))
+  }, "updateDirectoryEntries", 0, function(e, t) {
+    return null == e ? e : a(t(e))
+  }, "upsertDirectoryEntry", 0, function(e, t) {
+    return a([...e.filter(e => e.path !== t.path), t])
+  }])
+}, 249872, e => {
+  "use strict";
+  var t = e.i(863919);
+  e.i(880061);
+  var a = e.i(722469),
+    r = e.i(499608),
+    n = e.i(308206),
+    i = e.i(3116),
+    l = e.i(590152),
+    u = e.i(767408);
+
+  function s(e, t) {
+    return (0, i.hatchLibraryMediaInfiniteQueryKey)(e, t)
+  }
+
+  function o(e, t) {
+    return (0, i.hatchLibraryArtifactsQueryKey)(e, t)
+  }
+  async function c(e, n, i, l, u) {
+    let o = (0, a.buildMediaPreviewReads)(e);
+    if (0 === o.length) return;
+    let c = await n.reads(o);
+    if (!c.ok) return void(0, t.logHatchGatewayError)(c.error, {
+      surface: "library.media.previews",
+      errorMessage: "Failed to hydrate Hatch media previews",
+      context: {
+        gatewayUrl: l
+      }
+    });
+    let y = new Map(o.map(({
+      path: e,
+      len: t
+    }) => [(0, a.normalizePath)(e), t]));
+    (0, r.primeReadsIntoTextCache)(i, c.data, {
+      maxBytesByPath: y
+    });
+    let f = new Map;
+    for (let e of c.data) {
+      let t = (0, a.normalizePath)(e.path),
+        r = (0, a.extractPreview)((0, a.getNameFromPath)(t), e);
+      null != r && f.set(t, r)
+    }
+    0 !== f.size && i.setQueryData(s(l, u), e => (function(e, t) {
+      if (!e) return e;
+      let a = !1,
+        r = e.pages.map(e => {
+          let r = e.entries.map(e => {
+            let r = t.get(e.path);
+            return null == r || null != e.preview ? e : (a = !0, {
+              ...e,
+              preview: r
+            })
+          });
+          return a ? {
+            ...e,
+            entries: r
+          } : e
+        });
+      return a ? {
+        ...e,
+        pages: r
+      } : e
+    })(e, f))
+  }
+
+  function y(e, t, a, r) {
+    let n = (0, i.hatchLibraryDirectoryQueryKey)(t, "/", r).slice(0, 3);
+    e.removeQueries({
+      predicate: e => {
+        let t = e.queryKey;
+        return Array.isArray(t) && "hatch" === t[0] && "library" === t[1] && t[2] === n[2] && "directory" === t[3] && "string" == typeof t[4] && (t[4] === a || t[4].startsWith(`${a}/`))
+      }
+    }), e.invalidateQueries({
+      queryKey: o(t, r)
+    })
+  }
+  async function f(e, c, f, h, d) {
+    let {
+      op: v,
+      path: m
+    } = e;
+    if ("string" != typeof m || 0 === m.length) return;
+    let p = (0, n.normalizeFsEventPath)(m);
+    if (null == p) return;
+    let g = (0, a.normalizePath)(p),
+      A = (0, l.getParentDirectoryPath)(g);
+    if ("delete" === v) {
+      (0, r.removeFileQueriesByPath)(c, g), y(c, h, g, d), c.setQueryData((0, i.hatchLibraryDirectoryQueryKey)(h, A, d), e => (0, l.updateDirectoryEntries)(e, e => (0, l.removeDirectoryEntry)(e, g))), c.invalidateQueries({
+        queryKey: s(h, d)
+      });
+      return
+    }
+    if ((0, r.refreshFileQueriesByPath)(c, g), "write" !== v && "rename" !== v) return void c.invalidateQueries({
+      queryKey: s(h, d)
+    });
+    if ((0, a.shouldHidePath)(g)) {
+      c.setQueryData((0, i.hatchLibraryDirectoryQueryKey)(h, A, d), e => (0, l.updateDirectoryEntries)(e, e => (0, l.removeDirectoryEntry)(e, g))), y(c, h, g, d), c.invalidateQueries({
+        queryKey: s(h, d)
+      });
+      return
+    }
+    try {
+      var _;
+      let e, n = (0, a.getNameFromPath)(g),
+        y = (0, a.getTextPreviewMaxBytes)(n),
+        m = null != y,
+        [p, b] = await Promise.all([f.stat(g), m ? f.reads([{
+          path: g,
+          offset: 0,
+          len: y
+        }]) : Promise.resolve(null)]);
+      if (!p.ok) throw (0, t.logHatchGatewayError)(p.error, {
+        surface: "library.fs_event",
+        errorMessage: "Failed to refresh Hatch file metadata after fs update",
+        context: {
+          op: v,
+          path: (0, u.redactPathForTelemetry)(g),
+          gatewayUrl: h
+        }
+      }), p.error;
+      let C = (_ = p.data, {
+        name: g.substring(g.lastIndexOf("/") + 1),
+        path: g,
+        type: "directory" === _.kind ? "directory" : "file",
+        size: _.size,
+        modifiedAt: _.modifiedAt
+      });
+      if ((0, a.shouldHidePath)(C.path)) return;
+      let T = C,
+        Q = null != b && b.ok ? b.data[0] : void 0;
+      if (null == b || b.ok || (0, t.logHatchGatewayError)(b.error, {
+          surface: "library.fs_event.preview",
+          errorMessage: "Failed to refresh Hatch file preview after fs update",
+          context: {
+            op: v,
+            path: (0, u.redactPathForTelemetry)(g),
+            gatewayUrl: h
+          }
+        }), null != Q) {
+        let e = (0, a.extractPreview)(C.name, Q);
+        null != e && (T = {
+          ...C,
+          preview: e
+        });
+        let t = null != y ? new Map([
+          [g, y]
+        ]) : void 0;
+        (0, r.primeReadsIntoTextCache)(c, [Q], {
+          maxBytesByPath: t
+        })
+      }
+      c.setQueryData((0, i.hatchLibraryDirectoryQueryKey)(h, A, d), e => (0, l.updateDirectoryEntries)(e, e => (0, l.upsertDirectoryEntry)(e, T))), "directory" === T.type && c.invalidateQueries({
+        queryKey: (0, i.hatchLibraryDirectoryQueryKey)(h, T.path, d)
+      }), c.invalidateQueries({
+        queryKey: s(h, d)
+      }), (T.path.startsWith("/workspace/artifacts/") || T.path.startsWith("/workspace/your_files/") || (e = T.path.split("/").filter(Boolean)).length >= 5 && "workspace" === e[0] && "goals" === e[1] && "" !== e[2] && "files" === e[3]) && c.invalidateQueries({
+        queryKey: o(h, d)
+      })
+    } catch {
+      c.setQueryData((0, i.hatchLibraryDirectoryQueryKey)(h, A, d), e => (0, l.updateDirectoryEntries)(e, e => (0, l.removeDirectoryEntry)(e, g))), c.invalidateQueries({
+        queryKey: s(h, d)
+      })
+    }
+  }
+  e.s(["flattenMediaPages", 0, function(e) {
+    if (!e || 0 === e.pages.length) return {
+      entries: [],
+      total: 0,
+      hasMore: !1,
+      nextOffset: 0
+    };
+    let t = [],
+      a = new Set,
+      r = 0,
+      n = !1,
+      i = 0;
+    for (let l of e.pages)
+      for (let e of (r = Math.max(r, l.total), n = l.hasMore, i = l.nextOffset, l.entries)) a.has(e.path) || (a.add(e.path), t.push(e));
+    return {
+      entries: t,
+      total: Math.max(r, t.length),
+      hasMore: n,
+      nextOffset: i
+    }
+  }, "handleFsEvent", 0, f, "loadMediaPreviews", 0, c])
+}, 739747, e => {
+  "use strict";
+  var t = e.i(722099),
+    a = e.i(519172),
+    r = e.i(365500),
+    n = e.i(9326),
+    i = e.i(710580),
+    l = e.i(508180),
+    u = e.i(696254),
+    s = e.i(175286),
+    o = e.i(908978);
+  if ("u" > typeof indexedDB) try {
+    indexedDB.deleteDatabase("hatch-avatar-cache")
+  } catch {}
+  async function c(e, t, a) {
+    if (!a) return null;
+    try {
+      let e = await a("fs.raw", {
+        path: t
+      });
+      if (e instanceof Blob && e.size > 0) return e;
+      return null
+    } catch {
+      return null
+    }
+  }
+  async function y(e, t, a, r = t) {
+    let n = (0, i.getAvatarCacheGatewayHost)(e);
+    if (null == n) {
+      let r = await c(e, t, a);
+      return null == r ? null : URL.createObjectURL(r)
+    }
+    return (0, i.resolveAvatarBlobUrl)(n, r, () => c(e, t, a))
+  }
+
+  function f(e, t) {
+    return e ? {
+      ...e,
+      chat_theme_color: t || void 0
+    } : null
+  }
+
+  function h(e, t) {
+    let a = l.getSnapshot();
+    if (a.identity.avatar !== e) return null;
+    let r = (0, n.resolveHatchAvatarPaths)(e, a.identity.avatarInfo);
+    return r.imagePath === t.imagePath && n.HATCH_AVATAR_VARIANTS.every(e => r.videoPaths[e] === t.videoPaths[e]) ? a.avatar : null
+  }
+
+  function d(e, t) {
+    let a = new Set(t.filter(e => null != e));
+    for (let t of new Set(e.filter(e => null != e))) a.has(t) || URL.revokeObjectURL(t)
+  }
+
+  function v(e) {
+    return "string" == typeof e && e.length > 0
+  }
+
+  function m(e) {
+    return Object.values(e ?? {})
+  }
+
+  function p(e) {
+    let {
+      url: t
+    } = e;
+    return null != t
+  }
+
+  function g(e) {
+    return "default" !== e && "connecting" !== e
+  }
+
+  function A() {}
+
+  function _(e) {
+    return "default" !== e && "connecting" !== e
+  }
+  e.s(["fetchAvatarAsBlob", 0, y, "useHatchAvatar", 0, function() {
+    let e, c, b, C, T, Q, w, E, R, P, I, H, K, U, S, k, L = (0, t.c)(54),
+      {
+        isReady: D,
+        onEvent: O,
+        gatewayUrl: x,
+        sendRequest: F
+      } = (0, s.useHatchRpc)(),
+      q = (0, r.useOptionalAuth)(),
+      j = (0, u.useIdentity)(),
+      V = (0, u.useIdentitySource)(),
+      B = (0, a.useRef)(!1),
+      M = (0, a.useRef)(0),
+      N = (0, a.useRef)(null),
+      G = (0, a.useRef)(!1);
+    L[0] !== x || L[1] !== F ? (e = async (e, t) => {
+      if (!x) return;
+      let a = M.current = M.current + 1;
+      if (N.current = null, G.current = !1, 0 === e.length || t?.image_exists === !1 && !1 === t.video_exists) {
+        l.setAvatarAssets(null, {}), l.setAvatarColors(null, null);
+        return
+      }
+      let r = t?.image_exists ?? !0,
+        u = t?.video_exists ?? !0;
+      N.current = a, l.beginAvatarRuntimeFetch();
+      let {
+        imagePath: s,
+        videoPaths: c
+      } = (0, n.resolveHatchAvatarPaths)(e, t), f = (0, i.getAvatarCachePaths)(e, {
+        imagePath: s,
+        videoPaths: c
+      }), [v, m, p] = await Promise.all([r ? y(x, s, F) : Promise.resolve(null), u ? y(x, c.default, F) : Promise.resolve(null), u && c.connecting !== c.default ? y(x, c.connecting, F) : Promise.resolve(null)]);
+      if (M.current !== a) return void d([v, m, p], []);
+      let g = h(e, {
+          imagePath: s,
+          videoPaths: c
+        }),
+        A = r ? g?.imageUrl ?? v : null,
+        b = u ? g?.videoUrlsByVariant.default ?? m : null,
+        C = u ? {
+          ...g?.videoUrlsByVariant
+        } : {};
+      b && (C.default = b);
+      let T = g?.videoUrlsByVariant.connecting ?? (c.connecting === c.default ? b : p);
+      if (T && (C.connecting = T), l.setAvatarAssets(A, C), d([v, m, p], [A, ...Object.values(C)]), A) {
+        let e = t?.chat_theme_color || l.getSnapshot().identity.chatThemeColor,
+          a = e ? (0, o.avatarColorResultFromHex)(e) : null;
+        a && l.setAvatarColors(a.dominantColor, a.bubbleColor)
+      } else l.setAvatarColors(null, null);
+      if (!u) {
+        N.current = null;
+        return
+      }
+      let Q = n.HATCH_AVATAR_VARIANTS.filter(_);
+      await Promise.all(Q.map(async r => {
+        let n = c[r] !== c.default,
+          i = n ? await y(x, c[r], F, f.videoPaths[r]) : b;
+        if (M.current !== a) {
+          n && null != i && URL.revokeObjectURL(i);
+          return
+        }
+        let u = h(e, {
+            imagePath: s,
+            videoPaths: c
+          }),
+          o = u?.videoUrlsByVariant[r],
+          d = o === u?.videoUrlsByVariant.default && c[r] !== c.default;
+        if (null != o && !d) {
+          n && null != i && i !== o && URL.revokeObjectURL(i);
+          return
+        }
+        null != i ? l.patchAvatarAssets({
+          videoUrlsByVariant: {
+            [r]: i
+          }
+        }) : "resume" === r && (t?.video_variants?.waking ?? t?.video_variants?.resume ?? t?.video_variants?.jollybot_resume) != null && (G.current = !0)
+      })), N.current === a && (N.current = null)
+    }, L[0] = x, L[1] = F, L[2] = e) : e = L[2];
+    let z = e,
+      W = (0, a.useRef)(null);
+    L[3] === Symbol.for("react.memo_cache_sentinel") ? (c = () => {
+      M.current = M.current + 1, N.current = null, G.current = !1, B.current = !1, W.current = null
+    }, L[3] = c) : c = L[3];
+    let $ = c;
+    L[4] === Symbol.for("react.memo_cache_sentinel") ? (b = () => $, C = [$], L[4] = b, L[5] = C) : (b = L[4], C = L[5]), (0, a.useEffect)(b, C), L[6] !== z || L[7] !== j.avatar || L[8] !== j.avatarInfo || L[9] !== j.chatThemeColor || L[10] !== j.name || L[11] !== D ? (T = () => {
+      if (!D || 0 === j.name.length) return;
+      let e = `${j.avatar}|${j.avatarInfo?JSON.stringify(j.avatarInfo):""}`;
+      if (B.current && W.current === e) return;
+      B.current = !0, W.current = e;
+      let t = f(j.avatarInfo, j.chatThemeColor);
+      z(j.avatar, t)
+    }, Q = [z, j.avatar, j.avatarInfo, j.chatThemeColor, j.name, D], L[6] = z, L[7] = j.avatar, L[8] = j.avatarInfo, L[9] = j.chatThemeColor, L[10] = j.name, L[11] = D, L[12] = T, L[13] = Q) : (T = L[12], Q = L[13]), (0, a.useEffect)(T, Q), L[14] !== q?.userId || L[15] !== x || L[16] !== j.avatar || L[17] !== j.avatarInfo || L[18] !== j.chatThemeColor || L[19] !== j.hasCustomName || L[20] !== j.name || L[21] !== V ? (w = () => {
+      let e = q?.userId;
+      if (null == e || null == x || "live" !== V || 0 === j.name.length || 0 === j.avatar.length) return;
+      let t = (0, i.getAvatarCacheGatewayHost)(x);
+      null != t && (0, i.writeAvatarCacheManifest)(e, t, {
+        name: j.name,
+        hasCustomName: j.hasCustomName,
+        avatar: j.avatar,
+        avatarInfo: j.avatarInfo,
+        chatThemeColor: j.chatThemeColor
+      }).then(A)
+    }, L[14] = q?.userId, L[15] = x, L[16] = j.avatar, L[17] = j.avatarInfo, L[18] = j.chatThemeColor, L[19] = j.hasCustomName, L[20] = j.name, L[21] = V, L[22] = w) : w = L[22];
+    let Y = q?.userId;
+    L[23] !== x || L[24] !== j.avatar || L[25] !== j.avatarInfo || L[26] !== j.chatThemeColor || L[27] !== j.hasCustomName || L[28] !== j.name || L[29] !== V || L[30] !== Y ? (E = [Y, x, j.avatar, j.avatarInfo, j.chatThemeColor, j.hasCustomName, j.name, V], L[23] = x, L[24] = j.avatar, L[25] = j.avatarInfo, L[26] = j.chatThemeColor, L[27] = j.hasCustomName, L[28] = j.name, L[29] = V, L[30] = Y, L[31] = E) : E = L[31], (0, a.useEffect)(w, E), L[32] !== z || L[33] !== D || L[34] !== O ? (P = () => {
+      if (D) return O("identity.updated", e => {
+        z(e.avatar?.canonical_path ?? "", e.avatar)
+      })
+    }, R = [z, D, O], L[32] = z, L[33] = D, L[34] = O, L[35] = R, L[36] = P) : (R = L[35], P = L[36]), (0, a.useEffect)(P, R), L[37] !== D ? (I = () => {
+      if (D) return;
+      let e = null != N.current;
+      M.current = M.current + 1, N.current = null;
+      let {
+        imageUrl: t,
+        videoUrlsByVariant: a
+      } = l.getSnapshot().avatar;
+      (!(null != t || Object.keys(a).length > 0) || e || G.current) && (B.current = !1, W.current = null)
+    }, H = [D], L[37] = D, L[38] = I, L[39] = H) : (I = L[38], H = L[39]), (0, a.useEffect)(I, H), L[40] !== x || L[41] !== j.avatar || L[42] !== j.avatarInfo || L[43] !== j.chatThemeColor || L[44] !== j.name ? (K = () => {
+      if (!x || 0 === j.name.length) return;
+      let e = j.avatar;
+      if (!e) return;
+      let t = (0, i.getAvatarCacheGatewayHost)(x);
+      if (null == t) return;
+      let a = `${e}|${j.avatarInfo?JSON.stringify(j.avatarInfo):""}`;
+      if (W.current === a) return;
+      let r = !1;
+      return (async () => {
+        let u = f(j.avatarInfo, j.chatThemeColor),
+          {
+            imagePath: s,
+            videoPaths: c
+          } = (0, n.resolveHatchAvatarPaths)(e, u),
+          y = (0, i.getAvatarCachePaths)(e, {
+            imagePath: s,
+            videoPaths: c
+          }),
+          [h, d, v] = await Promise.all([(0, i.peekAvatarBlobUrl)(t, s), (0, i.peekAvatarBlobUrl)(t, c.default), c.connecting !== c.default ? (0, i.peekAvatarBlobUrl)(t, c.connecting) : Promise.resolve(null)]);
+        if (r) {
+          h && URL.revokeObjectURL(h), d && URL.revokeObjectURL(d), v && URL.revokeObjectURL(v);
+          return
+        }
+        let m = c.connecting === c.default ? d : v;
+        if (null == h || null == d || null == m) {
+          h && URL.revokeObjectURL(h), d && URL.revokeObjectURL(d), v && URL.revokeObjectURL(v);
+          return
+        }
+        let A = {
+            default: d,
+            connecting: m
+          },
+          _ = n.HATCH_AVATAR_VARIANTS.filter(g),
+          b = await Promise.all(_.map(async e => c[e] === c.default ? {
+            variant: e,
+            url: d
+          } : {
+            variant: e,
+            url: await (0, i.peekAvatarBlobUrl)(t, y.videoPaths[e])
+          }));
+        if (r) {
+          for (let {
+              variant: e,
+              url: t
+            }
+            of(URL.revokeObjectURL(h), URL.revokeObjectURL(d), null != m && c.connecting !== c.default && URL.revokeObjectURL(m), b)) t && c[e] !== c.default && URL.revokeObjectURL(t);
+          return
+        }
+        for (let {
+            variant: e,
+            url: t
+          }
+          of b) t && (A[e] = t);
+        b.every(p) && (B.current = !0, W.current = a, M.current = M.current + 1, N.current = null, G.current = !1);
+        let C = j.chatThemeColor,
+          T = C ? (0, o.avatarColorResultFromHex)(C) : null;
+        l.setAvatarAssets(h, A), T && l.setAvatarColors(T.dominantColor, T.bubbleColor)
+      })(), () => {
+        r = !0
+      }
+    }, U = [x, j.avatar, j.avatarInfo, j.chatThemeColor, j.name], L[40] = x, L[41] = j.avatar, L[42] = j.avatarInfo, L[43] = j.chatThemeColor, L[44] = j.name, L[45] = K, L[46] = U) : (K = L[45], U = L[46]), (0, a.useEffect)(K, U), L[47] !== x || L[48] !== j.avatar || L[49] !== j.avatarInfo || L[50] !== j.chatThemeColor || L[51] !== D ? (S = () => {
+      if (!D || !x) return;
+      let e = j.avatar;
+      if (!e) return;
+      let t = (0, i.getAvatarCacheGatewayHost)(x);
+      if (null == t) return;
+      let a = f(j.avatarInfo, j.chatThemeColor),
+        {
+          imagePath: r,
+          videoPaths: l
+        } = (0, i.getAvatarCachePaths)(e, (0, n.resolveHatchAvatarPaths)(e, a)),
+        u = Object.values(j.avatarInfo?.aspect_ratio_video_variants ?? {}).flatMap(m),
+        s = [r, ...Object.values(l), ...u].filter(v);
+      (0, i.markActiveAndSweep)(t, s)
+    }, k = [x, j.avatar, j.avatarInfo, j.chatThemeColor, D], L[47] = x, L[48] = j.avatar, L[49] = j.avatarInfo, L[50] = j.chatThemeColor, L[51] = D, L[52] = S, L[53] = k) : (S = L[52], k = L[53]), (0, a.useEffect)(S, k)
+  }])
+}]);
+
+//# debugId=e36d9a75-47e3-06ff-f3a8-5be688f6c614
+//# sourceMappingURL=2_m28tv0lwmfg.js.map

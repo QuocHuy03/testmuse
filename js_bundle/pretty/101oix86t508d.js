@@ -1,0 +1,5787 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "fdc23578-27cf-f122-d404-07ce8dbcd89a")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 194129, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(345717),
+    r = e.i(722099),
+    i = e.i(519172),
+    l = e.i(848048);
+
+  function a(e) {
+    let n, i, l, a, s, o = (0, r.c)(10);
+    return o[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), o[0] = e.title, o[1] = n) : n = o[1], o[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), o[2] = e.children, o[3] = i) : i = o[3], o[4] === Symbol.for("react.memo_cache_sentinel") ? (l = (0, t.jsx)("path", {
+      d: "M12 1c1.488 0 2.906.295 4.2.83l-1.562 1.563A8.999 8.999 0 0 0 12 3a8.959 8.959 0 0 0-5.657 2H8a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1V2a1 1 0 0 1 2 0v1.514A10.958 10.958 0 0 1 12 1zM22.17 7.8l-1.563 1.562A9 9 0 1 1 3 12a1 1 0 1 0-2 0c0 6.075 4.925 11 11 11s11-4.925 11-11c0-1.488-.295-2.906-.83-4.2z"
+    }), a = (0, t.jsx)("path", {
+      d: "m10.85 10.01 5.688-5.689 3.141 3.141-5.689 5.69A6.313 6.313 0 0 1 9.526 15 .526.526 0 0 1 9 14.474c0-1.674.665-3.28 1.85-4.464zM17.952 2.907l1.256-1.256a2.221 2.221 0 0 1 3.142 3.14l-1.257 1.257-3.14-3.141z"
+    }), o[4] = l, o[5] = a) : (l = o[4], a = o[5]), o[6] !== e || o[7] !== n || o[8] !== i ? (s = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, i, l, a]
+    }), o[6] = e, o[7] = n, o[8] = i, o[9] = s) : s = o[9], s
+  }
+  a._isSVG = !0;
+  var s = e.i(420297),
+    o = e.i(670578),
+    u = e.i(168538),
+    c = e.i(239286),
+    d = e.i(295967),
+    h = e.i(813280),
+    f = e.i(731714),
+    m = e.i(397240),
+    p = e.i(979974),
+    b = e.i(918340),
+    g = e.i(374785),
+    y = e.i(47247),
+    _ = e.i(359783),
+    x = e.i(281539),
+    E = e.i(823173),
+    k = e.i(255772),
+    v = e.i(301970);
+
+  function S(e) {
+    return {
+      marginPx: e,
+      observer: null,
+      registrations: new Map,
+      focusRetainedElement: null
+    }
+  }
+  let C = S(1e3),
+    I = S(0),
+    T = [C, I],
+    w = null,
+    N = !1;
+
+  function R(e, t, n) {
+    let r;
+    if (null != (r = document.activeElement) && t.contains(r)) {
+      ("hidden" === document.visibilityState || !1 === n.isIntersecting) && (e.focusRetainedElement = t), n.callback("visible");
+      return
+    }(e.focusRetainedElement === t && (e.focusRetainedElement = null), "hidden" === document.visibilityState || !1 === n.isIntersecting) ? n.callback("hidden"): n.callback(!0 === n.isIntersecting ? "visible" : "unknown")
+  }
+
+  function j() {
+    for (let e of T) {
+      let t = e.focusRetainedElement;
+      if (null == t) continue;
+      let n = e.registrations.get(t);
+      if (null == n) {
+        e.focusRetainedElement = null;
+        continue
+      }
+      R(e, t, n)
+    }
+  }
+
+  function F() {
+    queueMicrotask(j)
+  }
+
+  function A(e) {
+    return null == e.observer && (e.observer = new IntersectionObserver(t => {
+      for (let n of t) {
+        let t = e.registrations.get(n.target);
+        null != t && (t.isIntersecting = n.isIntersecting, R(e, n.target, t))
+      }
+    }, {
+      root: w,
+      rootMargin: `${e.marginPx}px 0px`
+    })), e.observer
+  }
+
+  function M() {
+    for (let e of T) e.observer?.disconnect(), e.observer = null,
+      function(e) {
+        if ("hidden" === document.visibilityState || 0 === e.registrations.size) return;
+        let t = A(e);
+        for (let n of e.registrations.keys()) t.observe(n)
+      }(e)
+  }
+
+  function D() {
+    if ("hidden" === document.visibilityState) {
+      for (let e of T)
+        for (let [t, n] of(e.observer?.disconnect(), e.observer = null, e.registrations)) n.isIntersecting = !1, R(e, t, n);
+      return
+    }
+    M()
+  }
+
+  function L(e, t) {
+    e.registrations.delete(t), e.focusRetainedElement === t && (e.focusRetainedElement = null), e.observer?.unobserve(t), 0 === e.registrations.size && (e.observer?.disconnect(), e.observer = null), !(T.reduce((e, t) => e + t.registrations.size, 0) > 0) && N && (document.removeEventListener("visibilitychange", D), document.removeEventListener("focusin", j), document.removeEventListener("focusout", F), N = !1)
+  }
+
+  function U(e) {
+    e !== w && (w = e, M())
+  }
+
+  function H(e) {
+    let t, n, l, a, s = (0, r.c)(8),
+      [o, u] = (0, i.useState)("unknown"),
+      c = (0, i.useRef)(null);
+    s[0] !== e ? (t = t => {
+      let n;
+      null != c.current && L(e, c.current), c.current = t, u("unknown"), null != t && (n = {
+        callback: u,
+        isIntersecting: null
+      }, (e.registrations.set(t, n), N || (document.addEventListener("visibilitychange", D), document.addEventListener("focusin", j), document.addEventListener("focusout", F), N = !0), "hidden" === document.visibilityState) ? R(e, t, n) : A(e).observe(t))
+    }, s[0] = e, s[1] = t) : t = s[1];
+    let d = t;
+    return s[2] !== e ? (n = () => () => {
+      null != c.current && L(e, c.current), c.current = null
+    }, l = [e], s[2] = e, s[3] = n, s[4] = l) : (n = s[3], l = s[4]), (0, i.useEffect)(n, l), s[5] !== o || s[6] !== d ? (a = {
+      visibility: o,
+      visibilityRef: d
+    }, s[5] = o, s[6] = d, s[7] = a) : a = s[7], a
+  }
+
+  function P() {
+    let e, t = (0, r.c)(3),
+      {
+        visibility: n,
+        visibilityRef: i
+      } = H(C);
+    return t[0] !== n || t[1] !== i ? (e = {
+      previewVisibility: n,
+      visibilityRef: i
+    }, t[0] = n, t[1] = i, t[2] = e) : e = t[2], e
+  }
+  var O = e.i(671530),
+    B = e.i(123960),
+    K = e.i(870228),
+    z = e.i(665056),
+    G = e.i(99582),
+    V = e.i(648701),
+    Q = e.i(436926),
+    W = e.i(435265),
+    $ = e.i(685231),
+    Y = e.i(669675),
+    q = e.i(543912),
+    Z = e.i(942970),
+    X = e.i(293760),
+    J = e.i(503037),
+    ee = e.i(393202),
+    et = e.i(863641),
+    en = e.i(175286),
+    er = e.i(14751),
+    ei = e.i(171311),
+    el = e.i(809204),
+    ea = e.i(720756),
+    es = e.i(228750);
+  let eo = {
+    promptId: null,
+    days: [],
+    pagination: {
+      nextCursor: null,
+      prevCursor: null
+    }
+  };
+
+  function eu(e, t) {
+    return e + t.days.reduce(ec, 0)
+  }
+
+  function ec(e, t) {
+    return e + t.editions.reduce(ed, 0)
+  }
+
+  function ed(e, t) {
+    return e + t.units.length
+  }
+
+  function eh(e, t) {
+    return e + t.days.reduce(ef, 0)
+  }
+
+  function ef(e, t) {
+    return e + t.editions.reduce(em, 0)
+  }
+
+  function em(e, t) {
+    return e + t.units.length
+  }
+
+  function ep(e, t) {
+    return e[2] === t
+  }
+
+  function eb(e, t, n) {
+    let r = [],
+      i = [];
+    for (let [i, l] of e.getQueriesData({
+        queryKey: ei.feedQueryKeys.all,
+        predicate: e => ep(e.queryKey, "infiniteList")
+      })) null != l && Array.isArray(l.pages) && (r.push({
+      key: i,
+      data: l
+    }), e.setQueryData(i, {
+      ...l,
+      pages: l.pages.map(e => (0, Z.mapUnitInFeedList)(e, t, n))
+    }));
+    for (let [r, l] of e.getQueriesData({
+        queryKey: ei.feedQueryKeys.all,
+        predicate: e => ep(e.queryKey, "unit")
+      })) null != l && l.unitId === t && (i.push({
+      key: r,
+      data: l
+    }), e.setQueryData(r, n(l)));
+    return {
+      lists: r,
+      units: i
+    }
+  }
+
+  function eg(e) {
+    return e.getQueryCache().findAll({
+      queryKey: ei.feedQueryKeys.all,
+      predicate: e => ep(e.queryKey, "infiniteList")
+    }).flatMap(e => null == e.promise ? [] : [e.promise])
+  }
+
+  function ey(e) {
+    return ep(e.queryKey, "unit")
+  }
+
+  function e_(e) {
+    return ep(e.queryKey, "infiniteList")
+  }
+
+  function ex(e) {
+    return ep(e.queryKey, "infiniteList")
+  }
+
+  function eE() {}
+  var ek = e.i(255859),
+    ev = e.i(367112),
+    eS = e.i(260517),
+    eC = e.i(325814),
+    eI = e.i(440802),
+    eT = e.i(301720),
+    ew = e.i(36430);
+  let eN = (0, _.createClientLogger)("HatchFeedSingletonPromptEditor");
+
+  function eR({
+    prompt: e,
+    onSave: r,
+    presentation: a = "header-button",
+    onGenerate: o,
+    isGenerating: u = !1
+  }) {
+    let d = (0, i.useId)(),
+      m = `${d}-hint`,
+      p = `${d}-card-heading`,
+      b = (0, i.useRef)(null),
+      _ = (0, i.useRef)(null),
+      k = (0, i.useRef)(null),
+      v = (0, i.useRef)(null),
+      S = (0, i.useRef)(null),
+      [C, I] = (0, i.useState)(null),
+      [T, w] = (0, i.useState)(!1),
+      [N, R] = (0, i.useState)(!1),
+      [j, F] = (0, i.useState)(e?.fullPrompt ?? ""),
+      A = C ?? e,
+      M = null != A && A.fullPrompt.trim().length > 0 ? A : null,
+      D = null == M,
+      L = D ? "create" : "inline-card" !== a || T ? "edit" : "view",
+      {
+        ref: U
+      } = (0, l.useTrackedImpressionRef)({
+        eventName: E.HatchImpressionEvent.FEED_PROMPT_EDITOR_IMPRESSION,
+        actionTarget: "feed_prompt_editor",
+        metadata: {
+          surface: "feed",
+          subsurface: "prompt_editor",
+          screen: "feed_main",
+          mode: L,
+          is_first_run: String(D)
+        }
+      }, {
+        threshold: "50%"
+      }),
+      H = (0, f.useMergeRefs)(U),
+      P = (0, i.useCallback)(e => {
+        _.current !== e && (_.current = e, H(e))
+      }, [H]),
+      O = (0, i.useCallback)(e => {
+        let t = k.current;
+        k.current = e, null != e && D ? P(e) : null == e && _.current === t && P(null)
+      }, [D, P]),
+      B = (0, i.useCallback)(e => {
+        let t = v.current;
+        v.current = e, null != e && !D && T ? P(e) : null == e && _.current === t && P(null)
+      }, [T, D, P]),
+      z = (0, i.useCallback)(e => {
+        let t = S.current;
+        S.current = e, null == e || D || T || "inline-card" !== a ? null == e && _.current === t && P(null) : P(e)
+      }, [T, D, a, P]),
+      {
+        ref: G,
+        onClick: V
+      } = (0, l.useTrackedClickRef)({
+        eventName: x.HatchClickEvent.FEED_PROMPT_EDIT_CLICK,
+        actionTarget: "feed_prompt_edit",
+        actionType: "click",
+        metadata: {
+          surface: "feed",
+          subsurface: "prompt_editor",
+          screen: "feed_main"
+        }
+      }),
+      {
+        ref: Q,
+        onClick: W
+      } = (0, l.useTrackedClickRef)({
+        eventName: x.HatchClickEvent.FEED_PROMPT_CANCEL_CLICK,
+        actionTarget: "feed_prompt_cancel",
+        actionType: "click",
+        metadata: {
+          surface: "feed",
+          subsurface: "prompt_editor",
+          screen: "feed_main"
+        }
+      }),
+      {
+        ref: $,
+        onClick: Y
+      } = (0, l.useTrackedClickRef)({
+        eventName: x.HatchClickEvent.FEED_PROMPT_CANCEL_CLICK,
+        actionTarget: "feed_prompt_cancel",
+        actionType: "click",
+        metadata: {
+          surface: "feed",
+          subsurface: "prompt_editor",
+          screen: "feed_main"
+        }
+      }),
+      {
+        ref: q,
+        onClick: Z
+      } = (0, l.useTrackedClickRef)({
+        eventName: x.HatchClickEvent.FEED_PROMPT_SAVE_CLICK,
+        actionTarget: "feed_prompt_save",
+        actionType: "click",
+        metadata: {
+          surface: "feed",
+          subsurface: "prompt_editor",
+          screen: "feed_main",
+          mode: D ? "create" : "update"
+        }
+      });
+    (0, i.useEffect)(() => {
+      I(null)
+    }, [e?.fullPrompt, e?.promptId]);
+    let X = () => {
+        V(), F(M?.fullPrompt ?? ""), w(!0)
+      },
+      J = () => {
+        w(!1)
+      },
+      ee = () => {
+        Y(), J()
+      },
+      en = String(n.fbs._("Couldn't save your feed prompt.", null, {
+        hk: "2TzTpd"
+      })),
+      er = async e => {
+        let t = (0, y.captureHatchToast)();
+        R(!0);
+        try {
+          let t = await r({
+            fullPrompt: e
+          });
+          return I(t), t
+        } catch (e) {
+          return eN.error({
+            error: e instanceof Error ? e : Error(String(e)),
+            tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.FEED_PROMPT)
+          }, "Feed prompt full-text save failed"), t.error(en), null
+        } finally {
+          R(!1)
+        }
+      }, ei = async e => {
+        e.preventDefault();
+        let t = j.trim();
+        if (0 === t.length || N) return;
+        Z();
+        let n = await er(t);
+        null != n && (F(n.fullPrompt), w(!1))
+      };
+    if (D) return (0, t.jsxs)("section", {
+      ref: O,
+      "aria-labelledby": `${d}-heading`,
+      "aria-busy": N,
+      className: "flex flex-col gap-4",
+      children: [(0, t.jsxs)("div", {
+        className: "flex flex-col gap-1.5",
+        children: [(0, t.jsx)("h2", {
+          id: `${d}-heading`,
+          className: "text-text-primary text-title-2-emphasized",
+          children: n.fbt._("Your personal feed", null, {
+            hk: "xxyyM"
+          })
+        }), (0, t.jsx)("p", {
+          className: "text-body text-text-primary",
+          children: n.fbt._("Describe what you want {productShortName} to cover in every edition.", [n.fbt._param("productShortName", ek.PRODUCT_BRAND.shortName)], {
+            hk: "10fr7a"
+          })
+        })]
+      }), (0, t.jsxs)("form", {
+        className: (0, g.cn)(ew.FEED_PROMPT_CARD_CLASS_NAME, "flex flex-col gap-3"),
+        onSubmit: ei,
+        children: [(0, t.jsx)("label", {
+          htmlFor: d,
+          className: "text-footnote-emphasized text-text-tertiary uppercase",
+          children: n.fbt._("What should your feed cover?", null, {
+            hk: "38Lw5W"
+          })
+        }), (0, t.jsx)(eT.TextArea, {
+          ref: b,
+          id: d,
+          "aria-describedby": m,
+          value: j,
+          onChange: e => F(e.target.value),
+          rows: 5,
+          disabled: N,
+          placeholder: String(n.fbs._("Cover the topics I care about, what has changed, and what I should pay attention to next.", null, {
+            hk: "4AOJDJ"
+          }))
+        }), (0, t.jsx)("p", {
+          id: m,
+          className: "text-text-primary text-footnote",
+          children: n.fbt._("You can include topics, tone, useful signals, and anything to leave out.", null, {
+            hk: "3BUGku"
+          })
+        }), (0, t.jsx)("div", {
+          className: "flex justify-end",
+          children: (0, t.jsx)(s.Button, {
+            ref: q,
+            type: "submit",
+            size: "36",
+            variant: "primary",
+            radius: "rounded",
+            disabled: N || 0 === j.trim().length,
+            label: N ? n.fbs._("Saving…", null, {
+              hk: "1Tf1hb"
+            }) : n.fbs._("Create feed", null, {
+              hk: "4ntX24"
+            })
+          })
+        })]
+      })]
+    });
+    let el = !N && j.trim().length > 0 && j.trim() !== M.fullPrompt.trim(),
+      ea = "inline-card" === a ? (0, t.jsxs)("section", {
+        ref: z,
+        "aria-labelledby": p,
+        className: (0, g.cn)(ew.FEED_PROMPT_CARD_CLASS_NAME, "flex flex-col gap-3"),
+        children: [(0, t.jsx)("h2", {
+          id: p,
+          className: "text-footnote-emphasized text-text-tertiary uppercase",
+          children: n.fbt._("Your feed prompt", null, {
+            hk: "inpZd"
+          })
+        }), (0, t.jsx)("p", {
+          "data-testid": "feed-prompt-card-text",
+          title: M.fullPrompt,
+          className: (0, g.cn)("text-body-medium text-text-primary break-words whitespace-pre-wrap", "line-clamp-8"),
+          children: M.fullPrompt
+        }), (0, t.jsxs)("div", {
+          className: "flex items-center justify-end gap-2.5",
+          children: [(0, t.jsx)(eC.DialogTrigger, {
+            children: (0, t.jsx)(s.Button, {
+              ref: G,
+              type: "button",
+              size: "36",
+              variant: "flat",
+              radius: "rounded",
+              leadingIcon: ev.default,
+              onClick: X,
+              label: n.fbs._("Edit", null, {
+                hk: "2gIWRL"
+              })
+            })
+          }), null != o && (0, t.jsx)(s.Button, {
+            type: "button",
+            size: "36",
+            variant: "primary",
+            radius: "rounded",
+            "aria-disabled": u,
+            "aria-busy": u,
+            className: "aria-disabled:cursor-not-allowed",
+            onClick: () => {
+              u || o(M.promptId)
+            },
+            label: u ? (0, t.jsxs)("span", {
+              className: "flex items-center gap-2",
+              children: [(0, t.jsx)(c.Spinner, {
+                size: 16,
+                color: "currentColor",
+                isDecorative: !0
+              }), n.fbt._("Generating…", null, {
+                hk: "Yvs35"
+              })]
+            }) : n.fbt._("Generate", null, {
+              hk: "7MXJW"
+            })
+          })]
+        })]
+      }) : (0, t.jsx)(eC.DialogTrigger, {
+        children: (0, t.jsx)(eI.IconButton, {
+          ref: G,
+          type: "button",
+          icon: eS.default,
+          size: "36",
+          variant: "flat",
+          onClick: X,
+          label: n.fbs._("Edit feed instructions", null, {
+            hk: "2EAO9g"
+          })
+        })
+      });
+    return (0, t.jsxs)(eC.Dialog, {
+      open: T,
+      onOpenChange: e => {
+        e ? w(!0) : N || ee()
+      },
+      children: [ea, (0, t.jsx)(eC.DialogContent, {
+        ref: B,
+        "aria-busy": N,
+        "aria-describedby": m,
+        closeButtonDisabled: N,
+        closeButtonRef: Q,
+        onCloseButtonClick: e => {
+          e.preventDefault(), N || (W(), J())
+        },
+        onOpenAutoFocus: e => {
+          e.preventDefault();
+          let t = b.current;
+          if (null == t) return;
+          t.focus();
+          let n = t.value.length;
+          t.setSelectionRange(n, n)
+        },
+        onEscapeKeyDown: e => {
+          N && e.preventDefault()
+        },
+        onInteractOutside: e => {
+          N && e.preventDefault()
+        },
+        header: (0, t.jsxs)(eC.DialogHeader, {
+          children: [(0, t.jsx)(eC.DialogTitle, {
+            children: n.fbt._("Feed instructions", null, {
+              hk: "4ylWyh"
+            })
+          }), (0, t.jsx)(eC.DialogDescription, {
+            id: m,
+            children: n.fbt._("Your feed is powered by the instructions below. Any edits you make to this prompt will apply to future posts on the feed.", null, {
+              hk: "1uchEw"
+            })
+          })]
+        }),
+        children: (0, t.jsx)(h.EctoErrorBoundary, {
+          surface: et.HATCH_SENTRY_SURFACES.FEED_PROMPT,
+          resetKeys: [M.promptId],
+          fallback: ({
+            error: e,
+            reset: n
+          }) => (0, t.jsx)(K.HatchContentErrorFallback, {
+            error: e,
+            onRetry: n
+          }),
+          children: (0, t.jsxs)("form", {
+            className: "flex flex-col gap-4",
+            onSubmit: ei,
+            children: [(0, t.jsx)("label", {
+              htmlFor: d,
+              className: "sr-only",
+              children: n.fbt._("What should your feed cover?", null, {
+                hk: "38Lw5W"
+              })
+            }), (0, t.jsx)(eT.TextArea, {
+              ref: b,
+              id: d,
+              "aria-describedby": m,
+              value: j,
+              onChange: e => F(e.target.value),
+              rows: 12,
+              disabled: N,
+              className: "[&::-webkit-scrollbar-track]:my-(--radius-16)",
+              placeholder: String(n.fbs._("Add instructions…", null, {
+                hk: "1BXT7M"
+              })),
+              "data-testid": "feed-prompt-editor-field"
+            }), (0, t.jsxs)("div", {
+              "data-testid": "feed-prompt-editor-actions",
+              className: "flex w-full gap-3",
+              children: [(0, t.jsx)(s.Button, {
+                ref: $,
+                type: "button",
+                size: "36",
+                variant: "flat",
+                disabled: N,
+                className: "flex-1",
+                onClick: ee,
+                label: n.fbs._("Cancel", null, {
+                  hk: "1gB3rf"
+                })
+              }), (0, t.jsx)(s.Button, {
+                ref: q,
+                type: "submit",
+                size: "36",
+                variant: "primary",
+                disabled: !el,
+                className: "flex-1",
+                label: N ? n.fbs._("Saving…", null, {
+                  hk: "1Tf1hb"
+                }) : n.fbs._("Save", null, {
+                  hk: "fruz9"
+                })
+              })]
+            })]
+          })
+        })
+      })]
+    })
+  }
+  var ej = e.i(30488);
+  let eF = (0, i.createContext)(null),
+    eA = (0, i.createContext)(null);
+
+  function eM(e) {
+    let t, n, l = (0, r.c)(6),
+      a = (0, i.useContext)(eF);
+    l[0] !== e || l[1] !== a?.indexByKey ? (t = a?.indexByKey.get(e), l[0] = e, l[1] = a?.indexByKey, l[2] = t) : t = l[2];
+    let s = t;
+    return l[3] !== s || l[4] !== a ? (n = null == a || null == s ? null : {
+      absolutePosition: s,
+      totalCount: a.totalCount
+    }, l[3] = s, l[4] = a, l[5] = n) : n = l[5], n
+  }
+  let eD = Object.freeze({});
+
+  function eL() {
+    return (0, i.useContext)(eA) ?? eD
+  }
+
+  function eU(e, {
+    infiniteFeedUnitKey: t,
+    position: n
+  } = {}) {
+    let r = null != t;
+    return {
+      surface: "feed",
+      screen: "feed_main",
+      unit_id: e.unitId,
+      ...r ? {
+        subsurface: "infinite_feed",
+        unit_key: t
+      } : {},
+      ...null != n ? {
+        absolute_position: n.absolutePosition,
+        total_count: n.totalCount
+      } : {},
+      edition_kind: e.editionKind,
+      ...r ? {} : {
+        generation_run_id: e.runId,
+        generation_edition_local_date: e.editionLocalDate,
+        generation_edition_generated_at_ms: e.editionGeneratedAtMs
+      }
+    }
+  }
+
+  function eH(e) {
+    let n, i, l, a = (0, r.c)(8),
+      {
+        orderedKeys: s,
+        children: o
+      } = e;
+    a[0] !== s ? (n = new Map, s.forEach((e, t) => {
+      n.has(e) || n.set(e, t)
+    }), a[0] = s, a[1] = n) : n = a[1], a[2] !== n || a[3] !== s.length ? (i = {
+      indexByKey: n,
+      totalCount: s.length
+    }, a[2] = n, a[3] = s.length, a[4] = i) : i = a[4];
+    let u = i;
+    return a[5] !== o || a[6] !== u ? (l = (0, t.jsx)(eF.Provider, {
+      value: u,
+      children: o
+    }), a[5] = o, a[6] = u, a[7] = l) : l = a[7], l
+  }
+
+  function eP(e) {
+    let n, i, l = (0, r.c)(7),
+      {
+        unit: a,
+        infiniteFeedUnitKey: s,
+        children: o
+      } = e,
+      u = eM(s ?? a.unitId);
+    l[0] !== s || l[1] !== u || l[2] !== a ? (n = eU(a, {
+      infiniteFeedUnitKey: s,
+      position: u
+    }), l[0] = s, l[1] = u, l[2] = a, l[3] = n) : n = l[3];
+    let c = n;
+    return l[4] !== o || l[5] !== c ? (i = (0, t.jsx)(eA.Provider, {
+      value: c,
+      children: o
+    }), l[4] = o, l[5] = c, l[6] = i) : i = l[6], i
+  }
+  var eO = e.i(180110),
+    eB = e.i(302223),
+    eK = e.i(979473),
+    ez = e.i(764866),
+    eG = e.i(646361),
+    eV = e.i(926860),
+    eQ = e.i(623740),
+    eW = e.i(441635),
+    e$ = e.i(285442),
+    eY = e.i(392253),
+    eq = e.i(681211);
+
+  function eZ(e) {
+    let n, i, l, a, s, o, u, c = (0, r.c)(12);
+    return c[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), c[0] = e.title, c[1] = n) : n = c[1], c[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), c[2] = e.children, c[3] = i) : i = c[3], c[4] === Symbol.for("react.memo_cache_sentinel") ? (l = (0, t.jsx)("path", {
+      d: "M20.08 1.55C20.5 1.31 21.03 1.46 21.26 1.89C22.93 4.88 23.87 8.33 23.88 12C23.87 15.67 22.93 19.12 21.26 22.11C21.03 22.54 20.5 22.69 20.08 22.46C19.65 22.22 19.5 21.69 19.74 21.27C21.26 18.52 22.12 15.36 22.13 12C22.12 8.64 21.26 5.48 19.74 2.74C19.5 2.31 19.65 1.78 20.08 1.55Z"
+    }), a = (0, t.jsx)("path", {
+      d: "M11.2 2.25C11.69 2.3 12.15 2.55 12.46 2.94C12.74 3.29 12.81 3.71 12.84 4.05C12.88 4.4 12.88 4.86 12.88 5.38V18.62C12.88 19.15 12.88 19.6 12.84 19.95C12.81 20.29 12.74 20.72 12.46 21.07C12.1 21.51 11.56 21.77 10.98 21.77C10.53 21.76 10.16 21.55 9.88 21.36C9.59 21.16 9.24 20.87 8.83 20.54L5.58 17.88H4.2C3.65 17.88 3.19 17.88 2.82 17.85C2.43 17.81 2.05 17.74 1.69 17.56C1.15 17.29 0.71 16.85 0.44 16.31C0.26 15.95 0.19 15.57 0.16 15.19C0.12 14.81 0.13 14.35 0.13 13.8V10.2C0.13 9.66 0.12 9.19 0.16 8.82C0.19 8.43 0.26 8.05 0.44 7.69C0.71 7.15 1.15 6.71 1.69 6.44C2.05 6.26 2.43 6.19 2.82 6.16C3.19 6.13 3.65 6.13 4.2 6.13H5.58L8.83 3.46L9.4 3C9.57 2.87 9.73 2.74 9.88 2.65C10.16 2.46 10.53 2.24 10.98 2.24L11.2 2.25Z"
+    }), s = (0, t.jsx)("path", {
+      d: "M17.19 4.24C17.61 4 18.14 4.14 18.38 4.56C19.65 6.75 20.38 9.29 20.38 12C20.38 14.71 19.65 17.25 18.38 19.44C18.14 19.86 17.61 20 17.19 19.76C16.77 19.52 16.63 18.98 16.87 18.56C17.99 16.63 18.63 14.39 18.63 12C18.63 9.61 17.99 7.37 16.87 5.44C16.63 5.02 16.77 4.48 17.19 4.24Z"
+    }), o = (0, t.jsx)("path", {
+      d: "M14.67 7.22C15.11 7 15.63 7.18 15.85 7.61C16.51 8.93 16.88 10.43 16.88 12C16.88 13.58 16.51 15.07 15.85 16.39C15.63 16.82 15.11 17 14.67 16.78C14.24 16.57 14.07 16.04 14.28 15.61C14.82 14.52 15.13 13.3 15.13 12C15.13 10.7 14.82 9.48 14.28 8.39C14.07 7.96 14.24 7.43 14.67 7.22Z"
+    }), c[4] = l, c[5] = a, c[6] = s, c[7] = o) : (l = c[4], a = c[5], s = c[6], o = c[7]), c[8] !== e || c[9] !== n || c[10] !== i ? (u = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, i, l, a, s, o]
+    }), c[8] = e, c[9] = n, c[10] = i, c[11] = u) : u = c[11], u
+  }
+
+  function eX(e) {
+    let n, i, l, a, s, o, u = (0, r.c)(11);
+    return u[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), u[0] = e.title, u[1] = n) : n = u[1], u[2] !== e.children ? (i = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), u[2] = e.children, u[3] = i) : i = u[3], u[4] === Symbol.for("react.memo_cache_sentinel") ? (l = (0, t.jsx)("path", {
+      d: "M2.63 2.38C2.97 2.04 3.53 2.04 3.87 2.38L21.87 20.38C22.21 20.72 22.21 21.28 21.87 21.62C21.53 21.96 20.97 21.96 20.63 21.62L2.63 3.62C2.29 3.28 2.29 2.72 2.63 2.38Z"
+    }), a = (0, t.jsx)("path", {
+      d: "M17.52 20.98C17.5 21.01 17.48 21.04 17.46 21.06C17.1 21.51 16.56 21.77 15.98 21.76C15.53 21.76 15.16 21.54 14.88 21.35C14.59 21.16 14.24 20.87 13.83 20.54L10.58 17.87H8.4C7.99 17.87 7.64 17.88 7.34 17.85C7.04 17.83 6.72 17.77 6.42 17.61C5.98 17.39 5.61 17.03 5.38 16.58C5.23 16.27 5.17 15.96 5.15 15.65C5.12 15.36 5.12 15 5.12 14.6V9.4C5.12 9.1 5.12 8.83 5.13 8.6L17.52 20.98Z"
+    }), s = (0, t.jsx)("path", {
+      d: "M16.2 2.25C16.69 2.3 17.15 2.54 17.46 2.93C17.74 3.28 17.81 3.71 17.84 4.05C17.88 4.4 17.87 4.85 17.87 5.38V13.91L10.09 6.12H10.58L13.83 3.46L14.4 3C14.57 2.86 14.73 2.74 14.88 2.64C15.16 2.45 15.53 2.24 15.98 2.23L16.2 2.25Z"
+    }), u[4] = l, u[5] = a, u[6] = s) : (l = u[4], a = u[5], s = u[6]), u[7] !== e || u[8] !== n || u[9] !== i ? (o = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, i, l, a, s]
+    }), u[7] = e, u[8] = n, u[9] = i, u[10] = o) : o = u[10], o
+  }
+  eZ._isSVG = !0, eX._isSVG = !0;
+  var eJ = e.i(701427);
+  let e0 = [{
+    ratio: 9 / 16,
+    width: 112
+  }, {
+    ratio: 2 / 3,
+    width: 133
+  }, {
+    ratio: 1,
+    width: 200
+  }];
+
+  function e1(e) {
+    if ("hero_image" !== e.kind || null == e.socialEmbedUrl) return null;
+    let t = e.aspectRatio ?? null;
+    if (null == t || !Number.isFinite(t) || t <= 0) return null;
+    let n = null,
+      r = .05;
+    for (let e of e0) {
+      let i = Math.abs(e.ratio - t);
+      i <= r && (n = e, r = i)
+    }
+    return n
+  }
+  var e2 = e.i(941960),
+    e3 = e.i(921192),
+    e4 = e.i(389409),
+    e5 = e.i(970600);
+
+  function e6(e) {
+    try {
+      let t = new URL(e);
+      return "https:" === t.protocol || "http:" === t.protocol ? t.href : null
+    } catch {
+      return null
+    }
+  }
+
+  function e8(e) {
+    let t;
+    try {
+      t = new URL(e).hostname.toLowerCase()
+    } catch {
+      return null
+    }
+    return t.includes("threads.") ? "Threads" : t.includes("instagram.") ? "Instagram" : t.includes("facebook.") || "fb.com" === t || t.endsWith(".fb.com") ? "Facebook" : null
+  }
+  let e7 = new Set(["threads", "instagram", "facebook"]);
+
+  function e9(e, t) {
+    let n = ((e?.trim() ?? "") || e8(t) || "").toLowerCase();
+    return e7.has(n) ? n : "other"
+  }
+  let te = "/feed/social-source-icon/";
+
+  function tt(e) {
+    try {
+      let t = new URL(e);
+      if ("https:" !== t.protocol || t.username.length > 0 || t.password.length > 0 || (0, e4.isHatchVmGatewayHostname)(t.hostname)) return null;
+      return t
+    } catch {
+      return null
+    }
+  }
+
+  function tn(e) {
+    return null == tt(e) ? null : (0, e3.proxyExternalImageUrl)(e)
+  }
+
+  function tr(e, t, n, r) {
+    let i = e6(e);
+    if (null == i) return {
+      kind: "none"
+    };
+    if (function(e) {
+        let t = e6(e);
+        if (null == t) return !1;
+        let n = new URL(t),
+          r = n.hostname.toLowerCase();
+        return !!(r.includes("facebook.") || "fb.com" === r || r.endsWith(".fb.com")) && /^\/groups\//.test(n.pathname)
+      }(i)) return {
+      kind: "link_out",
+      href: i
+    };
+    let l = !0 === r ? function(e) {
+      if (null == e || e.length < 2) return null;
+      let t = [];
+      for (let r of e) {
+        var n;
+        let e = "image" === r.kind ? tn(r.mediaUrl) : null == tt(n = r.mediaUrl) ? null : (0, e5.proxyExternalVideoUrl)(n);
+        if (null == e) return null;
+        if ("image" === r.kind) {
+          t.push({
+            ...r,
+            mediaSrc: e
+          });
+          continue
+        }
+        if (null != r.thumbnailUrl) {
+          let n = tn(r.thumbnailUrl);
+          if (null == n) return null;
+          t.push({
+            ...r,
+            mediaSrc: e,
+            thumbnailSrc: n
+          })
+        } else t.push({
+          ...r,
+          mediaSrc: e
+        })
+      }
+      return t
+    }(n) : null;
+    if (null != l) return {
+      kind: "carousel",
+      href: i,
+      items: l
+    };
+    let a = function(e) {
+      let t;
+      if (null == e) return null;
+      try {
+        t = new URL(e)
+      } catch {
+        return null
+      }
+      return "https:" !== t.protocol ? null : (0, e3.proxyExternalImageUrl)(e)
+    }(t);
+    if (null != a) return {
+      kind: "thumbnail",
+      href: i,
+      thumbnailSrc: a,
+      isVideo: function(e) {
+        let t = e6(e);
+        if (null == t) return !1;
+        let n = new URL(t),
+          r = n.hostname.toLowerCase(),
+          i = n.pathname.replace(/\/+$/, "");
+        return r.includes("instagram.") ? /^\/(reel|tv)\/[\w-]+$/.test(i) : !!(r.includes("facebook.") || "fb.com" === r || r.endsWith(".fb.com")) && /^\/(?:[\w.]+\/)?(videos|reel)\//.test(`${i}/`)
+      }(i)
+    };
+    let s = function(e) {
+      let t = e6(e);
+      if (null == t) return null;
+      let n = new URL(t),
+        r = n.hostname.toLowerCase(),
+        i = n.pathname.replace(/\/+$/, "");
+      return r.includes("instagram.") ? /^\/(p|reel|tv)\/[\w-]+$/.test(i) ? `https://www.instagram.com${i}/embed/` : null : (r.includes("threads.") || r.includes("facebook.") || "fb.com" === r || r.endsWith(".fb.com"), null)
+    }(i);
+    return null != s ? {
+      kind: "embed",
+      href: i,
+      embedSrc: s
+    } : {
+      kind: "link_out",
+      href: i
+    }
+  }
+
+  function ti(e) {
+    let t = e?.trim() ?? "";
+    return t.length > 0 ? t : null
+  }
+
+  function tl(e, t) {
+    let n = ti(e)?.replace(/^@+/, "").trim();
+    return null != n && n.length > 0 ? `@${n}` : ti(t)
+  }
+
+  function ta(e) {
+    let i, a = (0, r.c)(8),
+      {
+        attachment: s,
+        className: o
+      } = e,
+      u = null != s.socialEmbedUrl ? e6(s.socialEmbedUrl) : null,
+      c = eL(),
+      {
+        ref: d,
+        onClick: h
+      } = (0, l.useTrackedClickRef)({
+        eventName: x.HatchClickEvent.FEED_UNIT_SOCIAL_LINK_OUT_CLICK,
+        actionTarget: "feed_unit_social_link_out",
+        actionType: "click",
+        metadata: {
+          ...c,
+          platform: null != u ? e9(s.socialSourceName, u) : "other",
+          placement: "byline"
+        }
+      }),
+      f = tl(s.socialPostUsername, s.socialAttributionText);
+    if (null == f) return null;
+    let m = (0, g.cn)("text-text-secondary block truncate", o);
+    if (null == u) return (0, t.jsx)("span", {
+      className: m,
+      title: f,
+      "data-testid": "social-attribution",
+      children: f
+    });
+    let p = s.socialSourceName?.trim() || e8(u),
+      b = e2.EctoAnchor,
+      y = null != p && p.length > 0 ? n.fbs._("Open {author} on {platform} (opens in a new tab)", [n.fbs._param("author", f), n.fbs._param("platform", p)], {
+        hk: "1zTCrH"
+      }) : n.fbs._("Open {author}'s post (opens in a new tab)", [n.fbs._param("author", f)], {
+        hk: "DXvoR"
+      }),
+      _ = (0, g.cn)(m, "hover:text-text-primary hover:underline");
+    return a[0] !== b || a[1] !== d || a[2] !== f || a[3] !== u || a[4] !== h || a[5] !== y || a[6] !== _ ? (i = (0, t.jsx)(b, {
+      ref: d,
+      href: u,
+      onClick: h,
+      title: f,
+      "aria-label": y,
+      className: _,
+      "data-testid": "social-attribution",
+      children: f
+    }), a[0] = b, a[1] = d, a[2] = f, a[3] = u, a[4] = h, a[5] = y, a[6] = _, a[7] = i) : i = a[7], i
+  }
+  var ts = e.i(849329),
+    to = e.i(499608),
+    tu = e.i(925301);
+
+  function tc(e, t) {
+    return (e[t] ?? 0) << 24 | (e[t + 1] ?? 0) << 16 | (e[t + 2] ?? 0) << 8 | (e[t + 3] ?? 0)
+  }
+
+  function td(e, t, n) {
+    var r;
+    if (t + 8 > n) return null;
+    let i = tc(e, t) >>> 0,
+      l = String.fromCharCode(e[r = t + 4] ?? 0, e[r + 1] ?? 0, e[r + 2] ?? 0, e[r + 3] ?? 0);
+    if (0 === i) return {
+      type: l,
+      start: t,
+      end: n,
+      payloadStart: t + 8
+    };
+    if (1 === i) {
+      if (t + 16 > n) return null;
+      let r = 0x100000000 * (tc(e, t + 8) >>> 0) + (tc(e, t + 12) >>> 0);
+      return !Number.isSafeInteger(r) || r < 16 ? null : {
+        type: l,
+        start: t,
+        end: t + r,
+        payloadStart: t + 16
+      }
+    }
+    return i < 8 ? null : {
+      type: l,
+      start: t,
+      end: t + i,
+      payloadStart: t + 8
+    }
+  }
+
+  function* th(e, t, n) {
+    let r = t;
+    for (; r + 8 <= n;) {
+      let t = td(e, r, n);
+      if (null == t || t.end > n || t.end <= t.start) return;
+      yield t, r = t.end
+    }
+  }
+
+  function tf(e, t, n) {
+    for (let r of th(e, t.payloadStart, t.end))
+      if (r.type === n) return r;
+    return null
+  }
+  let tm = (0, _.createClientLogger)("FeedClipStream");
+  class tp {
+    owner;
+    mimeType;
+    url;
+    mediaSource;
+    sourceBuffer;
+    nextChunkIndex;
+    appending;
+    destroyed;
+    failed;
+    constructor(e, t) {
+      this.owner = e, this.mimeType = t, this.sourceBuffer = null, this.nextChunkIndex = 0, this.appending = !1, this.destroyed = !1, this.failed = !1, this.handleSourceOpen = () => {
+        if (this.destroyed || null != this.sourceBuffer) return;
+        try {
+          let e = this.mediaSource.addSourceBuffer(this.mimeType);
+          this.sourceBuffer = e, e.addEventListener("updateend", this.handleUpdateEnd), e.addEventListener("error", this.handleSourceBufferError)
+        } catch (e) {
+          this.fail(e, "addSourceBuffer failed");
+          return
+        }
+        let e = this.owner.knownDurationSeconds();
+        if (null != e) try {
+          this.mediaSource.duration = e
+        } catch {}
+        this.appendNext()
+      }, this.handleUpdateEnd = () => {
+        this.destroyed || this.appendNext()
+      }, this.handleSourceBufferError = () => {
+        this.fail(null, "SourceBuffer error event")
+      }, this.mediaSource = new MediaSource, this.url = URL.createObjectURL(this.mediaSource), this.mediaSource.addEventListener("sourceopen", this.handleSourceOpen)
+    }
+    handleSourceOpen;
+    handleUpdateEnd;
+    handleSourceBufferError;
+    notifyChunksAdvanced() {
+      this.destroyed || this.failed || this.appendNext()
+    }
+    bufferedEndSeconds() {
+      let e = this.sourceBuffer?.buffered;
+      if (null == e || 0 === e.length) return null;
+      try {
+        return e.end(e.length - 1)
+      } catch {
+        return null
+      }
+    }
+    async appendNext() {
+      let e = this.sourceBuffer;
+      if (this.destroyed || this.failed || null == e || this.appending || e.updating || "open" !== this.mediaSource.readyState) return;
+      let t = this.owner.chunkAt(this.nextChunkIndex);
+      if (null == t) {
+        if (this.owner.isEof() && this.nextChunkIndex >= this.owner.chunkCount()) try {
+          if (!Number.isFinite(this.mediaSource.duration)) {
+            let e = this.bufferedEndSeconds();
+            null != e && e > 0 && (this.mediaSource.duration = e)
+          }
+          this.mediaSource.endOfStream()
+        } catch {}
+        return
+      }
+      this.appending = !0;
+      try {
+        let n = await t.arrayBuffer();
+        if (this.destroyed || this.sourceBuffer !== e) return;
+        try {
+          e.appendBuffer(n), this.nextChunkIndex += 1
+        } catch (t) {
+          if (t instanceof DOMException && "QuotaExceededError" === t.name) return void this.evictBehindPlayhead(e);
+          this.fail(t, "appendBuffer failed")
+        }
+      } catch (e) {
+        this.fail(e, "chunk read failed")
+      } finally {
+        this.appending = !1
+      }
+    }
+    evictBehindPlayhead(e) {
+      let t = this.owner.playheadSeconds(),
+        n = null != t ? Math.max(0, t - 5) : 0;
+      if (n <= 0) return void this.fail(null, "buffer quota exceeded with nothing evictable");
+      try {
+        e.remove(0, n)
+      } catch (e) {
+        this.fail(e, "buffer eviction failed")
+      }
+    }
+    fail(e, t) {
+      this.destroyed || this.failed || (this.failed = !0, tm.retainForBugReport("warn", "Feed clip MSE attachment failed"), this.owner.handleAttachmentFailure(this))
+    }
+    destroy() {
+      if (this.destroyed) return;
+      this.destroyed = !0, this.mediaSource.removeEventListener("sourceopen", this.handleSourceOpen);
+      let e = this.sourceBuffer;
+      null != e && (e.removeEventListener("updateend", this.handleUpdateEnd), e.removeEventListener("error", this.handleSourceBufferError)), this.sourceBuffer = null, URL.revokeObjectURL(this.url)
+    }
+  }
+  class tb {
+    options;
+    chunkBytes;
+    abort;
+    chunks;
+    bytesFetched;
+    eof;
+    mode;
+    status;
+    primary;
+    attachments;
+    playheadProbe;
+    destroyed;
+    completed;
+    constructor(e) {
+      this.options = e, this.abort = new AbortController, this.chunks = [], this.bytesFetched = 0, this.eof = !1, this.mode = "probing", this.status = "starting", this.primary = null, this.attachments = new Set, this.playheadProbe = null, this.destroyed = !1, this.completed = !1, this.currentMimeType = "video/mp4", this.declaredDurationSeconds = null, this.chunkBytes = e.chunkBytes ?? 1048576
+    }
+    start() {
+      this.run()
+    }
+    attachPlayheadProbe(e) {
+      this.playheadProbe = e
+    }
+    mintAttachmentSrc() {
+      if (this.destroyed || "mse" !== this.mode || null == this.primary) return null;
+      let e = new tp(this, this.currentMimeType);
+      return this.attachments.add(e), e.url
+    }
+    releaseAttachment(e) {
+      for (let t of this.attachments)
+        if (t.url === e && t !== this.primary) {
+          t.destroy(), this.attachments.delete(t);
+          return
+        }
+    }
+    destroy() {
+      if (!this.destroyed) {
+        for (let e of (this.destroyed = !0, this.abort.abort(), this.attachments)) e.destroy();
+        this.attachments.clear(), this.primary = null, this.chunks.length = 0
+      }
+    }
+    chunkAt(e) {
+      return this.chunks[e] ?? null
+    }
+    chunkCount() {
+      return this.chunks.length
+    }
+    isEof() {
+      return this.eof
+    }
+    playheadSeconds() {
+      return this.playheadProbe?.() ?? null
+    }
+    knownDurationSeconds() {
+      return this.declaredDurationSeconds
+    }
+    handleAttachmentFailure(e) {
+      this.destroyed || (e.destroy(), this.attachments.delete(e), e === this.primary && (this.primary = null, this.mode = "blob", this.emit(this.completed ? "complete" : "streaming", null)))
+    }
+    currentMimeType;
+    declaredDurationSeconds;
+    emit(e, t) {
+      this.destroyed || (this.status = e, this.options.onChange({
+        status: e,
+        src: t
+      }))
+    }
+    async run() {
+      try {
+        for (await this.fetchHeadAndDecideMode(); !this.destroyed && !this.eof;) {
+          if (await this.pumpGate(), this.destroyed) return;
+          await this.fetchNextChunk(), this.notifyAttachments()
+        }
+        if (this.destroyed) return;
+        this.completed = !0;
+        let e = new Blob(this.chunks.slice(), {
+          type: this.chunks[0]?.type || "video/mp4"
+        });
+        this.options.onComplete(e), this.emit("complete", this.primary?.url ?? null)
+      } catch (e) {
+        if (this.destroyed || this.abort.signal.aborted) return;
+        tm.retainForBugReport("warn", "Feed clip range pipeline failed"), this.emit("failed", null)
+      }
+    }
+    async fetchHeadAndDecideMode() {
+      let e = null;
+      for (; !this.destroyed;) {
+        0 !== this.bytesFetched && this.eof || await this.fetchNextChunk();
+        let t = new Uint8Array(await new Blob(this.chunks.slice()).slice(0, 4194304).arrayBuffer());
+        if (this.destroyed) return;
+        let n = function(e, t = !1) {
+          let n = e.length,
+            r = 0,
+            i = !1;
+          for (; r + 8 <= n;) {
+            let l = td(e, r, n);
+            if (null == l) return {
+              kind: "unknown"
+            };
+            if (!i) {
+              if ("ftyp" !== l.type) return {
+                kind: "unknown"
+              };
+              i = !0, r = l.end;
+              continue
+            }
+            if ("moov" === l.type) {
+              if (l.end > n) return t ? {
+                kind: "unknown"
+              } : {
+                kind: "need_more_bytes",
+                minBytes: l.end
+              };
+              let r = tf(e, l, "mvex");
+              if (null == r) return {
+                kind: "progressive"
+              };
+              let i = function(e, t) {
+                  let n = [];
+                  for (let r of th(e, t.payloadStart, t.end)) {
+                    if ("trak" !== r.type) continue;
+                    let t = tf(e, r, "mdia"),
+                      i = null != t ? tf(e, t, "minf") : null,
+                      l = null != i ? tf(e, i, "stbl") : null,
+                      a = null != l ? tf(e, l, "stsd") : null;
+                    if (null != a)
+                      for (let t of th(e, a.payloadStart + 8, a.end))
+                        if ("avc1" === t.type || "avc3" === t.type) {
+                          let r = t.start + 86,
+                            i = null;
+                          for (let n of th(e, r, t.end))
+                            if ("avcC" === n.type) {
+                              i = function(e, t) {
+                                let n = t.payloadStart;
+                                if (n + 4 > t.end) return null;
+                                let r = e => e.toString(16).padStart(2, "0");
+                                return `avc1.${r(e[n+1]??0)}${r(e[n+2]??0)}${r(e[n+3]??0)}`
+                              }(e, n);
+                              break
+                            } n.push(i ?? t.type)
+                        } else if ("mp4a" === t.type) {
+                      let r = t.start + 36,
+                        i = "mp4a.40.2";
+                      for (let n of th(e, r, t.end))
+                        if ("esds" === n.type) {
+                          i = function(e, t) {
+                            let n = t.payloadStart + 4,
+                              r = r => {
+                                if (n >= t.end) return null;
+                                let i = e[n];
+                                n += 1;
+                                let l = 0;
+                                for (let r = 0; r < 4 && n < t.end; r++) {
+                                  let t = e[n] ?? 0;
+                                  if (n += 1, l = l << 7 | 127 & t, (128 & t) == 0) break
+                                }
+                                let a = n,
+                                  s = Math.min(n + l, t.end);
+                                return i !== r ? null : {
+                                  start: a,
+                                  end: s
+                                }
+                              },
+                              i = r(3);
+                            if (null == i) return "mp4a.40.2";
+                            n = i.start + 3;
+                            let l = r(4);
+                            if (null == l) return "mp4a.40.2";
+                            let a = e[l.start] ?? 64;
+                            n = l.start + 13;
+                            let s = r(5);
+                            if (64 !== a || null == s || s.start >= s.end) return `mp4a.${a.toString(16).padStart(2,"0")}.2`;
+                            let o = (e[s.start] ?? 0) >> 3 & 31;
+                            return `mp4a.40.${o>0?o:2}`
+                          }(e, n);
+                          break
+                        } n.push(i)
+                    } else n.push(t.type)
+                  }
+                  return n
+                }(e, l),
+                a = function(e, t, n) {
+                  let r = tf(e, n, "mehd");
+                  if (null == r) return null;
+                  let i = function(e, t) {
+                    let n = tf(e, t, "mvhd");
+                    if (null == n) return null;
+                    let r = e[n.payloadStart] ?? 0,
+                      i = n.payloadStart + 4 + (1 === r ? 16 : 8);
+                    if (i + 4 > n.end) return null;
+                    let l = tc(e, i) >>> 0;
+                    return l > 0 ? l : null
+                  }(e, t);
+                  if (null == i) return null;
+                  let l = e[r.payloadStart] ?? 0,
+                    a = r.payloadStart + 4;
+                  if (a + (1 === l ? 8 : 4) > r.end) return null;
+                  let s = 1 === l ? 0x100000000 * (tc(e, a) >>> 0) + (tc(e, a + 4) >>> 0) : tc(e, a) >>> 0;
+                  if (!Number.isSafeInteger(s) || s <= 0) return null;
+                  let o = s / i;
+                  return Number.isFinite(o) && o > 0 ? o : null
+                }(e, l, r);
+              return {
+                kind: "fmp4",
+                mimeType: i.length > 0 ? `video/mp4; codecs="${i.join(", ")}"` : "video/mp4",
+                ...null != a ? {
+                  durationSeconds: a
+                } : {}
+              }
+            }
+            if ("mdat" === l.type) return {
+              kind: "progressive"
+            };
+            if (l.end <= r) return {
+              kind: "unknown"
+            };
+            r = l.end
+          }
+          return i ? t ? {
+            kind: "unknown"
+          } : {
+            kind: "need_more_bytes",
+            minBytes: Math.max(r, n) + 8
+          } : {
+            kind: "unknown"
+          }
+        }(t, this.eof);
+        if ("need_more_bytes" === n.kind) {
+          if (n.minBytes > 4194304 || this.eof) {
+            e = {
+              kind: "progressive"
+            };
+            break
+          }
+          continue
+        }
+        e = n;
+        break
+      }
+      if (!this.destroyed && null != e)
+        if ("fmp4" === e.kind && "u" > typeof MediaSource && "function" == typeof MediaSource.isTypeSupported && MediaSource.isTypeSupported(e.mimeType) && "fmp4" === e.kind) {
+          this.mode = "mse", this.currentMimeType = e.mimeType, this.declaredDurationSeconds = e.durationSeconds ?? null;
+          let t = new tp(this, e.mimeType);
+          this.primary = t, this.attachments.add(t), this.emit("streaming", t.url)
+        } else this.mode = "blob", this.emit("streaming", null)
+    }
+    async pumpGate() {
+      for (; !this.destroyed && "mse" === this.mode;) {
+        let e = this.primary?.bufferedEndSeconds(),
+          t = this.playheadSeconds();
+        if (null == e || null == t || e - t < 30) return;
+        await new Promise(e => setTimeout(e, 500))
+      }
+    }
+    async fetchNextChunk() {
+      let e, t = this.bytesFetched,
+        n = t + this.chunkBytes - 1;
+      try {
+        e = await this.options.fetchRange(t, n, this.abort.signal)
+      } catch (e) {
+        if (t > 0 && (0, tu.isGatewayRequestError)(e) && 416 === e.httpStatus) {
+          this.eof = !0;
+          return
+        }
+        throw e
+      }
+      if (!this.destroyed) {
+        if (0 === e.size) {
+          this.eof = !0;
+          return
+        }
+        this.chunks.push(e), this.bytesFetched += e.size, e.size < this.chunkBytes ? this.eof = !0 : e.size > this.chunkBytes && (this.eof = !0)
+      }
+    }
+    notifyAttachments() {
+      for (let e of this.attachments) e.notifyChunksAdvanced()
+    }
+  }
+  let tg = (0, _.createClientLogger)("useFeedUnitClip"),
+    ty = "/feed/units/";
+
+  function t_(e, t) {
+    let n, r = e.trim();
+    if (0 === r.length) return {
+      kind: "blocked"
+    };
+    try {
+      n = new URL(r, "https://feed-media-base.invalid")
+    } catch {
+      return {
+        kind: "blocked"
+      }
+    }
+    if ("https:" !== n.protocol && "http:" !== n.protocol) return {
+      kind: "blocked"
+    };
+    let i = n.pathname.indexOf(ty);
+    if (-1 !== i) {
+      let e = n.pathname.slice(i + ty.length).split("/");
+      if (e.length >= 3 && "media" === e[1]) {
+        let t = decodeURIComponent(e[0] ?? ""),
+          r = decodeURIComponent(e.slice(2).join("/"));
+        if (t.length > 0 && r.length > 0) return {
+          kind: "unit_media",
+          unitId: t,
+          handle: r,
+          query: Object.fromEntries(n.searchParams)
+        }
+      }
+      return {
+        kind: "blocked"
+      }
+    }
+    if ((0, e4.isHatchVmGatewayHostname)(n.hostname)) return {
+      kind: "blocked"
+    };
+    if ("video" === t) {
+      let e = (0, e5.proxyExternalVideoUrl)(r);
+      return null == e ? {
+        kind: "blocked"
+      } : {
+        kind: "direct",
+        url: e
+      }
+    }
+    let l = (0, e3.proxyExternalImageUrl)(r);
+    return null == l ? {
+      kind: "blocked"
+    } : {
+      kind: "direct",
+      url: l
+    }
+  }
+
+  function tx(e, t) {
+    let n, i, l, a, s, o = (0, r.c)(24),
+      {
+        gatewayUrl: u,
+        sendRequest: c,
+        isReady: d,
+        ensureLiveConnection: h
+      } = (0, en.useHatchRpc)(),
+      f = u ?? "",
+      m = t?.enabled ?? !0;
+    o[0] !== e ? (n = null != e && e.trim().length > 0 ? t_(e, "image") : {
+      kind: "blocked"
+    }, o[0] = e, o[1] = n) : n = o[1];
+    let p = n,
+      b = "unit_media" === p.kind && f.length > 0,
+      g = e ?? "";
+    o[2] !== f || o[3] !== g ? (i = ["feed-unit-image", f, g], o[2] = f, o[3] = g, o[4] = i) : i = o[4];
+    let y = i;
+    o[5] !== h || o[6] !== d || o[7] !== c || o[8] !== p.handle || o[9] !== p.kind || o[10] !== p.query || o[11] !== p.unitId ? (l = async () => "unit_media" === p.kind ? (d || await h(), c("feed.unit.media", {
+      unit_id: p.unitId,
+      handle: p.handle,
+      ...p.query
+    })) : null, o[5] = h, o[6] = d, o[7] = c, o[8] = p.handle, o[9] = p.kind, o[10] = p.query, o[11] = p.unitId, o[12] = l) : l = o[12];
+    let _ = b && m;
+    o[13] !== y || o[14] !== l || o[15] !== _ ? (a = {
+      queryKey: y,
+      queryFn: l,
+      enabled: _,
+      staleTime: 1 / 0,
+      gcTime: 18e5,
+      retry: 1
+    }, o[13] = y, o[14] = l, o[15] = _, o[16] = a) : a = o[16];
+    let {
+      data: x,
+      isPending: E,
+      isError: k
+    } = (0, ts.useQuery)(a), v = (0, to.useBlobUrl)(x);
+    if ("direct" === p.kind) {
+      let e;
+      return o[17] !== p.url ? (e = {
+        src: p.url,
+        isLoading: !1,
+        isError: !1
+      }, o[17] = p.url, o[18] = e) : e = o[18], e
+    }
+    if (!b) {
+      let e;
+      return o[19] === Symbol.for("react.memo_cache_sentinel") ? (e = {
+        src: null,
+        isLoading: !1,
+        isError: !1
+      }, o[19] = e) : e = o[19], e
+    }
+    let S = E || null != x && null == v;
+    return o[20] !== v || o[21] !== k || o[22] !== S ? (s = {
+      src: v,
+      isLoading: S,
+      isError: k
+    }, o[20] = v, o[21] = k, o[22] = S, o[23] = s) : s = o[23], s
+  }
+  let tE = () => {};
+
+  function tk(e, t) {
+    let {
+      gatewayUrl: n,
+      sendRequest: r,
+      isReady: l,
+      ensureLiveConnection: a
+    } = (0, en.useHatchRpc)(), s = (0, ee.useQueryClient)(), o = n ?? "", u = t?.enabled ?? !0, c = e ?? "", d = t_(c, "video"), h = "unit_media" === d.kind && o.length > 0, [f, m] = (0, i.useState)(0), p = `${o}|${c}|${f}`, [b, g] = (0, i.useState)(null), y = b?.key === p ? b : null, _ = y?.status === "failed", x = (0, i.useRef)(null), E = (0, i.useRef)(null), k = (0, i.useRef)({
+      sendRequest: r,
+      isReady: l,
+      ensureLiveConnection: a
+    });
+    k.current = {
+      sendRequest: r,
+      isReady: l,
+      ensureLiveConnection: a
+    };
+    let v = ["feed-unit-clip", o, c],
+      {
+        data: S,
+        isError: C
+      } = (0, ts.useQuery)({
+        queryKey: v,
+        queryFn: async () => {
+          if ("unit_media" !== d.kind) return null;
+          let e = k.current;
+          try {
+            return e.isReady || await e.ensureLiveConnection(), await e.sendRequest("feed.unit.media", {
+              unit_id: d.unitId,
+              handle: d.handle,
+              ...d.query
+            })
+          } catch (e) {
+            throw tg.error({
+              error: e instanceof Error ? e : Error(String(e)),
+              unitId: d.unitId,
+              tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.MEDIA_VIEWER)
+            }, "Feed unit clip fetch failed"), e
+          }
+        },
+        enabled: h && u && _,
+        staleTime: 1 / 0,
+        gcTime: 3e5,
+        retry: 1
+      }),
+      I = null != S,
+      T = "unit_media" === d.kind ? d.unitId : null,
+      w = "unit_media" === d.kind ? d.handle : null,
+      N = "unit_media" === d.kind ? JSON.stringify(d.query) : null;
+    (0, i.useEffect)(() => {
+      if (!u || !h || I || _ || null == T || null == w || null == N) return;
+      let e = JSON.parse(N),
+        t = new tb({
+          fetchRange: async (t, n, r) => {
+            let i = k.current;
+            return i.isReady || await i.ensureLiveConnection(), await i.sendRequest("feed.unit.media", {
+              unit_id: T,
+              handle: w,
+              ...e
+            }, {
+              extraHeaders: [{
+                key: "Range",
+                value: `bytes=${t}-${n}`
+              }],
+              signal: r
+            })
+          },
+          onComplete: e => {
+            s.setQueryData(["feed-unit-clip", o, c], e)
+          },
+          onChange: e => {
+            "failed" === e.status && tg.error({
+              error: Error("Feed clip range pipeline failed"),
+              unitId: T,
+              tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.MEDIA_VIEWER)
+            }, "Feed unit clip streaming failed; falling back to whole-file fetch"), g({
+              key: p,
+              status: e.status,
+              src: e.src
+            })
+          }
+        });
+      return x.current = t, t.attachPlayheadProbe(E.current), t.start(), () => {
+        x.current === t && (x.current = null), t.destroy()
+      }
+    }, [u, h, I, _, T, w, N, p, s, o, c]);
+    let R = (0, i.useCallback)(() => {
+        s.removeQueries({
+          queryKey: ["feed-unit-clip", o, c],
+          exact: !0
+        }), g(null), m(e => e + 1)
+      }, [c, s, o]),
+      j = (0, i.useCallback)(e => {
+        E.current = e, x.current?.attachPlayheadProbe(e)
+      }, []),
+      F = (0, to.useBlobUrl)(S),
+      A = (0, i.useCallback)(() => F ?? x.current?.mintAttachmentSrc() ?? null, [F]),
+      M = (0, i.useCallback)(e => {
+        e !== F && x.current?.releaseAttachment(e)
+      }, [F]);
+    if ("direct" === d.kind) return {
+      src: d.url,
+      sharedSrc: d.url,
+      playable: !0,
+      isLoading: !1,
+      isError: !1,
+      retry: R,
+      createLightboxSrc: () => d.url,
+      releaseLightboxSrc: tE,
+      attachPlayheadProbe: j
+    };
+    if (!h) return {
+      src: null,
+      sharedSrc: null,
+      playable: !1,
+      isLoading: !1,
+      isError: !1,
+      retry: R,
+      createLightboxSrc: () => null,
+      releaseLightboxSrc: tE,
+      attachPlayheadProbe: j
+    };
+    let D = y?.src ?? F,
+      L = _ && C,
+      U = u && !L && null == D;
+    return {
+      src: D,
+      sharedSrc: F,
+      playable: !0,
+      isLoading: U,
+      isError: L,
+      retry: R,
+      createLightboxSrc: A,
+      releaseLightboxSrc: M,
+      attachPlayheadProbe: j
+    }
+  }
+
+  function tv(e) {
+    let t, n, i, l, a = (0, r.c)(14),
+      {
+        gatewayUrl: s,
+        sendRequest: o,
+        isReady: u,
+        ensureLiveConnection: c
+      } = (0, en.useHatchRpc)(),
+      d = s ?? "";
+    a[0] !== e ? (t = function(e) {
+      let t, n = e?.trim() ?? "";
+      if (0 === n.length) return null;
+      try {
+        t = new URL(n, "https://feed-icon-base.invalid")
+      } catch {
+        return null
+      }
+      let r = t.pathname.indexOf(te);
+      if (-1 === r) return null;
+      let i = decodeURIComponent(t.pathname.slice(r + te.length));
+      return /^[a-z]+$/.test(i) ? i : null
+    }(e), a[0] = e, a[1] = t) : t = a[1];
+    let h = t,
+      f = h ?? "";
+    a[2] !== d || a[3] !== f ? (n = ["feed-social-source-icon", d, f], a[2] = d, a[3] = f, a[4] = n) : n = a[4];
+    let m = n;
+    a[5] !== c || a[6] !== u || a[7] !== o || a[8] !== h ? (i = async () => null == h ? null : (u || await c(), o("feed.social_source_icon", {
+      source: h
+    })), a[5] = c, a[6] = u, a[7] = o, a[8] = h, a[9] = i) : i = a[9];
+    let p = null != h && d.length > 0;
+    a[10] !== m || a[11] !== i || a[12] !== p ? (l = {
+      queryKey: m,
+      queryFn: i,
+      enabled: p,
+      staleTime: 1 / 0,
+      gcTime: 18e5,
+      retry: 1
+    }, a[10] = m, a[11] = i, a[12] = p, a[13] = l) : l = a[13];
+    let {
+      data: b
+    } = (0, ts.useQuery)(l);
+    return (0, to.useBlobUrl)(b)
+  }
+  let tS = 16 / 9;
+
+  function tC(e, t) {
+    if (null != t) return {
+      aspectRatio: String(t.ratio),
+      width: `${t.width}px`
+    };
+    let n = e ?? tS;
+    return {
+      aspectRatio: String(n),
+      width: `min(100%, ${Math.round(170*n)}px)`
+    }
+  }
+
+  function tI(e) {
+    let n, i, l, a = (0, r.c)(5),
+      {
+        sourceIconUrl: s
+      } = e,
+      o = tv(s);
+    if (null == o) return null;
+    a[0] === Symbol.for("react.memo_cache_sentinel") ? (n = (0, t.jsx)("div", {
+      className: "absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black/40 to-transparent"
+    }), i = (0, t.jsx)("div", {
+      className: "absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/40 to-transparent"
+    }), a[0] = n, a[1] = i) : (n = a[0], i = a[1]);
+    let u = `url("${o}")`,
+      c = `url("${o}")`;
+    return a[2] !== u || a[3] !== c ? (l = (0, t.jsxs)("div", {
+      "aria-hidden": "true",
+      className: "pointer-events-none absolute inset-0",
+      children: [n, i, (0, t.jsx)("span", {
+        className: "absolute start-2 top-2 size-5 bg-white",
+        style: {
+          maskImage: u,
+          WebkitMaskImage: c,
+          maskSize: "contain",
+          WebkitMaskSize: "contain",
+          maskRepeat: "no-repeat",
+          WebkitMaskRepeat: "no-repeat",
+          maskPosition: "center",
+          WebkitMaskPosition: "center"
+        },
+        "data-testid": "feed-social-source-icon"
+      })]
+    }), a[2] = u, a[3] = c, a[4] = l) : l = a[4], l
+  }
+
+  function tT(e) {
+    let n, i, l, a = (0, r.c)(8),
+      {
+        reel: s,
+        attachment: o,
+        children: u
+      } = e;
+    return null == s ? u : (a[0] !== s.width ? (n = {
+      width: s.width
+    }, a[0] = s.width, a[1] = n) : n = a[1], a[2] !== o ? (i = (0, t.jsx)("figcaption", {
+      children: (0, t.jsx)(ta, {
+        attachment: o,
+        className: "text-caption-2 px-1"
+      })
+    }), a[2] = o, a[3] = i) : i = a[3], a[4] !== u || a[5] !== n || a[6] !== i ? (l = (0, t.jsxs)("figure", {
+      className: "flex flex-col gap-[5px]",
+      style: n,
+      children: [u, i]
+    }), a[4] = u, a[5] = n, a[6] = i, a[7] = l) : l = a[7], l)
+  }
+
+  function tw(e) {
+    let a, s, o, u, c, d, h, f, m = (0, r.c)(27),
+      {
+        unit: p,
+        reel: b
+      } = e,
+      g = eL(),
+      y = p.attachment,
+      _ = "hero_image" === y.kind ? y.heroImageUrl : null,
+      E = "hero_image" === y.kind ? y.aspectRatio ?? null : null,
+      {
+        previewVisibility: k,
+        visibilityRef: v
+      } = P(),
+      S = "visible" === k;
+    m[0] !== S ? (a = {
+      enabled: S
+    }, m[0] = S, m[1] = a) : a = m[1];
+    let {
+      src: C,
+      isLoading: I,
+      isError: T
+    } = tx(_, a), [w, N] = (0, i.useState)(!1), [R, j] = (0, i.useState)(!1);
+    m[2] !== g ? (s = {
+      eventName: x.HatchClickEvent.FEED_UNIT_MEDIA_OPEN_CLICK,
+      actionTarget: "feed_unit_hero_media",
+      actionType: "click",
+      metadata: g
+    }, m[2] = g, m[3] = s) : s = m[3];
+    let {
+      ref: F,
+      onClick: A
+    } = (0, l.useTrackedClickRef)(s);
+    m[4] !== C ? (o = null != C ? [{
+      kind: "image",
+      variants: {
+        original: C
+      }
+    }] : [], m[4] = C, m[5] = o) : o = m[5];
+    let M = o;
+    return w || T || null == C && !I ? null : (m[6] !== E || m[7] !== b ? (u = tC(E, b), m[6] = E, m[7] = b, m[8] = u) : u = m[8], m[9] !== R || m[10] !== M || m[11] !== A || m[12] !== F || m[13] !== C ? (c = null != C ? (0, t.jsxs)(t.Fragment, {
+      children: [(0, t.jsx)("button", {
+        ref: F,
+        type: "button",
+        "aria-label": n.fbs._("View image full screen", null, {
+          hk: "28o28x"
+        }),
+        onClick: () => {
+          A(), j(!0)
+        },
+        className: "block h-full w-full cursor-pointer -outline-offset-2",
+        children: (0, t.jsx)("img", {
+          src: C,
+          alt: String(n.fbs._("Feed unit image", null, {
+            hk: "38E6F7"
+          })),
+          loading: "lazy",
+          onError: () => N(!0),
+          className: "h-full w-full object-cover"
+        })
+      }), (0, t.jsx)(eW.HatchMediaLightbox, {
+        items: M,
+        alt: String(n.fbs._("Feed unit image", null, {
+          hk: "38E6F7"
+        })),
+        open: R,
+        onOpenChange: j
+      })]
+    }) : (0, t.jsx)("div", {
+      "aria-hidden": "true",
+      className: "bg-fill-secondary pointer-events-none h-full w-full motion-safe:animate-pulse"
+    }), m[9] = R, m[10] = M, m[11] = A, m[12] = F, m[13] = C, m[14] = c) : c = m[14], m[15] !== y.socialSourceIconUrl || m[16] !== C ? (d = null != C && (0, t.jsx)(tI, {
+      sourceIconUrl: y.socialSourceIconUrl
+    }), m[15] = y.socialSourceIconUrl, m[16] = C, m[17] = d) : d = m[17], m[18] !== u || m[19] !== c || m[20] !== d || m[21] !== v ? (h = (0, t.jsxs)("div", {
+      ref: v,
+      className: "rounded-12 outline-media-protection-border relative me-auto overflow-hidden outline-[0.5px] -outline-offset-[0.5px]",
+      style: u,
+      children: [c, d]
+    }), m[18] = u, m[19] = c, m[20] = d, m[21] = v, m[22] = h) : h = m[22], m[23] !== y || m[24] !== b || m[25] !== h ? (f = (0, t.jsx)(tT, {
+      reel: b,
+      attachment: y,
+      children: h
+    }), m[23] = y, m[24] = b, m[25] = h, m[26] = f) : f = m[26], f)
+  }
+
+  function tN({
+    unit: e,
+    heroImageUrl: a,
+    videoUrl: o,
+    aspectRatio: u,
+    reel: d
+  }) {
+    let {
+      previewVisibility: h,
+      visibilityRef: m
+    } = P(), {
+      playbackVisibility: p,
+      visibilityRef: b
+    } = function() {
+      let e, t = (0, r.c)(3),
+        {
+          visibility: n,
+          visibilityRef: i
+        } = H(I);
+      return t[0] !== n || t[1] !== i ? (e = {
+        playbackVisibility: n,
+        visibilityRef: i
+      }, t[0] = n, t[1] = i, t[2] = e) : e = t[2], e
+    }(), g = (0, f.useMergeRefs)(m, b), y = tx(a, {
+      enabled: "visible" === h
+    }), [_, E] = (0, i.useState)(!1), [k, v] = (0, i.useState)(!1), S = tk(o, {
+      enabled: k
+    }), [C, T] = (0, i.useState)(!1), [w, N] = (0, i.useState)(!0), [R, j] = (0, i.useState)(!1), [F, A] = (0, i.useState)(0), [M, D] = (0, i.useState)(null), L = (0, i.useRef)(null), U = (0, i.useRef)(!1), O = (0, i.useRef)(null), B = (0, i.useRef)(null), K = (0, i.useRef)(null), z = (0, i.useRef)(p);
+    z.current = p;
+    let G = (0, i.useRef)(!1),
+      {
+        attachPlayheadProbe: V
+      } = S;
+    (0, i.useEffect)(() => (V(() => {
+      let e = L.current;
+      return null != e ? e.getPlayheadPosition() : null
+    }), () => V(null)), [V]), (0, i.useEffect)(() => {
+      let e = L.current;
+      if (null != e) {
+        if ("hidden" === p) {
+          let t = e.getCurrentState();
+          t.paused || t.ended || (G.current = !0, e.pause("visibility_change"));
+          return
+        }
+        "visible" === p && G.current && null == M && (G.current = !1, e.play("visibility_change"))
+      }
+    }, [M, p]);
+    let Q = eL(),
+      {
+        ref: W,
+        onClick: $
+      } = (0, l.useTrackedClickRef)({
+        eventName: x.HatchClickEvent.FEED_UNIT_VIDEO_PLAY_CLICK,
+        actionTarget: "feed_unit_hero_video",
+        actionType: "click",
+        metadata: Q
+      }),
+      {
+        ref: Y,
+        onClick: q
+      } = (0, l.useTrackedClickRef)({
+        eventName: x.HatchClickEvent.FEED_UNIT_MEDIA_OPEN_CLICK,
+        actionTarget: "feed_unit_hero_media",
+        actionType: "click",
+        metadata: Q
+      }),
+      {
+        ref: Z,
+        onClick: X
+      } = (0, l.useTrackedClickRef)({
+        eventName: x.HatchClickEvent.VIDEO_MUTE_TOGGLE,
+        actionTarget: w ? "unmute_button" : "mute_button",
+        actionType: "click",
+        metadata: Q
+      }),
+      J = (0, f.useMergeRefs)(W, O),
+      ee = (0, f.useMergeRefs)(Y, K),
+      et = _ || y.isError ? null : y.src,
+      en = function(e) {
+        try {
+          let t = new URL(e, "https://feed-clip-base.invalid"),
+            n = decodeURIComponent(t.pathname.split("/").filter(Boolean).pop() ?? "");
+          return n.length > 0 ? n : void 0
+        } catch {
+          return
+        }
+      }(o),
+      er = (0, i.useMemo)(() => ({
+        url: S.src ?? ""
+      }), [S.src]),
+      ei = (0, i.useMemo)(() => null != M ? [{
+        kind: "video",
+        ...null != en ? {
+          filename: en
+        } : {},
+        variants: {
+          original: M,
+          ...null != et ? {
+            thumbnail: et
+          } : {}
+        }
+      }] : [], [M, en, et]),
+      {
+        createLightboxSrc: el,
+        releaseLightboxSrc: ea
+      } = S,
+      es = (0, i.useCallback)(() => {
+        let e = el();
+        null != e && (q(), L.current?.pause("programmatic"), D(e))
+      }, [el, q]),
+      eo = (0, i.useCallback)(e => {
+        if (!e) {
+          if (null != M && ea(M), D(null), "hidden" === z.current) {
+            G.current = !0;
+            return
+          }
+          L.current?.play("programmatic")
+        }
+      }, [M, ea]),
+      {
+        retry: eu
+      } = S,
+      ec = (0, i.useCallback)(() => {
+        $(), j(!1), T(!1), A(e => e + 1), eu(), v(!0)
+      }, [$, eu]),
+      ed = k && null != S.src && !R,
+      eh = k && !S.isError && !R && null == S.src,
+      ef = S.isError || R;
+    if ((0, i.useEffect)(() => {
+        ef && U.current && B.current?.focus()
+      }, [ef]), (0, i.useEffect)(() => {
+        eh && U.current && O.current?.focus()
+      }, [eh]), (0, i.useEffect)(() => {
+        ed && U.current && K.current?.focus()
+      }, [ed]), !S.playable) return (0, t.jsx)(tw, {
+      unit: e,
+      reel: d
+    });
+    if (_ || y.isError || null == et && !y.isLoading) return null;
+    let em = n.fbs._("Play video", null, {
+      hk: "2gAVDs"
+    });
+    return (0, t.jsx)(tT, {
+      reel: d,
+      attachment: e.attachment,
+      children: (0, t.jsxs)("div", {
+        ref: g,
+        onFocusCapture: () => {
+          U.current = !0
+        },
+        onBlurCapture: e => {
+          e.currentTarget.contains(e.relatedTarget) || (U.current = !1)
+        },
+        className: "group/reel rounded-12 outline-media-protection-border relative me-auto overflow-hidden outline-[0.5px] -outline-offset-[0.5px]",
+        style: tC(u, d),
+        children: [null == et ? (0, t.jsx)("div", {
+          "aria-hidden": "true",
+          className: "bg-fill-secondary pointer-events-none h-full w-full motion-safe:animate-pulse"
+        }) : ed ? (0, t.jsxs)(t.Fragment, {
+          children: [(0, t.jsxs)("div", {
+            role: "button",
+            tabIndex: 0,
+            ref: ee,
+            "aria-label": n.fbs._("View video full screen", null, {
+              hk: "1qPtGq"
+            }),
+            onClick: es,
+            onKeyDown: e => {
+              ("Enter" === e.key || " " === e.key) && (e.preventDefault(), es())
+            },
+            className: "block h-full w-full cursor-pointer -outline-offset-2",
+            children: [(0, t.jsx)(eJ.HatchVideoPlayer, {
+              source: er,
+              mediaId: `feed-clip-${e.unitId}`,
+              autoPlay: k,
+              muted: w,
+              loop: !0,
+              playsInline: !0,
+              showControls: !1,
+              className: "h-full w-full",
+              videoClassName: "h-full w-full object-cover",
+              onPlay: () => {
+                T(!0), "hidden" === z.current && (G.current = !0, L.current?.pause("visibility_change"))
+              },
+              onError: () => j(!0),
+              onControllerReady: e => {
+                L.current = e, e.setMuted(w, "programmatic")
+              }
+            }, F), !C && (0, t.jsx)("img", {
+              src: et,
+              alt: "",
+              "aria-hidden": "true",
+              onError: () => E(!0),
+              className: "pointer-events-none absolute inset-0 h-full w-full object-cover"
+            })]
+          }), C && (0, t.jsx)("div", {
+            "data-testid": "feed-reel-controls",
+            className: "touch:opacity-100 absolute inset-x-0 bottom-2 flex justify-end gap-1 px-2 opacity-0 transition-opacity group-hover/reel:opacity-100 focus-within:opacity-100 max-md:opacity-100",
+            children: (0, t.jsx)(eI.IconButton, {
+              ref: Z,
+              icon: w ? eX : eZ,
+              size: "32",
+              iconSize: 16,
+              variant: "on-media",
+              label: w ? n.fbs._("Unmute video", null, {
+                hk: "nZ9iC"
+              }) : n.fbs._("Mute video", null, {
+                hk: "2FFJAF"
+              }),
+              className: "bg-fill-blur-thick text-white",
+              onClick: () => {
+                X();
+                let e = !w;
+                N(e), L.current?.setMuted(e, "user_click")
+              }
+            })
+          }), (0, t.jsx)(eW.HatchMediaLightbox, {
+            startUnmuted: !0,
+            items: ei,
+            alt: String(n.fbs._("Feed unit video", null, {
+              hk: "4iNvW7"
+            })),
+            open: null != M,
+            onOpenChange: eo
+          })]
+        }) : (0, t.jsxs)(t.Fragment, {
+          children: [(0, t.jsx)("button", {
+            ref: J,
+            type: "button",
+            "aria-label": em,
+            "aria-busy": eh,
+            tabIndex: ef ? -1 : void 0,
+            "aria-hidden": ef || void 0,
+            onClick: () => {
+              if (!eh) {
+                if (ef) return void ec();
+                $(), v(!0)
+              }
+            },
+            className: "block h-full w-full cursor-pointer -outline-offset-2",
+            children: (0, t.jsx)("img", {
+              src: et,
+              alt: String(n.fbs._("Feed unit video poster", null, {
+                hk: "2igO4M"
+              })),
+              loading: "lazy",
+              onError: () => E(!0),
+              className: "h-full w-full object-cover"
+            })
+          }), eh ? (0, t.jsx)("div", {
+            role: "status",
+            "aria-label": n.fbs._("Loading video", null, {
+              hk: "ZGtUK"
+            }),
+            className: "pointer-events-none absolute inset-0 flex items-center justify-center bg-black/30",
+            children: (0, t.jsx)(c.Spinner, {
+              size: 24,
+              className: "text-white"
+            })
+          }) : ef ? (0, t.jsxs)("div", {
+            role: "alert",
+            className: "absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 p-4 text-center",
+            children: [(0, t.jsx)("p", {
+              className: "text-subheadline text-white",
+              children: n.fbt._("Couldn't play this video.", null, {
+                hk: "3nmdUa"
+              })
+            }), (0, t.jsx)(s.Button, {
+              ref: B,
+              size: "36",
+              variant: "on-media",
+              onClick: ec,
+              label: n.fbs._("Try again", null, {
+                hk: "1LHul9"
+              })
+            })]
+          }) : (0, t.jsx)("div", {
+            "aria-hidden": "true",
+            className: "pointer-events-none absolute inset-0 flex items-center justify-center",
+            children: (0, t.jsx)("span", {
+              className: "flex size-12 items-center justify-center rounded-full bg-black/60 text-white",
+              children: (0, t.jsx)(eG.HatchIcon, {
+                icon: ez.default,
+                size: 24
+              })
+            })
+          })]
+        }), null != et && (0, t.jsx)(tI, {
+          sourceIconUrl: "hero_image" === e.attachment.kind ? e.attachment.socialSourceIconUrl : void 0
+        })]
+      })
+    })
+  }
+
+  function tR(e) {
+    let n, i, l = (0, r.c)(12),
+      {
+        unit: a
+      } = e,
+      s = a.attachment;
+    if ("hero_image" !== s.kind) return null;
+    l[0] !== s ? (n = e1(s), l[0] = s, l[1] = n) : n = l[1];
+    let o = n;
+    if (null == s.videoUrl) {
+      let e;
+      return l[2] !== o || l[3] !== a ? (e = (0, t.jsx)(tw, {
+        unit: a,
+        reel: o
+      }), l[2] = o, l[3] = a, l[4] = e) : e = l[4], e
+    }
+    let u = `${a.unitId}:${s.videoUrl}`,
+      c = s.aspectRatio ?? null;
+    return l[5] !== s.heroImageUrl || l[6] !== s.videoUrl || l[7] !== o || l[8] !== u || l[9] !== c || l[10] !== a ? (i = (0, t.jsx)(tN, {
+      unit: a,
+      heroImageUrl: s.heroImageUrl,
+      videoUrl: s.videoUrl,
+      aspectRatio: c,
+      reel: o
+    }, u), l[5] = s.heroImageUrl, l[6] = s.videoUrl, l[7] = o, l[8] = u, l[9] = c, l[10] = a, l[11] = i) : i = l[11], i
+  }
+  var tj = e.i(880162),
+    tF = e.i(871627),
+    tA = e.i(176048),
+    tM = e.i(181883),
+    tD = e.i(482129);
+
+  function tL({
+    title: e,
+    items: r,
+    onError: a
+  }) {
+    let s = (0, i.useRef)(null),
+      o = (0, i.useRef)(0),
+      u = (0, i.useRef)(null),
+      c = (0, i.useRef)(null),
+      d = (0, i.useRef)(null),
+      h = (0, i.useRef)(0),
+      [f, m] = (0, i.useState)(0),
+      [p, b] = (0, i.useState)({
+        open: !1,
+        index: 0
+      }),
+      g = !0 === (0, tj.useReducedMotion)(),
+      {
+        previewVisibility: y,
+        visibilityRef: _
+      } = P(),
+      E = "visible" === y,
+      k = (0, i.useMemo)(() => r.map(e => "image" === e.kind ? {
+        kind: "image",
+        variants: {
+          original: e.mediaSrc
+        }
+      } : {
+        kind: "video",
+        variants: {
+          original: e.mediaSrc,
+          ...null != e.thumbnailSrc ? {
+            thumbnail: e.thumbnailSrc
+          } : {}
+        }
+      }), [r]),
+      v = "instagram",
+      S = eL(),
+      C = (0, l.useInteractionLogger)(),
+      {
+        ref: I,
+        onClick: T
+      } = (0, l.useTrackedClickRef)({
+        eventName: x.HatchClickEvent.FEED_UNIT_SOCIAL_CAROUSEL_NAVIGATE_CLICK,
+        actionTarget: "feed_unit_social_carousel_previous",
+        actionType: "click",
+        metadata: {
+          ...S,
+          platform: v,
+          direction: "previous",
+          slide_index: String(f)
+        }
+      }),
+      {
+        ref: w,
+        onClick: N
+      } = (0, l.useTrackedClickRef)({
+        eventName: x.HatchClickEvent.FEED_UNIT_SOCIAL_CAROUSEL_NAVIGATE_CLICK,
+        actionTarget: "feed_unit_social_carousel_next",
+        actionType: "click",
+        metadata: {
+          ...S,
+          platform: v,
+          direction: "next",
+          slide_index: String(f)
+        }
+      }),
+      R = () => {
+        let e = s.current;
+        if (null == e) return 0;
+        let t = e.getBoundingClientRect(),
+          n = t.left + t.width / 2,
+          r = 0,
+          i = 1 / 0;
+        for (let t = 0; t < e.children.length; t++) {
+          let l = e.children[t].getBoundingClientRect(),
+            a = Math.abs(l.left + l.width / 2 - n);
+          a < i && (i = a, r = t)
+        }
+        return r
+      },
+      j = e => {
+        let t = s.current,
+          n = t?.children[e];
+        null != t && null != n && (u.current = e, null != c.current && clearTimeout(c.current), c.current = setTimeout(() => {
+          c.current = null, A()
+        }, 700), t.scrollTo({
+          left: n.offsetLeft,
+          behavior: g ? "auto" : "smooth"
+        }))
+      },
+      F = e => {
+        let t = Math.max(0, Math.min(e, r.length - 1));
+        if (m(t), null != u.current) {
+          d.current = t;
+          return
+        }
+        j(t)
+      },
+      A = (0, i.useEffectEvent)(() => {
+        null != c.current && (clearTimeout(c.current), c.current = null);
+        let e = R(),
+          t = o.current,
+          n = u.current,
+          r = d.current;
+        if (o.current = e, u.current = null, d.current = null, e === n && null != r && r !== e) {
+          m(r), j(r);
+          return
+        }
+        if (m(e), e === t || e === n || Date.now() < h.current) return;
+        let i = e > t ? "next" : "previous";
+        C({
+          eventName: x.HatchClickEvent.FEED_UNIT_SOCIAL_CAROUSEL_NAVIGATE_CLICK,
+          actionTarget: `feed_unit_social_carousel_${i}`,
+          actionType: "scroll",
+          metadata: {
+            ...S,
+            platform: v,
+            direction: i,
+            slide_index: String(t)
+          }
+        })
+      });
+    (0, i.useEffect)(() => {
+      let e = s.current;
+      if (null != e) return e.addEventListener("scrollend", A), () => {
+        e.removeEventListener("scrollend", A), null != c.current && (clearTimeout(c.current), c.current = null)
+      }
+    }, [A]);
+    let M = 0 === f,
+      D = f === r.length - 1,
+      L = n.fbs._("{position} / {total}", [n.fbs._param("position", String(f + 1)), n.fbs._param("total", String(r.length))], {
+        hk: "1oM0jb"
+      }),
+      U = n.fbs._("Show previous Instagram carousel item", null, {
+        hk: "26cC13"
+      }),
+      H = n.fbs._("Show next Instagram carousel item", null, {
+        hk: "3KIAyx"
+      }),
+      O = e.length > 0 ? e : String(n.fbs._("Instagram post", null, {
+        hk: "1JFleu"
+      }));
+    return (0, t.jsx)("section", {
+      ref: _,
+      "aria-roledescription": String(n.fbs._("carousel", null, {
+        hk: "48mPbL"
+      })),
+      "aria-label": n.fbs._("{postTitle} carousel", [n.fbs._param("postTitle", O)], {
+        hk: "48kG1i"
+      }),
+      className: "flex flex-col gap-1.5",
+      children: (0, t.jsxs)("div", {
+        className: "border-fill-divider bg-fill-secondary rounded-12 relative w-full overflow-hidden border",
+        style: {
+          height: 480
+        },
+        children: [(0, t.jsx)("div", {
+          ref: s,
+          role: "group",
+          "aria-label": n.fbs._("Instagram carousel media", null, {
+            hk: "Z0iou"
+          }),
+          tabIndex: 0,
+          onFocus: () => {
+            h.current = Date.now() + 700
+          },
+          onScroll: () => {
+            null == u.current && m(R())
+          },
+          onKeyDown: e => {
+            if (!e.defaultPrevented && e.target === e.currentTarget) {
+              if ("ArrowLeft" === e.key) {
+                if (e.preventDefault(), M) return;
+                T(), F(f - 1)
+              } else if ("ArrowRight" === e.key) {
+                if (e.preventDefault(), D) return;
+                N(), F(f + 1)
+              }
+            }
+          },
+          className: "flex h-full snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          children: r.map((e, i) => {
+            let l = String(i + 1),
+              s = String(r.length),
+              o = "video" === e.kind ? n.fbs._("{postTitle} video {position} of {total}", [n.fbs._param("postTitle", O), n.fbs._param("position", l), n.fbs._param("total", s)], {
+                hk: "3z5h94"
+              }) : n.fbs._("{postTitle} image {position} of {total}", [n.fbs._param("postTitle", O), n.fbs._param("position", l), n.fbs._param("total", s)], {
+                hk: "3Qc7Z4"
+              });
+            return (0, t.jsx)("button", {
+              type: "button",
+              "aria-label": n.fbs._("{media}, view full screen", [n.fbs._param("media", String(o))], {
+                hk: "42mwv5"
+              }),
+              onClick: () => {
+                C({
+                  eventName: x.HatchClickEvent.FEED_UNIT_MEDIA_OPEN_CLICK,
+                  actionTarget: "feed_unit_social_carousel_media",
+                  actionType: "click",
+                  metadata: {
+                    ...S,
+                    platform: v,
+                    slide_index: String(i)
+                  }
+                }), b({
+                  open: !0,
+                  index: i
+                })
+              },
+              className: "h-full w-full shrink-0 cursor-pointer snap-center -outline-offset-2",
+              children: "image" === e.kind ? (0, t.jsx)(tA.EctoGracefulImage, {
+                src: e.mediaSrc,
+                alt: o,
+                loading: E && 0 === i ? "eager" : "lazy",
+                duration: .3 * !g,
+                onError: a,
+                className: "h-full w-full object-contain"
+              }) : null != e.thumbnailSrc ? (0, t.jsx)(tA.EctoGracefulImage, {
+                src: e.thumbnailSrc,
+                alt: o,
+                loading: E && 0 === i ? "eager" : "lazy",
+                duration: .3 * !g,
+                onError: a,
+                className: "h-full w-full object-contain"
+              }) : (0, t.jsx)("div", {
+                role: "img",
+                "aria-label": String(o),
+                className: "h-full w-full"
+              })
+            }, `${i}:${e.kind}:${e.mediaSrc}`)
+          })
+        }), (0, t.jsx)(eW.HatchMediaLightbox, {
+          startUnmuted: !0,
+          items: k,
+          initialIndex: p.index,
+          alt: String(O),
+          open: p.open,
+          onOpenChange: e => b(t => ({
+            ...t,
+            open: e
+          }))
+        }), (0, t.jsx)(eI.IconButton, {
+          ref: I,
+          icon: tM.default,
+          label: U,
+          size: "32",
+          variant: "on-media",
+          "aria-disabled": M,
+          onClick: () => {
+            M || (T(), F(f - 1))
+          },
+          className: "absolute start-2 top-1/2 -translate-y-1/2 bg-black/60 text-white hover:bg-black/70 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+        }), (0, t.jsx)(eI.IconButton, {
+          ref: w,
+          icon: tD.default,
+          label: H,
+          size: "32",
+          variant: "on-media",
+          "aria-disabled": D,
+          onClick: () => {
+            D || (N(), F(f + 1))
+          },
+          className: "absolute end-2 top-1/2 -translate-y-1/2 bg-black/60 text-white hover:bg-black/70 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+        }), (0, t.jsx)("span", {
+          "aria-live": "polite",
+          className: "text-caption-1 absolute end-2 top-2 rounded-full bg-black/60 px-1.5 py-0.5 text-white",
+          children: L
+        })]
+      })
+    })
+  }
+
+  function tU(e) {
+    let i, a, s, o, u, c, d, h, f, m = (0, r.c)(26),
+      {
+        href: p,
+        compact: b,
+        attributionText: g,
+        postUsername: y,
+        sourceName: _,
+        sourceIconUrl: E
+      } = e,
+      k = ((f = _?.trim() ?? "").length > 0 ? f : null) ?? e8(p),
+      v = eL();
+    m[0] !== p || m[1] !== _ ? (i = e9(_, p), m[0] = p, m[1] = _, m[2] = i) : i = m[2], m[3] !== i || m[4] !== v ? (a = {
+      eventName: x.HatchClickEvent.FEED_UNIT_SOCIAL_LINK_OUT_CLICK,
+      actionTarget: "feed_unit_social_link_out",
+      actionType: "click",
+      metadata: {
+        ...v,
+        platform: i
+      }
+    }, m[3] = i, m[4] = v, m[5] = a) : a = m[5];
+    let {
+      ref: S,
+      onClick: C
+    } = (0, l.useTrackedClickRef)(a), I = null != k ? String(n.fbs._("Open on {platform}", [n.fbs._param("platform", k)], {
+      hk: "1GUrwK"
+    })) : String(n.fbs._("Open post", null, {
+      hk: "15oer0"
+    })), T = tv(E);
+    m[6] !== g || m[7] !== y ? (s = tl(y, g), m[6] = g, m[7] = y, m[8] = s) : s = m[8];
+    let w = s;
+    m[9] !== w ? (o = null != w && (0, t.jsx)("span", {
+      className: "text-text-secondary text-caption-1 min-w-0 flex-1 truncate",
+      title: w,
+      "data-testid": "social-attribution",
+      children: w
+    }), m[9] = w, m[10] = o) : o = m[10], m[11] !== I ? (u = n.fbs._("{linkLabel} (opens in a new tab)", [n.fbs._param("linkLabel", I)], {
+      hk: "2flCYX"
+    }), m[11] = I, m[12] = u) : u = m[12];
+    let N = b ? "text-footnote-emphasized text-text-secondary inline-flex shrink-0 items-center gap-1.5" : "border-fill-divider bg-fill-secondary text-footnote-emphasized text-text-secondary inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1.5";
+    return m[13] !== T ? (c = null != T ? (0, t.jsx)("span", {
+      "aria-hidden": "true",
+      className: "size-4 shrink-0 bg-current",
+      style: {
+        maskImage: `url("${T}")`,
+        WebkitMaskImage: `url("${T}")`,
+        maskSize: "contain",
+        WebkitMaskSize: "contain",
+        maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskPosition: "center"
+      },
+      "data-testid": "social-source-icon"
+    }) : (0, t.jsx)(eG.HatchIcon, {
+      icon: tF.default,
+      size: 16,
+      "aria-hidden": "true"
+    }), m[13] = T, m[14] = c) : c = m[14], m[15] !== p || m[16] !== I || m[17] !== S || m[18] !== C || m[19] !== u || m[20] !== N || m[21] !== c ? (d = (0, t.jsxs)(e2.EctoAnchor, {
+      ref: S,
+      href: p,
+      onClick: C,
+      "aria-label": u,
+      className: N,
+      children: [I, c]
+    }), m[15] = p, m[16] = I, m[17] = S, m[18] = C, m[19] = u, m[20] = N, m[21] = c, m[22] = d) : d = m[22], m[23] !== o || m[24] !== d ? (h = (0, t.jsxs)("div", {
+      className: "flex items-center justify-end gap-3",
+      children: [o, d]
+    }), m[23] = o, m[24] = d, m[25] = h) : h = m[25], h
+  }
+
+  function tH(e) {
+    let a, s, o, u, c, d, h, f, m, p, b, g, y, _ = (0, r.c)(42),
+      {
+        href: k,
+        src: v,
+        title: S,
+        isVideo: C,
+        credit: I
+      } = e,
+      [T, w] = (0, i.useState)(!1),
+      N = !0 === (0, tj.useReducedMotion)();
+    _[0] !== I.sourceName || _[1] !== k ? (a = e9(I.sourceName, k), _[0] = I.sourceName, _[1] = k, _[2] = a) : a = _[2];
+    let R = a,
+      j = eL();
+    _[3] !== R || _[4] !== j ? (s = {
+      eventName: x.HatchClickEvent.FEED_UNIT_SOCIAL_LINK_OUT_CLICK,
+      actionTarget: "feed_unit_social_thumbnail",
+      actionType: "click",
+      metadata: {
+        ...j,
+        platform: R,
+        placement: "thumbnail"
+      }
+    }, _[3] = R, _[4] = j, _[5] = s) : s = _[5];
+    let {
+      ref: F,
+      onClick: A
+    } = (0, l.useTrackedClickRef)(s);
+    _[6] !== R || _[7] !== j ? (o = {
+      eventName: E.HatchImpressionEvent.FEED_UNIT_SOCIAL_THUMBNAIL_FALLBACK_IMPRESSION,
+      actionTarget: "feed_unit_social_thumbnail_fallback",
+      metadata: {
+        ...j,
+        platform: R
+      }
+    }, _[6] = R, _[7] = j, _[8] = o) : o = _[8], _[9] === Symbol.for("react.memo_cache_sentinel") ? (u = {
+      threshold: "50%"
+    }, _[9] = u) : u = _[9];
+    let {
+      ref: M
+    } = (0, l.useTrackedImpressionRef)(o, u);
+    if (T) {
+      let e, n;
+      return _[10] !== I || _[11] !== k ? (e = (0, t.jsx)(tU, {
+        href: k,
+        compact: !1,
+        ...I
+      }), _[10] = I, _[11] = k, _[12] = e) : e = _[12], _[13] !== M || _[14] !== e ? (n = (0, t.jsx)("div", {
+        ref: M,
+        children: e
+      }), _[13] = M, _[14] = e, _[15] = n) : n = _[15], n
+    }
+    _[16] !== S ? (c = S.length > 0 ? S : String(n.fbs._("Social media post preview", null, {
+      hk: "1B4VcX"
+    })), _[16] = S, _[17] = c) : c = _[17];
+    let D = c;
+    _[18] !== D || _[19] !== C ? (d = C ? n.fbs._("{postLabel} (video, opens in a new tab)", [n.fbs._param("postLabel", D)], {
+      hk: "3PoIgI"
+    }) : n.fbs._("{postLabel} (opens in a new tab)", [n.fbs._param("postLabel", D)], {
+      hk: "4yMmPf"
+    }), _[18] = D, _[19] = C, _[20] = d) : d = _[20];
+    let L = d;
+    _[21] === Symbol.for("react.memo_cache_sentinel") ? (h = {
+      height: 480
+    }, _[21] = h) : h = _[21];
+    let U = .3 * !N;
+    return _[22] === Symbol.for("react.memo_cache_sentinel") ? (f = () => w(!0), _[22] = f) : f = _[22], _[23] !== D || _[24] !== v || _[25] !== U ? (m = (0, t.jsx)(tA.EctoGracefulImage, {
+      src: v,
+      alt: D,
+      loading: "lazy",
+      duration: U,
+      onError: f,
+      className: "h-full w-full object-contain"
+    }), _[23] = D, _[24] = v, _[25] = U, _[26] = m) : m = _[26], _[27] !== C ? (p = C && (0, t.jsx)("div", {
+      "aria-hidden": "true",
+      "data-testid": "social-thumbnail-play",
+      className: "pointer-events-none absolute inset-0 flex items-center justify-center",
+      children: (0, t.jsx)("span", {
+        className: "flex size-14 items-center justify-center rounded-full bg-black/50",
+        children: (0, t.jsx)(eG.HatchIcon, {
+          icon: ez.default,
+          size: 28,
+          "aria-hidden": "true",
+          className: "text-white"
+        })
+      })
+    }), _[27] = C, _[28] = p) : p = _[28], _[29] !== k || _[30] !== L || _[31] !== A || _[32] !== m || _[33] !== p || _[34] !== F ? (b = (0, t.jsxs)(e2.EctoAnchor, {
+      ref: F,
+      href: k,
+      onClick: A,
+      "aria-label": L,
+      className: "border-fill-divider bg-fill-secondary rounded-12 relative block w-full overflow-hidden border",
+      style: h,
+      children: [m, p]
+    }), _[29] = k, _[30] = L, _[31] = A, _[32] = m, _[33] = p, _[34] = F, _[35] = b) : b = _[35], _[36] !== I || _[37] !== k ? (g = (0, t.jsx)(tU, {
+      href: k,
+      compact: !0,
+      ...I
+    }), _[36] = I, _[37] = k, _[38] = g) : g = _[38], _[39] !== b || _[40] !== g ? (y = (0, t.jsxs)("div", {
+      className: "flex flex-col gap-1.5",
+      children: [b, g]
+    }), _[39] = b, _[40] = g, _[41] = y) : y = _[41], y
+  }
+
+  function tP(e) {
+    let n, a, s, o, u, c, d, h, f, m, p, b, g, y, _ = (0, r.c)(72),
+      {
+        url: x,
+        title: k,
+        socialThumbnailUrl: v,
+        socialIsCarousel: S,
+        socialMediaItems: C,
+        ...I
+      } = e,
+      [T, w] = (0, i.useState)(!1),
+      [N, R] = (0, i.useState)(null),
+      j = e9(I.sourceName, x),
+      F = eL();
+    _[0] !== j || _[1] !== F ? (n = {
+      eventName: E.HatchImpressionEvent.FEED_UNIT_SOCIAL_CAROUSEL_FALLBACK_IMPRESSION,
+      actionTarget: "feed_unit_social_carousel_fallback",
+      metadata: {
+        ...F,
+        platform: j
+      }
+    }, _[0] = j, _[1] = F, _[2] = n) : n = _[2], _[3] === Symbol.for("react.memo_cache_sentinel") ? (a = {
+      threshold: "50%"
+    }, _[3] = a) : a = _[3];
+    let {
+      ref: A
+    } = (0, l.useTrackedImpressionRef)(n, a), M = !0 === (0, tj.useReducedMotion)(), {
+      previewVisibility: D,
+      visibilityRef: L
+    } = P(), U = "hidden" === D;
+    _[4] !== U || _[5] !== w ? (s = () => {
+      U && w(!1)
+    }, _[4] = U, _[5] = w, _[6] = s) : s = _[6], _[7] !== U ? (o = [U], _[7] = U, _[8] = o) : o = _[8], (0, i.useEffect)(s, o), _[9] !== C ? (u = C?.map(tO).join("|"), _[9] = C, _[10] = u) : u = _[10];
+    let H = u,
+      O = null != H && H !== N ? C : void 0;
+    _[11] !== S || _[12] !== v || _[13] !== x || _[14] !== O ? (c = tr(x, v, O, S), _[11] = S, _[12] = v, _[13] = x, _[14] = O, _[15] = c) : c = _[15];
+    let B = c,
+      K = "embed" === B.kind ? B.embedSrc : null;
+    if (_[16] !== w ? (d = () => {
+        w(!1)
+      }, _[16] = w, _[17] = d) : d = _[17], _[18] !== K ? (h = [K], _[18] = K, _[19] = h) : h = _[19], (0, i.useEffect)(d, h), "none" === B.kind) return null;
+    let z = null != H && H === N;
+    if ("link_out" === B.kind) {
+      let e;
+      _[20] !== I || _[21] !== B.href ? (e = (0, t.jsx)(tU, {
+        href: B.href,
+        compact: !1,
+        ...I
+      }), _[20] = I, _[21] = B.href, _[22] = e) : e = _[22];
+      let n = e;
+      if (z) {
+        let e;
+        return _[23] !== A || _[24] !== n ? (e = (0, t.jsx)("div", {
+          ref: A,
+          children: n
+        }), _[23] = A, _[24] = n, _[25] = e) : e = _[25], e
+      }
+      return n
+    }
+    if ("carousel" === B.kind) {
+      let e, n, r, i;
+      return _[26] !== H || _[27] !== R ? (e = () => R(H ?? null), _[26] = H, _[27] = R, _[28] = e) : e = _[28], _[29] !== H || _[30] !== B.items || _[31] !== e || _[32] !== k ? (n = (0, t.jsx)(tL, {
+        title: k,
+        items: B.items,
+        onError: e
+      }, H), _[29] = H, _[30] = B.items, _[31] = e, _[32] = k, _[33] = n) : n = _[33], _[34] !== I || _[35] !== B.href ? (r = (0, t.jsx)(tU, {
+        href: B.href,
+        compact: !0,
+        ...I
+      }), _[34] = I, _[35] = B.href, _[36] = r) : r = _[36], _[37] !== n || _[38] !== r ? (i = (0, t.jsxs)("div", {
+        className: "flex flex-col gap-1.5",
+        children: [n, r]
+      }), _[37] = n, _[38] = r, _[39] = i) : i = _[39], i
+    }
+    if ("thumbnail" === B.kind) {
+      let e;
+      _[40] !== I || _[41] !== B.href || _[42] !== B.isVideo || _[43] !== B.thumbnailSrc || _[44] !== k ? (e = (0, t.jsx)(tH, {
+        href: B.href,
+        src: B.thumbnailSrc,
+        title: k,
+        isVideo: B.isVideo,
+        credit: I
+      }, B.thumbnailSrc), _[40] = I, _[41] = B.href, _[42] = B.isVideo, _[43] = B.thumbnailSrc, _[44] = k, _[45] = e) : e = _[45];
+      let n = e;
+      if (z) {
+        let e;
+        return _[46] !== A || _[47] !== n ? (e = (0, t.jsx)("div", {
+          ref: A,
+          children: n
+        }), _[46] = A, _[47] = n, _[48] = e) : e = _[48], e
+      }
+      return n
+    }
+    _[49] === Symbol.for("react.memo_cache_sentinel") ? (f = {
+      height: 480
+    }, _[49] = f) : f = _[49], _[50] !== U || _[51] !== T || _[52] !== M || _[53] !== B.embedSrc || _[54] !== w || _[55] !== k ? (m = !U && (0, t.jsx)("iframe", {
+      src: B.embedSrc,
+      title: k,
+      sandbox: "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox",
+      referrerPolicy: "no-referrer",
+      loading: "lazy",
+      scrolling: "no",
+      onLoad: () => w(!0),
+      className: "absolute inset-0 h-full w-full border-none bg-transparent",
+      style: {
+        opacity: +!!T,
+        transition: M ? void 0 : "opacity 160ms ease-out"
+      }
+    }), _[50] = U, _[51] = T, _[52] = M, _[53] = B.embedSrc, _[54] = w, _[55] = k, _[56] = m) : m = _[56], _[57] !== T ? (p = !T && (0, t.jsx)("div", {
+      "aria-hidden": "true",
+      className: "bg-fill-secondary pointer-events-none absolute inset-0 motion-safe:animate-pulse"
+    }), _[57] = T, _[58] = p) : p = _[58], _[59] !== m || _[60] !== p || _[61] !== L ? (b = (0, t.jsxs)("div", {
+      ref: L,
+      className: "border-fill-divider rounded-12 relative w-full overflow-hidden border",
+      style: f,
+      children: [m, p]
+    }), _[59] = m, _[60] = p, _[61] = L, _[62] = b) : b = _[62], _[63] !== I || _[64] !== B.href ? (g = (0, t.jsx)(tU, {
+      href: B.href,
+      compact: !0,
+      ...I
+    }), _[63] = I, _[64] = B.href, _[65] = g) : g = _[65], _[66] !== b || _[67] !== g ? (y = (0, t.jsxs)("div", {
+      className: "flex flex-col gap-1.5",
+      children: [b, g]
+    }), _[66] = b, _[67] = g, _[68] = y) : y = _[68];
+    let G = y;
+    if (z) {
+      let e;
+      return _[69] !== A || _[70] !== G ? (e = (0, t.jsx)("div", {
+        ref: A,
+        children: G
+      }), _[69] = A, _[70] = G, _[71] = e) : e = _[71], e
+    }
+    return G
+  }
+
+  function tO(e) {
+    return `${e.kind}:${e.mediaUrl}:${"video"===e.kind?e.thumbnailUrl??"":""}`
+  }
+  var tB = e.i(39299),
+    tK = e.i(72174),
+    tz = e.i(960607),
+    tG = e.i(129499);
+
+  function tV(e) {
+    let n, i, l = (0, r.c)(7),
+      {
+        state: a,
+        withChip: s,
+        boxRef: o,
+        children: u
+      } = e,
+      c = s && "bg-fill-secondary overflow-hidden rounded-full";
+    return l[0] !== c ? (n = (0, g.cn)(O.FEED_UNIT_ICON_BOX_CLASS, c), l[0] = c, l[1] = n) : n = l[1], l[2] !== o || l[3] !== u || l[4] !== a || l[5] !== n ? (i = (0, t.jsx)("span", {
+      ref: o,
+      "aria-hidden": "true",
+      "data-testid": "hatch-feed-unit-icon",
+      "data-icon-state": a,
+      className: n,
+      children: u
+    }), l[2] = o, l[3] = u, l[4] = a, l[5] = n, l[6] = i) : i = l[6], i
+  }
+
+  function tQ(e) {
+    let n, l, a = (0, r.c)(6),
+      {
+        url: s,
+        fallback: o
+      } = e,
+      {
+        src: u,
+        isError: c
+      } = (0, tG.useExploreMediaBlobUrl)(s, et.HATCH_SENTRY_SURFACES.FEED_POST),
+      [d, h] = (0, i.useState)(!1),
+      f = null != u && (0, tz.isHatchVmMediaUrl)(u);
+    if (d || c || f) {
+      let e;
+      return a[0] !== o ? (e = (0, t.jsx)(t.Fragment, {
+        children: o
+      }), a[0] = o, a[1] = e) : e = a[1], e
+    }
+    if (null == u) {
+      let e;
+      return a[2] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(tV, {
+        state: "pending",
+        withChip: !0
+      }), a[2] = e) : e = a[2], e
+    }
+    return a[3] === Symbol.for("react.memo_cache_sentinel") ? (n = () => h(!0), a[3] = n) : n = a[3], a[4] !== u ? (l = (0, t.jsx)(tV, {
+      state: "artwork",
+      withChip: !1,
+      children: (0, t.jsx)(tA.EctoGracefulImage, {
+        src: u,
+        alt: "",
+        className: "size-10 object-contain",
+        onError: n
+      })
+    }), a[4] = u, a[5] = l) : l = a[5], l
+  }
+
+  function tW(e) {
+    let n, l, a, s = (0, r.c)(8),
+      {
+        url: o,
+        fallback: u
+      } = e,
+      {
+        previewVisibility: c,
+        visibilityRef: d
+      } = P(),
+      [h, f] = (0, i.useState)(!1);
+    if (s[0] !== c ? (n = () => {
+        "visible" === c && f(!0)
+      }, l = [c], s[0] = c, s[1] = n, s[2] = l) : (n = s[1], l = s[2]), (0, i.useEffect)(n, l), !h) {
+      let e;
+      return s[3] !== d ? (e = (0, t.jsx)(tV, {
+        state: "pending",
+        withChip: !0,
+        boxRef: d
+      }), s[3] = d, s[4] = e) : e = s[4], e
+    }
+    return s[5] !== u || s[6] !== o ? (a = (0, t.jsx)(tQ, {
+      url: o,
+      fallback: u
+    }), s[5] = u, s[6] = o, s[7] = a) : a = s[7], a
+  }
+
+  function t$(e) {
+    let n, i = (0, r.c)(2),
+      {
+        icon: l
+      } = e;
+    return i[0] !== l ? (n = (0, t.jsx)(tV, {
+      state: "glyph",
+      withChip: !0,
+      children: (0, t.jsx)(eG.HatchIcon, {
+        icon: l,
+        size: 20,
+        iconSize: 20,
+        className: "text-text-primary"
+      })
+    }), i[0] = l, i[1] = n) : n = i[1], n
+  }
+
+  function tY(e) {
+    let n, i, l = (0, r.c)(6),
+      {
+        unit: a
+      } = e;
+    l[0] !== a.emoji || l[1] !== a.origin ? (n = null != a.emoji ? (0, t.jsx)(tV, {
+      state: "emoji",
+      withChip: !0,
+      children: (0, t.jsx)("span", {
+        className: "text-title-3",
+        children: a.emoji
+      })
+    }) : (0, t.jsx)(t$, {
+      icon: "idea" === a.origin ? tB.default : tK.HatchFeedIcon
+    }), l[0] = a.emoji, l[1] = a.origin, l[2] = n) : n = l[2];
+    let s = n;
+    return null == a.iconUrl ? s : (l[3] !== s || l[4] !== a.iconUrl ? (i = (0, t.jsx)(tW, {
+      url: a.iconUrl,
+      fallback: s
+    }, a.iconUrl), l[3] = s, l[4] = a.iconUrl, l[5] = i) : i = l[5], i)
+  }
+  var tq = e.i(375338),
+    tZ = e.i(867545),
+    tX = e.i(173174),
+    tJ = e.i(18516),
+    t0 = e.i(160654);
+  let t1 = tq.default;
+
+  function t2(e) {
+    let i, l, a, s, o, u = (0, r.c)(13),
+      {
+        generatedAtMs: c
+      } = e,
+      {
+        now: d,
+        locale: h,
+        timeZone: f
+      } = (0, t0.useHatchTimestampFormatOptions)();
+    if (u[0] !== c || u[1] !== h || u[2] !== d || u[3] !== f) {
+      let e = new Date(c),
+        t = new Intl.DateTimeFormat("en-US", {
+          year: "numeric",
+          timeZone: f
+        }),
+        r = t.format(e) === t.format(d),
+        s = new Intl.DateTimeFormat(h, {
+          weekday: "long",
+          month: "short",
+          day: "numeric",
+          ...r ? {} : {
+            year: "numeric"
+          },
+          timeZone: f
+        }).format(e),
+        o = new Intl.DateTimeFormat(h, {
+          hour: "numeric",
+          minute: "2-digit",
+          timeZone: f
+        }).format(e);
+      a = "text-caption-2 text-text-secondary px-2 pt-1.5 pb-2", i = e.toISOString(), l = n.fbs._("{date} at {time of day}", [n.fbs._param("date", s), n.fbs._param("time of day", o)], {
+        hk: "hvO0R"
+      }), u[0] = c, u[1] = h, u[2] = d, u[3] = f, u[4] = i, u[5] = l, u[6] = a
+    } else i = u[4], l = u[5], a = u[6];
+    return u[7] !== i || u[8] !== l ? (s = (0, t.jsx)("time", {
+      dateTime: i,
+      children: l
+    }), u[7] = i, u[8] = l, u[9] = s) : s = u[9], u[10] !== a || u[11] !== s ? (o = (0, t.jsx)("div", {
+      className: a,
+      children: s
+    }), u[10] = a, u[11] = s, u[12] = o) : o = u[12], o
+  }
+
+  function t3(e) {
+    let l, a, s, o, u, c, d, h, f, m, p, b = (0, r.c)(24),
+      {
+        generatedAtMs: g,
+        onShowWhyCreated: y,
+        onDelete: _,
+        onOpen: x,
+        triggerRef: E
+      } = e,
+      k = (0, i.useRef)(!1);
+    b[0] === Symbol.for("react.memo_cache_sentinel") ? (l = n.fbs._("Feed unit options", null, {
+      hk: "mAnmz"
+    }), b[0] = l) : l = b[0];
+    let v = l;
+    return b[1] !== x ? (a = e => {
+      e && (k.current = !1, x())
+    }, b[1] = x, b[2] = a) : a = b[2], b[3] !== E ? (s = (0, t.jsx)(tJ.DropdownMenuTrigger, {
+      asChild: !0,
+      children: (0, t.jsx)(eI.IconButton, {
+        ref: E,
+        type: "button",
+        icon: tZ.default,
+        iconSize: 16,
+        size: "36",
+        variant: "borderless-secondary",
+        label: v,
+        "data-testid": "hatch-feed-unit-menu"
+      })
+    }), b[3] = E, b[4] = s) : s = b[4], b[5] === Symbol.for("react.memo_cache_sentinel") ? (o = e => {
+      k.current && (k.current = !1, e.preventDefault())
+    }, b[5] = o) : o = b[5], b[6] !== g ? (u = 0 !== g && (0, t.jsx)(t2, {
+      generatedAtMs: g
+    }), b[6] = g, b[7] = u) : u = b[7], b[8] !== y ? (c = null != y && (0, t.jsx)(tJ.DropdownMenuItem, {
+      leadingIcon: t1,
+      label: n.fbs._("Why I created this", null, {
+        hk: "437S2L"
+      }),
+      onSelect: () => {
+        k.current = !0, y()
+      }
+    }), b[8] = y, b[9] = c) : c = b[9], b[10] !== y ? (d = null != y && (0, t.jsx)(tJ.DropdownMenuSeparator, {}), b[10] = y, b[11] = d) : d = b[11], b[12] === Symbol.for("react.memo_cache_sentinel") ? (h = n.fbs._("Delete", null, {
+      hk: "4aR5UQ"
+    }), b[12] = h) : h = b[12], b[13] !== _ ? (f = (0, t.jsx)(tJ.DropdownMenuItem, {
+      variant: "destructive",
+      leadingIcon: tX.default,
+      label: h,
+      onSelect: _
+    }), b[13] = _, b[14] = f) : f = b[14], b[15] !== u || b[16] !== c || b[17] !== d || b[18] !== f ? (m = (0, t.jsxs)(tJ.DropdownMenuContent, {
+      align: "end",
+      sideOffset: 4,
+      onCloseAutoFocus: o,
+      children: [u, c, d, f]
+    }), b[15] = u, b[16] = c, b[17] = d, b[18] = f, b[19] = m) : m = b[19], b[20] !== m || b[21] !== a || b[22] !== s ? (p = (0, t.jsxs)(tJ.DropdownMenu, {
+      onOpenChange: a,
+      children: [s, m]
+    }), b[20] = m, b[21] = a, b[22] = s, b[23] = p) : p = b[23], p
+  }
+  t1._isSVG = !0;
+  var t4 = e.i(391065),
+    t5 = e.i(991301),
+    t6 = e.i(646398),
+    t8 = e.i(127643),
+    t7 = e.i(170525);
+
+  function t9(e) {
+    let i, a, s, o, u, d, h, m, p, b, y, _, k = (0, r.c)(34),
+      {
+        unit: v
+      } = e;
+    k[0] === Symbol.for("react.memo_cache_sentinel") ? (i = {
+      revealChatInSplitView: !0
+    }, k[0] = i) : i = k[0];
+    let {
+      activateIdea: S,
+      getActionState: C
+    } = (0, t8.useHatchIdeaActivation)(i), I = v.ideaAction;
+    if (k[1] !== I || k[2] !== v) a = null != I ? {
+      id: I.ideaId,
+      title: v.title ?? "",
+      description: v.bodyMd,
+      sourceLabel: "",
+      dateLabel: "",
+      imageUrl: null,
+      imageOriginalUrl: null,
+      imageAlt: "",
+      iconUrl: null,
+      sharing: t7.HATCH_IDEA_SHARING_UNAVAILABLE,
+      capabilities: [],
+      groupIds: [],
+      buildStatus: "built" === I.state ? "complete" : "not_started"
+    } : null, k[1] = I, k[2] = v, k[3] = a;
+    else a = k[3];
+    let T = a;
+    k[4] !== C || k[5] !== T ? (s = null != T ? C(T) : "available", k[4] = C, k[5] = T, k[6] = s) : s = k[6];
+    let w = s,
+      N = eL();
+    I?.ideaId;
+    let R = I?.ideaId ?? "",
+      j = "installed" === w ? "built" : w;
+    k[7] !== R || k[8] !== j || k[9] !== N ? (o = {
+      ...N,
+      idea_id: R,
+      state: j
+    }, k[7] = R, k[8] = j, k[9] = N, k[10] = o) : o = k[10];
+    let F = o;
+    k[11] !== F ? (u = {
+      eventName: E.HatchImpressionEvent.FEED_UNIT_IDEA_ACTION_IMPRESSION,
+      actionTarget: "feed_unit_idea_action",
+      metadata: F
+    }, k[11] = F, k[12] = u) : u = k[12], k[13] === Symbol.for("react.memo_cache_sentinel") ? (d = {
+      threshold: "50%"
+    }, k[13] = d) : d = k[13];
+    let {
+      ref: A
+    } = (0, l.useTrackedImpressionRef)(u, d);
+    k[14] !== F ? (h = {
+      eventName: x.HatchClickEvent.FEED_UNIT_IDEA_BUILD_CLICK,
+      actionTarget: "feed_unit_idea_build",
+      actionType: "click",
+      metadata: F
+    }, k[14] = F, k[15] = h) : h = k[15];
+    let {
+      ref: M,
+      onClick: D
+    } = (0, l.useTrackedClickRef)(h), L = (0, f.useMergeRefs)(A, M);
+    k[16] === Symbol.for("react.memo_cache_sentinel") ? (m = (0, g.cn)(eY.FEED_LABELED_ACTION_BUTTON_CLASS_NAME, "text-text-primary cursor-default hover:bg-transparent"), k[16] = m) : m = k[16];
+    let U = m;
+    if (null == T) return null;
+    if ("installed" === w) {
+      let e, r, i;
+      return k[17] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(eG.HatchIcon, {
+        icon: t5.default,
+        size: 24,
+        "aria-hidden": "true"
+      }), r = n.fbs._("Built", null, {
+        hk: "1bU266"
+      }), k[17] = e, k[18] = r) : (e = k[17], r = k[18]), k[19] !== A ? (i = (0, t.jsxs)("span", {
+        ref: A,
+        role: "status",
+        className: U,
+        children: [e, r]
+      }), k[19] = A, k[20] = i) : i = k[20], i
+    }
+    if ("pending" === w) {
+      let e, r, i;
+      return k[21] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(c.Spinner, {
+        size: 24,
+        isDecorative: !0
+      }), r = n.fbs._("Building", null, {
+        hk: "2CXPFB"
+      }), k[21] = e, k[22] = r) : (e = k[21], r = k[22]), k[23] !== A ? (i = (0, t.jsxs)("span", {
+        ref: A,
+        role: "status",
+        className: U,
+        children: [e, r]
+      }), k[23] = A, k[24] = i) : i = k[24], i
+    }
+    return k[25] !== S || k[26] !== T || k[27] !== D ? (p = () => {
+      D(), S(T)
+    }, k[25] = S, k[26] = T, k[27] = D, k[28] = p) : p = k[28], k[29] === Symbol.for("react.memo_cache_sentinel") ? (b = (0, t.jsx)(eG.HatchIcon, {
+      icon: t6.default,
+      size: 24,
+      "aria-hidden": "true"
+    }), y = n.fbs._("Let's do it", null, {
+      hk: "4nndbr"
+    }), k[29] = b, k[30] = y) : (b = k[29], y = k[30]), k[31] !== p || k[32] !== L ? (_ = (0, t.jsxs)("button", {
+      ref: L,
+      type: "button",
+      onClick: p,
+      className: eY.FEED_LABELED_ACTION_BUTTON_CLASS_NAME,
+      children: [b, y]
+    }), k[31] = p, k[32] = L, k[33] = _) : _ = k[33], _
+  }
+
+  function ne(e) {
+    let i, l, a, s = (0, r.c)(7),
+      {
+        unit: o,
+        discussButtonRef: u,
+        onDiscuss: c
+      } = e;
+    if (null != o.ideaAction) {
+      let e;
+      return s[0] !== o ? (e = (0, t.jsx)(h.EctoErrorBoundary, {
+        surface: et.HATCH_SENTRY_SURFACES.FEED_IDEA,
+        children: (0, t.jsx)(t9, {
+          unit: o
+        })
+      }), s[0] = o, s[1] = e) : e = s[1], e
+    }
+    return s[2] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)(eG.HatchIcon, {
+      icon: t4.default,
+      size: 24,
+      "aria-hidden": "true"
+    }), l = n.fbs._("Discuss", null, {
+      hk: "1dVTpv"
+    }), s[2] = i, s[3] = l) : (i = s[2], l = s[3]), s[4] !== u || s[5] !== c ? (a = (0, t.jsxs)("button", {
+      ref: u,
+      type: "button",
+      onClick: c,
+      className: eY.FEED_LABELED_ACTION_BUTTON_CLASS_NAME,
+      children: [i, l]
+    }), s[4] = u, s[5] = c, s[6] = a) : a = s[6], a
+  }
+  var nt = e.i(181959),
+    nn = e.i(44698);
+  let nr = nt.default;
+  nr._isSVG = !0;
+  let ni = (0, _.createClientLogger)("HatchFeedWhyDialog");
+
+  function nl(e) {
+    let a, s, o, u, c, d, f, p, b, g, y, _, k, v = (0, r.c)(55),
+      {
+        unitId: S,
+        explanation: C,
+        trackMetadata: I,
+        returnFocusRef: T,
+        children: w
+      } = e,
+      [N, R] = (0, i.useState)(!1),
+      j = (0, m.useIsMobileBreakpoint)(),
+      {
+        isReady: F,
+        sendRequest: A
+      } = (0, en.useHatchRpc)();
+    v[0] !== I ? (a = {
+      eventName: x.HatchClickEvent.FEED_UNIT_WHY_CLICK,
+      actionTarget: "feed_unit_why",
+      actionType: "click",
+      metadata: I
+    }, v[0] = I, v[1] = a) : a = v[1];
+    let {
+      onClick: M
+    } = (0, l.useTrackedClickRef)(a);
+    v[2] !== I ? (s = {
+      eventName: E.HatchImpressionEvent.FEED_UNIT_WHY_IMPRESSION,
+      actionTarget: "feed_unit_why",
+      metadata: I
+    }, v[2] = I, v[3] = s) : s = v[3];
+    let {
+      ref: D
+    } = (0, l.useTrackedImpressionRef)(s);
+    v[4] !== F || v[5] !== M || v[6] !== A || v[7] !== S ? (o = e => {
+      R(e), !e || (M(), F && A("feed.unit.tap", {
+        unit_id: S,
+        kind: "tap_info"
+      }).catch(ns))
+    }, v[4] = F, v[5] = M, v[6] = A, v[7] = S, v[8] = o) : o = v[8];
+    let L = o;
+    v[9] !== L ? (u = () => {
+      L(!0)
+    }, v[9] = L, v[10] = u) : u = v[10];
+    let U = u;
+    v[11] !== T ? (c = e => {
+      e.preventDefault(), T.current?.focus()
+    }, v[11] = T, v[12] = c) : c = v[12];
+    let H = c;
+    v[13] !== C || v[14] !== S ? (d = [S, C], v[13] = C, v[14] = S, v[15] = d) : d = v[15], v[16] !== C || v[17] !== j ? (f = j ? (0, t.jsx)(nn.SheetDescription, {
+      className: "text-body text-text-primary whitespace-pre-wrap",
+      children: C
+    }) : (0, t.jsx)(eC.DialogDescription, {
+      className: "text-text-primary whitespace-pre-wrap",
+      children: C
+    }), v[16] = C, v[17] = j, v[18] = f) : f = v[18], v[19] !== d || v[20] !== f ? (p = (0, t.jsx)(h.EctoErrorBoundary, {
+      surface: et.HATCH_SENTRY_SURFACES.FEED_POST_EXPLANATION,
+      resetKeys: d,
+      fallback: na,
+      children: f
+    }), v[19] = d, v[20] = f, v[21] = p) : p = v[21];
+    let P = p;
+    if (j) {
+      let e, r, i, l, a, s, o;
+      return v[22] !== w || v[23] !== U ? (e = w(U), v[22] = w, v[23] = U, v[24] = e) : e = v[24], v[25] === Symbol.for("react.memo_cache_sentinel") ? (r = (0, t.jsx)(nn.SheetTitle, {
+        className: "text-title-3-emphasized min-w-0 flex-1",
+        children: n.fbt._("Why I created this post", null, {
+          hk: "2W6M1j"
+        })
+      }), v[25] = r) : r = v[25], v[26] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsxs)(nn.SheetHeader, {
+        className: "flex-row items-center gap-2 px-6 py-4",
+        children: [r, (0, t.jsx)(nn.SheetClose, {
+          asChild: !0,
+          children: (0, t.jsx)(eI.IconButton, {
+            type: "button",
+            icon: nr,
+            label: n.fbs._("Close", null, {
+              hk: "kNICa"
+            }),
+            variant: "elevated",
+            size: "28"
+          })
+        })]
+      }), v[26] = i) : i = v[26], v[27] !== P ? (l = (0, t.jsx)("div", {
+        className: "min-h-0 flex-1 overflow-y-auto px-6 pb-6",
+        children: P
+      }), v[27] = P, v[28] = l) : l = v[28], v[29] !== H || v[30] !== D || v[31] !== l ? (a = (0, t.jsxs)(nn.SheetContent, {
+        ref: D,
+        side: "bottom",
+        showCloseButton: !1,
+        className: "max-h-[85dvh] gap-0",
+        onCloseAutoFocus: H,
+        children: [i, l]
+      }), v[29] = H, v[30] = D, v[31] = l, v[32] = a) : a = v[32], v[33] !== L || v[34] !== N || v[35] !== a ? (s = (0, t.jsx)(nn.Sheet, {
+        open: N,
+        onOpenChange: L,
+        children: a
+      }), v[33] = L, v[34] = N, v[35] = a, v[36] = s) : s = v[36], v[37] !== s || v[38] !== e ? (o = (0, t.jsxs)(t.Fragment, {
+        children: [e, s]
+      }), v[37] = s, v[38] = e, v[39] = o) : o = v[39], o
+    }
+    return v[40] !== w || v[41] !== U ? (b = w(U), v[40] = w, v[41] = U, v[42] = b) : b = v[42], v[43] === Symbol.for("react.memo_cache_sentinel") ? (g = (0, t.jsx)(eC.DialogHeader, {
+      children: (0, t.jsx)(eC.DialogTitle, {
+        children: n.fbt._("Why I created this post", null, {
+          hk: "2W6M1j"
+        })
+      })
+    }), v[43] = g) : g = v[43], v[44] !== P || v[45] !== H || v[46] !== D ? (y = (0, t.jsx)(eC.DialogContent, {
+      ref: D,
+      onCloseAutoFocus: H,
+      header: g,
+      children: P
+    }), v[44] = P, v[45] = H, v[46] = D, v[47] = y) : y = v[47], v[48] !== L || v[49] !== N || v[50] !== y ? (_ = (0, t.jsx)(eC.Dialog, {
+      open: N,
+      onOpenChange: L,
+      children: y
+    }), v[48] = L, v[49] = N, v[50] = y, v[51] = _) : _ = v[51], v[52] !== _ || v[53] !== b ? (k = (0, t.jsxs)(t.Fragment, {
+      children: [b, _]
+    }), v[52] = _, v[53] = b, v[54] = k) : k = v[54], k
+  }
+
+  function na(e) {
+    let {
+      error: n,
+      reset: r
+    } = e;
+    return (0, t.jsx)(K.HatchContentErrorFallback, {
+      error: n,
+      onRetry: r
+    })
+  }
+
+  function ns(e) {
+    ni.retainForBugReport("debug", "Feed unit info tap write failed")
+  }
+  var no = e.i(284459),
+    nu = e.i(585152),
+    nc = e.i(383310),
+    nd = e.i(483982),
+    nh = e.i(731034),
+    nf = e.i(597582),
+    nm = e.i(286270),
+    np = e.i(448554),
+    nb = e.i(129977),
+    ng = e.i(564482),
+    ny = e.i(876317),
+    n_ = e.i(156056);
+  let nx = e.i(777410).HTML_PREVIEW_IFRAME_SANDBOX;
+
+  function nE({
+    unitId: e,
+    widgetHtml: r,
+    title: l
+  }) {
+    let a = (0, i.useMemo)(() => JSON.stringify([e, r]), [e, r]),
+      s = l.trim().length > 0 ? l : String(n.fbs._("Interactive widget", null, {
+        hk: "4awUZd"
+      })),
+      o = (0, i.useMemo)(() => ({
+        surface: "feed",
+        subsurface: "html_preview_error",
+        screen: "feed_main",
+        unit_id: e
+      }), [e]),
+      u = (0, i.useRef)(null),
+      c = (0, i.useRef)(null),
+      [d, f] = (0, i.useState)(null),
+      [m, p] = (0, i.useState)(0),
+      b = (0, i.useRef)(!1),
+      g = (0, i.useRef)(0),
+      y = (0, i.useRef)(0),
+      _ = (0, i.useRef)(null),
+      x = (0, i.useRef)(!1),
+      E = (0, i.useRef)(null),
+      k = (0, i.useRef)(a),
+      [v, S] = (0, i.useState)(null),
+      [C, I] = (0, i.useState)(!1),
+      {
+        previewVisibility: T,
+        visibilityRef: w
+      } = P(),
+      N = !0 === (0, tj.useReducedMotion)(),
+      {
+        theme: R
+      } = (0, nu.useTheme)(),
+      j = (0, i.useRef)(R);
+    j.current = R;
+    let F = (0, i.useRef)(R),
+      A = (0, no.buildHtmlPreviewShellUrl)(`v=${no.HTML_PREVIEW_SHELL_DEFAULT_WIDGET_VERSION}&widget=1&square_corners=1&theme=${F.current}`);
+    (0, i.useLayoutEffect)(() => {
+      k.current = a
+    }, [a]);
+    let M = (0, i.useCallback)(() => {
+        b.current = !1, x.current = !1, E.current = null, I(!1)
+      }, []),
+      {
+        frameErrorReason: D,
+        hasFrameError: L,
+        onBoundaryError: U,
+        onFrameError: H,
+        resetFrameError: O
+      } = (0, nb.useHtmlPreviewFrameErrorRecovery)({
+        contentIdentity: a,
+        onRecover: M
+      }),
+      B = (0, i.useCallback)(() => {
+        H("render_complete_timeout"), I(!1)
+      }, [H]),
+      K = (0, ng.useHtmlPreviewRenderWatchdog)({
+        contentIdentity: a,
+        errorSurface: et.HATCH_SENTRY_SURFACES.FEED,
+        onTimeout: B
+      }),
+      z = (0, i.useCallback)((e, t, n) => ("content_sanitization_failed" !== e || t === g.current && E.current === k.current) && ("content_sanitization_failed" === e && "pre_insertion" === n && y.current > 1 ? _.current !== t && (_.current = t, K.cancel(), I(!1), p(e => e + 1), !1) : (K.cancel(), H(e), I(!1), !0)), [H, K]),
+      G = (0, i.useCallback)(() => {
+        K.cancel(), I(!1), U()
+      }, [U, K]),
+      V = (0, i.useCallback)(e => {
+        c.current !== e && (K.cancel(), c.current = e, b.current = !1, y.current = 0, _.current = null, E.current = null, f(e), I(!1))
+      }, [K]),
+      Q = (0, i.useCallback)(() => {
+        let e = c.current?.contentWindow;
+        null != e && (g.current += 1, y.current += 1, x.current = !1, E.current = a, I(!1), e.postMessage({
+          type: "html-preview-content",
+          html: r,
+          localAssets: [],
+          renderId: g.current
+        }, "*"), K.arm(e, g.current))
+      }, [a, K, r]),
+      W = (0, i.useCallback)(() => {
+        let e = c.current;
+        null != e && (0, nm.refreshHtmlPreviewMessageSource)(e), b.current = !0, y.current = 0, _.current = null, Q(), (0, nf.postHtmlPreviewTheme)(e, j.current)
+      }, [Q]),
+      $ = (0, i.useCallback)(() => {
+        K.cancel(), b.current = !1, x.current = !1, E.current = null, S(null), I(!1), O()
+      }, [K, O]),
+      Y = (0, i.useCallback)(() => {
+        u.current?.focus(), $()
+      }, [$]),
+      q = (0, i.useCallback)(e => {
+        u.current = e, w(e)
+      }, [w]);
+    (0, i.useEffect)(() => {
+      I(!1), b.current && Q()
+    }, [a, Q]), (0, i.useEffect)(() => {
+      b.current && (0, nf.postHtmlPreviewTheme)(c.current, R)
+    }, [R]), (0, i.useEffect)(() => {
+      if (d?.contentWindow != null) return (0, nm.subscribeHtmlPreviewMessages)(d, et.HATCH_SENTRY_SURFACES.FEED, function(e) {
+        let t = c.current?.contentWindow;
+        if (null == t || e.source !== t) return;
+        if ((0, np.isHtmlPreviewRenderCompleteMessage)(e.data) && e.data.renderId === g.current && E.current === k.current && K.complete(t, e.data.renderId)) {
+          x.current || S(null), I(!0);
+          return
+        }
+        let n = e.data;
+        if (n?.type === "html-preview-resize" && "number" == typeof n.height && Number.isFinite(n.height) && n.height > 0 && n.renderId === g.current && E.current === k.current) {
+          let e = Math.min(n.height, 800);
+          x.current = !0, S(t => null != t && 2 > Math.abs(t - e) ? t : e);
+          return
+        }
+        if ((0, nc.isHtmlPreviewAssetRequest)(e.data)) {
+          let t = (0, nc.htmlPreviewAssetResponsePort)(e);
+          null != t && (0, nc.denyUntrustedHtmlPreviewAssetRequest)(e.data, t)
+        }
+      })
+    }, [d, K]);
+    let Z = L ? Math.max(v ?? 120, 120) : v ?? 120,
+      X = "hidden" !== T && !L;
+    return (0, t.jsx)("div", {
+      ref: q,
+      "aria-busy": X && !C,
+      "aria-label": s,
+      className: `${nh.HTML_PREVIEW_FOCUS_TARGET_CLASS_NAME} rounded-12 relative w-full overflow-hidden`,
+      role: "group",
+      tabIndex: -1,
+      style: {
+        height: Z,
+        transition: N ? void 0 : "height 140ms ease-out"
+      },
+      children: (0, t.jsxs)(h.EctoErrorBoundary, {
+        surface: et.HATCH_SENTRY_SURFACES.FEED,
+        onError: G,
+        fallback: ({
+          reset: e
+        }) => (0, t.jsx)(ny.HatchHtmlPreviewError, {
+          errorSurface: et.HATCH_SENTRY_SURFACES.FEED,
+          fitParentHeight: !0,
+          retryMetadata: o,
+          onRetry: () => {
+            Y(), e()
+          }
+        }),
+        children: [L ? (0, t.jsx)(ny.HatchHtmlPreviewError, {
+          errorSurface: et.HATCH_SENTRY_SURFACES.FEED,
+          fitParentHeight: !0,
+          reason: D ?? void 0,
+          retryMetadata: o,
+          onRetry: Y
+        }) : X ? (0, t.jsx)(nd.HatchHtmlPreviewFrame, {
+          frameRef: V,
+          errorSurface: et.HATCH_SENTRY_SURFACES.FEED,
+          src: A,
+          sandbox: nx,
+          scrolling: "no",
+          inert: !C || void 0,
+          onFrameError: z,
+          onLoad: W,
+          className: "absolute inset-0 h-full w-full border-none bg-transparent",
+          style: {
+            backgroundColor: "transparent",
+            opacity: +!!C,
+            pointerEvents: C ? void 0 : "none",
+            transition: N ? void 0 : "opacity 160ms ease-out"
+          },
+          title: s
+        }, m) : null, X && !C ? (0, t.jsx)(n_.HatchHtmlPreviewSkeleton, {
+          className: "pointer-events-none absolute inset-0"
+        }) : null]
+      })
+    })
+  }
+
+  function nk(e) {
+    let a, s, o, u, d, h, m, p, b, g = (0, r.c)(35),
+      {
+        url: y,
+        clipUrl: _,
+        alt: E,
+        enabled: k,
+        onSrcChange: v,
+        onOpen: S
+      } = e,
+      [C, I] = (0, i.useState)(!1),
+      [T, w] = (0, i.useState)(!1),
+      [N, R] = (0, i.useState)(!1);
+    g[0] !== k ? (a = {
+      enabled: k
+    }, g[0] = k, g[1] = a) : a = g[1];
+    let {
+      src: j,
+      isLoading: F,
+      isError: A
+    } = tx(y, a), M = null != _ && T;
+    g[2] !== M ? (s = {
+      enabled: M
+    }, g[2] = M, g[3] = s) : s = g[3];
+    let D = tk(_, s),
+      L = null != _ && D.playable,
+      U = eL();
+    g[4] !== U ? (o = {
+      eventName: x.HatchClickEvent.FEED_UNIT_MEDIA_OPEN_CLICK,
+      actionTarget: "feed_unit_carousel_media",
+      actionType: "click",
+      metadata: U
+    }, g[4] = U, g[5] = o) : o = g[5];
+    let {
+      ref: H,
+      onClick: P
+    } = (0, l.useTrackedClickRef)(o);
+    g[6] !== U ? (u = {
+      eventName: x.HatchClickEvent.FEED_UNIT_VIDEO_PLAY_CLICK,
+      actionTarget: "feed_unit_carousel_video",
+      actionType: "click",
+      metadata: U
+    }, g[6] = U, g[7] = u) : u = g[7];
+    let {
+      ref: O,
+      onClick: B
+    } = (0, l.useTrackedClickRef)(u), K = (0, f.useMergeRefs)(H, O), z = (0, l.useInteractionLogger)(), G = C || A ? null : j, V = L ? D.sharedSrc : null;
+    if (g[8] !== v || g[9] !== V || g[10] !== G || g[11] !== y ? (d = () => {
+        v(y, G, V)
+      }, h = [v, V, G, y], g[8] = v, g[9] = V, g[10] = G, g[11] = y, g[12] = d, g[13] = h) : (d = g[12], h = g[13]), (0, i.useEffect)(d, h), g[14] !== z || g[15] !== S || g[16] !== N || g[17] !== V || g[18] !== U || g[19] !== y ? (m = () => {
+        N && null != V && (R(!1), z({
+          eventName: x.HatchClickEvent.FEED_UNIT_MEDIA_OPEN_CLICK,
+          actionTarget: "feed_unit_carousel_media",
+          actionType: "click",
+          metadata: U
+        }), S(y))
+      }, p = [z, S, N, V, U, y], g[14] = z, g[15] = S, g[16] = N, g[17] = V, g[18] = U, g[19] = y, g[20] = m, g[21] = p) : (m = g[20], p = g[21]), (0, i.useEffect)(m, p), C || A || null == j && !F) return null;
+    let Q = L && T && !D.isError && null == D.sharedSrc,
+      W = L && D.isError;
+    return g[22] !== E || g[23] !== D || g[24] !== Q || g[25] !== L || g[26] !== P || g[27] !== B || g[28] !== S || g[29] !== V || g[30] !== W || g[31] !== j || g[32] !== K || g[33] !== y ? (b = null != j ? (0, t.jsxs)("div", {
+      className: "relative shrink-0",
+      children: [(0, t.jsx)("button", {
+        ref: K,
+        type: "button",
+        "aria-label": L ? n.fbs._("Play video full screen", null, {
+          hk: "29VMTx"
+        }) : n.fbs._("View image full screen", null, {
+          hk: "28o28x"
+        }),
+        "aria-busy": Q,
+        onClick: () => {
+          if (!L) {
+            P(), S(y);
+            return
+          }
+          if (!Q) {
+            if (null != V) {
+              P(), S(y);
+              return
+            }
+            B(), w(!0), R(!0)
+          }
+        },
+        className: "rounded-12 block cursor-pointer overflow-hidden -outline-offset-2",
+        children: (0, t.jsx)("img", {
+          src: j,
+          alt: E,
+          loading: "lazy",
+          onError: () => I(!0),
+          className: "outline-media-protection-border size-[150px] object-cover outline-[0.5px] -outline-offset-[0.5px]"
+        })
+      }), Q ? (0, t.jsx)("div", {
+        role: "status",
+        "aria-label": n.fbs._("Loading video", null, {
+          hk: "ZGtUK"
+        }),
+        className: "rounded-12 pointer-events-none absolute inset-0 flex items-center justify-center bg-black/30",
+        children: (0, t.jsx)(c.Spinner, {
+          size: 20,
+          className: "text-white"
+        })
+      }) : W ? (0, t.jsxs)("div", {
+        role: "alert",
+        className: "rounded-12 absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-black/60 p-2 text-center",
+        children: [(0, t.jsx)("p", {
+          className: "text-caption-1 text-white",
+          children: n.fbt._("Couldn't play this video.", null, {
+            hk: "wkAhv"
+          })
+        }), (0, t.jsx)(eI.IconButton, {
+          icon: eO.default,
+          label: n.fbs._("Try again", null, {
+            hk: "1LHul9"
+          }),
+          variant: "on-media",
+          size: "32",
+          onClick: () => {
+            B(), D.retry(), w(!0), R(!0)
+          }
+        })]
+      }) : L ? (0, t.jsx)("div", {
+        "aria-hidden": "true",
+        className: "pointer-events-none absolute inset-0 flex items-center justify-center",
+        children: (0, t.jsx)("span", {
+          className: "flex size-9 items-center justify-center rounded-full bg-black/60 text-white",
+          children: (0, t.jsx)(eG.HatchIcon, {
+            icon: ez.default,
+            size: 16
+          })
+        })
+      }) : null]
+    }) : (0, t.jsx)("div", {
+      "aria-hidden": "true",
+      className: "rounded-12 bg-fill-secondary size-[150px] shrink-0 motion-safe:animate-pulse"
+    }), g[22] = E, g[23] = D, g[24] = Q, g[25] = L, g[26] = P, g[27] = B, g[28] = S, g[29] = V, g[30] = W, g[31] = j, g[32] = K, g[33] = y, g[34] = b) : b = g[34], b
+  }
+
+  function nv(e) {
+    let l, a, s, o, u, c, d, h, f, m, p, b, g = (0, r.c)(33),
+      {
+        imageUrls: y,
+        mediaItems: _
+      } = e,
+      {
+        previewVisibility: x,
+        visibilityRef: E
+      } = P();
+    g[0] === Symbol.for("react.memo_cache_sentinel") ? (l = {}, g[0] = l) : l = g[0];
+    let [k, v] = (0, i.useState)(l);
+    g[1] === Symbol.for("react.memo_cache_sentinel") ? (a = {
+      open: !1,
+      url: null
+    }, g[1] = a) : a = g[1];
+    let [S, C] = (0, i.useState)(a);
+    g[2] === Symbol.for("react.memo_cache_sentinel") ? (s = (e, t, n) => {
+      v(r => {
+        if (null == t) {
+          if (null == r[e]) return r;
+          let t = {
+            ...r
+          };
+          return delete t[e], t
+        }
+        let i = r[e];
+        return i?.src === t && i.clipSrc === n ? r : {
+          ...r,
+          [e]: {
+            src: t,
+            clipSrc: n
+          }
+        }
+      })
+    }, g[2] = s) : s = g[2];
+    let I = s;
+    if (g[3] !== y || g[4] !== k) {
+      let e;
+      g[6] !== k ? (e = e => {
+        let t = k[e];
+        return null != t ? [{
+          url: e,
+          src: t.src,
+          clipSrc: t.clipSrc
+        }] : []
+      }, g[6] = k, g[7] = e) : e = g[7], o = y.flatMap(e), g[3] = y, g[4] = k, g[5] = o
+    } else o = g[5];
+    let T = o;
+    g[8] !== T ? (u = T.map(nS), g[8] = T, g[9] = u) : u = g[9];
+    let w = u;
+    g[10] === Symbol.for("react.memo_cache_sentinel") ? (c = e => {
+      C({
+        open: !0,
+        url: e
+      })
+    }, g[10] = c) : c = g[10];
+    let N = c;
+    if (g[11] !== T || g[12] !== S.url) {
+      let e;
+      g[14] !== S.url ? (e = e => e.url === S.url, g[14] = S.url, g[15] = e) : e = g[15], d = T.findIndex(e), g[11] = T, g[12] = S.url, g[13] = d
+    } else d = g[13];
+    let R = Math.max(0, d);
+    if (g[16] !== y || g[17] !== _ || g[18] !== x) {
+      let e;
+      g[20] !== _ || g[21] !== x ? (e = (e, r) => {
+        let i = _?.[r];
+        return (0, t.jsx)(nk, {
+          url: e,
+          clipUrl: i?.kind === "video" ? i.url : null,
+          enabled: "visible" === x,
+          alt: String(n.fbs._("Feed unit image", null, {
+            hk: "38E6F7"
+          })),
+          onSrcChange: I,
+          onOpen: N
+        }, e)
+      }, g[20] = _, g[21] = x, g[22] = e) : e = g[22], h = y.map(e), g[16] = y, g[17] = _, g[18] = x, g[19] = h
+    } else h = g[19];
+    return g[23] === Symbol.for("react.memo_cache_sentinel") ? (f = n.fbs._("Feed unit image", null, {
+      hk: "38E6F7"
+    }), g[23] = f) : f = g[23], g[24] === Symbol.for("react.memo_cache_sentinel") ? (m = e => C(t => ({
+      ...t,
+      open: e
+    })), g[24] = m) : m = g[24], g[25] !== R || g[26] !== w || g[27] !== S.open ? (p = (0, t.jsx)(eW.HatchMediaLightbox, {
+      startUnmuted: !0,
+      items: w,
+      initialIndex: R,
+      alt: String(f),
+      open: S.open,
+      onOpenChange: m
+    }), g[25] = R, g[26] = w, g[27] = S.open, g[28] = p) : p = g[28], g[29] !== p || g[30] !== h || g[31] !== E ? (b = (0, t.jsxs)("div", {
+      ref: E,
+      className: "flex gap-2 overflow-x-auto",
+      children: [h, p]
+    }), g[29] = p, g[30] = h, g[31] = E, g[32] = b) : b = g[32], b
+  }
+
+  function nS(e) {
+    let {
+      src: t,
+      clipSrc: n
+    } = e;
+    return null != n ? {
+      kind: "video",
+      variants: {
+        original: n,
+        thumbnail: t
+      }
+    } : {
+      kind: "image",
+      variants: {
+        original: t
+      }
+    }
+  }
+
+  function nC(e) {
+    let n, i, l = (0, r.c)(33),
+      {
+        unit: a
+      } = e,
+      s = a.attachment;
+    l[0] !== s ? (n = e1(s), l[0] = s, l[1] = n) : n = l[1];
+    let o = null != n;
+    l[2] !== s || l[3] !== o ? (i = o || "social_embed" === s.kind || null == s.socialEmbedUrl ? null : (0, t.jsx)(ta, {
+      attachment: s,
+      className: "text-caption-1 mt-0.5"
+    }), l[2] = s, l[3] = o, l[4] = i) : i = l[4];
+    let u = i;
+    switch (s.kind) {
+      case "hero_image": {
+        let e, n;
+        return l[5] !== a ? (e = (0, t.jsx)(tR, {
+          unit: a
+        }), l[5] = a, l[6] = e) : e = l[6], l[7] !== u || l[8] !== e ? (n = (0, t.jsxs)(t.Fragment, {
+          children: [e, u]
+        }), l[7] = u, l[8] = e, l[9] = n) : n = l[9], n
+      }
+      case "carousel": {
+        let e, n;
+        return l[10] !== s.imageUrls || l[11] !== s.mediaItems ? (e = (0, t.jsx)(nv, {
+          imageUrls: s.imageUrls,
+          mediaItems: s.mediaItems
+        }), l[10] = s.imageUrls, l[11] = s.mediaItems, l[12] = e) : e = l[12], l[13] !== u || l[14] !== e ? (n = (0, t.jsxs)(t.Fragment, {
+          children: [e, u]
+        }), l[13] = u, l[14] = e, l[15] = n) : n = l[15], n
+      }
+      case "widget": {
+        let e, n;
+        return l[16] !== s.widgetHtml || l[17] !== a.kicker || l[18] !== a.unitId ? (e = (0, t.jsx)(nE, {
+          unitId: a.unitId,
+          widgetHtml: s.widgetHtml,
+          title: a.kicker
+        }), l[16] = s.widgetHtml, l[17] = a.kicker, l[18] = a.unitId, l[19] = e) : e = l[19], l[20] !== u || l[21] !== e ? (n = (0, t.jsxs)(t.Fragment, {
+          children: [e, u]
+        }), l[20] = u, l[21] = e, l[22] = n) : n = l[22], n
+      }
+      case "social_embed": {
+        let e;
+        return l[23] !== s.socialAttributionText || l[24] !== s.socialEmbedUrl || l[25] !== s.socialIsCarousel || l[26] !== s.socialMediaItems || l[27] !== s.socialPostUsername || l[28] !== s.socialSourceIconUrl || l[29] !== s.socialSourceName || l[30] !== s.socialThumbnailUrl || l[31] !== a.kicker ? (e = (0, t.jsx)(tP, {
+          url: s.socialEmbedUrl,
+          title: a.kicker,
+          socialThumbnailUrl: s.socialThumbnailUrl,
+          socialIsCarousel: s.socialIsCarousel,
+          socialMediaItems: s.socialMediaItems,
+          attributionText: s.socialAttributionText,
+          postUsername: s.socialPostUsername,
+          sourceName: s.socialSourceName,
+          sourceIconUrl: s.socialSourceIconUrl
+        }), l[23] = s.socialAttributionText, l[24] = s.socialEmbedUrl, l[25] = s.socialIsCarousel, l[26] = s.socialMediaItems, l[27] = s.socialPostUsername, l[28] = s.socialSourceIconUrl, l[29] = s.socialSourceName, l[30] = s.socialThumbnailUrl, l[31] = a.kicker, l[32] = e) : e = l[32], e
+      }
+      default:
+        return u
+    }
+  }
+
+  function nI(e) {
+    let n, l, a, s = (0, r.c)(7),
+      {
+        previewVisibility: o,
+        visibilityRef: u
+      } = P(),
+      [c, d] = (0, i.useState)(!1);
+    if (s[0] !== o ? (n = () => {
+        "visible" === o && d(!0)
+      }, l = [o], s[0] = o, s[1] = n, s[2] = l) : (n = s[1], l = s[2]), (0, i.useEffect)(n, l), !c) {
+      let e;
+      return s[3] !== u ? (e = (0, t.jsx)("span", {
+        ref: u,
+        "aria-hidden": "true",
+        className: "bg-fill-secondary rounded-8 inline-block size-[200px] motion-safe:animate-pulse"
+      }), s[3] = u, s[4] = e) : e = s[4], e
+    }
+    return s[5] !== e ? (a = (0, t.jsx)(eQ.HatchMarkdownImage, {
+      ...e
+    }), s[5] = e, s[6] = a) : a = s[6], a
+  }
+
+  function nT(e) {
+    let a, s, o, u, c, d, h, m, p, b, y, _, k, v, S, C, I, T, w, N, R, j, F, A, M, D, L, U, H, P, B, K, z, G, V, Q, W = (0, r.c)(117),
+      {
+        unit: $,
+        infiniteFeedUnitKey: Y,
+        cardRef: q,
+        titleAs: Z,
+        onReact: X,
+        onDelete: J,
+        onComment: ee
+      } = e;
+    if (W[0] !== $.attachment.kind || W[1] !== $.attachment.socialEmbedUrl || W[2] !== $.attachment.socialIsCarousel || W[3] !== $.attachment.socialMediaItems || W[4] !== $.attachment.socialThumbnailUrl) {
+      var en, er;
+      a = "social_embed" === $.attachment.kind ? (en = $.attachment.socialEmbedUrl, er = $.attachment.socialThumbnailUrl, tr(en, er, $.attachment.socialMediaItems, $.attachment.socialIsCarousel).kind) : null, W[0] = $.attachment.kind, W[1] = $.attachment.socialEmbedUrl, W[2] = $.attachment.socialIsCarousel, W[3] = $.attachment.socialMediaItems, W[4] = $.attachment.socialThumbnailUrl, W[5] = a
+    } else a = W[5];
+    let ei = a,
+      el = eM(Y ?? $.unitId);
+    W[6] !== Y || W[7] !== el || W[8] !== $ ? (s = eU($, {
+      infiniteFeedUnitKey: Y,
+      position: el
+    }), W[6] = Y, W[7] = el, W[8] = $, W[9] = s) : s = W[9];
+    let ea = s,
+      es = null == Y ? $.editionGeneratedAtMs : 0,
+      eo = $.origin;
+    W[10] !== $ ? (o = function(e) {
+      if ("idea" !== e.origin) return {};
+      let t = e.ideaAction?.ideaId;
+      return null != t && t.length > 0 ? {
+        idea_id: t
+      } : {}
+    }($), W[10] = $, W[11] = o) : o = W[11];
+    let eu = $.attachment.kind,
+      ec = String($.isReflective);
+    W[12] !== ei ? (u = null != ei && "none" !== ei ? {
+      social_embed_treatment: ei
+    } : {}, W[12] = ei, W[13] = u) : u = W[13], W[14] !== o || W[15] !== ec || W[16] !== u || W[17] !== ea || W[18] !== $.attachment.kind || W[19] !== $.origin ? (c = {
+      eventName: E.HatchImpressionEvent.FEED_UNIT_IMPRESSION,
+      actionTarget: "feed_unit",
+      metadata: {
+        ...ea,
+        origin: eo,
+        ...o,
+        attachment_kind: eu,
+        is_reflective: ec,
+        ...u
+      }
+    }, W[14] = o, W[15] = ec, W[16] = u, W[17] = ea, W[18] = $.attachment.kind, W[19] = $.origin, W[20] = c) : c = W[20], W[21] === Symbol.for("react.memo_cache_sentinel") ? (d = {
+      threshold: "50%"
+    }, W[21] = d) : d = W[21];
+    let {
+      ref: ed
+    } = (0, l.useTrackedImpressionRef)(c, d);
+    W[22] !== ea ? (h = (0, eq.hatchLinkEntryPointAttrs)(function(e) {
+      let {
+        surface: t,
+        screen: n,
+        ...r
+      } = e;
+      return {
+        entry_point: "feed_card",
+        ...r
+      }
+    }(ea)), W[22] = ea, W[23] = h) : h = W[23];
+    let eh = h,
+      ef = function(e) {
+        let t = (0, l.useInteractionLoggerWithLazyData)(),
+          n = (0, i.useRef)(e);
+        n.current = e;
+        let r = (0, i.useCallback)(e => {
+            t(function(e, {
+              visibleDuration: t,
+              hiddenReason: n
+            }) {
+              let r = Number.isFinite(t) && t >= 0;
+              return {
+                eventName: E.HatchImpressionEvent.FEED_UNIT_VIEW_DURATION_IMPRESSION,
+                actionTarget: "feed_unit",
+                actionType: "vpv_impression",
+                ...r ? {
+                  vpvDurationMs: Math.round(t)
+                } : {},
+                metadata: {
+                  ...e,
+                  exit_reason: n
+                }
+              }
+            }(n.current, e))
+          }, [t]),
+          [a] = (0, l.useVPVDImpression)({
+            minVisiblePct: .75,
+            minVisibleTimeMs: 1e3,
+            onVPVDEnd: r
+          });
+        return (0, l.useTrackedVpvdRef)(a, {
+          eventName: E.HatchImpressionEvent.FEED_UNIT_VIEW_DURATION_IMPRESSION,
+          actionTarget: "feed_unit"
+        })
+      }(ea),
+      em = (0, f.useMergeRefs)(ed, ef, q);
+    W[24] !== $.title ? (m = null != $.title && $.title.trim().length > 0, W[24] = $.title, W[25] = m) : m = W[25];
+    let ep = m,
+      eb = "love" === $.reaction,
+      eg = eb ? "off" : "on";
+    W[26] !== eg || W[27] !== ea ? (p = {
+      eventName: x.HatchClickEvent.FEED_UNIT_REACTION_CLICK,
+      actionTarget: "feed_unit_love",
+      actionType: "click",
+      metadata: {
+        ...ea,
+        reaction_state: eg
+      }
+    }, W[26] = eg, W[27] = ea, W[28] = p) : p = W[28];
+    let {
+      ref: ey,
+      onClick: e_
+    } = (0, l.useTrackedClickRef)(p);
+    W[29] !== ea ? (b = {
+      eventName: x.HatchClickEvent.FEED_UNIT_COMMENT_CLICK,
+      actionTarget: "feed_unit_comment",
+      actionType: "click",
+      metadata: ea
+    }, W[29] = ea, W[30] = b) : b = W[30];
+    let {
+      ref: ex,
+      onClick: eE
+    } = (0, l.useTrackedClickRef)(b), ek = String(null != $.whyDidISeeThis);
+    W[31] !== ek || W[32] !== ea ? (y = {
+      eventName: x.HatchClickEvent.FEED_UNIT_OVERFLOW_MENU_CLICK,
+      actionTarget: "feed_unit_overflow_menu",
+      actionType: "click",
+      metadata: {
+        ...ea,
+        offers_explanation: ek
+      }
+    }, W[31] = ek, W[32] = ea, W[33] = y) : y = W[33];
+    let {
+      ref: ev,
+      onClick: eS
+    } = (0, l.useTrackedClickRef)(y), eC = (0, i.useRef)(null), eI = (0, f.useMergeRefs)(ev, eC), eT = (0, l.useInteractionLogger)();
+    W[34] !== X || W[35] !== $ ? (_ = e => {
+      X($, $.reaction === e ? null : e)
+    }, W[34] = X, W[35] = $, W[36] = _) : _ = W[36];
+    let ew = _;
+    W[37] !== eT || W[38] !== J || W[39] !== ea || W[40] !== $ ? (k = () => {
+      eT({
+        eventName: x.HatchClickEvent.FEED_UNIT_DELETE_CLICK,
+        actionTarget: "feed_unit_delete",
+        actionType: "click",
+        metadata: ea
+      }), J($)
+    }, W[37] = eT, W[38] = J, W[39] = ea, W[40] = $, W[41] = k) : k = W[41];
+    let eN = k;
+    W[42] !== es || W[43] !== eN || W[44] !== eS || W[45] !== eI ? (v = e => (0, t.jsx)(t3, {
+      generatedAtMs: es,
+      onShowWhyCreated: e,
+      onDelete: eN,
+      onOpen: eS,
+      triggerRef: eI
+    }), W[42] = es, W[43] = eN, W[44] = eS, W[45] = eI, W[46] = v) : v = W[46];
+    let eR = v,
+      ej = $.unitId;
+    W[47] !== $ ? (S = (0, t.jsx)(tY, {
+      unit: $
+    }), W[47] = $, W[48] = S) : S = W[48], W[49] !== Z || W[50] !== ep || W[51] !== $.title ? (C = ep && (0, t.jsx)(Z, {
+      className: "text-title-3-medium text-text-primary min-w-0 flex-1",
+      children: $.title
+    }), W[49] = Z, W[50] = ep, W[51] = $.title, W[52] = C) : C = W[52], W[53] !== es ? (I = 0 !== es && (0, t.jsx)("time", {
+      dateTime: new Date(es).toISOString(),
+      title: (0, e$.formatFullDateTime)(es),
+      className: "text-footnote text-text-secondary",
+      children: (0, e$.formatRelativeTime)(es)
+    }), W[53] = es, W[54] = I) : I = W[54], W[55] !== eR || W[56] !== ea || W[57] !== $.unitId || W[58] !== $.whyDidISeeThis ? (T = null != $.whyDidISeeThis ? (0, t.jsx)(nl, {
+      unitId: $.unitId,
+      explanation: $.whyDidISeeThis,
+      trackMetadata: ea,
+      returnFocusRef: eC,
+      children: eR
+    }) : eR(), W[55] = eR, W[56] = ea, W[57] = $.unitId, W[58] = $.whyDidISeeThis, W[59] = T) : T = W[59], W[60] !== I || W[61] !== T ? (w = (0, t.jsxs)("div", {
+      className: "text-text-secondary -my-2 ms-auto -me-2 flex shrink-0 items-center gap-1",
+      children: [I, T]
+    }), W[60] = I, W[61] = T, W[62] = w) : w = W[62], W[63] !== C || W[64] !== w ? (N = (0, t.jsxs)("div", {
+      className: "flex items-start gap-1",
+      children: [C, w]
+    }), W[63] = C, W[64] = w, W[65] = N) : N = W[65], W[66] !== $.bodyMd ? (R = $.bodyMd.trim().length > 0 && (0, t.jsx)(eV.EctoMarkdownRenderer, {
+      content: $.bodyMd,
+      sentrySurface: et.HATCH_SENTRY_SURFACES.FEED,
+      className: "prose-feed-unit text-text-primary",
+      contentClassName: "space-y-4",
+      imageComponent: nI
+    }), W[66] = $.bodyMd, W[67] = R) : R = W[67], W[68] !== N || W[69] !== R ? (j = (0, t.jsxs)("div", {
+      className: "flex flex-col gap-1",
+      children: [N, R]
+    }), W[68] = N, W[69] = R, W[70] = j) : j = W[70], W[71] !== $ ? (F = (0, t.jsx)("div", {
+      className: "peer pt-2.5 empty:hidden",
+      children: (0, t.jsx)(nC, {
+        unit: $
+      })
+    }), W[71] = $, W[72] = F) : F = W[72], W[73] === Symbol.for("react.memo_cache_sentinel") ? (A = (0, t.jsx)("div", {
+      "aria-hidden": "true",
+      className: eY.FEED_UFI_SPACER_CLASS_NAME
+    }), W[73] = A) : A = W[73], W[74] !== eb ? (M = eb ? n.fbs._("Remove love", null, {
+      hk: "1MOQia"
+    }) : n.fbs._("Love", null, {
+      hk: "2gga52"
+    }), W[74] = eb, W[75] = M) : M = W[75];
+    let eF = String(M);
+    W[76] !== e_ || W[77] !== ew ? (D = () => {
+      e_(), ew("love")
+    }, W[76] = e_, W[77] = ew, W[78] = D) : D = W[78];
+    let eA = eb ? "text-[#FF453A]" : "text-text-primary";
+    W[79] !== eA ? (L = (0, g.cn)(eY.FEED_ACTION_BUTTON_CLASS_NAME, "-ms-2", eA), W[79] = eA, W[80] = L) : L = W[80];
+    let eD = eb ? eB.default : eK.default;
+    return W[81] !== eD ? (U = (0, t.jsx)(eG.HatchIcon, {
+      icon: eD,
+      size: 24,
+      "aria-hidden": "true"
+    }), W[81] = eD, W[82] = U) : U = W[82], W[83] !== eb || W[84] !== ey || W[85] !== eF || W[86] !== D || W[87] !== L || W[88] !== U ? (H = (0, t.jsx)("button", {
+      ref: ey,
+      type: "button",
+      "aria-label": eF,
+      "aria-pressed": eb,
+      onClick: D,
+      className: L,
+      children: U
+    }), W[83] = eb, W[84] = ey, W[85] = eF, W[86] = D, W[87] = L, W[88] = U, W[89] = H) : H = W[89], W[90] !== eE || W[91] !== ee || W[92] !== $ ? (P = () => {
+      eE(), ee($)
+    }, W[90] = eE, W[91] = ee, W[92] = $, W[93] = P) : P = W[93], W[94] !== ex || W[95] !== P || W[96] !== $ ? (B = (0, t.jsx)(ne, {
+      unit: $,
+      discussButtonRef: ex,
+      onDiscuss: P
+    }), W[94] = ex, W[95] = P, W[96] = $, W[97] = B) : B = W[97], W[98] !== H || W[99] !== B ? (K = (0, t.jsx)("footer", {
+      className: "flex items-center justify-between pt-0.5 pb-1",
+      children: (0, t.jsxs)("div", {
+        className: "flex items-center gap-px",
+        children: [H, B]
+      })
+    }), W[98] = H, W[99] = B, W[100] = K) : K = W[100], W[101] !== j || W[102] !== F || W[103] !== K ? (z = (0, t.jsxs)("div", {
+      className: "flex min-w-0 flex-1 flex-col",
+      children: [j, F, A, K]
+    }), W[101] = j, W[102] = F, W[103] = K, W[104] = z) : z = W[104], W[105] !== S || W[106] !== z ? (G = (0, t.jsxs)("div", {
+      className: O.FEED_UNIT_ICON_ROW_CLASS,
+      children: [S, z]
+    }), W[105] = S, W[106] = z, W[107] = G) : G = W[107], W[108] !== eh || W[109] !== em || W[110] !== G || W[111] !== $.unitId ? (V = (0, t.jsx)("article", {
+      ref: em,
+      "data-testid": "hatch-feed-unit",
+      "data-unit-id": ej,
+      ...eh,
+      className: "-mx-4 flex flex-col px-4 pt-4 pb-2 md:-mx-16 md:px-16",
+      children: G
+    }), W[108] = eh, W[109] = em, W[110] = G, W[111] = $.unitId, W[112] = V) : V = W[112], W[113] !== Y || W[114] !== V || W[115] !== $ ? (Q = (0, t.jsx)(eP, {
+      unit: $,
+      infiniteFeedUnitKey: Y,
+      children: V
+    }), W[113] = Y, W[114] = V, W[115] = $, W[116] = Q) : Q = W[116], Q
+  }
+
+  function nw(e) {
+    if ("string" != typeof e) return null;
+    let t = e.trim();
+    return t.length > 0 ? t : null
+  }
+
+  function nN(e) {
+    return "object" != typeof e || null == e || Array.isArray(e) ? null : e
+  }
+
+  function nR(e) {
+    return e.ephemeralKey ?? e.unit.unitId
+  }
+  let nj = Array.from({
+      length: 201
+    }, (e, t) => t / 200),
+    nF = (0, _.createClientLogger)("FeedSeenReceipts"),
+    nA = {
+      monotonicNow: () => performance.now(),
+      wallNow: () => Date.now()
+    };
+
+  function nM(e) {
+    return "durable" === e.kind ? `unit:${e.unitId}` : `draft:${e.unitKey}`
+  }
+  class nD {
+    sendReceipts;
+    onFlushError;
+    scheduler;
+    trackedElements;
+    refBindings;
+    pendingReceipts;
+    observer;
+    root;
+    flushPromise;
+    flushTimer;
+    automaticFlushPaused;
+    started;
+    suspended;
+    scope;
+    constructor(e, t, n = nA) {
+      this.sendReceipts = e, this.onFlushError = t, this.scheduler = n, this.trackedElements = new Map, this.refBindings = new Map, this.pendingReceipts = [], this.observer = null, this.root = null, this.flushPromise = null, this.flushTimer = null, this.automaticFlushPaused = !1, this.started = !1, this.suspended = !1, this.handleIntersections = e => {
+        let t = this.scheduler.monotonicNow(),
+          n = this.scheduler.wallNow();
+        for (let r of e) {
+          let e = this.trackedElements.get(r.target);
+          if (null == e) continue;
+          let i = Number.isFinite(r.time) && r.time >= 0 ? Math.min(r.time, t) : t;
+          this.isTrackable() && r.isIntersecting && function(e) {
+            let t = e.boundingClientRect?.height,
+              n = e.rootBounds?.height,
+              r = e.intersectionRect?.height;
+            return null != t && t > 0 && null != n && n > 0 && null != r ? r / Math.min(t, n) : e.intersectionRatio
+          }(r) >= .75 ? null == e.activeSinceMs && (e.activeSinceMs = i, e.activeSinceWallMs = n - Math.max(0, t - i)) : this.finishVisibility(e, i)
+        }
+      }, this.handleVisibilityChange = () => {
+        if ("hidden" === document.visibilityState) {
+          this.pauseAllAndFlush(), this.observer?.disconnect(), this.observer = null;
+          return
+        }
+        this.rebuildObserver()
+      }, this.handlePageHide = () => {
+        this.suspended = !0, this.pauseAllAndFlush(), this.observer?.disconnect(), this.observer = null
+      }, this.handlePageShow = () => {
+        this.suspended = !1, this.rebuildObserver()
+      }
+    }
+    start() {
+      !this.started && "u" > typeof document && (this.started = !0, this.suspended = !1, document.addEventListener("visibilitychange", this.handleVisibilityChange), window.addEventListener("pagehide", this.handlePageHide), window.addEventListener("pageshow", this.handlePageShow), this.rebuildObserver())
+    }
+    stop() {
+      this.started && (this.pauseAllAndFlush(), this.started = !1, this.suspended = !0, document.removeEventListener("visibilitychange", this.handleVisibilityChange), window.removeEventListener("pagehide", this.handlePageHide), window.removeEventListener("pageshow", this.handlePageShow), this.observer?.disconnect(), this.observer = null)
+    }
+    setScope(e) {
+      this.scope !== e && (void 0 !== this.scope && (this.pauseAllAndFlush(), this.clearEphemeralReceipts()), this.scope = e, this.rebuildObserver())
+    }
+    setRoot(e) {
+      this.root !== e && (this.root = e, this.rebuildObserver())
+    }
+    getUnitRef(e, t = nM(e)) {
+      let n = "durable" === e.kind ? {
+          kind: "durable",
+          unitId: e.unitId.trim()
+        } : {
+          kind: "ephemeral",
+          unitKey: e.unitKey.trim()
+        },
+        r = t.trim(),
+        i = nM(n),
+        l = this.refBindings.get(r);
+      if (null != l) {
+        if (l.identityKey !== i && (l.identity = n, l.identityKey = i, null != l.element)) {
+          let e = this.trackedElements.get(l.element);
+          null != e && (e.identity = n)
+        }
+        return l.callback
+      }
+      let a = {
+        identity: n,
+        identityKey: i,
+        element: null,
+        callback: () => {}
+      };
+      return a.callback = e => {
+        if (this.refBindings.get(r) === a && a.element !== e) {
+          var t;
+          null != a.element && this.unregister(a.element), a.element = e, null != e && ("durable" === (t = a.identity).kind ? t.unitId.length > 0 : t.unitKey.length > 0) && this.register(e, a.identity)
+        }
+      }, this.refBindings.set(r, a), a.callback
+    }
+    flush() {
+      return this.automaticFlushPaused = !1, this.startFlush()
+    }
+    materializeUnit(e, t) {
+      let n = e.trim(),
+        r = t.trim();
+      if (0 === n.length || 0 === r.length) return;
+      let i = {
+          kind: "durable",
+          unitId: r
+        },
+        l = nM(i),
+        a = this.pendingReceipts.find(e => "ephemeral" === e.kind && e.unitKey === n);
+      for (let e of (this.pendingReceipts = this.pendingReceipts.filter(e => "ephemeral" !== e.kind || e.unitKey !== n), null != a && this.mergePendingReceipt({
+          kind: "durable",
+          unitId: r,
+          timeSpentMs: a.timeSpentMs,
+          seenAtMs: a.seenAtMs
+        }), this.trackedElements.values())) "ephemeral" === e.identity.kind && e.identity.unitKey === n && (e.identity = i);
+      for (let e of this.refBindings.values()) "ephemeral" === e.identity.kind && e.identity.unitKey === n && (e.identity = i, e.identityKey = l);
+      !this.automaticFlushPaused && this.durablePendingCount() >= 100 ? this.startFlush() : this.scheduleFlush(2e3)
+    }
+    discardEphemeralUnit(e) {
+      let t = e.trim();
+      if (0 === t.length) return;
+      let n = nM({
+        kind: "ephemeral",
+        unitKey: t
+      });
+      for (let [e, n] of(this.pendingReceipts = this.pendingReceipts.filter(e => "ephemeral" !== e.kind || e.unitKey !== t), this.trackedElements)) "ephemeral" === n.identity.kind && n.identity.unitKey === t && (this.observer?.unobserve(e), this.trackedElements.delete(e));
+      for (let [e, t] of this.refBindings) t.identityKey === n && this.refBindings.delete(e)
+    }
+    clearEphemeralReceipts() {
+      for (let [e, t] of(this.pendingReceipts = this.pendingReceipts.filter(e => "durable" === e.kind), this.trackedElements)) "ephemeral" === t.identity.kind && (this.observer?.unobserve(e), this.trackedElements.delete(e));
+      for (let [e, t] of this.refBindings) "ephemeral" === t.identity.kind && this.refBindings.delete(e)
+    }
+    register(e, t) {
+      this.trackedElements.set(e, {
+        element: e,
+        identity: t,
+        activeSinceMs: null,
+        activeSinceWallMs: null
+      }), this.isTrackable() && this.getObserver()?.observe(e)
+    }
+    unregister(e) {
+      let t = this.trackedElements.get(e);
+      null != t && (this.finishVisibility(t, this.scheduler.monotonicNow()), this.observer?.unobserve(e), this.trackedElements.delete(e))
+    }
+    isTrackable() {
+      return this.started && !this.suspended && "u" > typeof document && "hidden" !== document.visibilityState
+    }
+    getObserver() {
+      return !this.isTrackable() || "u" < typeof IntersectionObserver ? null : (null == this.observer && (this.observer = new IntersectionObserver(this.handleIntersections, {
+        root: this.root,
+        rootMargin: `-${z.HATCH_STICKY_HEADER_HEIGHT}px 0px 0px 0px`,
+        threshold: nj
+      })), this.observer)
+    }
+    rebuildObserver() {
+      this.pauseAll(this.scheduler.monotonicNow()), this.observer?.disconnect(), this.observer = null;
+      let e = this.getObserver();
+      if (null != e)
+        for (let t of this.trackedElements.keys()) e.observe(t)
+    }
+    handleIntersections;
+    finishVisibility(e, t) {
+      if (null == e.activeSinceMs || null == e.activeSinceWallMs) return;
+      let n = Math.max(0, t - e.activeSinceMs),
+        r = e.activeSinceWallMs;
+      e.activeSinceMs = null, e.activeSinceWallMs = null, n >= 1e3 && this.queueTrackedTime(e.identity, n, r)
+    }
+    queueTrackedTime(e, t, n) {
+      let r = Math.round(t),
+        i = {
+          ...e,
+          timeSpentMs: r,
+          seenAtMs: Math.max(1, Math.round(n))
+        };
+      this.mergePendingReceipt(i), "durable" === e.kind && (!this.automaticFlushPaused && this.durablePendingCount() >= 100 ? this.startFlush() : this.scheduleFlush(2e3))
+    }
+    mergePendingReceipt(e) {
+      let t = nM(e),
+        n = this.pendingReceipts.find(e => nM(e) === t);
+      null == n ? this.pendingReceipts.push(e) : (n.timeSpentMs = Math.min(Number.MAX_SAFE_INTEGER, n.timeSpentMs + e.timeSpentMs), n.seenAtMs = Math.max(n.seenAtMs, e.seenAtMs))
+    }
+    pauseAll(e) {
+      for (let t of this.trackedElements.values()) this.finishVisibility(t, e)
+    }
+    pauseAllAndFlush() {
+      this.pauseAll(this.scheduler.monotonicNow()), this.flush()
+    }
+    startFlush() {
+      if (this.clearFlushTimer(), null != this.flushPromise) return this.flushPromise;
+      if (!this.hasDurablePending()) return Promise.resolve();
+      let e = this.drainPending();
+      return this.flushPromise = e, e.finally(() => {
+        this.flushPromise === e && (this.flushPromise = null)
+      }), e
+    }
+    async drainPending() {
+      for (; this.hasDurablePending();) {
+        let e = this.pendingReceipts.filter(e => "durable" === e.kind).slice(0, 200),
+          t = new Set(e);
+        this.pendingReceipts = this.pendingReceipts.filter(e => !t.has(e));
+        try {
+          await this.sendReceipts({
+            views: e
+          })
+        } catch (n) {
+          this.onFlushError(n), this.automaticFlushPaused = !0, this.clearFlushTimer();
+          let t = this.pendingReceipts;
+          for (let n of (this.pendingReceipts = [], [...e, ...t])) this.mergePendingReceipt({
+            ...n
+          });
+          return
+        }
+        this.automaticFlushPaused = !1
+      }
+    }
+    durablePendingCount() {
+      let e = 0;
+      for (let t of this.pendingReceipts) "durable" === t.kind && (e += 1);
+      return e
+    }
+    hasDurablePending() {
+      for (let e of this.pendingReceipts)
+        if ("durable" === e.kind) return !0;
+      return !1
+    }
+    scheduleFlush(e) {
+      this.started && !this.automaticFlushPaused && this.hasDurablePending() && (this.clearFlushTimer(), this.flushTimer = setTimeout(() => {
+        this.flushTimer = null, this.automaticFlushPaused || this.startFlush()
+      }, e))
+    }
+    clearFlushTimer() {
+      null != this.flushTimer && (clearTimeout(this.flushTimer), this.flushTimer = null)
+    }
+    handleVisibilityChange;
+    handlePageHide;
+    handlePageShow
+  }
+  async function nL(e, t) {
+    0 !== e.views.length && await t("feed.units.seen", {
+      views: e.views.map(e => ({
+        unit_id: e.unitId,
+        timespent_ms: e.timeSpentMs,
+        seen_at_ms: e.seenAtMs
+      }))
+    })
+  }
+  var nU = e.i(308120),
+    nH = e.i(767408),
+    nP = e.i(207274);
+  let nO = (0, _.createClientLogger)("HatchInfiniteFeed");
+  async function nB(e, t) {
+    if (t.aborted) throw (0, nP.createGatewayAbortError)();
+    let n = AbortSignal.timeout(e);
+    await new Promise((e, r) => {
+      let i = () => {
+          t.removeEventListener("abort", l), n.removeEventListener("abort", a)
+        },
+        l = () => {
+          i(), r((0, nP.createGatewayAbortError)())
+        },
+        a = () => {
+          i(), e()
+        };
+      t.addEventListener("abort", l, {
+        once: !0
+      }), n.addEventListener("abort", a, {
+        once: !0
+      }), t.aborted && l()
+    })
+  }
+  let nK = (0, _.createClientLogger)("HatchFeedRoute");
+
+  function nz() {
+    let e, n, i, a, s, o = (0, r.c)(6);
+    o[0] === Symbol.for("react.memo_cache_sentinel") ? (e = {
+      metadata: {
+        surface: "feed",
+        screen: "feed_main"
+      }
+    }, o[0] = e) : e = o[0], (0, l.useTimeSpent)(k.HatchTimeSpentEvent.FEED_PAGE, "feed_page", e), o[1] === Symbol.for("react.memo_cache_sentinel") ? (n = {
+      eventName: E.HatchImpressionEvent.FEED_IMPRESSION,
+      actionTarget: "feed_page",
+      metadata: {
+        surface: "feed",
+        screen: "feed_main"
+      }
+    }, i = {
+      threshold: "50%"
+    }, o[1] = n, o[2] = i) : (n = o[1], i = o[2]);
+    let {
+      ref: u
+    } = (0, l.useTrackedImpressionRef)(n, i);
+    return o[3] === Symbol.for("react.memo_cache_sentinel") ? (a = (0, t.jsx)(nV, {}), o[3] = a) : a = o[3], o[4] !== u ? (s = (0, t.jsx)(h.EctoErrorBoundary, {
+      surface: et.HATCH_SENTRY_SURFACES.FEED,
+      fallback: nG,
+      children: (0, t.jsx)("div", {
+        ref: u,
+        className: "relative flex min-h-0 flex-1 flex-col overflow-hidden",
+        children: a
+      })
+    }), o[4] = u, o[5] = s) : s = o[5], s
+  }
+
+  function nG(e) {
+    let {
+      error: n,
+      reset: r
+    } = e;
+    return (0, t.jsx)(K.HatchContentErrorFallback, {
+      error: n,
+      onRetry: r
+    })
+  }
+
+  function nV() {
+    let e, n = (0, r.c)(2),
+      l = function() {
+        let e, t, n, l, a, s, o = (0, r.c)(9),
+          [u, c] = (0, i.useState)(null);
+        o[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, Z.getFeedListGatewayQuery)(null), o[0] = e) : e = o[0];
+        let d = e;
+        o[1] === Symbol.for("react.memo_cache_sentinel") ? (t = (0, Z.getFeedPromptGatewayQuery)(), o[1] = t) : t = o[1];
+        let h = t;
+        o[2] === Symbol.for("react.memo_cache_sentinel") ? (n = {
+          meta: {
+            sentrySurface: et.HATCH_SENTRY_SURFACES.FEED
+          },
+          retry: !1
+        }, o[2] = n) : n = o[2];
+        let f = (0, el.useGatewayQuery)(d, n);
+        o[3] === Symbol.for("react.memo_cache_sentinel") ? (l = {
+          meta: {
+            sentrySurface: et.HATCH_SENTRY_SURFACES.FEED
+          },
+          retry: !1
+        }, o[3] = l) : l = o[3];
+        let m = (0, el.useGatewayQuery)(h, l),
+          p = f.query?.descriptor.targetKey ?? null,
+          b = null != p && p !== es.HATCH_ACTIVE_GATEWAY_TARGET_KEY_PLACEHOLDER,
+          g = b && (u === p || "pending" !== f.status && "pending" !== m.status);
+        return o[4] !== u || o[5] !== g || o[6] !== p ? (a = () => {
+          g && null != p && u !== p && c(p)
+        }, s = [u, g, p], o[4] = u, o[5] = g, o[6] = p, o[7] = a, o[8] = s) : (a = o[7], s = o[8]), (0, i.useEffect)(a, s), b ? g : null != u
+      }();
+    return n[0] !== l ? (e = l ? (0, t.jsx)(nQ, {}) : (0, t.jsx)(Q.HatchFeedSkeleton, {}), n[0] = l, n[1] = e) : e = n[1], e
+  }
+
+  function nQ() {
+    var e, a;
+    let o, d, _, k, S, C, I, T, w, N, R, j, F, A, {
+        navigate: M
+      } = (0, W.useShellNavigate)(),
+      {
+        setQuotedMessage: D
+      } = (0, B.useHatchChat)(),
+      L = (0, m.useIsMobileBreakpoint)(),
+      H = (0, p.useIsNarrowViewport)(),
+      P = (0, V.useSidePanelChatCollapsed)(),
+      K = (0, l.useInteractionLogger)(),
+      es = (0, i.useRef)(new Set),
+      {
+        isReady: ec
+      } = (0, en.useHatchRpc)(),
+      ed = ((k = (0, r.c)(4))[0] === Symbol.for("react.memo_cache_sentinel") ? (o = (0, Z.getFeedPromptGatewayQuery)(), k[0] = o) : o = k[0], S = o, C = (void 0) ?? !0, k[1] === Symbol.for("react.memo_cache_sentinel") ? (d = {
+        sentrySurface: et.HATCH_SENTRY_SURFACES.FEED
+      }, k[1] = d) : d = k[1], k[2] !== C ? (_ = {
+        enabled: C,
+        meta: d
+      }, k[2] = C, k[3] = _) : _ = k[3], (0, el.useGatewayQuery)(S, _)),
+      ef = function() {
+        let e, t, n, i, l, a, s = (0, r.c)(11),
+          {
+            gatewayUrl: o,
+            sendRequest: u,
+            isReady: c,
+            ensureLiveConnection: d
+          } = (0, en.useHatchRpc)(),
+          h = (0, ee.useQueryClient)(),
+          f = (l = (0, r.c)(2), a = (0, ee.useQueryClient)(), l[0] !== a ? (i = () => {
+            Z.feedPromptQuery.invalidateAll(a)
+          }, l[0] = a, l[1] = i) : i = l[1], i);
+        return s[0] !== d || s[1] !== c || s[2] !== u ? (e = async e => (c || await d(), (0, Z.upsertFeedPrompt)(e, u)), s[0] = d, s[1] = c, s[2] = u, s[3] = e) : e = s[3], s[4] !== o || s[5] !== h ? (t = e => {
+          var t;
+          return t = o ?? "", void(null != e && 0 !== t.length && h.setQueryData(ei.feedQueryKeys.prompts(t), {
+            prompt: e
+          }))
+        }, s[4] = o, s[5] = h, s[6] = t) : t = s[6], s[7] !== f || s[8] !== e || s[9] !== t ? (n = {
+          mutationFn: e,
+          onSuccess: t,
+          onSettled: f
+        }, s[7] = f, s[8] = e, s[9] = t, s[10] = n) : n = s[10], (0, J.useMutation)(n)
+      }(),
+      em = function() {
+        let e, t, n, i, l, a = (0, r.c)(13),
+          {
+            sendRequest: s,
+            isReady: o,
+            ensureLiveConnection: u
+          } = (0, en.useHatchRpc)(),
+          c = (0, ee.useQueryClient)();
+        return a[0] !== u || a[1] !== o || a[2] !== s ? (e = async e => {
+          o || await u();
+          let t = await (0, Z.setFeedUnitReaction)(e.unitId, e.reaction, s);
+          if (null == t) throw Error("Feed reaction response did not include a valid unit");
+          return t
+        }, a[0] = u, a[1] = o, a[2] = s, a[3] = e) : e = a[3], a[4] !== c ? (t = async e => {
+          let {
+            unitId: t,
+            reaction: n
+          } = e, r = eg(c);
+          return await c.cancelQueries({
+            queryKey: ei.feedQueryKeys.all,
+            predicate: ey
+          }), {
+            snapshots: eb(c, t, e => ({
+              ...e,
+              reaction: n
+            })),
+            pendingListFetches: r
+          }
+        }, n = (e, t, n) => {
+          let r = () => {
+            eb(c, e.unitId, () => e)
+          };
+          for (let e of (r(), n.pendingListFetches)) e.then(r, r)
+        }, i = (e, t, n) => {
+          ! function(e, t, n) {
+            if (null != t) {
+              for (let {
+                  key: r,
+                  data: i
+                }
+                of t.lists) {
+                let t = function(e, t) {
+                  for (let n of e.pages)
+                    for (let e of n.days)
+                      for (let n of e.editions) {
+                        let e = n.units.find(e => e.unitId === t);
+                        if (null != e) return e
+                      }
+                  return null
+                }(i, n);
+                null != t && e.setQueryData(r, e => null == e ? e : {
+                  ...e,
+                  pages: e.pages.map(e => (0, Z.mapUnitInFeedList)(e, n, e => ({
+                    ...e,
+                    reaction: t.reaction
+                  })))
+                })
+              }
+              for (let {
+                  key: n,
+                  data: r
+                }
+                of t.units) e.setQueryData(n, e => null == e ? e : {
+                ...e,
+                reaction: r.reaction
+              })
+            }
+          }(c, n?.snapshots, t.unitId)
+        }, a[4] = c, a[5] = t, a[6] = n, a[7] = i) : (t = a[5], n = a[6], i = a[7]), a[8] !== e || a[9] !== t || a[10] !== n || a[11] !== i ? (l = {
+          mutationFn: e,
+          onMutate: t,
+          onSuccess: n,
+          onError: i
+        }, a[8] = e, a[9] = t, a[10] = n, a[11] = i, a[12] = l) : l = a[12], (0, J.useMutation)(l)
+      }(),
+      ek = function() {
+        let e, t = (0, r.c)(4),
+          {
+            sendRequest: n,
+            isReady: i,
+            ensureLiveConnection: l
+          } = (0, en.useHatchRpc)();
+        return t[0] !== l || t[1] !== i || t[2] !== n ? (e = {
+          mutationFn: async e => (i || await l(), (0, Z.regenerateFeed)(e.promptId, n)),
+          onSuccess: eE
+        }, t[0] = l, t[1] = i, t[2] = n, t[3] = e) : e = t[3], (0, J.useMutation)(e)
+      }(),
+      ev = function() {
+        let e, t, n, i, l, a = (0, r.c)(13),
+          {
+            sendRequest: s,
+            isReady: o,
+            ensureLiveConnection: u
+          } = (0, en.useHatchRpc)(),
+          c = (0, ee.useQueryClient)();
+        return a[0] !== u || a[1] !== o || a[2] !== s ? (e = async e => (o || await u(), (0, Z.deleteFeedUnit)(e.unitId, s)), a[0] = u, a[1] = o, a[2] = s, a[3] = e) : e = a[3], a[4] !== c ? (t = e => {
+          let {
+            unitId: t
+          } = e, n = eg(c), r = [];
+          for (let [e, n] of c.getQueriesData({
+              queryKey: ei.feedQueryKeys.all,
+              predicate: ex
+            })) null != n && Array.isArray(n.pages) && (r.push({
+            key: e,
+            data: n
+          }), c.setQueryData(e, {
+            ...n,
+            pages: n.pages.map(e => (0, Z.removeUnitFromFeedList)(e, t))
+          }));
+          return {
+            pendingListFetches: n,
+            snapshots: r
+          }
+        }, n = (e, t, n) => {
+          let {
+            unitId: r
+          } = t, i = () => {
+            c.setQueriesData({
+              queryKey: ei.feedQueryKeys.all,
+              predicate: e => ep(e.queryKey, "infiniteList")
+            }, e => null == e ? e : {
+              ...e,
+              pages: e.pages.map(e => (0, Z.removeUnitFromFeedList)(e, r))
+            }), c.removeQueries({
+              queryKey: ei.feedQueryKeys.all,
+              predicate: e => ep(e.queryKey, "unit") && e.queryKey[3] === r
+            })
+          };
+          for (let e of (i(), n.pendingListFetches)) e.then(i, i)
+        }, i = (e, t, n) => {
+          var r = n?.snapshots;
+          if (null != r)
+            for (let {
+                key: e,
+                data: t
+              }
+              of r) c.setQueryData(e, t);
+          c.invalidateQueries({
+            queryKey: ei.feedQueryKeys.all,
+            predicate: e_
+          })
+        }, a[4] = c, a[5] = t, a[6] = n, a[7] = i) : (t = a[5], n = a[6], i = a[7]), a[8] !== e || a[9] !== t || a[10] !== n || a[11] !== i ? (l = {
+          mutationFn: e,
+          onMutate: t,
+          onSuccess: n,
+          onError: i
+        }, a[8] = e, a[9] = t, a[10] = n, a[11] = i, a[12] = l) : l = a[12], (0, J.useMutation)(l)
+      }(),
+      [eS, eC] = (0, i.useState)(null),
+      eI = function(e) {
+        let t, n, i, l, a, s, o, u, c, d, h, f, m, p = (0, r.c)(41),
+          {
+            gatewayUrl: b,
+            isReady: g
+          } = (0, en.useHatchRpc)(),
+          y = (0, ea.useGatewayQueryContext)(),
+          _ = (0, ee.useQueryClient)(),
+          x = b ?? "";
+        p[0] !== g || p[1] !== x ? (t = x.length > 0 && (0, er.isMethodReadyForTransport)({
+          method: "feed.list",
+          gatewayUrl: x,
+          isWsReady: g
+        }), p[0] = g, p[1] = x, p[2] = t) : t = p[2];
+        let E = t;
+        if (p[3] !== e || p[4] !== _ || p[5] !== x) {
+          let t = ei.feedQueryKeys.list(x, e);
+          n = _.getQueryData(t), i = _.getQueryState(t)?.dataUpdatedAt, p[3] = e, p[4] = _, p[5] = x, p[6] = n, p[7] = i
+        } else n = p[6], i = p[7];
+        let k = i;
+        p[8] !== y || p[9] !== e || p[10] !== x ? (l = Z.feedListInfiniteQuery.infiniteQueryOptions({
+          gatewayUrl: x,
+          promptId: e
+        }, y), p[8] = y, p[9] = e, p[10] = x, p[11] = l) : l = p[11], p[12] !== n ? (a = null == n ? void 0 : {
+          pages: [n],
+          pageParams: [null]
+        }, p[12] = n, p[13] = a) : a = p[13], p[14] === Symbol.for("react.memo_cache_sentinel") ? (s = {
+          sentrySurface: et.HATCH_SENTRY_SURFACES.FEED
+        }, p[14] = s) : s = p[14], p[15] !== E || p[16] !== k || p[17] !== l || p[18] !== a ? (o = {
+          ...l,
+          enabled: E,
+          initialData: a,
+          initialDataUpdatedAt: k,
+          meta: s
+        }, p[15] = E, p[16] = k, p[17] = l, p[18] = a, p[19] = o) : o = p[19];
+        let v = (0, X.useInfiniteQuery)(o);
+        p[20] !== v.data?.pages ? (u = v.data?.pages ?? [], p[20] = v.data?.pages, p[21] = u) : u = p[21], p[22] !== u ? (c = (0, Z.mergeFeedListPages)(u), p[22] = u, p[23] = c) : c = p[23];
+        let S = c;
+        p[24] !== e || p[25] !== _ || p[26] !== x ? (d = t => {
+          if (null != e || 0 === x.length) return;
+          let n = ei.feedQueryKeys.infiniteList(x, t);
+          if (null != _.getQueryData(n)) return;
+          let r = _.getQueryData(ei.feedQueryKeys.infiniteList(x, null));
+          null == r || 0 === r.pages.length || r.pages.some(e => e.promptId !== t) || _.setQueryData(n, r)
+        }, p[24] = e, p[25] = _, p[26] = x, p[27] = d) : d = p[27];
+        let C = d,
+          I = null == v.data ? eo : S,
+          T = v.hasNextPage ?? !1;
+        return p[28] !== v ? (h = async () => {
+          let e = (v.data?.pages ?? []).reduce(eh, 0),
+            t = await v.fetchNextPage(),
+            n = (t.data?.pages ?? []).reduce(eu, 0);
+          return {
+            isError: t.isFetchNextPageError,
+            hasNextPage: t.hasNextPage ?? !1,
+            unitsAdded: Math.max(0, n - e)
+          }
+        }, f = () => {
+          v.refetch()
+        }, p[28] = v, p[29] = h, p[30] = f) : (h = p[29], f = p[30]), p[31] !== v.isError || p[32] !== v.isFetchNextPageError || p[33] !== v.isFetchingNextPage || p[34] !== v.isPending || p[35] !== C || p[36] !== T || p[37] !== h || p[38] !== f || p[39] !== I ? (m = {
+          data: I,
+          isPending: v.isPending,
+          isError: v.isError,
+          hasNextPage: T,
+          isFetchingNextPage: v.isFetchingNextPage,
+          isFetchNextPageError: v.isFetchNextPageError,
+          fetchNextPage: h,
+          refetch: f,
+          seedResolvedPromptCache: C
+        }, p[31] = v.isError, p[32] = v.isFetchNextPageError, p[33] = v.isFetchingNextPage, p[34] = v.isPending, p[35] = C, p[36] = T, p[37] = h, p[38] = f, p[39] = I, p[40] = m) : m = p[40], m
+      }(eS),
+      eT = eI.seedResolvedPromptCache,
+      ew = eI.data,
+      eN = ed.data?.prompt ?? null,
+      eF = null != eN,
+      eA = ew.promptId,
+      eM = null != eA && (null == ed.data || eN?.promptId === eA) ? eA : eI.isPending || null == ed.data ? null : eN?.promptId ?? null;
+    (0, i.useEffect)(() => {
+      null != eS || null != eM && (eT(eM), eC(eM))
+    }, [eS, eM, eT]), (0, i.useEffect)(() => {
+      null != eS && null != ed.data && ed.data.prompt?.promptId !== eS && eC(null)
+    }, [eS, ed.data]);
+    let eD = null != eS && (null == ed.data || eN?.promptId === eS) ? eS : eM,
+      eL = eA === eD,
+      eU = (0, i.useMemo)(() => eL ? ew : {
+        ...ew,
+        days: [],
+        pagination: {
+          nextCursor: null,
+          prevCursor: null
+        }
+      }, [eL, ew]),
+      eP = (0, i.useMemo)(() => eU.days.some(e => e.editions.some(e => e.units.length > 0)), [eU.days]),
+      eO = null != eN && eN.promptId === eD ? eN : null,
+      eB = null != eO && eO.fullPrompt.trim().length > 0,
+      eK = null != eO && (e = eO).createdAtMs > 0 && e.updatedAtMs === e.createdAtMs && "Make me a feed about my interests. Keep the tone clear and direct. Ensure it is quick to skim. Try to avoid clickbait." === e.fullPrompt.trim(),
+      ez = eB && !eK ? eO : null,
+      eG = (0, Y.useShellPostContentUnlocked)(),
+      eV = (0, q.useHatchFeedInfiniteScrollEnabled)(),
+      eQ = eV && eG && null != eD,
+      eW = !eV && eG && null != eD,
+      e$ = eG ? eD : null,
+      eY = function(e, t) {
+        let {
+          sendRequest: n,
+          isReady: r,
+          ensureLiveConnection: l
+        } = (0, en.useHatchRpc)(), [a, s] = (0, i.useState)([]), [o, u] = (0, i.useState)(!1), [c, d] = (0, i.useState)(!1), [h, f] = (0, i.useState)(null), m = (0, i.useRef)(e), p = (0, i.useRef)(new Set), b = (0, i.useRef)(null), g = (0, i.useRef)(!1), y = (0, i.useRef)(!1), _ = (0, i.useRef)(0), x = (0, i.useRef)(0), E = (0, i.useRef)(!0), k = (0, i.useRef)(0), v = (0, i.useRef)(0), S = (0, i.useRef)(t?.onBatchLoaded), C = (0, i.useRef)(t?.onBatchDrained), I = (0, i.useRef)(t?.onBatchFailed);
+        (0, i.useEffect)(() => {
+          S.current = t?.onBatchLoaded, C.current = t?.onBatchDrained, I.current = t?.onBatchFailed
+        }, [t?.onBatchDrained, t?.onBatchFailed, t?.onBatchLoaded]);
+        let T = (0, i.useCallback)(() => {
+            x.current += 1;
+            let e = b.current;
+            b.current = null, g.current = !1, e?.abort(), E.current && u(!1)
+          }, []),
+          w = (0, i.useCallback)(() => {
+            (null != b.current || g.current) && T()
+          }, [T]),
+          N = (0, i.useCallback)(() => {
+            T(), k.current = 0, v.current = 0, p.current.clear(), y.current = !1, s([]), d(!1), f(null)
+          }, [T]);
+        (0, i.useEffect)(() => (E.current = !0, g.current || u(!1), () => {
+          E.current = !1, x.current += 1, b.current?.abort(), b.current = null, g.current = !1
+        }), []), (0, i.useEffect)(() => {
+          m.current !== e && (N(), m.current = e)
+        }, [N, e]);
+        let R = (0, i.useCallback)(async () => {
+            let t = e?.trim() ?? "";
+            if (0 === t.length || g.current) return;
+            if (y.current) {
+              if (Date.now() - _.current < 6e4) return;
+              y.current = !1, d(!1), f(null), v.current = 0, k.current = 0
+            }
+            let i = new AbortController,
+              a = x.current;
+            b.current = i, g.current = !0, u(!0), f(null);
+            let o = 0,
+              c = !1,
+              h = Date.now(),
+              m = p.current.size,
+              T = e => {
+                0 === o || c || (c = !0, S.current?.({
+                  unitsAdded: o,
+                  durationMs: Date.now() - h,
+                  itemsBefore: m,
+                  outcome: e
+                }))
+              },
+              w = !1,
+              N = e => {
+                w || (w = !0, I.current?.({
+                  unitsAdded: o,
+                  durationMs: Date.now() - h,
+                  itemsBefore: m,
+                  failureKind: e
+                }))
+              },
+              R = !1,
+              j = !1;
+            try {
+              for (; !i.signal.aborted && x.current === a;) {
+                var F;
+                let e = !1,
+                  u = 0,
+                  c = !1,
+                  b = null,
+                  g = null;
+                try {
+                  if (r || await l(), i.signal.aborted || x.current !== a) return;
+                  j = !1, await n("feed.infinite", {
+                    prompt_id: t,
+                    direct: !0
+                  }, {
+                    signal: i.signal,
+                    onStreamRecord: n => {
+                      if (i.signal.aborted || x.current !== a) return;
+                      let r = function(e, t, n) {
+                        let r = nw(e.unit_key),
+                          i = nN(e.unit);
+                        if (null != r && null != i) {
+                          let e, l, a = (l = (0, Z.normalizeFeedUnit)({
+                            ...i,
+                            unit_id: r,
+                            run_id: (e = r.lastIndexOf(":")) > 0 ? r.slice(0, e) : r,
+                            edition_kind: "fill",
+                            edition_local_date: "infinite",
+                            edition_generated_at_ms: 0,
+                            position: n,
+                            attachment: function(e) {
+                              let t = nN(e);
+                              switch (t?.kind) {
+                                case "hotlinked_hero_image":
+                                  return {
+                                    kind: "hero_image", hero_image_url: t.image_url
+                                  };
+                                case "carousel":
+                                  return {
+                                    kind: "carousel", image_urls: t.image_urls
+                                  };
+                                case "widget":
+                                  return {
+                                    kind: "widget", widget_html: t.widget_html
+                                  };
+                                case "social_embed":
+                                  return {
+                                    kind: "social_embed", social_embed_url: t.url
+                                  };
+                                default:
+                                  return {
+                                    kind: "none"
+                                  }
+                              }
+                            }(i.attachment),
+                            is_reflective: !1,
+                            reaction: null,
+                            share_count: 0,
+                            discuss_count: 0,
+                            origin: "fill",
+                            prompt_id: t,
+                            seen_at_ms: null,
+                            created_at_ms: 0,
+                            updated_at_ms: 0
+                          }), null == l ? null : {
+                            ...l,
+                            editionLocalDate: ""
+                          });
+                          return null == a ? null : {
+                            kind: "unit",
+                            item: {
+                              itemKey: r,
+                              ephemeralKey: r,
+                              unit: a
+                            }
+                          }
+                        }
+                        return !0 === e.busy ? {
+                          kind: "busy"
+                        } : !0 === e.done ? {
+                          kind: "done",
+                          units: "number" == typeof e.units && Number.isSafeInteger(e.units) && e.units >= 0 ? e.units : 0,
+                          reason: nw(e.reason)
+                        } : null
+                      }(n, t, p.current.size + 1);
+                      if (r?.kind === "unit") {
+                        if (p.current.has(r.item.itemKey)) return;
+                        p.current.add(r.item.itemKey), u += 1, o += 1, k.current = 0, s(e => [...e, r.item])
+                      } else r?.kind === "busy" ? e = !0 : r?.kind === "done" && (c = !0, b = r.reason, k.current = 0)
+                    }
+                  })
+                } catch (e) {
+                  if ((0, nU.isHatchGatewayDisconnectError)(e) && (j = !0), (0, nP.isGatewayAbortError)(e) || i.signal.aborted) return;
+                  g = e instanceof Error ? e : Error(null == e ? "Infinite Feed stream failed" : String(e))
+                }
+                if (i.signal.aborted || x.current !== a) return;
+                if (e) {
+                  if (k.current >= 3) {
+                    let e = Error("Infinite Feed batch remained busy after bounded retries");
+                    y.current = !0, _.current = Date.now(), d(!0), f(e), nO.error({
+                      error: e,
+                      promptId: t,
+                      reason: "busy",
+                      tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.FEED, {
+                        failure_reason: "busy"
+                      })
+                    }, "Infinite Feed retries exhausted"), N("busy"), T("failed");
+                    return
+                  }
+                  k.current += 1, await nB(1500, i.signal);
+                  continue
+                }
+                if (c) {
+                  if (R = !0, v.current = 0, 0 === u) {
+                    y.current = !0, _.current = Date.now(), d(!0), f(null);
+                    let e = (F = b, null == F ? "unspecified" : "exchange_drained" === F ? "exchange_drained" : "other");
+                    nO.retainForBugReport("info", "Infinite Feed drained"), C.current?.({
+                      unitsAdded: o,
+                      durationMs: Date.now() - h,
+                      itemsBefore: m,
+                      completeReason: e,
+                      reasonLength: (0, nH.textLengthForTelemetry)(b)
+                    })
+                  }
+                  T("complete");
+                  return
+                }
+                if (v.current < 2) {
+                  v.current += 1, await nB(2e3, i.signal);
+                  continue
+                }
+                let E = g ?? Error("Infinite Feed stream ended without a terminal record");
+                y.current = !0, _.current = Date.now(), d(!0), f(E);
+                let S = (0, nU.isHatchGatewayDisconnectError)(E);
+                (S ? nO.warn : nO.error)({
+                  error: E,
+                  promptId: t,
+                  tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.FEED)
+                }, "Infinite Feed retries exhausted"), N(S ? "gateway_disconnect" : "stream_error"), T("failed");
+                return
+              }
+            } catch (e) {
+              if (!(0, nP.isGatewayAbortError)(e) && !i.signal.aborted) throw e
+            } finally {
+              let e = i.signal.aborted || x.current !== a,
+                t = !R && (j || !e);
+              t && N(j ? "gateway_disconnect" : "stream_error"), T(t ? "failed" : "paused"), b.current === i && (b.current = null, g.current = !1, E.current && x.current === a && u(!1))
+            }
+          }, [l, r, e, n]),
+          j = (0, i.useCallback)(async () => {
+            k.current = 0, v.current = 0, y.current = !1, d(!1), f(null), await R()
+          }, [R]),
+          F = (0, i.useCallback)((e, t) => {
+            s(n => n.map(n => n.ephemeralKey === e ? {
+              ...n,
+              ephemeralKey: null,
+              unit: t
+            } : n))
+          }, []),
+          A = (0, i.useCallback)(e => {
+            p.current.delete(e), s(t => t.filter(t => t.itemKey !== e))
+          }, []),
+          M = (0, i.useCallback)((e, t) => {
+            s(n => n.map(n => n.itemKey === e ? {
+              ...n,
+              unit: t
+            } : n))
+          }, []),
+          D = m.current === e;
+        return {
+          items: D ? a : [],
+          isLoading: !!D && o,
+          isExhausted: !!D && c,
+          error: D ? h : null,
+          loadNextBatch: R,
+          pause: w,
+          refresh: N,
+          retry: j,
+          removeItem: A,
+          updateItemUnit: M,
+          replaceMaterializedUnit: F
+        }
+      }(eV ? eD : null, (0, i.useMemo)(() => ({
+        onBatchLoaded: ({
+          unitsAdded: e,
+          durationMs: t,
+          itemsBefore: n,
+          outcome: r
+        }) => {
+          K({
+            actionTarget: "feed_infinite_load_more",
+            actionType: "scroll",
+            eventName: x.HatchClickEvent.FEED_INFINITE_LOAD_MORE,
+            metadata: {
+              surface: "feed",
+              subsurface: "infinite_feed",
+              screen: "feed_main",
+              units_added: e,
+              duration_ms: t,
+              items_before: n,
+              outcome: r
+            }
+          })
+        },
+        onBatchDrained: ({
+          unitsAdded: e,
+          durationMs: t,
+          itemsBefore: n,
+          completeReason: r,
+          reasonLength: i
+        }) => {
+          K({
+            actionTarget: "feed_infinite_drain",
+            actionType: "scroll",
+            eventName: x.HatchClickEvent.FEED_INFINITE_DRAIN,
+            metadata: {
+              surface: "feed",
+              subsurface: "infinite_feed",
+              screen: "feed_main",
+              units_added: e,
+              duration_ms: t,
+              items_before: n,
+              complete_reason: r,
+              reason_length: i
+            }
+          })
+        },
+        onBatchFailed: ({
+          unitsAdded: e,
+          durationMs: t,
+          itemsBefore: n,
+          failureKind: r
+        }) => {
+          K({
+            actionTarget: "feed_infinite_failure",
+            actionType: "scroll",
+            eventName: x.HatchClickEvent.FEED_INFINITE_FAILURE,
+            metadata: {
+              surface: "feed",
+              subsurface: "infinite_feed",
+              screen: "feed_main",
+              units_added: e,
+              duration_ms: t,
+              items_before: n,
+              failure_kind: r
+            }
+          })
+        }
+      }), [K])),
+      eq = function({
+        promptId: e,
+        sendReceipts: t,
+        onFlushError: n
+      }) {
+        let {
+          sendRequest: r,
+          isReady: l
+        } = (0, en.useHatchRpc)(), a = (0, i.useCallback)(e => nL(e, r), [r]), s = t ?? a, o = (0, i.useRef)(s), u = (0, i.useRef)(n);
+        o.current = s, u.current = n;
+        let [c] = (0, i.useState)(() => new nD(e => o.current(e), e => {
+          null != u.current ? u.current(e) : nF.error({
+            error: e instanceof Error ? e : Error(String(e)),
+            tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.FEED, {
+              operation: "seen_receipt_flush"
+            })
+          }, "Feed seen-receipt flush failed")
+        }));
+        (0, i.useEffect)(() => (c.start(), () => c.stop()), [c]), (0, i.useEffect)(() => {
+          c.setScope(e)
+        }, [e, c]), (0, i.useEffect)(() => {
+          l && c.flush()
+        }, [l, c]);
+        let d = (0, i.useCallback)(e => c.setRoot(e), [c]),
+          h = (0, i.useCallback)((e, t) => c.getUnitRef(e, t), [c]),
+          f = (0, i.useCallback)(() => c.flush(), [c]),
+          m = (0, i.useCallback)((e, t) => c.materializeUnit(e, t), [c]),
+          p = (0, i.useCallback)(e => c.discardEphemeralUnit(e), [c]),
+          b = (0, i.useCallback)(() => c.clearEphemeralReceipts(), [c]);
+        return (0, i.useMemo)(() => ({
+          scrollRootRef: d,
+          getUnitRef: h,
+          materializeUnit: m,
+          discardEphemeralUnit: p,
+          clearEphemeralReceipts: b,
+          flush: f
+        }), [b, p, f, h, m, d])
+      }({
+        promptId: e$
+      }),
+      eZ = eY.pause;
+    (0, i.useEffect)(() => {
+      eQ || eZ()
+    }, [eQ, eZ]);
+    let [eX, eJ] = (0, i.useState)(null), e0 = (0, f.useMergeRefs)(eJ, U, eq.scrollRootRef), e1 = (0, i.useCallback)(async ({
+      fullPrompt: e
+    }) => {
+      let t = await ef.mutateAsync({
+        fullPrompt: e
+      });
+      if (null == t) throw Error("Feed prompt save returned no prompt");
+      return eq.flush(), eq.clearEphemeralReceipts(), eY.refresh(), eC(t.promptId), {
+        promptId: t.promptId,
+        fullPrompt: t.fullPrompt
+      }
+    }, [eY, ef, eq]), [e2, e3] = (0, i.useState)(null), e4 = (a = {
+      enabled: eG,
+      watchUntilMs: e2
+    }, (R = (0, r.c)(8))[0] !== eD ? (I = (0, Z.getFeedStatusGatewayQuery)(eD), R[0] = eD, R[1] = I) : I = R[1], j = I, F = a?.watchUntilMs ?? null, A = (a?.enabled ?? !0) && null != eD && eD.length > 0, R[2] === Symbol.for("react.memo_cache_sentinel") ? (T = {
+      sentrySurface: et.HATCH_SENTRY_SURFACES.FEED
+    }, R[2] = T) : T = R[2], R[3] !== F ? (w = e => !!(e.state.data?.refreshInProgress === !0 || null != F && Date.now() < F) && 2500, R[3] = F, R[4] = w) : w = R[4], R[5] !== A || R[6] !== w ? (N = {
+      enabled: A,
+      meta: T,
+      refetchInterval: w
+    }, R[5] = A, R[6] = w, R[7] = N) : N = R[7], (0, el.useGatewayQuery)(j, N)), e5 = e4.data, e6 = e5?.refreshInProgress === !0;
+    (0, i.useEffect)(() => {
+      if (null == e2) return;
+      if (e6) return void e3(null);
+      let e = setTimeout(() => e3(null), Math.max(0, e2 - Date.now()));
+      return () => clearTimeout(e)
+    }, [e6, e2]);
+    let e8 = ek.isPending || null != e2 || e6,
+      e7 = e4.refetch;
+    (0, i.useEffect)(() => {
+      let e = () => {
+        eG && "visible" === document.visibilityState && null != eD && e7()
+      };
+      return document.addEventListener("visibilitychange", e), () => document.removeEventListener("visibilitychange", e)
+    }, [eD, e7, eG]);
+    let e9 = (0, i.useRef)(ec);
+    (0, i.useEffect)(() => {
+      let e = e9.current;
+      e9.current = ec, eG && ec && !e && null != eD && e7()
+    }, [eD, ec, e7, eG]);
+    let te = (0, i.useMemo)(() => {
+        let e = eV ? Date.now() - 864e5 : 0,
+          t = eU.days.flatMap(e => e.editions),
+          n = t.filter(t => 0 === t.generatedAtMs || t.generatedAtMs >= e).flatMap(e => e.units);
+        if (n.length > 0) return n;
+        let r = null;
+        for (let e of t) 0 !== e.units.length && (null == r || e.generatedAtMs > r.generatedAtMs) && (r = e);
+        if (null == r) return [];
+        let {
+          kind: i,
+          title: l,
+          generatedAtMs: a
+        } = r;
+        return t.filter(e => e.kind === i && e.title === l && e.generatedAtMs === a).flatMap(e => e.units)
+      }, [eU.days, eV]),
+      tt = (0, i.useMemo)(() => new Set(eQ ? eY.items.filter(e => null == e.ephemeralKey).map(e => e.unit.unitId) : []), [eQ, eY.items]),
+      tn = (0, i.useMemo)(() => 0 === tt.size ? te : te.filter(e => !tt.has(e.unitId)), [tt, te]),
+      tr = tn.length > 0,
+      {
+        hasNextPage: ti,
+        isFetchingNextPage: tl,
+        isFetchNextPageError: ta,
+        fetchNextPage: ts,
+        isPending: to,
+        isError: tu,
+        refetch: tc
+      } = eI,
+      td = !eL && eS !== eD,
+      th = eL && ti,
+      tf = eL && tl,
+      tm = eL && ta,
+      tp = to || td,
+      tb = (eP || eY.items.length > 0) && eQ,
+      tg = tr || tb && eY.items.length > 0,
+      ty = tu && !tg && eS === eD,
+      t_ = ed.isPending || tp,
+      tx = ed.isError || ty;
+    (0, $.useReportShellPrimaryContent)("feed", t_ ? null : tx ? "error" : tr ? "content" : "empty");
+    let {
+      ref: tE
+    } = (0, l.useTrackedImpressionRef)({
+      eventName: E.HatchImpressionEvent.FEED_INFINITE_FEED_IMPRESSION,
+      actionTarget: "feed_infinite_feed",
+      metadata: {
+        surface: "feed",
+        subsurface: "infinite_feed",
+        screen: "feed_main"
+      }
+    }, {
+      threshold: "50%"
+    }), tk = (0, i.useMemo)(() => (0, Z.feedFreshestRenderedGeneratedAtMs)(eU), [eU]), tv = (0, i.useRef)(null);
+    (0, i.useEffect)(() => {
+      let e = e5?.freshestGeneratedAtMs;
+      null == e || tp || e <= tk || tv.current !== e && (tv.current = e, tc())
+    }, [e5?.freshestGeneratedAtMs, tp, tk, tc]);
+    let tS = n.fbs._("Couldn't update your reaction right now.", null, {
+        hk: "2rH97f"
+      }),
+      tC = (0, i.useCallback)((e, t) => {
+        let n = (0, y.captureHatchToast)();
+        em.mutate({
+          unitId: e.unitId,
+          reaction: t
+        }, {
+          onError: t => {
+            nK.error({
+              error: t instanceof Error ? t : Error(String(t)),
+              unitId: e.unitId,
+              tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.FEED)
+            }, "Feed reaction failed"), n.error(String(tS))
+          }
+        })
+      }, [tS, em]),
+      tI = n.fbs._("Couldn't delete right now.", null, {
+        hk: "3JjiHM"
+      }),
+      tT = (0, i.useCallback)((e, t) => {
+        let n = (0, y.captureHatchToast)(),
+          r = eY.items.find(t => null == t.ephemeralKey && t.unit.unitId === e.unitId);
+        ev.mutateAsync({
+          unitId: e.unitId
+        }).then(() => {
+          null != r && eY.removeItem(r.itemKey), t?.()
+        }).catch(t => {
+          nK.error({
+            error: t instanceof Error ? t : Error(String(t)),
+            unitId: e.unitId,
+            tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.FEED)
+          }, "Feed unit delete failed"), n.error(String(tI))
+        })
+      }, [ev, eY, tI]),
+      tw = (0, i.useCallback)(e => {
+        ! function({
+          unit: e,
+          isCompressed: t,
+          sidePanelChatCollapsed: n,
+          navigate: r,
+          setQuotedMessage: i
+        }) {
+          i({
+              type: "feed_unit",
+              unitId: e.unitId,
+              text: e.kicker.length > 0 ? e.kicker : e.category,
+              ...null != e.title && e.title.length > 0 ? {
+                title: e.title
+              } : {}
+            }),
+            function({
+              isCompressed: e,
+              sidePanelChatCollapsed: t,
+              navigationPath: n,
+              navigate: r
+            }) {
+              if (e) {
+                (0, ej.markPendingComposerFocus)(), r(n);
+                return
+              }
+              if (t) {
+                (0, ej.markPendingComposerFocus)(), window.dispatchEvent(new Event("hatch-expand-chat"));
+                return
+              }
+              window.dispatchEvent(new Event("hatch-focus-composer"))
+            }({
+              isCompressed: t,
+              sidePanelChatCollapsed: n,
+              navigationPath: "/",
+              navigate: r
+            })
+        }({
+          unit: e,
+          isCompressed: L || H,
+          sidePanelChatCollapsed: P,
+          navigate: M,
+          setQuotedMessage: D
+        })
+      }, [L, H, M, D, P]),
+      tN = (0, i.useCallback)((e, t) => {
+        eq.materializeUnit(e, t.unitId), eY.replaceMaterializedUnit(e, t)
+      }, [eY, eq]),
+      tR = (0, i.useCallback)((e, t) => {
+        let n = e.ephemeralKey;
+        em.mutateAsync({
+          unitId: nR(e),
+          reaction: t
+        }).then(t => {
+          null != t && (null != n ? tN(n, t) : eY.updateItemUnit(e.itemKey, t))
+        }).catch(t => {
+          nK.error({
+            error: t instanceof Error ? t : Error(String(t)),
+            unitKey: nR(e),
+            tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.FEED)
+          }, "Feed infinite unit reaction failed")
+        })
+      }, [eY, em, tN]),
+      tj = n.fbs._("Couldn't start a conversation about this yet.", null, {
+        hk: "1zRYqI"
+      }),
+      tF = n.fbs._("Couldn't start a conversation about this yet.", null, {
+        hk: "1zRYqI"
+      }),
+      tA = (0, i.useCallback)(e => {
+        if (null == e.ephemeralKey) return void tw(e.unit);
+        let t = e.ephemeralKey;
+        if (es.current.has(t)) return;
+        let n = (0, y.captureHatchToast)();
+        es.current.add(t), (async () => {
+          try {
+            let r = await em.mutateAsync({
+              unitId: t,
+              reaction: e.unit.reaction
+            });
+            if (null == r || r.unitId === t) return void n.error(String(tj));
+            tN(t, r), tw(r)
+          } catch (e) {
+            nK.error({
+              error: e instanceof Error ? e : Error(String(e)),
+              unitKey: t,
+              tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.FEED)
+            }, "Feed infinite unit discussion materialization failed"), n.error(String(tF))
+          } finally {
+            es.current.delete(t)
+          }
+        })()
+      }, [tw, em, tN, tj, tF]),
+      tM = (0, i.useCallback)(e => {
+        if (null != e.ephemeralKey) {
+          eq.discardEphemeralUnit(e.ephemeralKey), eY.removeItem(e.itemKey);
+          return
+        }
+        tT(e.unit, () => eY.removeItem(e.itemKey))
+      }, [tT, eY, eq]),
+      tD = n.fbs._("Writing a fresh edition — it will appear here shortly.", null, {
+        hk: "3Me8Kf"
+      }),
+      tL = n.fbs._("Couldn't start a new edition.", null, {
+        hk: "1onAVw"
+      }),
+      tU = (0, i.useCallback)((e, t) => {
+        K({
+          actionTarget: "feed_regenerate",
+          actionType: "click",
+          eventName: x.HatchClickEvent.FEED_REGENERATE_CLICK,
+          metadata: {
+            surface: "feed",
+            subsurface: t,
+            screen: "feed_main"
+          }
+        }), null != e && e !== eS && eC(e);
+        let n = (0, y.captureHatchToast)();
+        ek.mutate({
+          promptId: e
+        }, {
+          onSuccess: e => {
+            e3(Date.now() + 2e4), e.alreadyInProgress || n(String(tD))
+          },
+          onError: e => {
+            nK.error({
+              error: e instanceof Error ? e : Error(String(e)),
+              tags: (0, et.hatchSentryTags)(et.HATCH_SENTRY_SURFACES.FEED)
+            }, "Feed regenerate failed"), n.error(String(tL))
+          }
+        })
+      }, [eS, K, ek, tD, tL]),
+      [tH, tP] = (0, i.useState)(!1),
+      tO = (0, i.useRef)(!1),
+      tB = (0, i.useRef)(null),
+      tK = (0, i.useRef)(0);
+    tK.current = eU.days.reduce((e, t) => e + t.editions.reduce((e, t) => e + t.units.length, 0), 0);
+    let tz = (0, i.useCallback)(e => {
+        tP(e)
+      }, []),
+      tG = (0, b.useOnInView)(tz, {
+        root: eX,
+        rootMargin: "600px"
+      }),
+      tV = (0, i.useCallback)(() => {
+        let e = tK.current,
+          t = Date.now();
+        ts().then(n => {
+          n.isError || K({
+            actionTarget: "feed_pagination_load_more",
+            actionType: "scroll",
+            eventName: x.HatchClickEvent.FEED_PAGINATION_LOAD_MORE,
+            metadata: {
+              surface: "feed",
+              subsurface: "pagination",
+              screen: "feed_main",
+              units_added: n.unitsAdded,
+              duration_ms: Date.now() - t,
+              items_before: e,
+              has_more: n.hasNextPage
+            }
+          })
+        })
+      }, [ts, K]),
+      tQ = (0, i.useCallback)(() => {
+        K({
+          actionTarget: "feed_pagination_retry",
+          actionType: "click",
+          eventName: x.HatchClickEvent.FEED_PAGINATION_RETRY_CLICK,
+          metadata: {
+            surface: "feed",
+            subsurface: "pagination",
+            screen: "feed_main"
+          }
+        }), tB.current = null, tV()
+      }, [tV, K]);
+    (0, i.useEffect)(() => {
+      let e = tH && !tO.current,
+        t = eU.pagination.nextCursor;
+      if (!tH || !eG || !eP || !eW || !th || null == t || tf || tm && !e) return;
+      let n = `${eD??""}:${t}`;
+      (tm || tB.current !== n) && (tB.current = n, tV())
+    }, [eW, eD, eU.pagination.nextCursor, eP, th, tm, tf, tH, tV, eG]), (0, i.useEffect)(() => {
+      let e = tH && !tO.current;
+      tO.current = tH, tH && eG && eP && eQ && !eY.isLoading && (!eY.isExhausted || e) && eY.loadNextBatch()
+    }, [eQ, eP, eY, tH, eG]);
+    let tW = (0, i.useMemo)(() => new Map(eU.days.flatMap(e => e.editions.flatMap(e => e.units.map(e => [e.unitId, e])))), [eU.days]);
+    (0, i.useEffect)(() => {
+      for (let e of eY.items) {
+        if (null != e.ephemeralKey) continue;
+        let t = tW.get(e.unit.unitId);
+        null != t && (t.updatedAtMs !== e.unit.updatedAtMs || t.reaction !== e.unit.reaction || t.shareCount !== e.unit.shareCount || t.discussCount !== e.unit.discussCount) && eY.updateItemUnit(e.itemKey, t)
+      }
+    }, [eY, tW]);
+    let t$ = (0, i.useMemo)(() => tn.map(e => e.unitId), [tn]),
+      tY = (0, i.useMemo)(() => eY.items.map(e => e.itemKey), [eY.items]);
+    return (0, t.jsx)("main", {
+      className: "flex min-h-0 flex-1 flex-col overflow-hidden",
+      children: (0, t.jsxs)(u.default, {
+        ref: e0,
+        vertical: !0,
+        horizontal: !1,
+        className: "min-h-0 flex-1",
+        scrollTracePolicy: v.EctoInteractionTracePolicy.FEED_SCROLL,
+        children: [(0, t.jsx)(G.HatchRouteLargeHeader, {
+          showSideChatToggle: !0,
+          sideChatToggleMetadata: {
+            surface: "feed"
+          },
+          title: n.fbt._("Feed", null, {
+            hk: "4b76Yu"
+          }),
+          width: "content",
+          action: null != ez ? (0, t.jsx)(eR, {
+            prompt: ez,
+            onSave: e1
+          }) : void 0
+        }), (0, t.jsx)("div", {
+          className: (0, g.cn)(z.HATCH_ROUTE_CONTENT_GUTTER, "pt-2"),
+          children: (0, t.jsxs)("div", {
+            className: O.HATCH_FEED_COLUMN_CLASS,
+            children: [null == ez && (0, t.jsx)("div", {
+              className: "pb-4",
+              children: (0, t.jsx)(h.EctoErrorBoundary, {
+                surface: et.HATCH_SENTRY_SURFACES.FEED_PROMPT,
+                children: ed.isPending || null == eD && eI.isPending ? (0, t.jsx)(Q.FeedPromptCardSkeleton, {}) : ed.isError || null == eO && (null != eD || eF) ? (0, t.jsx)(nY, {
+                  onRetry: () => {
+                    ed.refetch(), tc()
+                  }
+                }) : (0, t.jsx)(eR, {
+                  prompt: eK ? eO : null,
+                  presentation: "inline-card",
+                  onSave: e1,
+                  onGenerate: e => tU(e, "prompt_card"),
+                  isGenerating: e8
+                })
+              })
+            }), (0, t.jsx)("div", {
+              className: "@container flex flex-col pt-2 pb-8 md:pb-10",
+              children: tp ? (0, t.jsx)(nq, {}) : ty ? (0, t.jsx)(nX, {
+                onRetry: tc
+              }) : (0, t.jsxs)(t.Fragment, {
+                children: [!tg && (ed.isPending ? (0, t.jsx)(nq, {}) : (0, t.jsx)(nJ, {
+                  showGenerateAction: null != ez,
+                  isRefreshing: e8,
+                  onGenerateNow: () => tU(eD, "null_state")
+                })), (0, t.jsx)("div", {
+                  role: "log",
+                  "aria-live": "polite",
+                  "aria-label": n.fbs._("Feed editions", null, {
+                    hk: "3EENsM"
+                  }),
+                  className: "flex flex-col",
+                  children: tr && (0, t.jsx)(eH, {
+                    orderedKeys: t$,
+                    children: (0, t.jsx)(nW, {
+                      units: tn,
+                      seenReceipts: eq,
+                      onReact: tC,
+                      onDelete: tT,
+                      onComment: tw
+                    })
+                  })
+                }), tb && (0, t.jsxs)("section", {
+                  ref: tE,
+                  "aria-labelledby": "infinite-feed-heading",
+                  className: "flex flex-col",
+                  children: [(0, t.jsx)("h2", {
+                    id: "infinite-feed-heading",
+                    className: "sr-only",
+                    children: n.fbt._("More stories", null, {
+                      hk: "4eewey"
+                    })
+                  }), (0, t.jsx)(eH, {
+                    orderedKeys: tY,
+                    children: (0, t.jsx)(n$, {
+                      items: eY.items,
+                      seenReceipts: eq,
+                      onReact: tR,
+                      onDelete: tM,
+                      onComment: tA
+                    })
+                  }), (0, t.jsx)("div", {
+                    role: "status",
+                    "aria-live": "polite",
+                    "aria-atomic": "true",
+                    className: "sr-only",
+                    children: eY.isLoading ? n.fbt._("Finding more for you…", null, {
+                      hk: "4eiKQA"
+                    }) : eY.isExhausted ? null == eY.error ? n.fbt._("No more stories right now.", null, {
+                      hk: "40ZR4G"
+                    }) : n.fbt._("Couldn't load more stories right now.", null, {
+                      hk: "2qpUG6"
+                    }) : null
+                  }), eY.isLoading && (0, t.jsx)("div", {
+                    "aria-hidden": "true",
+                    className: "text-text-secondary flex items-center justify-center p-4",
+                    children: (0, t.jsx)(c.Spinner, {
+                      size: 24,
+                      color: "currentColor",
+                      isDecorative: !0
+                    })
+                  }), (0, t.jsx)("div", {
+                    ref: tG,
+                    "aria-hidden": "true",
+                    className: "flex min-h-6 w-full items-center justify-center"
+                  })]
+                }), eW && (0, t.jsx)("div", {
+                  role: "status",
+                  "aria-live": "polite",
+                  "aria-atomic": "true",
+                  className: "sr-only",
+                  children: tf ? n.fbt._("Loading more stories…", null, {
+                    hk: "2Lcjpd"
+                  }) : null
+                }), eP && eW && (0, t.jsxs)("div", {
+                  className: "flex flex-col",
+                  children: [tf ? (0, t.jsx)("div", {
+                    "aria-hidden": "true",
+                    className: "text-text-secondary flex items-center justify-center p-4",
+                    children: (0, t.jsx)(c.Spinner, {
+                      size: 24,
+                      color: "currentColor",
+                      isDecorative: !0
+                    })
+                  }) : tm ? (0, t.jsxs)("div", {
+                    role: "alert",
+                    className: "flex flex-col items-center gap-2 p-4",
+                    children: [(0, t.jsx)("p", {
+                      className: "text-body text-text-secondary",
+                      children: n.fbt._("Couldn't load more stories.", null, {
+                        hk: "RiNyX"
+                      })
+                    }), (0, t.jsx)(s.Button, {
+                      size: "36",
+                      variant: "flat",
+                      onClick: tQ,
+                      label: n.fbs._("Try again", null, {
+                        hk: "3zzFny"
+                      })
+                    })]
+                  }) : null, (0, t.jsx)("div", {
+                    ref: tG,
+                    "aria-hidden": "true",
+                    className: "flex min-h-6 w-full items-center justify-center"
+                  })]
+                })]
+              })
+            })]
+          })
+        })]
+      })
+    })
+  }
+
+  function nW(e) {
+    let n, i, l, a, s, o = (0, r.c)(13);
+    if (o[0] !== e ? ({
+        units: l,
+        seenReceipts: i,
+        ...n
+      } = e, o[0] = e, o[1] = n, o[2] = i, o[3] = l) : (n = o[1], i = o[2], l = o[3]), o[4] !== n || o[5] !== i || o[6] !== l) {
+      let e;
+      o[8] !== n || o[9] !== i ? (e = e => (0, t.jsx)(h.EctoErrorBoundary, {
+        surface: et.HATCH_SENTRY_SURFACES.FEED_POST,
+        children: (0, t.jsx)(nT, {
+          unit: e,
+          cardRef: i.getUnitRef({
+            kind: "durable",
+            unitId: e.unitId
+          }, `persisted:${e.unitId}`),
+          titleAs: "h2",
+          ...n
+        })
+      }, e.unitId), o[8] = n, o[9] = i, o[10] = e) : e = o[10], a = l.map(e), o[4] = n, o[5] = i, o[6] = l, o[7] = a
+    } else a = o[7];
+    return o[11] !== a ? (s = (0, t.jsx)("div", {
+      className: "flex flex-col",
+      children: a
+    }), o[11] = a, o[12] = s) : s = o[12], s
+  }
+
+  function n$(e) {
+    let i, l, a, s = (0, r.c)(14),
+      {
+        items: o,
+        seenReceipts: u,
+        onReact: c,
+        onDelete: d,
+        onComment: f
+      } = e;
+    if (s[0] === Symbol.for("react.memo_cache_sentinel") ? (i = n.fbs._("More Feed stories", null, {
+        hk: "rANjL"
+      }), s[0] = i) : i = s[0], s[1] !== o || s[2] !== f || s[3] !== d || s[4] !== c || s[5] !== u) {
+      let e;
+      s[7] !== f || s[8] !== d || s[9] !== c || s[10] !== u ? (e = e => {
+        let n = null == e.ephemeralKey ? {
+          kind: "durable",
+          unitId: e.unit.unitId
+        } : {
+          kind: "ephemeral",
+          unitKey: e.ephemeralKey
+        };
+        return (0, t.jsx)(h.EctoErrorBoundary, {
+          surface: et.HATCH_SENTRY_SURFACES.FEED_POST,
+          children: (0, t.jsx)(nT, {
+            unit: e.unit,
+            infiniteFeedUnitKey: e.itemKey,
+            cardRef: u.getUnitRef(n, `infinite:${e.itemKey}`),
+            titleAs: "h3",
+            onReact: (t, n) => c(e, n),
+            onDelete: () => d(e),
+            onComment: () => f(e)
+          })
+        }, e.itemKey)
+      }, s[7] = f, s[8] = d, s[9] = c, s[10] = u, s[11] = e) : e = s[11], l = o.map(e), s[1] = o, s[2] = f, s[3] = d, s[4] = c, s[5] = u, s[6] = l
+    } else l = s[6];
+    return s[12] !== l ? (a = (0, t.jsx)("div", {
+      role: "log",
+      "aria-live": "polite",
+      "aria-label": i,
+      className: "flex flex-col",
+      children: l
+    }), s[12] = l, s[13] = a) : a = s[13], a
+  }
+
+  function nY(e) {
+    let i, l, a, o = (0, r.c)(4),
+      {
+        onRetry: u
+      } = e;
+    return o[0] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("p", {
+      className: "text-text-primary text-subheadline-emphasized",
+      children: n.fbt._("Couldn't load your feed prompt.", null, {
+        hk: "49zHxU"
+      })
+    }), o[0] = i) : i = o[0], o[1] === Symbol.for("react.memo_cache_sentinel") ? (l = n.fbs._("Try again", null, {
+      hk: "45pAxn"
+    }), o[1] = l) : l = o[1], o[2] !== u ? (a = (0, t.jsxs)("div", {
+      role: "alert",
+      className: "border-fill-divider bg-fill-primary rounded-14 flex flex-col items-start gap-2 border p-4",
+      children: [i, (0, t.jsx)(s.Button, {
+        size: "36",
+        variant: "flat",
+        onClick: u,
+        label: l
+      })]
+    }), o[2] = u, o[3] = a) : a = o[3], a
+  }
+
+  function nq() {
+    let e, i, l = (0, r.c)(2);
+    return l[0] === Symbol.for("react.memo_cache_sentinel") ? (e = n.fbs._("Loading feed", null, {
+      hk: "2ytfMs"
+    }), l[0] = e) : e = l[0], l[1] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)(d.LoadingState, {
+      name: "route_feed",
+      children: (0, t.jsx)("div", {
+        role: "status",
+        "aria-busy": "true",
+        "aria-label": e,
+        className: "flex flex-col motion-reduce:[&_*]:!animate-none",
+        children: Array.from({
+          length: 3
+        }).map(nZ)
+      })
+    }), l[1] = i) : i = l[1], i
+  }
+
+  function nZ(e, n) {
+    return (0, t.jsx)(Q.FeedUnitCardSkeleton, {}, n)
+  }
+
+  function nX(e) {
+    let i, l, a, o = (0, r.c)(4),
+      {
+        onRetry: u
+      } = e;
+    return o[0] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("p", {
+      className: "text-text-primary text-title-3-emphasized",
+      children: n.fbt._("Couldn't load your feed.", null, {
+        hk: "2A1hZS"
+      })
+    }), o[0] = i) : i = o[0], o[1] === Symbol.for("react.memo_cache_sentinel") ? (l = n.fbs._("Try again", null, {
+      hk: "3Z6Kbo"
+    }), o[1] = l) : l = o[1], o[2] !== u ? (a = (0, t.jsxs)("div", {
+      role: "alert",
+      className: "border-fill-divider bg-fill-primary rounded-14 flex flex-col items-start gap-2 border p-4",
+      children: [i, (0, t.jsx)(s.Button, {
+        size: "36",
+        variant: "flat",
+        onClick: u,
+        label: l
+      })]
+    }), o[2] = u, o[3] = a) : a = o[3], a
+  }
+
+  function nJ(e) {
+    let i, l, s, u, d = (0, r.c)(8),
+      {
+        showGenerateAction: h,
+        isRefreshing: f,
+        onGenerateNow: m
+      } = e;
+    return d[0] === Symbol.for("react.memo_cache_sentinel") ? (i = n.fbt._("Setting up your feed", null, {
+      hk: "2El2ku"
+    }), l = n.fbt._("Your feed is personalized to you and will appear as we get to know each other.", null, {
+      hk: "3DW89o"
+    }), d[0] = i, d[1] = l) : (i = d[0], l = d[1]), d[2] !== f || d[3] !== m || d[4] !== h ? (s = h ? {
+      variant: "primary",
+      "aria-busy": f,
+      "aria-disabled": f,
+      className: "aria-disabled:cursor-not-allowed",
+      onClick: () => {
+        f || m()
+      },
+      label: f ? (0, t.jsxs)("span", {
+        className: "flex items-center gap-2",
+        children: [(0, t.jsx)(c.Spinner, {
+          size: 16,
+          color: "currentColor",
+          isDecorative: !0
+        }), n.fbt._("Generating…", null, {
+          hk: "2QThNS"
+        })]
+      }) : n.fbt._("Generate now", null, {
+        hk: "1hrvCl"
+      })
+    } : void 0, d[2] = f, d[3] = m, d[4] = h, d[5] = s) : s = d[5], d[6] !== s ? (u = (0, t.jsx)("div", {
+      className: "flex flex-col items-center pt-8",
+      children: (0, t.jsx)(o.NullState, {
+        icon: a,
+        title: i,
+        subtitle: l,
+        action: s
+      })
+    }), d[6] = s, d[7] = u) : u = d[7], u
+  }
+  e.s(["HatchFeedRoute", 0, nz, "default", 0, nz], 194129)
+}]);
+
+//# debugId=fdc23578-27cf-f122-d404-07ce8dbcd89a
+//# sourceMappingURL=2-_-ip9y14xpy.js.map

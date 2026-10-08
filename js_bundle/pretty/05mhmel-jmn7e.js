@@ -1,0 +1,4334 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "4fdb0206-aa5e-ddcc-d477-a91c57ac6831")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 667710, 352702, 478648, 476730, 800745, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    n = e.i(519172),
+    r = e.i(345717),
+    i = e.i(678069),
+    s = e.i(906757),
+    l = e.i(880162),
+    o = e.i(848048),
+    c = e.i(374785),
+    u = e.i(731714),
+    d = e.i(18516),
+    h = e.i(646361),
+    p = e.i(440802),
+    m = e.i(832964),
+    f = e.i(239286),
+    v = e.i(281539),
+    _ = e.i(823173),
+    g = e.i(965602),
+    y = e.i(129491),
+    A = e.i(133421),
+    C = e.i(77585),
+    b = e.i(48334),
+    S = e.i(861558),
+    w = e.i(848599),
+    x = e.i(498596),
+    k = e.i(759343),
+    T = e.i(243391),
+    E = e.i(666750),
+    R = e.i(390808),
+    I = e.i(918340),
+    j = e.i(359783),
+    H = e.i(922878),
+    M = e.i(515475),
+    N = e.i(543912),
+    L = e.i(51726),
+    P = e.i(538529),
+    B = e.i(175681);
+  let O = (0, j.createClientLogger)("HatchOutOfUsageCta");
+
+  function U(e) {
+    let n, r, i, s, l, c, d, h, p, m = (0, a.c)(23),
+      {
+        cta: f
+      } = e;
+    m[0] === Symbol.for("react.memo_cache_sentinel") ? (n = {
+      skipExposure: !0
+    }, m[0] = n) : n = m[0];
+    let v = (0, N.useHatchSubscriptionsEnabled)(n),
+      _ = (0, L.useHatchSettingsControl)(),
+      g = (0, o.useInteractionLogger)(),
+      y = H.OUT_OF_USAGE_CTA_DESTINATIONS[f.command];
+    m[1] !== y.ctaAction ? (r = {
+      surface: "chat",
+      subsurface: "agent_state_label",
+      cta_action: y.ctaAction
+    }, m[1] = y.ctaAction, m[2] = r) : r = m[2], m[3] !== y.actionTarget || m[4] !== y.eventName || m[5] !== r ? (i = {
+      eventName: y.eventName,
+      actionTarget: y.actionTarget,
+      actionType: "click",
+      metadata: r
+    }, m[3] = y.actionTarget, m[4] = y.eventName, m[5] = r, m[6] = i) : i = m[6];
+    let {
+      ref: A,
+      onClick: C
+    } = (0, o.useTrackedClickRef)(i);
+    m[7] !== g ? (s = e => {
+      e && "standard" === (0, M.getServingVmType)() && (0, B.logMsoSubsWaterfallEvent)(g, B.MSO_SUBS_WATERFALL_EVENT.ENTRYPOINT_IMPRESSION, {}, P.PURCHASE_ENTRYPOINT.STATUS)
+    }, m[7] = g, m[8] = s) : s = m[8], m[9] === Symbol.for("react.memo_cache_sentinel") ? (l = {
+      triggerOnce: !0
+    }, m[9] = l) : l = m[9];
+    let b = (0, I.useOnInView)(s, l),
+      S = (0, u.useMergeRefs)(A, b);
+    m[10] !== y.generalSubView || m[11] !== C || m[12] !== g || m[13] !== _ || m[14] !== v ? (c = () => {
+      if (v && "standard" === (0, M.getServingVmType)()) {
+        if (null == _) return void O.retainForBugReport("warn", "out-of-usage CTA tapped but settings UI is unavailable");
+        C(), (0, B.logMsoSubsWaterfallEvent)(g, B.MSO_SUBS_WATERFALL_EVENT.ENTRYPOINT_CLICK, {}, P.PURCHASE_ENTRYPOINT.STATUS), _.openToTab("general", {
+          generalSubView: y.generalSubView,
+          purchaseEntrypoint: P.PURCHASE_ENTRYPOINT.STATUS
+        })
+      }
+    }, m[10] = y.generalSubView, m[11] = C, m[12] = g, m[13] = _, m[14] = v, m[15] = c) : c = m[15];
+    let w = c;
+    return v ? (m[16] !== w ? (d = e => {
+      e.stopPropagation(), w()
+    }, m[16] = w, m[17] = d) : d = m[17], m[18] === Symbol.for("react.memo_cache_sentinel") ? (h = {
+      fontWeight: "var(--text-body-emphasized--font-weight)"
+    }, m[18] = h) : h = m[18], m[19] !== S || m[20] !== f.label || m[21] !== d ? (p = (0, t.jsx)("button", {
+      ref: S,
+      type: "button",
+      onClick: d,
+      className: "text-body-status text-text-primary hover:text-text-secondary-emphasized focus-visible:text-text-secondary-emphasized pointer-events-auto ms-1 cursor-pointer",
+      style: h,
+      title: f.label,
+      children: f.label
+    }), m[19] = S, m[20] = f.label, m[21] = d, m[22] = p) : p = m[22], p) : null
+  }
+  var V = e.i(941748),
+    D = e.i(916960),
+    F = e.i(479223),
+    z = e.i(891387),
+    G = e.i(589873),
+    W = e.i(65372),
+    Y = e.i(672495);
+  let K = new Set(["http", "https", "ws", "wss"]);
+
+  function q(e) {
+    return {
+      companionRootAgentIdsByAgentId: e.companionRootAgentIdsByAgentId,
+      currentChatRootAgentId: e.currentChatRootAgentId,
+      currentChatRouteKey: e.currentChatRouteKey,
+      currentChatSessionId: e.currentChatSessionId,
+      resolvedApprovalIdsById: e.resolvedApprovalIdsById
+    }
+  }
+
+  function Z() {
+    let e, t = (0, a.c)(5),
+      {
+        phase: n,
+        reason: r
+      } = (0, E.useHatchConnection)(),
+      i = (0, V.useHatchVmUpdating)(),
+      s = (0, D.useHatchChatRecovery)(),
+      l = (0, R.useEffectiveHatchChatRoute)(),
+      o = (0, T.useAgentActivityCodeForChatRoute)(l),
+      c = (0, T.useHasBlockingPendingUserConfirmationForChatRoute)(l),
+      u = (0, T.useHasBackgroundPendingUserConfirmationForChatRoute)(l);
+    t[0] !== i || t[1] !== n || t[2] !== r || t[3] !== s ? (e = s?.recovering && !s.showRecovery ? null : "browser_offline" === r ? "offline" : s?.failed ? "connection_error" : function(e, t, a = !1) {
+      return a && ("connected" === e || "connecting" === e || "reconnecting" === e || "unavailable" === e && ("gateway_unreachable" === t || "unknown" === t)) ? "vm_updating" : "connected" === e ? null : "connecting" === e || "reconnecting" === e || "no_vm" === t ? "connecting" : "browser_offline" === t ? "offline" : "auth_failed" === t || "gateway_reconnect_exhausted" === t || "gateway_unreachable" === t || "unknown" === t ? "connection_error" : "connecting"
+    }("connected" === n && s?.recovering ? "reconnecting" : n, r, s?.warming ?? i), t[0] = i, t[1] = n, t[2] = r, t[3] = s, t[4] = e) : e = t[4];
+    let d = e;
+    return null != d ? d : "out_of_credits" === o ? "out_of_credits" : c || u ? "awaiting_approval" : "compacting" === o ? "compacting" : "responding" === o || "composing" === o ? "responding" : "making_something" === o ? "making_something" : "working" === o ? "working" : "waiting_for_subagents" === o ? "subagents_working" : "connected"
+  }
+
+  function $(e, t, a = !1, n = !0) {
+    switch (e) {
+      case "connected":
+        return r.fbs._("Connected", null, {
+          hk: "2cEOOE"
+        });
+      case "awaiting_approval":
+        return r.fbs._("Needs approval", null, {
+          hk: "2bJepw"
+        });
+      case "background_awaiting_approval":
+        return r.fbs._("Needs approval", null, {
+          hk: "2c1jJM"
+        });
+      case "working":
+      case "compacting":
+        return t ?? r.fbs._("Working", null, {
+          hk: "C8CRA"
+        });
+      case "responding":
+        return t ?? r.fbs._("Responding", null, {
+          hk: "2ntCQt"
+        });
+      case "making_something":
+        return t ?? r.fbs._("Making", null, {
+          hk: "lxr4m"
+        });
+      case "subagents_working":
+        return t ?? r.fbs._("Waiting for agents", null, {
+          hk: "1Gu6kl"
+        });
+      case "out_of_credits":
+        return a ? r.fbs._("Out of usage.", null, {
+          hk: "1ArUUn"
+        }) : r.fbs._("Out of usage", null, {
+          hk: "4357yJ"
+        });
+      case "connecting":
+        return r.fbs._("Connecting...", null, {
+          hk: "2ggZIy"
+        });
+      case "vm_updating":
+        return n ? r.fbs._("is warming up", null, {
+          hk: "3BRtSm"
+        }) : r.fbs._("Warming up", null, {
+          hk: "Wz2Pn"
+        });
+      case "offline":
+      case "disconnected":
+        return r.fbs._("Disconnected", null, {
+          hk: "4D751n"
+        });
+      case "connection_error":
+        return r.fbs._("Connection error", null, {
+          hk: "23JSot"
+        });
+      default:
+        return e
+    }
+  }
+
+  function Q(e) {
+    let n, i, s = (0, a.c)(5),
+      {
+        activeChatRoute: l,
+        fallbackLabel: o
+      } = e,
+      c = function(e) {
+        let t, n = (0, a.c)(8),
+          {
+            data: r
+          } = (0, W.useHatchApprovalsSnapshotCache)(),
+          {
+            companionRootAgentIdsByAgentId: i,
+            currentChatRootAgentId: s,
+            currentChatRouteKey: l,
+            currentChatSessionId: o,
+            resolvedApprovalIdsById: c
+          } = (0, Y.useHatchActivitySelector)(q, F.shallow);
+        if (r?.pending, n[0] !== e || n[1] !== i || n[2] !== s || n[3] !== l || n[4] !== o || n[5] !== r?.pending || n[6] !== c) {
+          e: {
+            for (let a of r?.pending ?? []) {
+              if (!0 === c[a.approvalId] || !K.has(a.scheme.trim().toLowerCase()) || !(0, z.approvalMatchesComposerRoute)(a, e, s, {
+                  companionRootAgentIdsByAgentId: i,
+                  currentChatRouteKey: l,
+                  currentChatSessionId: o
+                })) continue;
+              let n = (0, G.formatNetworkApprovalDestinationDomain)(a).trim();
+              if (n.length > 0) {
+                t = n;
+                break e
+              }
+            }
+            t = null
+          }
+          n[0] = e,
+          n[1] = i,
+          n[2] = s,
+          n[3] = l,
+          n[4] = o,
+          n[5] = r?.pending,
+          n[6] = c,
+          n[7] = t
+        }
+        else t = n[7];
+        return t
+      }(l);
+    s[0] !== c || s[1] !== o ? (n = null == c ? o : r.fbs._("{status} · {domain}", [r.fbs._param("status", o), r.fbs._param("domain", c)], {
+      hk: "2mZnHx"
+    }), s[0] = c, s[1] = o, s[2] = n) : n = s[2];
+    let u = n;
+    return s[3] !== u ? (i = (0, t.jsx)("span", {
+      className: "min-w-0 flex-1 truncate",
+      title: u,
+      children: u
+    }), s[3] = u, s[4] = i) : i = s[4], i
+  }
+
+  function X(e) {
+    let t, r, i = (0, a.c)(4),
+      {
+        onResolve: s
+      } = e,
+      l = (0, N.useHatchSubscriptionsEnabled)();
+    return i[0] !== l || i[1] !== s ? (t = () => s(l), r = [l, s], i[0] = l, i[1] = s, i[2] = t, i[3] = r) : (t = i[2], r = i[3]), (0, n.useEffect)(t, r), null
+  }
+
+  function J(e) {
+    let r, l, u, d, p, m, f, v, E, I, j = (0, a.c)(26),
+      {
+        className: H,
+        hasVisibleAgentName: M,
+        preview: N,
+        showActionButton: L,
+        variant: P
+      } = e,
+      B = void 0 === M || M,
+      O = void 0 !== L && L,
+      V = Z(),
+      F = (0, D.useHatchChatRecovery)(),
+      z = (0, R.useEffectiveHatchChatRoute)(),
+      G = (0, T.useAgentActivityTextForChatRoute)(z),
+      W = (0, T.useAgentActivityEmojiForChatRoute)(z),
+      Y = (0, T.useAgentActivityCtaForChatRoute)(z),
+      K = "panel" === (void 0 === P ? "inline" : P),
+      q = N?.state ?? V,
+      J = null != N ? N.activityText ?? null : G,
+      et = null != N ? N.activityEmoji ?? null : W,
+      ea = null == N && F?.recovering === !0 && !F.showRecovery,
+      en = "connected" !== q || K && !ea,
+      er = null == N && ("awaiting_approval" === q || "background_awaiting_approval" === q);
+    j[0] !== q || j[1] !== O ? (r = "out_of_credits" === q && O, j[0] = q, j[1] = O, j[2] = r) : r = j[2];
+    let ei = r,
+      [es, el] = (0, n.useState)(!1),
+      eo = ei && null == N && null != Y,
+      ec = (null != N ? N.cta ?? null : es ? Y : null) ?? null,
+      eu = ei && null != ec,
+      ed = ei && null == N;
+    j[3] !== J || j[4] !== q || j[5] !== B || j[6] !== eu ? (l = $(q, J, eu, B), j[3] = J, j[4] = q, j[5] = B, j[6] = eu, j[7] = l) : l = j[7];
+    let eh = l;
+    j[8] !== q ? (u = function(e) {
+      switch (e) {
+        case "connected":
+        case "connecting":
+          return S.default;
+        case "vm_updating":
+          return g.default;
+        case "offline":
+        case "disconnected":
+          return C.default;
+        case "connection_error":
+        case "out_of_credits":
+          return b.default;
+        case "awaiting_approval":
+        case "background_awaiting_approval":
+          return w.default;
+        case "responding":
+          return x.default;
+        case "making_something":
+          return k.default;
+        case "working":
+        case "compacting":
+          return y.default;
+        case "subagents_working":
+          return A.default;
+        default:
+          return e
+      }
+    }(q), j[8] = q, j[9] = u) : u = j[9];
+    let ep = u,
+      em = "out_of_credits" !== q || eu ? function(e) {
+        switch (e) {
+          case "connected":
+            return "text-text-success";
+          case "awaiting_approval":
+          case "background_awaiting_approval":
+            return "text-status-working";
+          case "disconnected":
+          case "working":
+          case "responding":
+          case "making_something":
+          case "compacting":
+          case "subagents_working":
+          case "out_of_credits":
+          case "connecting":
+          case "vm_updating":
+          case "offline":
+            return "text-text-secondary dark:text-[var(--ai-gray-dark-a400)]";
+          case "connection_error":
+            return "text-text-destructive";
+          default:
+            return e
+        }
+      }(q) : "text-text-destructive";
+    j[10] !== q ? (d = function(e) {
+      switch (e) {
+        case "connected":
+          return "text-text-success";
+        case "disconnected":
+        case "offline":
+        case "connecting":
+        case "vm_updating":
+        case "working":
+        case "responding":
+        case "making_something":
+        case "compacting":
+        case "subagents_working":
+          return "text-text-secondary";
+        case "connection_error":
+        case "out_of_credits":
+          return "text-text-destructive";
+        case "awaiting_approval":
+        case "background_awaiting_approval":
+          return "text-status-working";
+        default:
+          return e
+      }
+    }(q), j[10] = q, j[11] = d) : d = j[11];
+    let ef = d;
+    j[12] !== et || j[13] !== q ? (p = ("working" === q || "responding" === q || "making_something" === q || "compacting" === q || "subagents_working" === q) && et?.trim() || null, j[12] = et, j[13] = q, j[14] = p) : p = j[14];
+    let ev = p;
+    j[15] === Symbol.for("react.memo_cache_sentinel") ? (m = {
+      eventName: _.HatchImpressionEvent.STATUS_LIMIT_REACHED_IMPRESSION,
+      actionTarget: "status_limit_reached_chip",
+      metadata: {
+        surface: "chat",
+        subsurface: "agent_state_label"
+      }
+    }, j[15] = m) : m = j[15], j[16] !== ed ? (f = {
+      enabled: ed
+    }, j[16] = ed, j[17] = f) : f = j[17];
+    let {
+      ref: e_
+    } = (0, o.useTrackedImpressionRef)(m, f);
+    j[18] !== eo ? (v = eo && (0, t.jsx)(n.Suspense, {
+      fallback: null,
+      children: (0, t.jsx)(X, {
+        onResolve: el
+      })
+    }), j[18] = eo, j[19] = v) : v = j[19];
+    let eg = i.AnimatePresence,
+      ey = en && (0, t.jsx)(s.motion.div, {
+        className: K ? "max-w-full" : void 0,
+        initial: {
+          height: 0,
+          width: 0,
+          opacity: 0
+        },
+        animate: {
+          height: "auto",
+          width: "auto",
+          opacity: 1
+        },
+        exit: {
+          height: 0,
+          width: 0,
+          opacity: 0
+        },
+        transition: {
+          height: {
+            duration: .2,
+            ease: [.4, 0, .2, 1]
+          },
+          width: {
+            duration: .2,
+            ease: [.4, 0, .2, 1]
+          },
+          opacity: {
+            duration: .15
+          }
+        },
+        style: {
+          overflow: "hidden"
+        },
+        ref: e_,
+        children: (0, t.jsx)(i.AnimatePresence, {
+          mode: "wait",
+          initial: !1,
+          children: (0, t.jsxs)(s.motion.span, {
+            className: (0, c.cn)(H, K && "text-body-status flex min-w-0 items-center gap-1 overflow-hidden whitespace-nowrap", K ? "text-text-secondary" : em),
+            initial: {
+              opacity: 0,
+              y: 3
+            },
+            animate: {
+              opacity: 1,
+              y: 0
+            },
+            exit: {
+              opacity: 0,
+              y: -3
+            },
+            transition: {
+              duration: .1
+            },
+            children: [null != ev ? (0, t.jsx)("span", {
+              "aria-hidden": "true",
+              className: (0, c.cn)("flex shrink-0 items-center justify-center", K ? "text-body size-4" : "text-caption-1"),
+              children: ev
+            }) : null != ep ? (0, t.jsx)(h.HatchIcon, {
+              "aria-hidden": "true",
+              icon: ep,
+              size: 16,
+              iconSize: K && ("offline" === q || "disconnected" === q) ? 12 : K ? 16 : void 0,
+              className: ef
+            }) : null, er ? (0, t.jsx)(Q, {
+              activeChatRoute: z,
+              fallbackLabel: eh
+            }) : (0, t.jsxs)("span", {
+              className: "min-w-0 flex-1 truncate",
+              title: eh,
+              children: [eh, eu && (null == N ? (0, t.jsx)(n.Suspense, {
+                fallback: null,
+                children: (0, t.jsx)(U, {
+                  cta: ec
+                })
+              }) : (0, t.jsx)("button", {
+                type: "button",
+                onClick: ee,
+                className: "text-body-status text-text-primary hover:text-text-secondary-emphasized focus-visible:text-text-secondary-emphasized pointer-events-auto ms-1 cursor-pointer",
+                style: {
+                  fontWeight: "var(--text-body-emphasized--font-weight)"
+                },
+                children: ec.label
+              }))]
+            })]
+          }, `${ev??""}:${eh}`)
+        })
+      });
+    return j[20] !== eg || j[21] !== ey ? (E = (0, t.jsx)(eg, {
+      initial: !1,
+      children: ey
+    }), j[20] = eg, j[21] = ey, j[22] = E) : E = j[22], j[23] !== v || j[24] !== E ? (I = (0, t.jsxs)(t.Fragment, {
+      children: [v, E]
+    }), j[23] = v, j[24] = E, j[25] = I) : I = j[25], I
+  }
+
+  function ee(e) {
+    e.stopPropagation()
+  }
+
+  function et(e) {
+    let n, i, s, l = (0, a.c)(7),
+      {
+        name: o
+      } = e,
+      c = Z();
+    l[0] !== o ? (n = o || r.fbs._("Assistant", null, {
+      hk: "1ci6VE"
+    }), l[0] = o, l[1] = n) : n = l[1];
+    let u = n;
+    if (l[2] !== u || l[3] !== c) {
+      let e;
+      switch (c) {
+        case "connecting":
+          e = r.fbs._("is connecting", null, {
+            hk: "KKxby"
+          });
+          break;
+        case "vm_updating":
+          e = r.fbs._("is warming up", null, {
+            hk: "dBSbF"
+          });
+          break;
+        case "offline":
+          e = r.fbs._("is offline", null, {
+            hk: "2aQAQd"
+          });
+          break;
+        case "disconnected":
+          e = r.fbs._("is disconnected", null, {
+            hk: "4objhq"
+          });
+          break;
+        case "connection_error":
+          e = r.fbs._("has a connection error", null, {
+            hk: "VTMvP"
+          });
+          break;
+        default:
+          e = null
+      }
+      let t = e;
+      i = null == t ? "" : r.fbs._("{agentName} {connectionStatus}", [r.fbs._param("agentName", u), r.fbs._param("connectionStatus", t)], {
+        hk: "3YLo9i"
+      }), l[2] = u, l[3] = c, l[4] = i
+    } else i = l[4];
+    let d = i;
+    return l[5] !== d ? (s = (0, t.jsx)("span", {
+      className: "sr-only",
+      role: "status",
+      "aria-live": "polite",
+      "aria-atomic": "true",
+      "data-hatch-connection-status-announcer": !0,
+      children: d
+    }), l[5] = d, l[6] = s) : s = l[6], s
+  }
+  e.s(["HatchAgentConnectionStatusAnnouncer", 0, et, "HatchAgentStateLabel", 0, J, "getHatchStatusChromeLabel", 0, $, "useHatchStatusChromeState", 0, Z], 352702);
+  var ea = e.i(568096),
+    en = e.i(384706),
+    er = e.i(813280),
+    ei = e.i(525594),
+    es = e.i(870228),
+    el = e.i(863641),
+    eo = e.i(651944),
+    ec = e.i(788031);
+
+  function eu() {
+    return e.A(127846)
+  }
+  var ed = e.i(325323);
+  let eh = () => eu().then(e => ({
+      default: e.HatchCurrentAvatarShareDialogBody
+    })),
+    ep = () => (0, n.lazy)(eh);
+
+  function em(e) {
+    let r, i, s, l, o, c, u = (0, a.c)(19),
+      d = (0, ed.useHatchAvatarShareCache)(),
+      {
+        Component: h,
+        retry: p
+      } = (0, ei.useRetryableLazy)(ep, eh);
+    return u[0] !== e.isOpen ? (r = [e.isOpen], u[0] = e.isOpen, u[1] = r) : r = u[1], u[2] !== e.source ? (i = (0, t.jsx)(ec.HatchAvatarShareDialogSkeleton, {
+      mediaCount: 0,
+      source: e.source
+    }), u[2] = e.source, u[3] = i) : i = u[3], u[4] !== h || u[5] !== d || u[6] !== e.isOpen || u[7] !== e.source ? (s = (0, t.jsx)(h, {
+      isOpen: e.isOpen,
+      source: e.source,
+      cache: d
+    }), u[4] = h, u[5] = d, u[6] = e.isOpen, u[7] = e.source, u[8] = s) : s = u[8], u[9] !== i || u[10] !== s ? (l = (0, t.jsx)(n.Suspense, {
+      fallback: i,
+      children: s
+    }), u[9] = i, u[10] = s, u[11] = l) : l = u[11], u[12] !== p || u[13] !== r || u[14] !== l ? (o = (0, t.jsx)(er.EctoErrorBoundary, {
+      surface: el.HATCH_SENTRY_SURFACES.CHAT_AVATAR_SHARE,
+      resetKeys: r,
+      onReset: p,
+      fallback: ef,
+      children: l
+    }), u[12] = p, u[13] = r, u[14] = l, u[15] = o) : o = u[15], u[16] !== e || u[17] !== o ? (c = (0, t.jsx)(eo.HatchAvatarShareDialogFrame, {
+      ...e,
+      children: o
+    }), u[16] = e, u[17] = o, u[18] = c) : c = u[18], c
+  }
+
+  function ef(e) {
+    let {
+      error: a,
+      reset: n
+    } = e;
+    return (0, t.jsx)(es.HatchContentErrorFallback, {
+      error: a,
+      alwaysShowRetry: !0,
+      onRetry: n
+    })
+  }
+  var ev = e.i(346791),
+    e_ = e.i(696254);
+  let eg = {
+      hidden: {
+        y: -6
+      },
+      visible: {
+        y: 0,
+        transition: {
+          staggerChildren: .1,
+          y: {
+            type: "spring",
+            stiffness: 400,
+            damping: 25
+          }
+        }
+      },
+      exit: {
+        y: -6,
+        transition: {
+          staggerChildren: .1,
+          y: {
+            duration: .2
+          }
+        }
+      }
+    },
+    ey = {
+      hidden: {
+        x: 6,
+        y: -6
+      },
+      visible: {
+        x: 0,
+        y: 0,
+        transition: {
+          staggerChildren: .14,
+          x: {
+            type: "spring",
+            stiffness: 400,
+            damping: 25
+          },
+          y: {
+            type: "spring",
+            stiffness: 400,
+            damping: 25
+          }
+        }
+      },
+      exit: {
+        x: 6,
+        y: -6,
+        opacity: 0,
+        transition: {
+          duration: .1
+        }
+      }
+    },
+    eA = {
+      duration: .12,
+      ease: "linear"
+    },
+    eC = {
+      delay: .08,
+      duration: .24,
+      ease: "linear"
+    },
+    eb = {
+      hidden: {
+        scale: 0,
+        opacity: 0
+      },
+      visible: {
+        scale: 1,
+        opacity: 1,
+        transition: {
+          type: "spring",
+          stiffness: 400,
+          damping: 25
+        }
+      },
+      exit: {
+        scale: 0,
+        opacity: 0,
+        transition: {
+          duration: .2
+        }
+      }
+    };
+
+  function eS(e) {
+    let n, r, l, o, c = (0, a.c)(23),
+      {
+        nameHidden: u,
+        nameOverride: d,
+        preview: h,
+        visible: p,
+        variant: m
+      } = e,
+      f = void 0 !== u && u,
+      v = void 0 === m ? "sidebar" : m,
+      {
+        togglePanel: _,
+        isOpen: g
+      } = (0, ev.useHatchStatusPanel)(),
+      y = (0, e_.useIdentityName)(),
+      A = d ?? y,
+      C = p && ("panel" === v || A.length > 0);
+    if ("panel" === v) {
+      let e, a;
+      return c[0] !== A || c[1] !== f || c[2] !== h || c[3] !== C ? (e = C && (0, t.jsx)(s.motion.div, {
+        variants: eg,
+        initial: "hidden",
+        animate: "visible",
+        exit: "exit",
+        className: "relative flex flex-col items-center",
+        children: (0, t.jsx)(s.motion.div, {
+          className: "max-w-80 min-w-0",
+          variants: eb,
+          style: {
+            transformOrigin: "top center"
+          },
+          children: (0, t.jsx)("div", {
+            className: "inline-flex max-w-full min-w-0 items-center justify-center gap-2 overflow-hidden",
+            children: (0, t.jsxs)("div", {
+              className: "flex max-w-full min-w-0 flex-col items-center gap-0.5",
+              children: [(0, t.jsx)(s.motion.span, {
+                "data-hatch-speech-bubble-name-visible": f ? "false" : "true",
+                className: "text-title-2-medium text-text-primary block min-h-7 max-w-full min-w-0 truncate text-center",
+                title: A.length > 0 ? A : void 0,
+                initial: !1,
+                animate: {
+                  opacity: +!f
+                },
+                transition: f ? eA : eC,
+                children: A
+              }), (0, t.jsx)(J, {
+                className: "max-w-80 min-w-0 whitespace-nowrap",
+                hasVisibleAgentName: A.length > 0 && !f,
+                preview: h,
+                showActionButton: !0,
+                variant: "panel"
+              })]
+            })
+          })
+        })
+      }), c[0] = A, c[1] = f, c[2] = h, c[3] = C, c[4] = e) : e = c[4], c[5] !== e ? (a = (0, t.jsx)(i.AnimatePresence, {
+        children: e
+      }), c[5] = e, c[6] = a) : a = c[6], a
+    }
+    return c[7] !== g || c[8] !== A || c[9] !== f || c[10] !== h || c[11] !== C || c[12] !== _ ? (n = C && !g && (0, t.jsx)(s.motion.div, {
+      variants: ey,
+      initial: "hidden",
+      animate: "visible",
+      exit: "exit",
+      className: "relative",
+      children: (0, t.jsx)(s.motion.div, {
+        variants: eb,
+        style: {
+          transformOrigin: "right center"
+        },
+        children: (0, t.jsx)("button", {
+          type: "button",
+          onClick: _,
+          className: "rounded-18 shadow-blur-elevation-02 relative inline-flex cursor-pointer items-center gap-2 bg-white px-3 py-2 dark:bg-[var(--ai-gray-900)]",
+          children: (0, t.jsxs)("div", {
+            className: "flex flex-col items-end leading-tight",
+            children: [(0, t.jsx)("span", {
+              className: "text-body-emphasized text-text-primary",
+              children: A
+            }), (0, t.jsx)(J, {
+              className: "text-caption-1 flex items-center gap-1",
+              hasVisibleAgentName: A.length > 0 && !f,
+              preview: h
+            })]
+          })
+        })
+      })
+    }), c[7] = g, c[8] = A, c[9] = f, c[10] = h, c[11] = C, c[12] = _, c[13] = n) : n = c[13], c[14] !== n ? (r = (0, t.jsx)(i.AnimatePresence, {
+      children: n
+    }), c[14] = n, c[15] = r) : r = c[15], c[16] !== g || c[17] !== C || c[18] !== _ ? (l = C && !g && (0, t.jsx)("button", {
+      type: "button",
+      onClick: _,
+      className: "cursor-pointer rounded-full",
+      children: (0, t.jsx)(s.motion.div, {
+        layoutId: "hatch-avatar",
+        className: "rounded-full",
+        transition: {
+          type: "spring",
+          stiffness: 400,
+          damping: 30
+        },
+        children: (0, t.jsx)(ea.HatchAvatarMedia, {
+          className: "size-13 rounded-full object-cover"
+        })
+      })
+    }), c[16] = g, c[17] = C, c[18] = _, c[19] = l) : l = c[19], c[20] !== r || c[21] !== l ? (o = (0, t.jsx)("div", {
+      className: "pointer-events-none absolute end-4 top-4 z-20 hidden md:block",
+      children: (0, t.jsxs)("div", {
+        className: "pointer-events-auto flex items-center gap-2",
+        children: [r, l]
+      })
+    }), c[20] = r, c[21] = l, c[22] = o) : o = c[22], o
+  }
+  var ew = e.i(205281);
+  let ex = [{
+    scale: 1.3,
+    opacity: .5
+  }, {
+    scale: 1.66,
+    opacity: .28
+  }];
+
+  function ek(e) {
+    let r, i, s, l, o, c, u = (0, a.c)(16),
+      {
+        size: d
+      } = e,
+      h = void 0 === d ? 56 : d,
+      p = (0, ew.useOptionalHatchVoiceCall)(),
+      [m, f] = (0, n.useState)(0),
+      v = !!(p?.status === "connected" && p?.isBotResponding);
+    if (u[0] !== v || u[1] !== p ? (r = () => {
+        if (p && v) return p.subscribeMicLevel(f)
+      }, i = [p, v], u[0] = v, u[1] = p, u[2] = r, u[3] = i) : (r = u[2], i = u[3]), (0, n.useEffect)(r, i), !v) return null;
+    let _ = Math.max(.2, 1 - 18 * m);
+    u[4] !== h ? (s = {
+      width: h,
+      height: h
+    }, u[4] = h, u[5] = s) : s = u[5];
+    let g = 1.25 * h,
+      y = 1.25 * h;
+    return u[6] !== g || u[7] !== y ? (l = (0, t.jsx)("span", {
+      className: "bg-hatch-accent absolute rounded-full blur-xl",
+      style: {
+        width: g,
+        height: y,
+        opacity: .18,
+        zIndex: -1
+      }
+    }), u[6] = g, u[7] = y, u[8] = l) : l = u[8], u[9] !== _ || u[10] !== h ? (o = ex.map((e, a) => (0, t.jsx)("span", {
+      className: "border-hatch-accent absolute animate-[avatar-ring-pulse_2s_ease-in-out_infinite] rounded-full border-2 border-dotted motion-reduce:animate-none",
+      style: {
+        width: h * e.scale,
+        height: h * e.scale,
+        opacity: e.opacity * _,
+        animationDelay: `${240*a}ms`
+      }
+    }, a)), u[9] = _, u[10] = h, u[11] = o) : o = u[11], u[12] !== s || u[13] !== l || u[14] !== o ? (c = (0, t.jsxs)("div", {
+      "aria-hidden": "true",
+      className: "pointer-events-none absolute inset-0 flex items-center justify-center",
+      style: s,
+      children: [l, o]
+    }), u[12] = s, u[13] = l, u[14] = o, u[15] = c) : c = u[15], c
+  }
+
+  function eT({
+    isMilestonePlaying: e,
+    isAvatarHidden: t
+  }) {
+    if (t) return {
+      avatarScale: 1,
+      contentOffsetY: 0,
+      statusPillTop: 0
+    };
+    let a = e ? 3.5 : 1;
+    return {
+      avatarScale: a,
+      contentOffsetY: 16 * !!e,
+      statusPillTop: 56 * a - 4
+    }
+  }
+
+  function eE(e) {
+    return {
+      centerX: e.left + e.width / 2,
+      centerY: e.top + e.height / 2
+    }
+  }
+
+  function eR(e, t) {
+    return e.left === t.left && e.top === t.top && e.width === t.width && e.height === t.height
+  }
+
+  function eI(e, t) {
+    if (null == e.rect || null == t.rect) return !1;
+    let a = eE(e.rect);
+    return Math.abs(eE(t.rect).centerX - a.centerX) > Math.max(.33 * window.innerWidth, 480)
+  }
+
+  function ej(e, t) {
+    return "chat-nav" === e.id && eM(t) ? {
+      exitEdge: "top",
+      entryEdge: "bottom"
+    } : eM(e) && "chat-nav" === t.id ? {
+      exitEdge: "bottom",
+      entryEdge: "top"
+    } : null
+  }
+
+  function eH() {
+    return window.innerHeight
+  }
+
+  function eM(e) {
+    return "floating-composer" === e.id && "avatarOnly" === e.variant
+  }
+  e.s(["AvatarConcentricRings", 0, ek], 478648), e.s(["getHatchBrowserTaskBannerOffsetY", 0, function({
+    isActivityChipVisible: e,
+    isMilestonePlaying: t,
+    isAvatarHidden: a
+  }) {
+    let {
+      contentOffsetY: n,
+      statusPillTop: r
+    } = eT({
+      isMilestonePlaying: t,
+      isAvatarHidden: a
+    });
+    return n + r + (30 + 16 * !!e) + 12
+  }, "getHatchStatusAvatarChromeGeometry", 0, eT], 476730), e.s(["HATCH_AVATAR_FADE_DURATION_SECONDS", 0, .14, "HATCH_AVATAR_STAGE_SETTLE_GRACE_MS", 0, 500, "HATCH_AVATAR_WRAP_ENTRY_VELOCITY_SCALE", 0, .82, "HATCH_AVATAR_WRAP_SETTLED_DISTANCE_PX", 0, 2, "HATCH_AVATAR_WRAP_SETTLED_VELOCITY", 0, 30, "HATCH_AVATAR_WRAP_VELOCITY_DELTA_MS", 0, 16.67, "areRectsEqual", 0, eR, "didStageTargetChange", 0, function(e, t) {
+    return null == e || e.id !== t.id || null == e.rect || null == t.rect || !eR(e.rect, t.rect)
+  }, "getBoundaryTriggerCenterY", 0, function(e, t) {
+    return "top" === e ? -t.height / 2 : eH() + t.height / 2
+  }, "getOffscreenCenterY", 0, function(e, t) {
+    let a = Math.max(16, 2 * t.height);
+    return "top" === e ? -t.height - a : eH() + t.height + a
+  }, "getPreviousValueForVelocity", 0, function(e, t) {
+    return e - .01667 * t
+  }, "getRectCenter", 0, eE, "getWrappedTransitionEdges", 0, ej, "hasCrossedWrapBoundary", 0, function(e, t, a) {
+    return "top" === e ? t <= a : t >= a
+  }, "shouldDeferDocumentScopedDirectCommit", 0, function({
+    allowDirectCommit: e,
+    destinationStage: t,
+    sourceStage: a,
+    viewTransitionGate: n
+  }) {
+    return n?.isDocumentScoped === !0 && !e && !eI(a, t) && null == ej(a, t)
+  }, "shouldFadeRelocateStage", 0, eI], 800745);
+  var eN = e.i(445492),
+    eL = e.i(899185),
+    eP = e.i(363552),
+    eB = e.i(937129),
+    eO = e.i(367112),
+    eU = e.i(832815);
+  eU.default._isSVG = !0;
+  let eV = {
+      surface: "status"
+    },
+    eD = eL.default;
+  eD._viewBox = 32;
+  let eF = eN.default;
+  eF._viewBox = 32;
+  let ez = {
+      avatarOnly: 48,
+      powerComposer: 40,
+      statusAvatar: 56,
+      statusSidebar: 100,
+      voiceSidebar: 160
+    },
+    eG = {
+      duration: .14,
+      ease: "linear"
+    },
+    eW = {
+      duration: 0
+    },
+    eY = {
+      duration: .3,
+      ease: [.46, .05, .22, .98]
+    },
+    eK = {
+      type: "spring",
+      stiffness: 300,
+      damping: 15
+    },
+    eq = {
+      type: "spring",
+      stiffness: 220,
+      damping: 26
+    },
+    eZ = {
+      type: "spring",
+      stiffness: 300,
+      damping: 15
+    };
+
+  function e$(e) {
+    let n, r, i, s = (0, a.c)(9),
+      {
+        clipPathId: l,
+        trailingEdge: o
+      } = e,
+      c = ez.statusSidebar,
+      u = "right" === o ? c - 16 - -3 : 13,
+      d = c - 16 - -3,
+      h = `M ${u+19},${d}`,
+      p = `A 19,19 0 1,0 ${u-19},${d}`,
+      m = `A 19,19 0 1,0 ${u+19},${d} Z`;
+    s[0] !== h || s[1] !== p || s[2] !== m ? (n = [`M 0,0 H ${c} V ${c} H 0 Z`, h, p, m], s[0] = h, s[1] = p, s[2] = m, s[3] = n) : n = s[3];
+    let f = n.join(" ");
+    return s[4] !== f ? (r = (0, t.jsx)("path", {
+      d: f,
+      fillRule: "evenodd"
+    }), s[4] = f, s[5] = r) : r = s[5], s[6] !== l || s[7] !== r ? (i = (0, t.jsx)("svg", {
+      "aria-hidden": "true",
+      className: "pointer-events-none absolute size-0",
+      children: (0, t.jsx)("defs", {
+        children: (0, t.jsx)("clipPath", {
+          id: l,
+          clipPathUnits: "userSpaceOnUse",
+          children: r
+        })
+      })
+    }), s[6] = l, s[7] = r, s[8] = i) : i = s[8], i
+  }
+
+  function eQ(e, {
+    includeX: t = !1,
+    top: a
+  } = {}) {
+    let n = .12 * !e;
+    return {
+      opacity: 0,
+      ...null == a ? {} : {
+        top: a
+      },
+      transition: {
+        opacity: {
+          duration: n,
+          ease: "linear"
+        },
+        ...null == a ? {} : {
+          top: {
+            duration: 0
+          }
+        },
+        ...t ? {
+          x: {
+            duration: 0
+          }
+        } : {},
+        y: {
+          duration: n,
+          ease: [.4, 0, .2, 1]
+        }
+      },
+      ...t ? {
+        x: "-50%"
+      } : {},
+      y: -6
+    }
+  }
+
+  function eX(e) {
+    let n, r = (0, a.c)(3),
+      {
+        children: s,
+        removeImmediately: l
+      } = e;
+    return r[0] !== s || r[1] !== l ? (n = (0, t.jsx)(i.AnimatePresence, {
+      initial: !1,
+      custom: l,
+      children: s
+    }), r[0] = s, r[1] = l, r[2] = n) : n = r[2], n
+  }
+
+  function eJ(e) {
+    let n, r, i = (0, a.c)(4),
+      {
+        size: s
+      } = e,
+      l = s / 60,
+      o = `inset 0 ${l/2}px ${l}px 1px rgba(0,0,0,0.075)`;
+    i[0] !== o ? (n = {
+      boxShadow: o
+    }, i[0] = o, i[1] = n) : n = i[1];
+    let c = n;
+    return i[2] !== c ? (r = (0, t.jsx)("span", {
+      "aria-hidden": "true",
+      className: "pointer-events-none absolute inset-0 rounded-full",
+      style: c
+    }), i[2] = c, i[3] = r) : r = i[3], r
+  }
+
+  function e1(e) {
+    let i, g, y, A, C, b, S, w, x, k, T, E, R, I, j, H, M, N, L, P, B, O, U, V, D, F, z, G, W, Y, K, q, $, Q, X, ee, er, ei, es, eo, ec, ed, eh, ep, ef, ev, e_, eg, ey, eA, eC = (0, a.c)(252),
+      {
+        accessoryChromeMounted: eb,
+        accessoryChromeVisible: ew,
+        animateMilestoneScale: ex,
+        ariaLabel: eE,
+        avatarConcealed: eR,
+        avatarHidden: eI,
+        avatarMediaActive: ej,
+        avatarMediaPlaybackGroup: eH,
+        isMilestonePlaying: eM,
+        name: eN,
+        onAvatarEditAction: eL,
+        showVoiceEditAction: e1,
+        onAvatarClick: e2,
+        snapFrameGeometry: e3,
+        stageHovered: e8,
+        staticAvatarMedia: e5,
+        statusPreview: e4,
+        statusAccessoriesExitWithHost: e6,
+        transformOrigin: e7,
+        variant: e9,
+        voicePreviewStatus: te
+      } = e,
+      tt = "statusAvatar" === e9,
+      ta = "statusSidebar" === e9,
+      tn = "voiceSidebar" === e9,
+      tr = "avatarOnly" === e9,
+      ti = !0 === (0, l.useReducedMotion)(),
+      ts = Z(),
+      tl = (e4?.state ?? ts) === "vm_updating",
+      to = (e4?.state ?? ts) !== "connected",
+      tc = eN.length > 0 || to,
+      tu = ta && null != eL && !eM,
+      td = `status-avatar-edit-clip-${(0,n.useId)()}`,
+      th = `${td}-ltr`,
+      tp = `${td}-rtl`,
+      tm = (0, n.useRef)(!1),
+      tf = (0, n.useRef)(null),
+      tv = (0, en.useHatchAvatarShareEligibility)(),
+      [t_, tg] = (0, n.useState)(null);
+    eC[0] === Symbol.for("react.memo_cache_sentinel") ? (i = {
+      eventName: v.HatchClickEvent.STATUS_AVATAR_EDIT_MENU_OPEN,
+      actionTarget: "status_avatar_edit_button",
+      actionType: "click",
+      metadata: {
+        surface: "status",
+        subsurface: "avatar_edit_menu",
+        screen: "status_panel"
+      }
+    }, eC[0] = i) : i = eC[0];
+    let {
+      ref: ty,
+      onClick: tA
+    } = (0, o.useTrackedClickRef)(i);
+    eC[1] === Symbol.for("react.memo_cache_sentinel") ? (g = {
+      eventName: _.HatchImpressionEvent.STATUS_AVATAR_EDIT_MENU_IMPRESSION,
+      actionTarget: "status_avatar_edit_menu",
+      metadata: {
+        surface: "status",
+        subsurface: "avatar_edit_menu",
+        screen: "status_panel"
+      }
+    }, eC[1] = g) : g = eC[1];
+    let {
+      ref: tC
+    } = (0, o.useTrackedImpressionRef)(g), tb = (0, u.useMergeRefs)(tf, ty);
+    eC[2] === Symbol.for("react.memo_cache_sentinel") ? (y = {
+      eventName: v.HatchClickEvent.STATUS_AVATAR_SHARE_OPEN,
+      actionTarget: "share_avatar_menu_item",
+      actionType: "click",
+      metadata: {
+        surface: "status",
+        subsurface: "avatar_edit_menu",
+        screen: "status_panel"
+      }
+    }, eC[2] = y) : y = eC[2];
+    let {
+      ref: tS,
+      onClick: tw
+    } = (0, o.useTrackedClickRef)(y);
+    eC[3] === Symbol.for("react.memo_cache_sentinel") ? (A = {
+      eventName: v.HatchClickEvent.STATUS_AVATAR_CHANGE_CLICK,
+      actionTarget: "change_avatar_menu_item",
+      actionType: "click",
+      metadata: {
+        surface: "status",
+        subsurface: "avatar_edit_menu",
+        screen: "status_panel"
+      }
+    }, eC[3] = A) : A = eC[3];
+    let {
+      ref: tx,
+      onClick: tk
+    } = (0, o.useTrackedClickRef)(A);
+    eC[4] === Symbol.for("react.memo_cache_sentinel") ? (C = {
+      eventName: v.HatchClickEvent.STATUS_AVATAR_NAME_EDIT_CLICK,
+      actionTarget: "edit_avatar_name_menu_item",
+      actionType: "click",
+      metadata: {
+        surface: "status",
+        subsurface: "avatar_edit_menu",
+        screen: "status_panel"
+      }
+    }, eC[4] = C) : C = eC[4];
+    let {
+      ref: tT,
+      onClick: tE
+    } = (0, o.useTrackedClickRef)(C);
+    eC[5] === Symbol.for("react.memo_cache_sentinel") ? (b = {
+      eventName: v.HatchClickEvent.STATUS_AVATAR_VOICE_CHANGE_CLICK,
+      actionTarget: "change_voice_menu_item",
+      actionType: "click",
+      metadata: {
+        surface: "status",
+        subsurface: "avatar_edit_menu",
+        screen: "status_panel"
+      }
+    }, eC[5] = b) : b = eC[5];
+    let {
+      ref: tR,
+      onClick: tI
+    } = (0, o.useTrackedClickRef)(b), tj = ez[e9];
+    eC[6] !== eI || eC[7] !== eM ? (S = eT({
+      isAvatarHidden: eI,
+      isMilestonePlaying: eM
+    }), eC[6] = eI, eC[7] = eM, eC[8] = S) : S = eC[8];
+    let tH = S,
+      tM = tt ? tH.avatarScale : ta ? 1.35 : 1,
+      tN = eM ? tM : 1,
+      tL = tj * tN,
+      tP = tt ? tH.contentOffsetY : 0,
+      tB = tH.statusPillTop;
+    eC[9] !== eI || eC[10] !== eM ? (w = {
+      avatarHidden: eI,
+      isMilestonePlaying: eM,
+      settles: eI
+    }, eC[9] = eI, eC[10] = eM, eC[11] = w) : w = eC[11];
+    let [tO, tU] = (0, n.useState)(w);
+    (tO.avatarHidden !== eI || tO.isMilestonePlaying !== eM) && tU({
+      avatarHidden: eI,
+      isMilestonePlaying: eM,
+      settles: tO.avatarHidden !== eI
+    });
+    let tV = tO.settles,
+      tD = tV ? ti ? "instant" : "settle" : "spring",
+      tF = "instant" === tD ? eW : "settle" === tD ? eq : eZ,
+      tz = tj - 22,
+      tG = tj - 32 - -3,
+      tW = !eb || e3,
+      tY = ew && tc && null != e2 && tt,
+      tK = ew && null != e2 && tn,
+      tq = "loading" === te,
+      tZ = "playing" === te,
+      t$ = tK && !tq,
+      tQ = eI ? void 0 : e2;
+    if (eC[12] !== ex || eC[13] !== eE || eC[14] !== eR || eC[15] !== tQ || eC[16] !== tj || eC[17] !== eI || eC[18] !== tV || eC[19] !== ej || eC[20] !== eH || eC[21] !== tN || eC[22] !== tY || eC[23] !== tv || eC[24] !== tr || eC[25] !== tt || eC[26] !== ta || eC[27] !== tl || eC[28] !== tA || eC[29] !== tk || eC[30] !== tI || eC[31] !== tE || eC[32] !== tw || eC[33] !== eL || eC[34] !== ti || eC[35] !== e3 || eC[36] !== e8 || eC[37] !== e5 || eC[38] !== tP || eC[39] !== th || eC[40] !== tu || eC[41] !== tp || eC[42] !== e2 || eC[43] !== e7 || eC[44] !== tL) {
+      let e, a, n, r, i, l, o, u, d, h, p, m, f, v, _, g, y, A, C, b = (0, c.cn)("relative z-10 aspect-square shrink-0 rounded-full", tV && ti ? "transition-none" : "transition-opacity duration-300 ease-out", null == tQ ? "pointer-events-none cursor-default" : "pointer-events-auto cursor-pointer", ta && "overflow-hidden bg-white", tu && "[clip-path:var(--status-avatar-edit-clip-ltr)] rtl:[clip-path:var(--status-avatar-edit-clip-rtl)]", (tr && e8 || eI) && "opacity-0", eR && "invisible");
+      eC[76] !== th || eC[77] !== tu || eC[78] !== tp ? (e = tu ? {
+        "--status-avatar-edit-clip-ltr": `url(#${th})`,
+        "--status-avatar-edit-clip-rtl": `url(#${tp})`
+      } : {}, eC[76] = th, eC[77] = tu, eC[78] = tp, eC[79] = e) : e = eC[79], eC[80] !== e || eC[81] !== e7 ? (a = {
+        transformOrigin: e7,
+        ...e
+      }, eC[80] = e, eC[81] = e7, eC[82] = a) : a = eC[82], R = a, eC[83] !== tj || eC[84] !== tN ? (n = {
+        height: tj,
+        scale: tN,
+        width: tj
+      }, eC[83] = tj, eC[84] = tN, eC[85] = n) : n = eC[85], T = n;
+      let S = e3 ? eW : eY,
+        w = ta ? eq : eK,
+        Z = ti || e3 && !ex,
+        J = Z ? eW : w;
+      eC[86] !== S || eC[87] !== J ? (r = {
+        height: S,
+        scale: J,
+        width: S
+      }, eC[86] = S, eC[87] = J, eC[88] = r) : r = eC[88], I = r;
+      let et = tt || ta,
+        en = !ta && "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5),0_0_6px_0_rgba(0,0,0,0.03),0_6px_30px_0_rgba(0,0,0,0.07)]";
+      eC[89] !== en ? (i = (0, c.cn)("size-full rounded-full object-cover", en), eC[89] = en, eC[90] = i) : i = eC[90], eC[91] !== ej || eC[92] !== eH || eC[93] !== tl || eC[94] !== e5 || eC[95] !== et || eC[96] !== i ? (l = (0, t.jsx)(ea.HatchAvatarMedia, {
+        active: ej,
+        showLoadingSkeleton: et,
+        staticImageOnly: e5,
+        warmingUp: tl,
+        className: i,
+        playbackGroup: eH
+      }), eC[91] = ej, eC[92] = eH, eC[93] = tl, eC[94] = e5, eC[95] = et, eC[96] = i, eC[97] = l) : l = eC[97], eC[98] !== ta ? (o = ta && (0, t.jsx)("span", {
+        "aria-hidden": "true",
+        "data-hatch-avatar-media-protection-border": !0,
+        className: "pointer-events-none absolute inset-0 z-10 rounded-full shadow-[inset_0_0_0_1px_var(--avatar-media-protection-border)]"
+      }), eC[98] = ta, eC[99] = o) : o = eC[99], eC[100] !== eI || eC[101] !== tt ? (u = tt && !eI && (0, t.jsx)(ek, {
+        size: 56
+      }), eC[100] = eI, eC[101] = tt, eC[102] = u) : u = eC[102], eC[103] !== ta || eC[104] !== tL ? (d = !ta && (0, t.jsx)(eJ, {
+        size: tL
+      }), eC[103] = ta, eC[104] = tL, eC[105] = d) : d = eC[105], eC[106] !== l || eC[107] !== o || eC[108] !== u || eC[109] !== d ? (h = (0, t.jsxs)(t.Fragment, {
+        children: [l, o, u, d]
+      }), eC[106] = l, eC[107] = o, eC[108] = u, eC[109] = d, eC[110] = h) : h = eC[110], E = h, eC[111] !== tQ ? (p = e => {
+        "Enter" !== e.key && " " !== e.key || null != tQ && (e.preventDefault(), tQ())
+      }, eC[111] = tQ, eC[112] = p) : p = eC[112], M = p, eC[113] !== tY || eC[114] !== e2 ? (m = e => {
+        tY && ("Enter" === e.key || " " === e.key) && (e.preventDefault(), e2?.())
+      }, eC[113] = tY, eC[114] = e2, eC[115] = m) : m = eC[115], U = m, eC[116] !== tk || eC[117] !== eL ? (f = () => {
+        tm.current = !0, tk(), eL?.("change_avatar")
+      }, eC[116] = tk, eC[117] = eL, eC[118] = f) : f = eC[118], L = f, eC[119] !== tw ? (v = () => {
+        tm.current = !0, tw(), tg(!0)
+      }, eC[119] = tw, eC[120] = v) : v = eC[120], O = v, eC[121] === Symbol.for("react.memo_cache_sentinel") ? (_ = e => {
+        e.preventDefault(), tf.current?.focus()
+      }, eC[121] = _) : _ = eC[121], N = _, eC[122] !== tE || eC[123] !== eL ? (g = () => {
+        tm.current = !0, tE(), eL?.("edit_name")
+      }, eC[122] = tE, eC[123] = eL, eC[124] = g) : g = eC[124], B = g, eC[125] !== tI || eC[126] !== eL ? (y = () => {
+        tm.current = !0, tI(), eL?.("change_voice")
+      }, eC[125] = tI, eC[126] = eL, eC[127] = y) : y = eC[127], P = y, eC[128] !== tv || eC[129] !== tA ? (A = e => {
+        e && (tm.current = !1, tv && eu().catch(e => {
+          (0, el.captureHatchException)(el.HATCH_SENTRY_SURFACES.CHAT_AVATAR_SHARE, e, {
+            tags: {
+              reason: "avatar_share_preload_failed"
+            }
+          })
+        }), tA())
+      }, eC[128] = tv, eC[129] = tA, eC[130] = A) : A = eC[130], H = A, eC[131] === Symbol.for("react.memo_cache_sentinel") ? (C = e => {
+        tm.current && (tm.current = !1, e.preventDefault())
+      }, eC[131] = C) : C = eC[131], j = C, k = s.motion.div, $ = !1, Q = "group/status-avatar relative flex size-full items-start justify-center overflow-visible", eC[132] !== tP ? (X = {
+        y: tP
+      }, eC[132] = tP, eC[133] = X) : X = eC[133], eC[134] !== e3 ? (ee = e3 ? {
+        duration: 0
+      } : {
+        type: "spring",
+        stiffness: 300,
+        damping: 15
+      }, eC[134] = e3, eC[135] = ee) : ee = eC[135], eC[136] !== e7 ? (er = {
+        transformOrigin: e7
+      }, eC[136] = e7, eC[137] = er) : er = eC[137], eC[138] !== th || eC[139] !== tu || eC[140] !== tp ? (ei = tu && (0, t.jsxs)(t.Fragment, {
+        children: [(0, t.jsx)(e$, {
+          clipPathId: th,
+          trailingEdge: "right"
+        }), (0, t.jsx)(e$, {
+          clipPathId: tp,
+          trailingEdge: "left"
+        })]
+      }), eC[138] = th, eC[139] = tu, eC[140] = tp, eC[141] = ei) : ei = eC[141], x = s.motion.div, es = eI ? void 0 : null == tQ ? "img" : "button", V = null == tQ ? void 0 : 0, D = eI ? void 0 : eE, F = !!eI || void 0, z = !eI || void 0, G = eI ? "true" : void 0, W = e3 ? "true" : void 0, Y = Z ? "snap" : "animated", K = !1, q = (0, c.cn)(b, "bg-transparent p-0 text-start"), eC[12] = ex, eC[13] = eE, eC[14] = eR, eC[15] = tQ, eC[16] = tj, eC[17] = eI, eC[18] = tV, eC[19] = ej, eC[20] = eH, eC[21] = tN, eC[22] = tY, eC[23] = tv, eC[24] = tr, eC[25] = tt, eC[26] = ta, eC[27] = tl, eC[28] = tA, eC[29] = tk, eC[30] = tI, eC[31] = tE, eC[32] = tw, eC[33] = eL, eC[34] = ti, eC[35] = e3, eC[36] = e8, eC[37] = e5, eC[38] = tP, eC[39] = th, eC[40] = tu, eC[41] = tp, eC[42] = e2, eC[43] = e7, eC[44] = tL, eC[45] = x, eC[46] = k, eC[47] = T, eC[48] = E, eC[49] = R, eC[50] = I, eC[51] = j, eC[52] = H, eC[53] = M, eC[54] = N, eC[55] = L, eC[56] = P, eC[57] = B, eC[58] = O, eC[59] = U, eC[60] = V, eC[61] = D, eC[62] = F, eC[63] = z, eC[64] = G, eC[65] = W, eC[66] = Y, eC[67] = K, eC[68] = q, eC[69] = $, eC[70] = Q, eC[71] = X, eC[72] = ee, eC[73] = er, eC[74] = ei, eC[75] = es
+    } else x = eC[45], k = eC[46], T = eC[47], E = eC[48], R = eC[49], I = eC[50], j = eC[51], H = eC[52], M = eC[53], N = eC[54], L = eC[55], P = eC[56], B = eC[57], O = eC[58], U = eC[59], V = eC[60], D = eC[61], F = eC[62], z = eC[63], G = eC[64], W = eC[65], Y = eC[66], K = eC[67], q = eC[68], $ = eC[69], Q = eC[70], X = eC[71], ee = eC[72], er = eC[73], ei = eC[74], es = eC[75];
+    let tX = !e3 && "size";
+    return eC[142] !== x || eC[143] !== T || eC[144] !== E || eC[145] !== tQ || eC[146] !== R || eC[147] !== I || eC[148] !== M || eC[149] !== V || eC[150] !== D || eC[151] !== F || eC[152] !== z || eC[153] !== G || eC[154] !== W || eC[155] !== Y || eC[156] !== K || eC[157] !== q || eC[158] !== tX || eC[159] !== es ? (eo = (0, t.jsx)(x, {
+      role: es,
+      tabIndex: V,
+      "aria-label": D,
+      "aria-hidden": F,
+      "data-hatch-avatar-interaction": z,
+      "data-hatch-avatar-hidden": G,
+      "data-hatch-avatar-frame-snap": W,
+      "data-hatch-avatar-milestone-scale": Y,
+      initial: K,
+      className: q,
+      animate: T,
+      layout: tX,
+      transition: I,
+      style: R,
+      onClick: tQ,
+      onKeyDown: M,
+      children: E
+    }), eC[142] = x, eC[143] = T, eC[144] = E, eC[145] = tQ, eC[146] = R, eC[147] = I, eC[148] = M, eC[149] = V, eC[150] = D, eC[151] = F, eC[152] = z, eC[153] = G, eC[154] = W, eC[155] = Y, eC[156] = K, eC[157] = q, eC[158] = tX, eC[159] = es, eC[160] = eo) : eo = eC[160], eC[161] !== eb || eC[162] !== ew || eC[163] !== tC || eC[164] !== tb || eC[165] !== tj || eC[166] !== tv || eC[167] !== tx || eC[168] !== tR || eC[169] !== tT || eC[170] !== j || eC[171] !== H || eC[172] !== L || eC[173] !== P || eC[174] !== B || eC[175] !== O || eC[176] !== tS || eC[177] !== e1 || eC[178] !== tG || eC[179] !== tu ? (ec = tu && (0, t.jsxs)("div", {
+      "data-hatch-avatar-accessory": "status-avatar-edit-menu",
+      className: (0, c.cn)("pointer-events-auto absolute z-20", (!eb || !ew) && "pointer-events-none"),
+      style: {
+        insetInlineEnd: `calc(50% - ${tj/2- -3}px)`,
+        top: tG
+      },
+      children: [(0, t.jsx)(m.Skeleton, {
+        as: "span",
+        "aria-hidden": "true",
+        "data-hatch-status-avatar-edit-skeleton": !0,
+        className: "bg-fill-primary text-text-secondary hidden size-8 items-center justify-center rounded-full group-has-[[data-hatch-avatar-media-loading]]/status-avatar:flex",
+        strength: "light",
+        children: (0, t.jsx)(h.HatchIcon, {
+          icon: eO.default,
+          size: 20
+        })
+      }), (0, t.jsx)("div", {
+        className: "group-has-[[data-hatch-avatar-media-loading]]/status-avatar:hidden",
+        children: (0, t.jsxs)(d.DropdownMenu, {
+          mobilePresentation: "menu",
+          onOpenChange: H,
+          children: [(0, t.jsx)(d.DropdownMenuTrigger, {
+            asChild: !0,
+            children: (0, t.jsx)(p.IconButton, {
+              ref: tb,
+              className: "bg-fill-secondary",
+              icon: eO.default,
+              label: tv ? r.fbs._("Avatar options", null, {
+                hk: "1Y9rNv"
+              }) : e1 ? r.fbs._("Edit avatar, name, and voice", null, {
+                hk: "2pQPlc"
+              }) : r.fbs._("Edit avatar and name", null, {
+                hk: "2dRO3b"
+              }),
+              size: "32",
+              variant: "flat"
+            })
+          }), (0, t.jsx)(d.DropdownMenuContent, {
+            align: "end",
+            side: "bottom",
+            onCloseAutoFocus: j,
+            children: (0, t.jsxs)(d.DropdownMenuGroup, {
+              ref: tC,
+              children: [(0, t.jsx)(d.DropdownMenuItem, {
+                ref: tx,
+                label: r.fbs._("Change avatar", null, {
+                  hk: "16r1wM"
+                }),
+                leadingIcon: eP.default,
+                onSelect: L
+              }), (0, t.jsx)(d.DropdownMenuItem, {
+                ref: tT,
+                label: r.fbs._("Edit name", null, {
+                  hk: "dr7av"
+                }),
+                leadingIcon: eO.default,
+                onSelect: B
+              }), e1 && (0, t.jsx)(d.DropdownMenuItem, {
+                ref: tR,
+                label: r.fbs._("Change voice", null, {
+                  hk: "f3Irt"
+                }),
+                leadingIcon: eB.default,
+                onSelect: P
+              }), tv && (0, t.jsx)(d.DropdownMenuItem, {
+                ref: tS,
+                label: r.fbs._("Share avatar", null, {
+                  hk: "12D67E"
+                }),
+                leadingIcon: eU.default,
+                onSelect: O
+              })]
+            })
+          })]
+        })
+      })]
+    }), eC[161] = eb, eC[162] = ew, eC[163] = tC, eC[164] = tb, eC[165] = tj, eC[166] = tv, eC[167] = tx, eC[168] = tR, eC[169] = tT, eC[170] = j, eC[171] = H, eC[172] = L, eC[173] = P, eC[174] = B, eC[175] = O, eC[176] = tS, eC[177] = e1, eC[178] = tG, eC[179] = tu, eC[180] = ec) : ec = eC[180], eC[181] !== tv || eC[182] !== N || eC[183] !== t_ ? (ed = tv && null != t_ && (0, t.jsx)(em, {
+      isOpen: t_,
+      onOpenChange: tg,
+      onCloseAutoFocus: N,
+      source: eV
+    }), eC[181] = tv, eC[182] = N, eC[183] = t_, eC[184] = ed) : ed = eC[184], eC[185] !== eb || eC[186] !== ew || eC[187] !== eE || eC[188] !== eI || eC[189] !== tY || eC[190] !== U || eC[191] !== tt || eC[192] !== eN || eC[193] !== tW || eC[194] !== e3 || eC[195] !== tc || eC[196] !== e2 || eC[197] !== tB || eC[198] !== tD || eC[199] !== tF || eC[200] !== e4 ? (eh = eb && tt && (0, t.jsxs)(s.motion.div, {
+      custom: tW,
+      "data-hatch-avatar-accessory": "status-pill",
+      "data-hatch-avatar-status-pill-visible": tc ? "true" : "false",
+      "data-hatch-avatar-status-pill-top": tB,
+      "data-hatch-avatar-status-pill-top-motion": tD,
+      "data-hatch-avatar-interaction": !!eI && !!tY || void 0,
+      "data-hatch-toast-pane-anchor-boundary": "chat",
+      role: tY ? "button" : void 0,
+      tabIndex: tY ? 0 : void 0,
+      "aria-label": tY ? eE : void 0,
+      "aria-hidden": !tc || void 0,
+      className: (0, c.cn)("shadow-blur-elevation-01 rounded-18 absolute z-0 flex w-fit max-w-80 origin-top flex-col items-center overflow-hidden bg-white px-2.5 pt-1.5 pb-1.5 dark:bg-[var(--ai-gray-900)]", tY ? "pointer-events-auto cursor-pointer" : "pointer-events-none cursor-default"),
+      initial: !e3 && {
+        opacity: 0,
+        top: tB,
+        x: "-50%",
+        y: 6
+      },
+      animate: {
+        top: tB,
+        x: "-50%",
+        y: ew && tc ? 0 : -6,
+        opacity: ew && tc ? 1 : 0
+      },
+      variants: {
+        exit: e => eQ(e, {
+          includeX: !0,
+          top: tB
+        })
+      },
+      exit: "exit",
+      style: {
+        left: "50%"
+      },
+      onClick: tY ? e2 : void 0,
+      onKeyDown: U,
+      transition: {
+        opacity: eG,
+        top: tF,
+        x: {
+          duration: 0
+        },
+        y: {
+          duration: .18,
+          ease: [.4, 0, .2, 1]
+        }
+      },
+      children: [eN.length > 0 && (0, t.jsx)("span", {
+        className: "flex max-w-full min-w-0 items-center gap-1.5",
+        children: (0, t.jsx)("span", {
+          className: "text-footnote-medium text-text-primary block max-w-full min-w-0 truncate whitespace-nowrap",
+          title: eN,
+          children: eN
+        })
+      }), (0, t.jsx)(J, {
+        className: "text-caption-2 flex items-center gap-0.5 whitespace-nowrap",
+        hasVisibleAgentName: eN.length > 0,
+        preview: e4
+      })]
+    }, "status-pill"), eC[185] = eb, eC[186] = ew, eC[187] = eE, eC[188] = eI, eC[189] = tY, eC[190] = U, eC[191] = tt, eC[192] = eN, eC[193] = tW, eC[194] = e3, eC[195] = tc, eC[196] = e2, eC[197] = tB, eC[198] = tD, eC[199] = tF, eC[200] = e4, eC[201] = eh) : eh = eC[201], eC[202] !== tW || eC[203] !== eh ? (ep = (0, t.jsx)(eX, {
+      removeImmediately: tW,
+      children: eh
+    }), eC[202] = tW, eC[203] = eh, eC[204] = ep) : ep = eC[204], eC[205] !== tt || eC[206] !== eN ? (ef = tt ? (0, t.jsx)(et, {
+      name: eN
+    }) : null, eC[205] = tt, eC[206] = eN, eC[207] = ef) : ef = eC[207], eC[208] !== eb || eC[209] !== ew || eC[210] !== tj || eC[211] !== eM || eC[212] !== ta || eC[213] !== eN || eC[214] !== tW || eC[215] !== e3 || eC[216] !== e6 || eC[217] !== e4 ? (ev = eb && ta && (0, t.jsx)(s.motion.div, {
+      custom: tW,
+      "data-hatch-avatar-accessory": "status-sidebar-bubble",
+      className: "pointer-events-none absolute z-20",
+      initial: !e3 && {
+        opacity: 0,
+        x: "-50%",
+        y: 6
+      },
+      animate: {
+        opacity: ew || e6 ? 1 : 0,
+        x: "-50%",
+        y: 0
+      },
+      variants: {
+        exit: e0
+      },
+      exit: "exit",
+      style: {
+        left: "50%",
+        top: tj + 8
+      },
+      transition: {
+        opacity: eG,
+        x: {
+          duration: 0
+        },
+        y: {
+          duration: .18,
+          ease: [.4, 0, .2, 1]
+        }
+      },
+      children: (0, t.jsx)(eS, {
+        nameHidden: eM,
+        nameOverride: eN,
+        preview: e4,
+        visible: !0,
+        variant: "panel"
+      })
+    }, "status-sidebar-bubble"), eC[208] = eb, eC[209] = ew, eC[210] = tj, eC[211] = eM, eC[212] = ta, eC[213] = eN, eC[214] = tW, eC[215] = e3, eC[216] = e6, eC[217] = e4, eC[218] = ev) : ev = eC[218], eC[219] !== tW || eC[220] !== ev ? (e_ = (0, t.jsx)(eX, {
+      removeImmediately: tW,
+      children: ev
+    }), eC[219] = tW, eC[220] = ev, eC[221] = e_) : e_ = eC[221], eC[222] !== eb || eC[223] !== ew || eC[224] !== eE || eC[225] !== t$ || eC[226] !== tn || eC[227] !== e2 || eC[228] !== tW || eC[229] !== tz || eC[230] !== tq || eC[231] !== tZ || eC[232] !== tK ? (eg = eb && tn && (0, t.jsx)(s.motion.button, {
+      custom: tW,
+      type: "button",
+      "data-hatch-avatar-accessory": "voice-sidebar-preview",
+      "aria-label": eE,
+      disabled: !t$,
+      className: (0, c.cn)("bg-text-primary shadow-blur-elevation-02 absolute z-20 flex size-11 items-center justify-center rounded-full transition-transform", t$ ? "pointer-events-auto cursor-pointer" : "pointer-events-none cursor-default"),
+      initial: {
+        opacity: 0,
+        x: "-50%",
+        y: 6
+      },
+      animate: {
+        opacity: ew ? tK ? 1 : .35 : 0,
+        x: "-50%",
+        y: 0
+      },
+      variants: {
+        exit: e => eQ(e, {
+          includeX: !0,
+          top: tz
+        })
+      },
+      exit: "exit",
+      style: {
+        left: "50%",
+        top: tz
+      },
+      transition: {
+        opacity: eG,
+        top: {
+          type: "spring",
+          stiffness: 300,
+          damping: 15
+        },
+        x: {
+          duration: 0
+        },
+        y: {
+          duration: .18,
+          ease: [.4, 0, .2, 1]
+        }
+      },
+      onClick: t$ ? e2 : void 0,
+      children: tq ? (0, t.jsx)(f.Spinner, {
+        size: 20,
+        color: "currentColor",
+        className: "text-fill-primary"
+      }) : (0, t.jsx)(h.HatchIcon, {
+        icon: tZ ? eF : eD,
+        size: 24,
+        className: (0, c.cn)("text-fill-primary", !tZ && "ms-0.5")
+      })
+    }, "voice-sidebar-preview"), eC[222] = eb, eC[223] = ew, eC[224] = eE, eC[225] = t$, eC[226] = tn, eC[227] = e2, eC[228] = tW, eC[229] = tz, eC[230] = tq, eC[231] = tZ, eC[232] = tK, eC[233] = eg) : eg = eC[233], eC[234] !== tW || eC[235] !== eg ? (ey = (0, t.jsx)(eX, {
+      removeImmediately: tW,
+      children: eg
+    }), eC[234] = tW, eC[235] = eg, eC[236] = ey) : ey = eC[236], eC[237] !== k || eC[238] !== $ || eC[239] !== Q || eC[240] !== X || eC[241] !== ee || eC[242] !== er || eC[243] !== ei || eC[244] !== eo || eC[245] !== ec || eC[246] !== ed || eC[247] !== ep || eC[248] !== ef || eC[249] !== e_ || eC[250] !== ey ? (eA = (0, t.jsxs)(k, {
+      initial: $,
+      className: Q,
+      animate: X,
+      transition: ee,
+      style: er,
+      children: [ei, eo, ec, ed, ep, ef, e_, ey]
+    }), eC[237] = k, eC[238] = $, eC[239] = Q, eC[240] = X, eC[241] = ee, eC[242] = er, eC[243] = ei, eC[244] = eo, eC[245] = ec, eC[246] = ed, eC[247] = ep, eC[248] = ef, eC[249] = e_, eC[250] = ey, eC[251] = eA) : eA = eC[251], eA
+  }
+
+  function e0(e) {
+    return eQ(e, {
+      includeX: !0
+    })
+  }
+  e.s(["HatchAvatarHostContent", 0, function(e) {
+    let n, r = (0, a.c)(22),
+      {
+        accessoryChromeMounted: i,
+        accessoryChromeVisible: s,
+        animateMilestoneScale: l,
+        ariaLabel: o,
+        avatarConcealed: c,
+        avatarHidden: u,
+        avatarMediaActive: d,
+        avatarMediaPlaybackGroup: h,
+        isMilestonePlaying: p,
+        name: m,
+        onAvatarEditAction: f,
+        showVoiceEditAction: v,
+        onAvatarClick: _,
+        snapFrameGeometry: g,
+        stageHovered: y,
+        staticAvatarMedia: A,
+        statusPreview: C,
+        statusAccessoriesExitWithHost: b,
+        transformOrigin: S,
+        variant: w,
+        voicePreviewStatus: x
+      } = e,
+      k = void 0 === i || i,
+      T = void 0 === s || s,
+      E = void 0 !== l && l,
+      R = void 0 !== c && c,
+      I = void 0 !== u && u,
+      j = void 0 === d || d,
+      H = void 0 !== v && v,
+      M = void 0 !== g && g,
+      N = void 0 !== A && A,
+      L = void 0 !== b && b,
+      P = void 0 === x ? "idle" : x;
+    return r[0] !== k || r[1] !== T || r[2] !== E || r[3] !== o || r[4] !== R || r[5] !== I || r[6] !== j || r[7] !== h || r[8] !== p || r[9] !== m || r[10] !== _ || r[11] !== f || r[12] !== H || r[13] !== M || r[14] !== y || r[15] !== N || r[16] !== L || r[17] !== C || r[18] !== S || r[19] !== w || r[20] !== P ? (n = (0, t.jsx)(e1, {
+      animateMilestoneScale: E,
+      ariaLabel: o,
+      avatarConcealed: R,
+      avatarHidden: I,
+      avatarMediaActive: j,
+      avatarMediaPlaybackGroup: h,
+      accessoryChromeVisible: T,
+      accessoryChromeMounted: k,
+      isMilestonePlaying: p,
+      name: m,
+      onAvatarEditAction: f,
+      showVoiceEditAction: H,
+      onAvatarClick: _,
+      snapFrameGeometry: M,
+      stageHovered: y,
+      staticAvatarMedia: N,
+      statusPreview: C,
+      statusAccessoriesExitWithHost: L,
+      transformOrigin: S,
+      variant: w,
+      voicePreviewStatus: P
+    }), r[0] = k, r[1] = T, r[2] = E, r[3] = o, r[4] = R, r[5] = I, r[6] = j, r[7] = h, r[8] = p, r[9] = m, r[10] = _, r[11] = f, r[12] = H, r[13] = M, r[14] = y, r[15] = N, r[16] = L, r[17] = C, r[18] = S, r[19] = w, r[20] = P, r[21] = n) : n = r[21], n
+  }], 667710)
+}, 568096, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    n = e.i(906757),
+    r = e.i(880162),
+    i = e.i(519172),
+    s = e.i(345717),
+    l = e.i(832964),
+    o = e.i(295967),
+    c = e.i(374785),
+    u = e.i(359783),
+    d = e.i(652649),
+    h = e.i(177649),
+    p = e.i(9326);
+
+  function m(e, t, n, r) {
+    let i, s, l = (0, a.c)(13),
+      o = "milestone" === e ? r ?? null : null,
+      c = null != e && "milestone" !== e && "static" !== e ? n.default ?? null : null,
+      u = null != e && "default" !== e && "milestone" !== e && "static" !== e ? n[e] ?? null : null;
+    l[0] !== t || l[1] !== e || l[2] !== n ? (i = "static" === e && null == t ? p.HATCH_AVATAR_VARIANTS.find(e => "resume" !== e && null != n[e]) ?? null : null, l[0] = t, l[1] = e, l[2] = n, l[3] = i) : i = l[3];
+    let d = i,
+      m = null == d ? null : n[d] ?? null;
+    e: {
+      let a;
+      if (null == e) {
+        s = null;
+        break e
+      }
+      if ("milestone" === e) {
+        s = o;
+        break e
+      }
+      if ("static" === e) {
+        let e;
+        if (l[4] !== t || l[5] !== d || l[6] !== m) {
+          let a = {};
+          null != d && null != m && (a[d] = m), e = (0, h.resolveStaticHatchAvatarMedia)({
+            imageUrl: t,
+            videoUrlsByVariant: a
+          }), l[4] = t, l[5] = d, l[6] = m, l[7] = e
+        } else e = l[7];
+        s = e;
+        break e
+      }
+      if (l[8] !== c || l[9] !== t || l[10] !== e || l[11] !== u) {
+        let n = {};
+        null != c && (n.default = c), "default" !== e && null != u && (n[e] = u), a = (0, h.resolveLoopingHatchAvatarMedia)(e, {
+          imageUrl: t,
+          videoUrlsByVariant: n
+        }), l[8] = c, l[9] = t, l[10] = e, l[11] = u, l[12] = a
+      } else a = l[12];s = a
+    }
+    return s
+  }
+
+  function f(e, t, a) {
+    return e.current += 1, {
+      id: e.current,
+      media: a,
+      visualState: t
+    }
+  }
+  var v = e.i(890564),
+    _ = e.i(508180),
+    g = e.i(650726),
+    y = e.i(696254),
+    A = e.i(243391),
+    C = e.i(390808),
+    b = e.i(666750),
+    S = e.i(863641);
+  let w = (0, u.createClientLogger)("HatchAvatarMedia"),
+    x = new WeakMap,
+    k = new WeakMap;
+
+  function T(e) {
+    if (null == e) return;
+    let t = k.get(e);
+    return null == t ? void 0 : [t.currentLayer, t.nextLayer].some(e => null != e && e.media.src.startsWith("blob:") && 0 === (0, v.getObjectUrlRefCount)(e.media.src)) ? void k.delete(e) : t
+  }
+
+  function E(e, t) {
+    let a = x.get(e);
+    null == a && (a = new Map, x.set(e, a));
+    let n = a.get(t);
+    return null == n && (n = {
+      activeAttachment: null,
+      attachments: new Set,
+      currentTime: 0
+    }, a.set(t, n)), n
+  }
+
+  function R(e, t) {
+    e.node instanceof HTMLVideoElement && null != t && E(t, e.src).attachments.add(e)
+  }
+
+  function I(e) {
+    return Number.isFinite(e.currentTime) ? e.currentTime : 0
+  }
+
+  function j(e, t) {
+    if (!(e.node instanceof HTMLVideoElement) || null == t) return;
+    let a = x.get(t),
+      n = a?.get(e.src);
+    null != n && (H(e, t), n.attachments.delete(e), 0 === n.attachments.size && a?.delete(e.src))
+  }
+
+  function H(e, t) {
+    if (!(e.node instanceof HTMLVideoElement) || null == t) return;
+    let a = x.get(t)?.get(e.src);
+    null != a && a.activeAttachment === e && (a.currentTime = I(e.node), a.activeAttachment = null)
+  }
+
+  function M(e, t, a, n) {
+    let {
+      node: r,
+      src: i
+    } = e;
+    if (!(r instanceof HTMLVideoElement)) return;
+    if (!t) {
+      H(e, n), r.pause();
+      return
+    }
+    let s = !1;
+    if (r.getAttribute("src") !== i && r.src !== i && (r.setAttribute("src", i), r.load(), s = !0), null != n) {
+      let t = E(n, i),
+        a = t.activeAttachment;
+      null != a && a !== e && a.node instanceof HTMLVideoElement && (t.currentTime = I(a.node), a.node.pause());
+      var l = t.currentTime;
+      if (!(l <= 0 || .05 > Math.abs(I(r) - l))) try {
+        r.currentTime = l
+      } catch {}
+      t.activeAttachment = e
+    }
+    if (a || s) try {
+      r.play().catch(() => {})
+    } catch {}
+  }
+
+  function N({
+    active: e = !0,
+    layer: a,
+    slot: r,
+    initialOpacity: s,
+    animateOpacity: l,
+    revealImmediately: o,
+    onEnded: c,
+    onError: u,
+    onReady: d,
+    playbackGroup: h,
+    transitionDurationMs: p = 500
+  }) {
+    let m = (0, i.useRef)(null),
+      f = (0, i.useRef)(0),
+      _ = (0, i.useRef)(e);
+    _.current = e;
+    let g = (0, i.useRef)(e),
+      y = (0, i.useCallback)(e => {
+        if (f.current++, null != e) {
+          let t = m.current;
+          if (t?.node === e) {
+            let n = t;
+            t.src !== a.media.src && (j(t, h), (0, v.retainObjectUrl)(a.media.src), m.current = n = {
+              node: e,
+              src: a.media.src
+            }, R(n, h), (0, v.releaseObjectUrl)(t.src)), M(n, _.current && "static" !== a.visualState, !1, h);
+            return
+          }(0, v.retainObjectUrl)(a.media.src), m.current = {
+            node: e,
+            src: a.media.src
+          }, R(m.current, h), M(m.current, _.current && "static" !== a.visualState, !1, h);
+          return
+        }
+        let t = m.current;
+        if (null == t) return;
+        let n = f.current;
+        queueMicrotask(() => {
+          f.current === n && m.current === t && (m.current = null, j(t, h), function({
+            node: e,
+            src: t
+          }) {
+            e instanceof HTMLVideoElement && (e.getAttribute("src") === t || e.src === t) && (e.pause(), e.removeAttribute("src"), e.load())
+          }(t), (0, v.releaseObjectUrl)(t.src))
+        })
+      }, [a.media.src, a.visualState, h]);
+    return ((0, i.useLayoutEffect)(() => {
+      if (g.current === e) return;
+      g.current = e;
+      let t = m.current;
+      null != t && M(t, e && "static" !== a.visualState, !0, h)
+    }, [e, a.visualState, h]), "image" === a.media.kind) ? (0, t.jsx)(n.motion.img, {
+      ref: y,
+      src: a.media.src,
+      alt: "",
+      className: "absolute inset-0 size-full [border-radius:inherit] object-cover",
+      initial: {
+        opacity: s
+      },
+      animate: {
+        opacity: l
+      },
+      exit: {
+        opacity: 0
+      },
+      transition: {
+        duration: o ? 0 : p / 1e3,
+        ease: "easeInOut"
+      },
+      onError: u,
+      onLoad: d,
+      "data-hatch-avatar-layer": "ready",
+      "data-hatch-avatar-initial-opacity": s,
+      "data-hatch-avatar-slot": r,
+      "data-hatch-avatar-transition-duration-ms": p
+    }, a.id) : (0, t.jsx)(n.motion.video, {
+      ref: y,
+      src: a.media.src,
+      autoPlay: e && "static" !== a.visualState,
+      "aria-hidden": "true",
+      muted: !0,
+      playsInline: !0,
+      loop: a.media.loop && "static" !== a.visualState,
+      preload: "static" === a.visualState ? "metadata" : void 0,
+      className: "absolute inset-0 size-full [border-radius:inherit] object-cover",
+      initial: {
+        opacity: s
+      },
+      animate: {
+        opacity: l
+      },
+      exit: {
+        opacity: 0
+      },
+      transition: {
+        duration: o ? 0 : p / 1e3,
+        ease: "easeInOut"
+      },
+      onCanPlay: d,
+      onLoadedData: "static" === a.visualState ? d : void 0,
+      onEnded: c,
+      onError: u,
+      "data-hatch-avatar-layer": "ready",
+      "data-hatch-avatar-initial-opacity": s,
+      "data-hatch-avatar-slot": r,
+      "data-hatch-avatar-transition-duration-ms": p,
+      "data-hatch-media-owner": "avatar-layer"
+    }, a.id)
+  }
+
+  function L(e) {
+    let n, r, i, s, l, o = (0, a.c)(11),
+      {
+        className: u
+      } = e,
+      d = (0, g.useAvatarImageUrl)();
+    o[0] !== d ? (n = (0, h.resolveStaticHatchAvatarMedia)({
+      imageUrl: d,
+      videoUrlsByVariant: {}
+    }), o[0] = d, o[1] = n) : n = o[1], o[2] !== n ? (r = {
+      id: 0,
+      media: n,
+      visualState: "static"
+    }, o[2] = n, o[3] = r) : r = o[3];
+    let p = r;
+    return o[4] !== u ? (i = (0, c.cn)("relative overflow-hidden", u), o[4] = u, o[5] = i) : i = o[5], o[6] !== p ? (s = (0, t.jsx)(N, {
+      layer: p,
+      slot: "current",
+      initialOpacity: 1,
+      animateOpacity: 1,
+      revealImmediately: !0
+    }), o[6] = p, o[7] = s) : s = o[7], o[8] !== i || o[9] !== s ? (l = (0, t.jsx)("div", {
+      className: i,
+      "data-hatch-avatar-media-static": !0,
+      children: s
+    }), o[8] = i, o[9] = s, o[10] = l) : l = o[10], l
+  }
+
+  function P(e) {
+    let n, r, i, u, d = (0, a.c)(6),
+      {
+        className: h
+      } = e;
+    return d[0] !== h ? (n = (0, c.cn)("relative overflow-hidden", h), d[0] = h, d[1] = n) : n = d[1], d[2] === Symbol.for("react.memo_cache_sentinel") ? (r = s.fbs._("Loading avatar", null, {
+      hk: "408sSR"
+    }), d[2] = r) : r = d[2], d[3] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)(o.LoadingState, {
+      name: "status_avatar",
+      role: "status",
+      "aria-busy": "true",
+      "aria-label": r,
+      className: "bg-fill-primary absolute inset-0 size-full overflow-hidden rounded-full",
+      children: (0, t.jsx)(l.Skeleton, {
+        "aria-hidden": "true",
+        className: "absolute inset-0 size-full rounded-full",
+        strength: "light"
+      })
+    }), d[3] = i) : i = d[3], d[4] !== n ? (u = (0, t.jsx)("div", {
+      className: n,
+      "data-hatch-avatar-media-loading": "true",
+      children: i
+    }), d[4] = n, d[5] = u) : u = d[5], u
+  }
+
+  function B({
+    active: e = !0,
+    className: a,
+    followChatActivity: n = !0,
+    playbackGroup: s,
+    showLoadingSkeleton: l = !1,
+    variant: o,
+    warmingUp: u = !1,
+    resolution: p
+  }) {
+    let v = (0, g.useAvatarImageUrl)(),
+      x = (0, g.useAvatarVideoUrls)(),
+      E = (0, y.useIdentityHasAvatar)(),
+      R = (0, y.useIdentityIsLoaded)(),
+      I = (0, g.useAvatarMilestoneVideoUrl)(),
+      j = (0, b.useHatchConnection)(),
+      H = (0, C.useEffectiveHatchChatRoute)(),
+      M = (0, A.useAgentActivityCodeForChatRoute)(H),
+      L = (0, r.useReducedMotion)(),
+      O = n && u && L,
+      U = n ? O ? "static" : (0, h.getBaseHatchAvatarVisualState)(j, M, u) : o ?? "default",
+      V = n && !u ? I : null,
+      {
+        isVisible: D
+      } = (0, d.usePageVisibility)(),
+      F = (0, i.useRef)(0),
+      z = (0, i.useRef)(Symbol("hatch-avatar-media-instance")),
+      G = (0, i.useMemo)(() => null != V ? (0, h.resolveMilestoneMedia)(V) : null, [V]),
+      [W, Y] = (0, i.useState)(() => new Set),
+      [K, q] = (0, i.useState)(() => new Set),
+      Z = (0, i.useRef)(new Set),
+      $ = (0, i.useCallback)(e => {
+        Y(t => {
+          if (t.has(e)) return t;
+          let a = new Set(t);
+          return a.add(e), a
+        })
+      }, []),
+      Q = (0, i.useCallback)((e, t) => {
+        "milestone" === t && _.getSnapshot().avatar.milestoneVideoUrl === e.src && _.clearMilestoneVideo(), Z.current.has(e.key) || (Z.current.add(e.key), "milestone" !== t && q(t => {
+          let a = new Set(t);
+          return a.add(e.key), a
+        }), $(e.key), w.error({
+          error: Error("Avatar media failed to load"),
+          isBuiltIn: "video" === e.kind ? h.BUILT_IN_HATCH_AVATAR_VIDEO_SRCS.has(e.src) : e.src === h.DEFAULT_HATCH_AVATAR_IMAGE,
+          mediaKind: e.kind,
+          mediaSrc: e.src,
+          resolvedVariant: e.resolvedVariant,
+          availableVideoVariants: Object.keys(_.getSnapshot().avatar.videoUrlsByVariant),
+          tags: (0, S.hatchSentryTags)(S.HATCH_SENTRY_SURFACES.AVATAR),
+          visualState: t,
+          warmingUp: u
+        }, "Avatar media failed to load"))
+      }, [$, u]),
+      X = null != v || Object.keys(x).some(e => "resume" !== e || "resume" === U),
+      J = (0, i.useMemo)(() => null != G ? G : "static" === U ? (0, h.resolveStaticHatchAvatarMedia)({
+        imageUrl: v,
+        videoUrlsByVariant: x
+      }) : (0, h.resolveLoopingHatchAvatarMedia)(U, {
+        imageUrl: v,
+        videoUrlsByVariant: x
+      }), [U, v, G, x]),
+      ee = "resume" === U && "default" === J.resolvedVariant ? "default" : U,
+      et = null != G ? "milestone" : ee,
+      [ea] = (0, i.useState)(() => T(s));
+    null != ea && (F.current = Math.max(F.current, ea.currentLayer.id, ea.nextLayer?.id ?? 0));
+    let [en, er] = (0, i.useState)(() => ea?.currentLayer ?? f(F, et, J)), [ei, es] = (0, i.useState)(ea?.nextLayer ?? null), [el, eo] = (0, i.useState)(ea?.pendingTargetState ?? null), [ec, eu] = (0, i.useState)(ea?.preloadTargetState ?? null), [ed, eh] = (0, i.useState)(() => ea?.currentActivatedAtMs ?? Date.now() - 1e3), [ep, em] = (0, i.useState)(0), [ef, ev] = (0, i.useState)(ea?.nextLayerStartedAtMs ?? null), [e_, eg] = (0, i.useState)(null), ey = "resume" === en.visualState && "resume" !== et, eA = m(el, v, x, G), eC = m(ec, v, x, G), eb = (0, i.useRef)(e);
+    (0, i.useLayoutEffect)(() => {
+      let t = eb.current;
+      if (eb.current = e, !e || null == s) return;
+      let a = z.current,
+        n = T(s);
+      if (!t && null != n && n.owner !== a) {
+        F.current = Math.max(F.current, n.currentLayer.id, n.nextLayer?.id ?? 0), er(n.currentLayer), es(n.nextLayer), ev(n.nextLayerStartedAtMs), eo(n.pendingTargetState), eu(n.preloadTargetState), eh(n.currentActivatedAtMs), em(e => e + 1), k.set(s, {
+          ...n,
+          owner: a
+        });
+        return
+      }
+      k.set(s, {
+        currentActivatedAtMs: ed,
+        currentLayer: en,
+        nextLayer: ei,
+        nextLayerStartedAtMs: ef,
+        owner: a,
+        pendingTargetState: el,
+        preloadTargetState: ec
+      })
+    }, [e, ed, en, ei, ef, el, s, ec]), (0, i.useEffect)(() => {
+      en.media.key === J.key || K.has(J.key) ? eo(null) : eo(et)
+    }, [en.media.key, J.key, et, K]), (0, i.useEffect)(() => {
+      ei && ei.media.key !== J.key && (es(null), ev(null))
+    }, [J.key, ei]), (0, i.useEffect)(() => {
+      ec && ec !== el && eu(null)
+    }, [el, ec]), (0, i.useEffect)(() => {
+      if (!el || ei || ec) return;
+      if (null == eA || en.media.key === eA.key) return void eo(null);
+      if (ey) {
+        es(f(F, el, eA)), ev(null);
+        return
+      }
+      if ("resume" === el) return void eu(el);
+      let e = !1,
+        t = Math.max(0, 1e3 - (Date.now() - ed)),
+        a = window.setTimeout(() => {
+          e || eu(el)
+        }, t);
+      return () => {
+        e = !0, window.clearTimeout(a)
+      }
+    }, [ed, en.media.key, ey, ei, el, eA, ec]), (0, i.useEffect)(() => {
+      if (!ec || ei) return;
+      if (el !== ec) return void eu(null);
+      if (null == eC) {
+        eu(null), eo(e => e === ec ? null : e);
+        return
+      }
+      let e = !1,
+        t = function(e, t, a) {
+          if ("image" === e.kind) {
+            let n = new Image,
+              r = !1,
+              i = !1,
+              s = () => {
+                n.onload = null, n.onerror = null
+              },
+              l = () => {
+                r || (r = !0, s(), t())
+              };
+            return n.onload = l, n.onerror = () => {
+              r || (r = !0, s(), a())
+            }, n.src = e.src, n.complete && queueMicrotask(l), () => {
+              i || (i = !0, r = !0, s(), n.src = "")
+            }
+          }
+          let n = document.createElement("video"),
+            r = !1,
+            i = !1,
+            s = () => {
+              n.removeEventListener("canplay", l), n.removeEventListener("loadeddata", l), n.removeEventListener("error", o)
+            },
+            l = () => {
+              r || (r = !0, s(), t())
+            },
+            o = () => {
+              r || (r = !0, s(), a())
+            };
+          return n.muted = !0, n.playsInline = !0, n.preload = "auto", n.setAttribute("data-hatch-media-owner", "avatar-preload"), n.addEventListener("canplay", l), n.addEventListener("loadeddata", l), n.addEventListener("error", o), n.src = e.src, n.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA ? queueMicrotask(l) : n.load(), () => {
+            i || (i = !0, r = !0, s(), n.pause(), n.removeAttribute("src"), n.load())
+          }
+        }(eC, () => {
+          e || ($(eC.key), es(f(F, ec, eC)), ev(Date.now()), eu(null))
+        }, () => {
+          e || (Q(eC, ec), eu(null), eo(e => e === ec ? null : e))
+        });
+      return () => {
+        e = !0, t()
+      }
+    }, [Q, $, ei, el, eC, ec]), (0, i.useEffect)(() => {
+      if (!ei || ey) return;
+      if (ei.media.key !== J.key) {
+        es(null), ev(null);
+        return
+      }
+      let e = !1,
+        t = Math.max(0, 500 - (Date.now() - (ef ?? Date.now()))),
+        a = window.setTimeout(() => {
+          e || (er(ei), es(null), ev(null), eh(Date.now()), eo(e => e === ei.visualState ? null : e))
+        }, t);
+      return () => {
+        e = !0, window.clearTimeout(a)
+      }
+    }, [J.key, ey, ei, ef]);
+    let eS = (0, i.useCallback)(e => {
+        let t = _.getSnapshot().avatar.milestoneVideoUrl;
+        (null == t || t === e) && (_.clearMilestoneVideo(), eo(ee))
+      }, [ee]),
+      ew = (0, i.useRef)(null),
+      ex = (0, i.useRef)(!0),
+      ek = "milestone" === en.visualState || ei?.visualState === "milestone";
+    (0, i.useEffect)(() => {
+      if (!D) {
+        ex.current && (ew.current = ek ? V : null), ex.current = !1;
+        return
+      }
+      let e = ew.current;
+      ew.current = null, ex.current = !0, null != e && V === e && (_.clearMilestoneVideo(), eo(ee))
+    }, [ek, D, V, ee]);
+    let eT = (ei ? [en, ei] : [en]).map(e => ({
+        isReady: W.has(e.media.key),
+        layer: e,
+        shouldHide: function(e, {
+          hasKnownCustomAvatar: t,
+          isIdentityKnown: a,
+          hasAnyCustomAvatarMedia: n,
+          preferSkeletonUntilRuntimeResolved: r,
+          resolution: i
+        }) {
+          return !!r && "pending" === i || !!("video" === e.media.kind && h.BUILT_IN_HATCH_AVATAR_VIDEO_SRCS.has(e.media.src) || "image" === e.media.kind && e.media.src === h.DEFAULT_HATCH_AVATAR_IMAGE) && (!!n || "pending" === i && (t || !a))
+        }(e, {
+          hasKnownCustomAvatar: E,
+          isIdentityKnown: R,
+          hasAnyCustomAvatarMedia: X && !K.has(J.key),
+          preferSkeletonUntilRuntimeResolved: l,
+          resolution: p
+        })
+      })),
+      eE = l && !eT.some(({
+        isReady: e,
+        shouldHide: t
+      }) => e && !t),
+      eR = (0, i.useRef)(eE);
+    (0, i.useEffect)(() => {
+      eR.current = eE
+    }, [eE]);
+    let eI = null == ef ? 0 : Math.max(0, Math.min(500, Date.now() - ef));
+    return (0, t.jsxs)("div", {
+      className: (0, c.cn)("relative overflow-hidden", a),
+      "data-hatch-avatar-media-loading": eE ? "true" : void 0,
+      children: [eE && (0, t.jsx)(P, {
+        className: "absolute inset-0 size-full"
+      }), eT.map(({
+        isReady: a,
+        layer: n,
+        shouldHide: r
+      }) => {
+        let i = n.id === en.id,
+          o = i && null != ei,
+          c = ey && !i,
+          u = c || l && !a,
+          d = n.id === e_ || l && eR.current && a && !r,
+          h = r || u ? 0 : i || d ? 1 : eI / 500,
+          p = r || u ? 0 : 1,
+          m = c || n.id === e_ ? 0 : i ? 500 : 500 - eI;
+        return (0, t.jsx)(N, {
+          active: e && !o && !O && ("resume" !== n.visualState || "resume" === et),
+          layer: n,
+          slot: i ? "current" : "next",
+          initialOpacity: h,
+          animateOpacity: p,
+          revealImmediately: d,
+          onError: () => Q(n.media, n.visualState),
+          onReady: () => {
+            $(n.media.key), c && n.media.key === J.key && !Z.current.has(n.media.key) && (eg(n.id), er(n), es(null), ev(null), eo(null), eu(null), eh(Date.now()))
+          },
+          onEnded: "milestone" === n.visualState ? () => eS(n.media.src) : void 0,
+          playbackGroup: s,
+          transitionDurationMs: m
+        }, `${ep}:${n.id}`)
+      })]
+    })
+  }
+  e.s(["HatchAvatarMedia", 0, function(e) {
+    let n, r = (0, a.c)(3),
+      {
+        staticImageOnly: i,
+        ...s
+      } = e,
+      l = (0, g.useAvatarResolution)();
+    return void 0 !== i && i ? (0, t.jsx)(L, {
+      ...s
+    }) : "pending" === l ? s.showLoadingSkeleton ? (0, t.jsx)(P, {
+      className: s.className
+    }) : (0, t.jsx)("div", {
+      className: (0, c.cn)("relative overflow-hidden", s.className)
+    }) : (r[0] !== s || r[1] !== l ? (n = (0, t.jsx)(B, {
+      ...s,
+      resolution: l
+    }), r[0] = s, r[1] = l, r[2] = n) : n = r[2], n)
+  }], 568096)
+}, 531378, e => {
+  "use strict";
+  e.s(["browserTaskHasUserControl", 0, function(e, t) {
+    return e?.lease?.controlOwner === "user" && e.lease.taskId === t
+  }, "extractBrowserSessionData", 0, function(e) {
+    let t = "string" == typeof e.session_id ? e.session_id.trim() : "";
+    if (0 === t.length) return null;
+    let a = "object" == typeof e.active_tab && null != e.active_tab ? e.active_tab : null,
+      n = "object" == typeof e.lease && null != e.lease ? e.lease : null,
+      r = "string" == typeof a?.title ? a.title : "",
+      i = "string" == typeof a?.url ? a.url : "",
+      s = "string" == typeof e.presented_task_id && e.presented_task_id.trim().length > 0 ? e.presented_task_id.trim() : null,
+      l = void 0 === e.device_clipboard_supported ? void 0 : !0 === e.device_clipboard_supported;
+    return {
+      sessionId: t,
+      presentedTaskId: s,
+      lease: null != n ? function(e) {
+        if ("user" !== e.control_owner && "agent" !== e.control_owner) return;
+        let t = "string" == typeof e.takeover_id ? e.takeover_id : "",
+          a = "string" == typeof e.task_id ? e.task_id : "",
+          n = "string" == typeof e.last_interrupted_message_id ? e.last_interrupted_message_id : "",
+          r = "number" == typeof e.control_expires_at_ms && Number.isFinite(e.control_expires_at_ms) ? e.control_expires_at_ms : void 0;
+        return {
+          controlOwner: e.control_owner,
+          takeoverId: t.length > 0 ? t : void 0,
+          taskId: a.length > 0 ? a : void 0,
+          lastInterruptedMessageId: n.length > 0 ? n : void 0,
+          controlExpiresAtMs: r
+        }
+      }(n) : void 0,
+      deviceClipboardSupported: l,
+      activeTab: r.length > 0 || i.length > 0 ? {
+        title: r,
+        url: i
+      } : void 0
+    }
+  }, "mergeBrowserSessionSnapshot", 0, function(e, t, a) {
+    let n = e?.lease,
+      r = t.lease,
+      i = e?.sessionId === t.sessionId && e.presentedTaskId === a && t.presentedTaskId === a && n?.controlOwner === "user" && r?.controlOwner === "user" && n.taskId === a && r.taskId === a && null != n.takeoverId && n.takeoverId === r.takeoverId;
+    return {
+      ...t,
+      deviceClipboardSupported: t.deviceClipboardSupported ?? (i ? e?.deviceClipboardSupported : void 0),
+      activeTab: t.activeTab ?? e?.activeTab
+    }
+  }, "toBrowserSessionInitialData", 0, function(e) {
+    return {
+      sessionId: e.sessionId,
+      activeTab: null != e.latestTab ? {
+        title: e.latestTab.title ?? "",
+        url: e.latestTab.url ?? ""
+      } : void 0
+    }
+  }])
+}, 696396, e => {
+  "use strict";
+  var t = e.i(345717),
+    a = e.i(801636);
+  let n = new Set(["Action required", "Starting browser...", "Task completed", "Task failed", "Waiting for browser", "You stopped the task", "You're in control of the browser"]);
+  e.s(["BROWSER_TASK_SERVER_FALLBACK_DETAILS", 0, n, "browserTaskCardSubtitle", 0, function({
+    activityTitle: e,
+    displayStatus: r,
+    displayStatusText: i,
+    queuePosition: s,
+    statusCopy: l
+  }) {
+    let o = (0, a.browserTaskDisplayStatusText)(i, r, l);
+    if ("queued" === r && null != s) return t.fbs._("{status} · {queue position} in line", [t.fbs._param("status", o), t.fbs._param("queue position", String(s))], {
+      hk: "YRypl"
+    });
+    let c = e?.trim();
+    if (null == c || 0 === c.length || n.has(c)) return o;
+    switch (r) {
+      case "starting":
+      case "working":
+      case "unknown":
+        return c;
+      case "queued":
+      case "waiting":
+      case "needs_you":
+      case "paused":
+      case "completed":
+      case "failed":
+      case "stopped":
+        return t.fbs._("{status} · {activity}", [t.fbs._param("status", o), t.fbs._param("activity", c)], {
+          hk: "2J1mpR"
+        })
+    }
+  }])
+}, 712181, 377576, e => {
+  "use strict";
+  var t = e.i(359783),
+    a = e.i(47247),
+    n = e.i(925301),
+    r = e.i(508180),
+    i = e.i(863641);
+  let s = "residential";
+
+  function l(e) {
+    return "string" == typeof e && e.length > 0 && e.length <= 256
+  }
+
+  function o(e, t) {
+    if (!e?.sendRequest) throw (0, n.createGatewayTransportError)(`Noise transport not ready for ${t}`);
+    return e.sendRequest
+  }
+  async function c(e, t, a) {
+    var n, r;
+    let i = o(a, e);
+    return n = a?.signal != null || a?.expectedGatewayTargetKey != null ? i(e, t, {
+      signal: a.signal,
+      expectedGatewayTargetKey: a.expectedGatewayTargetKey
+    }) : i(e, t), (r = a?.signal) ? Promise.race([n, new Promise((e, t) => {
+      r.addEventListener("abort", () => t(new DOMException("Aborted", "AbortError")), {
+        once: !0
+      })
+    })]) : n
+  }
+
+  function u(e, t) {
+    if ("object" == typeof e && null != e && !Array.isArray(e)) return e;
+    throw (0, n.createGatewayTransportError)(`Malformed ${t} response`, {
+      requestMethod: t
+    })
+  }
+
+  function d(e) {
+    if (e.length > 61440 || e.includes("\0")) return !1;
+    let t = new TextEncoder().encode(e);
+    return t.byteLength <= 61440 && new TextDecoder().decode(t) === e
+  }
+
+  function h(e, t, a, n) {
+    return o(n, e)(e, {
+      task_id: t,
+      ...a
+    }, {
+      signal: n?.signal,
+      expectedGatewayTargetKey: n?.expectedGatewayTargetKey
+    })
+  }
+  async function p(e, t, a) {
+    let r = "browser_task.clipboard.readiness",
+      i = u(await h(r, e, {
+        expected_takeover_id: t
+      }, a), r);
+    if ("boolean" != typeof i.available) throw (0, n.createGatewayTransportError)("Malformed browser clipboard readiness response", {
+      requestMethod: r
+    });
+    return i.available
+  }
+  async function m(e, t, a, r) {
+    let i = "browser_task.clipboard.copy",
+      s = u(await h(i, e, {
+        operation_id: a,
+        expected_takeover_id: t
+      }, r), i);
+    if (s.operation_id !== a) throw (0, n.createGatewayTransportError)("Mismatched browser clipboard Copy operation", {
+      requestMethod: i
+    });
+    if ("available" === s.outcome) {
+      if ("string" != typeof s.text || !d(s.text)) throw (0, n.createGatewayTransportError)("Invalid browser clipboard Copy text", {
+        requestMethod: i
+      });
+      return {
+        operationId: a,
+        outcome: "available",
+        text: s.text
+      }
+    }
+    if ("unavailable" === s.outcome || "outcome_unknown" === s.outcome) return {
+      operationId: a,
+      outcome: s.outcome
+    };
+    throw (0, n.createGatewayTransportError)("Unknown browser clipboard Copy outcome", {
+      requestMethod: i
+    })
+  }
+  async function f(e, t, a, r, i) {
+    let s = "browser_task.clipboard.paste";
+    if (!d(r)) throw (0, n.createGatewayTransportError)("Invalid browser clipboard Paste text", {
+      requestMethod: s,
+      deliveryState: "not_sent"
+    });
+    let l = u(await h(s, e, {
+      operation_id: a,
+      expected_takeover_id: t,
+      text: r
+    }, i), s);
+    if (l.operation_id !== a || "delivered" !== l.outcome && "unavailable" !== l.outcome && "outcome_unknown" !== l.outcome) throw (0, n.createGatewayTransportError)("Malformed browser clipboard Paste receipt", {
+      requestMethod: s
+    });
+    return {
+      operationId: a,
+      outcome: l.outcome
+    }
+  }
+  async function v(e, t) {
+    return c("browser_task.get", {
+      task_id: e
+    }, t)
+  }
+  async function _(e, t) {
+    return c("browser_task.takeover", {
+      task_id: e,
+      ...t?.viewer != null ? {
+        viewer: t.viewer
+      } : {}
+    }, t)
+  }
+  async function g(e, t) {
+    return c("browser_task.release", {
+      task_id: e
+    }, t)
+  }
+  async function y(e, t) {
+    return c("browser_task.present", {
+      task_id: e,
+      ...t?.viewer != null ? {
+        viewer: t.viewer
+      } : {}
+    }, t)
+  }
+  async function A(e, t, a) {
+    return c("browser_task.viewer", {
+      task_id: e,
+      viewer: t
+    }, a)
+  }
+  async function C(e, t) {
+    return c("browser_task.heartbeat", {
+      task_id: e
+    }, t)
+  }
+  async function b(e, t) {
+    return c("browser_task.close", {
+      task_id: e
+    }, t)
+  }
+  async function S(e, t) {
+    return c("browser_task.stop", {
+      task_id: e
+    }, t)
+  }
+  async function w(e, t) {
+    var a;
+    let r = "object" != typeof(a = await c("browser_task.refresh_environment", {
+      task_id: e,
+      requested_egress_profile: s
+    }, t)) || null == a ? {
+      ok: !1,
+      reason: "not_an_object"
+    } : "boolean" != typeof a.presented ? {
+      ok: !1,
+      reason: "presented_not_boolean"
+    } : l(a.previous_vm_uuid) ? l(a.vm_uuid) ? l(a.browser_incarnation) ? "number" == typeof a.route_generation && Number.isFinite(a.route_generation) ? a.egress_profile !== s ? {
+      ok: !1,
+      reason: "egress_profile_not_residential"
+    } : {
+      ok: !0,
+      result: {
+        previous_vm_uuid: a.previous_vm_uuid,
+        vm_uuid: a.vm_uuid,
+        presented: a.presented,
+        browser_incarnation: a.browser_incarnation,
+        route_generation: a.route_generation
+      }
+    } : {
+      ok: !1,
+      reason: "route_generation_not_finite"
+    } : {
+      ok: !1,
+      reason: "browser_incarnation_invalid"
+    } : {
+      ok: !1,
+      reason: "vm_uuid_invalid"
+    } : {
+      ok: !1,
+      reason: "previous_vm_uuid_invalid"
+    };
+    if (!r.ok) throw (0, n.createGatewayTransportError)(`Malformed browser_task.refresh_environment response: ${r.reason}`, {
+      requestMethod: "browser_task.refresh_environment"
+    });
+    return r.result
+  }
+  e.s(["browserClipboardReadiness", 0, p, "closeBrowserTask", 0, b, "copyBrowserTaskClipboard", 0, m, "getBrowserTask", 0, v, "heartbeatBrowserTask", 0, C, "pasteBrowserTaskClipboard", 0, f, "presentBrowserTask", 0, y, "refreshBrowserEnvironment", 0, w, "releaseBrowserTask", 0, g, "stopBrowserTask", 0, S, "takeOverBrowserTask", 0, _, "updateBrowserTaskViewer", 0, A], 377576);
+  let x = (0, t.createClientLogger)("BrowserTaskStop"),
+    k = new Map;
+  async function T(e, t, r) {
+    try {
+      return await S(e, {
+        sendRequest: t
+      }), {
+        outcome: "stopped",
+        taskWasMissing: !1
+      }
+    } catch (l) {
+      if ((0, n.isGatewayRequestError)(l) && "invalid_state" === l.code) return {
+        outcome: "already_ended",
+        taskWasMissing: !1
+      };
+      if ((0, n.isGatewayRequestError)(l) && "jarvis_rejection" === l.kind && "invalid_params" === l.code && l.message.toLowerCase().includes("browser task not found")) return x.retainForBugReport("warn", "Browser task was already missing during stop"), (0, i.captureHatchMessage)(i.HATCH_SENTRY_SURFACES.BROWSER_SESSION, "Browser task was already missing during stop", {
+        level: "warning",
+        extra: {
+          errorCode: l.code,
+          taskId: e
+        }
+      }), {
+        outcome: "stopped",
+        taskWasMissing: !0
+      };
+      let t = l instanceof Error ? l : Error(String(l)),
+        s = (0, n.isGatewayRequestError)(l) ? l : null;
+      return x.error({
+        error: t,
+        errorCode: s?.code ?? null,
+        errorKind: s?.kind ?? null,
+        errorMessage: t.message,
+        taskId: e,
+        tags: {
+          surface: i.HATCH_SENTRY_SURFACES.BROWSER_SESSION
+        }
+      }, "Browser task stop failed"), a.toast.error(r), {
+        outcome: "failed",
+        taskWasMissing: !1
+      }
+    }
+  }
+  async function E({
+    taskId: e,
+    presentationId: t,
+    resolvePresentationId: a,
+    preservePresentationOutcome: n,
+    presentationAction: i,
+    sendRequest: s,
+    failureMessage: l = "Couldn't stop the task. Try again."
+  }) {
+    let {
+      outcome: o,
+      taskWasMissing: c
+    } = await
+    function(e, t, a) {
+      let n = k.get(e);
+      if (null != n) return n;
+      let r = T(e, t, a);
+      return k.set(e, r), r.then(() => {
+        k.get(e) === r && k.delete(e)
+      }), r
+    }(e, s, l);
+    if ("failed" === o) return o;
+    let u = a?.() ?? t;
+    return "close_window" === i ? (n || "stopped" !== o || (0, r.patchBrowserTaskWidget)(u, {
+      display_status: "stopped",
+      status: "stopped"
+    }), (0, r.patchBrowserTaskWidget)(u, {
+      preview_available: !1
+    })) : "retain_window" !== i || "stopped" !== o || n ? "settle_only" !== i || "stopped" !== o || n || (0, r.patchBrowserTaskWidget)(u, {
+      display_status: "stopped",
+      status: "stopped"
+    }) : c ? ((0, r.patchBrowserTaskWidget)(u, {
+      display_status: "stopped",
+      status: "stopped"
+    }), (0, r.patchBrowserTaskWidget)(u, {
+      preview_available: !1
+    })) : (0, r.patchBrowserTaskWidget)(u, {
+      display_status: "stopped",
+      status: "stopped",
+      preview_available: !0
+    }), o
+  }
+  e.s(["requestBrowserTaskStop", 0, E], 712181)
+}, 651944, 325323, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(345717),
+    n = e.i(722099),
+    r = e.i(325814),
+    i = e.i(44698),
+    s = e.i(397240),
+    l = e.i(581386);
+  e.s(["HatchAvatarShareDialogFrame", 0, function(e) {
+    let o, c, u, d, h, p = (0, n.c)(22),
+      {
+        children: m,
+        isOpen: f,
+        onOpenChange: v,
+        onCloseAutoFocus: _
+      } = e,
+      g = (0, s.useIsMobileBreakpoint)();
+    p[0] !== v ? (o = () => v(!1), p[0] = v, p[1] = o) : o = p[1];
+    let y = o;
+    p[2] === Symbol.for("react.memo_cache_sentinel") ? (c = a.fbs._("Share avatar", null, {
+      hk: "3zj9i7"
+    }), p[2] = c) : c = p[2];
+    let A = c;
+    if (g) {
+      let e, a, n, r;
+      return p[3] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(i.SheetTitle, {
+        className: "sr-only",
+        children: A
+      }), p[3] = e) : e = p[3], p[4] !== y ? (a = (0, t.jsx)(l.HatchShareDialogHeader, {
+        onClose: y,
+        showCloseButton: !1
+      }), p[4] = y, p[5] = a) : a = p[5], p[6] !== m || p[7] !== _ || p[8] !== a ? (n = (0, t.jsxs)(i.SheetContent, {
+        side: "bottom",
+        onCloseAutoFocus: _,
+        showCloseButton: !1,
+        className: "bg-fill-primary !rounded-t-40 !gap-0 !px-0 !py-0",
+        children: [e, a, m]
+      }), p[6] = m, p[7] = _, p[8] = a, p[9] = n) : n = p[9], p[10] !== f || p[11] !== v || p[12] !== n ? (r = (0, t.jsx)(i.Sheet, {
+        open: f,
+        onOpenChange: v,
+        children: n
+      }), p[10] = f, p[11] = v, p[12] = n, p[13] = r) : r = p[13], r
+    }
+    return p[14] === Symbol.for("react.memo_cache_sentinel") ? (u = (0, t.jsx)(r.DialogHeader, {
+      children: (0, t.jsx)(r.DialogTitle, {
+        "aria-label": A,
+        children: a.fbt._("Share", null, {
+          hk: "38UVfR"
+        })
+      })
+    }), p[14] = u) : u = p[14], p[15] !== m || p[16] !== _ ? (d = (0, t.jsx)(r.DialogContent, {
+      onCloseAutoFocus: _,
+      header: u,
+      children: m
+    }), p[15] = m, p[16] = _, p[17] = d) : d = p[17], p[18] !== f || p[19] !== v || p[20] !== d ? (h = (0, t.jsx)(r.Dialog, {
+      open: f,
+      onOpenChange: v,
+      children: d
+    }), p[18] = f, p[19] = v, p[20] = d, p[21] = h) : h = p[21], h
+  }], 651944);
+  var o = e.i(519172),
+    c = e.i(365500);
+  e.s(["useHatchAvatarShareCache", 0, function() {
+    let e, t, a, r, i, s, l = (0, n.c)(10),
+      {
+        accessToken: u,
+        userId: d,
+        sessionBindingId: h
+      } = (0, c.useAuth)();
+    l[0] === Symbol.for("react.memo_cache_sentinel") ? (e = new Map, t = new Map, a = new Map, l[0] = e, l[1] = t, l[2] = a) : (e = l[0], t = l[1], a = l[2]), l[3] !== u || l[4] !== h || l[5] !== d ? (r = {
+      accessToken: u,
+      userId: d,
+      sessionBindingId: h,
+      uploadRequests: e,
+      shareUrlRequests: t,
+      milestoneUrls: a
+    }, l[3] = u, l[4] = h, l[5] = d, l[6] = r) : r = l[6];
+    let p = r;
+    return l[7] !== p ? (i = () => () => (function(e) {
+      for (let t of e.milestoneUrls.values()) URL.revokeObjectURL(t);
+      e.milestoneUrls.clear(), e.uploadRequests.clear(), e.shareUrlRequests.clear()
+    })(p), s = [p], l[7] = p, l[8] = i, l[9] = s) : (i = l[8], s = l[9]), (0, o.useEffect)(i, s), p
+  }], 325323)
+}, 788031, 852098, 680944, 957184, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    n = e.i(345717),
+    r = e.i(832964),
+    i = e.i(295967),
+    s = e.i(374785),
+    l = e.i(581386),
+    o = e.i(831879),
+    c = e.i(47247),
+    u = e.i(359783),
+    d = e.i(863641),
+    h = e.i(598747),
+    p = e.i(281539),
+    m = e.i(823173),
+    f = e.i(905156);
+
+  function v(e) {
+    let t, n = (0, a.c)(4),
+      r = (0, f.useHatchChatThreadLoggingMetadataFromContext)();
+    return n[0] !== e.presentationId || n[1] !== e.surface || n[2] !== r ? (t = "chat" === e.surface ? {
+      clickEvent: p.HatchClickEvent.CHAT_WIDGET_CLICK,
+      impressionEvent: m.HatchImpressionEvent.CHAT_WIDGET_IMPRESSION,
+      metadata: {
+        surface: "chat",
+        subsurface: "avatar_share",
+        ...r,
+        widget_kind: "avatar_share",
+        widget_id: e.presentationId
+      }
+    } : {
+      clickEvent: p.HatchClickEvent.STATUS_AVATAR_SHARE_CLICK,
+      impressionEvent: m.HatchImpressionEvent.STATUS_AVATAR_SHARE_IMPRESSION,
+      metadata: {
+        surface: "status",
+        subsurface: "avatar_share",
+        screen: "status_panel"
+      }
+    }, n[0] = e.presentationId, n[1] = e.surface, n[2] = r, n[3] = t) : t = n[3], t
+  }
+  e.s(["useHatchAvatarShareTracking", 0, v], 852098);
+  let _ = (0, u.createClientLogger)("HatchAvatarShareTray");
+
+  function g(e) {
+    let r, i, s, l, u, p = (0, a.c)(12),
+      {
+        source: m,
+        shareUrl: f
+      } = e,
+      g = v(m);
+    p[0] === Symbol.for("react.memo_cache_sentinel") ? (r = n.fbs._("Link copied", null, {
+      hk: "3hWJ7P"
+    }), p[0] = r) : r = p[0];
+    let y = r;
+    p[1] === Symbol.for("react.memo_cache_sentinel") ? (i = n.fbs._("Failed to copy link", null, {
+      hk: "3QxTk9"
+    }), p[1] = i) : i = p[1];
+    let A = i;
+    p[2] !== g.clickEvent || p[3] !== g.metadata ? (s = function(e) {
+      return {
+        eventName: g.clickEvent,
+        actionTarget: `avatar_share_destination_${e}`,
+        actionType: "click",
+        metadata: g.metadata
+      }
+    }, p[2] = g.clickEvent, p[3] = g.metadata, p[4] = s) : s = p[4];
+    let C = s;
+    p[5] !== f || p[6] !== m ? (l = function() {
+      null != f && (0, o.copyTextFromPromise)(Promise.resolve(f)).then(() => (0, c.toastForHatchPane)(m.surface).success(y)).catch(e => {
+        _.error({
+          error: e instanceof Error ? e : Error(String(e)),
+          shareSource: m,
+          tags: (0, d.hatchSentryTags)(d.HATCH_SENTRY_SURFACES.CHAT_AVATAR_SHARE)
+        }, "Avatar share link copy failed"), (0, c.toastForHatchPane)(m.surface).error(A)
+      })
+    }, p[5] = f, p[6] = m, p[7] = l) : l = p[7];
+    let b = l;
+    return p[8] !== b || p[9] !== C || p[10] !== f ? (u = (0, t.jsx)(h.HatchShareTray, {
+      layout: "dialog",
+      getTracking: C,
+      onCopy: b,
+      sentrySurface: d.HATCH_SENTRY_SURFACES.CHAT_AVATAR_SHARE,
+      shareUrl: f
+    }), p[8] = b, p[9] = C, p[10] = f, p[11] = u) : u = p[11], u
+  }
+
+  function y(e) {
+    let r, i, s, o = (0, a.c)(8),
+      {
+        children: c,
+        source: u,
+        preview: d,
+        shareUrl: h
+      } = e;
+    return o[0] === Symbol.for("react.memo_cache_sentinel") ? (r = n.fbt._("Anyone who has the link will be able to see your avatar.", null, {
+      hk: "3FyBsS"
+    }), o[0] = r) : r = o[0], o[1] !== h || o[2] !== u ? (i = (0, t.jsx)(g, {
+      source: u,
+      shareUrl: h
+    }), o[1] = h, o[2] = u, o[3] = i) : i = o[3], o[4] !== c || o[5] !== d || o[6] !== i ? (s = (0, t.jsx)(l.HatchShareDialogBody, {
+      layout: "avatar",
+      preview: d,
+      description: r,
+      actions: i,
+      children: c
+    }), o[4] = c, o[5] = d, o[6] = i, o[7] = s) : s = o[7], s
+  }
+  e.s(["HatchAvatarShareDialogLayout", 0, y], 680944);
+  let A = "flex w-full max-w-121 flex-col items-center gap-5.5",
+    C = "bg-bg-primary rounded-32 shadow-blur-elevation-03 aspect-square w-full max-w-64 sm:max-w-74",
+    b = "flex h-7 items-center justify-center",
+    S = "flex size-7 items-center justify-center sm:w-3.5";
+
+  function w(e) {
+    let l, o, c, u, d, h = (0, a.c)(9),
+      {
+        mediaCount: p
+      } = e;
+    h[0] === Symbol.for("react.memo_cache_sentinel") ? (l = n.fbs._("Loading avatar versions", null, {
+      hk: "1NLWAc"
+    }), h[0] = l) : l = h[0], h[1] === Symbol.for("react.memo_cache_sentinel") ? (o = (0, t.jsx)(r.Skeleton, {
+      "aria-hidden": "true",
+      className: C,
+      strength: "light"
+    }), h[1] = o) : o = h[1];
+    let m = p < 2 && "md:hidden";
+    return h[2] !== m ? (c = (0, s.cn)(b, m), h[2] = m, h[3] = c) : c = h[3], h[4] !== p ? (u = p > 1 && Array.from({
+      length: p
+    }, x), h[4] = p, h[5] = u) : u = h[5], h[6] !== c || h[7] !== u ? (d = (0, t.jsx)(i.LoadingState, {
+      name: "chat_avatar_share",
+      className: A,
+      children: (0, t.jsxs)("div", {
+        role: "status",
+        "aria-busy": "true",
+        "aria-label": l,
+        className: "flex w-full flex-col items-center gap-5.5 motion-reduce:[&_*]:!animate-none",
+        children: [o, (0, t.jsx)("div", {
+          "aria-hidden": "true",
+          className: c,
+          children: u
+        })]
+      })
+    }), h[6] = c, h[7] = u, h[8] = d) : d = h[8], d
+  }
+
+  function x(e, a) {
+    return (0, t.jsx)("div", {
+      className: S,
+      children: (0, t.jsx)(r.Skeleton, {
+        className: "size-1.5 rounded-full",
+        strength: "light"
+      })
+    }, a)
+  }
+  e.s(["AVATAR_SHARE_CAROUSEL_CLASS", 0, A, "AVATAR_SHARE_PAGINATION_CLASS", 0, b, "AVATAR_SHARE_PAGINATION_ITEM_CLASS", 0, S, "AVATAR_SHARE_PREVIEW_CLASS", 0, C], 957184), e.s(["HatchAvatarShareDialogSkeleton", 0, function(e) {
+    let n, r, i = (0, a.c)(5),
+      {
+        mediaCount: s,
+        source: l
+      } = e;
+    return i[0] !== s ? (n = (0, t.jsx)(w, {
+      mediaCount: s
+    }), i[0] = s, i[1] = n) : n = i[1], i[2] !== l || i[3] !== n ? (r = (0, t.jsx)(y, {
+      source: l,
+      preview: n,
+      shareUrl: null
+    }), i[2] = l, i[3] = n, i[4] = r) : r = i[4], r
+  }, "HatchAvatarSharePreviewSkeleton", 0, w], 788031)
+}, 355804, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099),
+    n = e.i(519172),
+    r = e.i(849329),
+    i = e.i(393202),
+    s = e.i(345717),
+    l = e.i(32e4),
+    o = e.i(389409),
+    c = e.i(646361),
+    u = e.i(925301),
+    d = e.i(906214);
+  let h = /^\/api\/computer\/previews\/([^/?#]+)\/([^/?#]+)$/;
+  var p = e.i(499608),
+    m = e.i(720756),
+    f = e.i(907579),
+    v = e.i(175286),
+    _ = e.i(926250),
+    g = e.i(863641);
+  let y = !1;
+
+  function A(e) {
+    return {
+      kind: "blocked_legacy",
+      reason: e
+    }
+  }
+
+  function C(e) {
+    let n, r, i = (0, a.c)(12),
+      {
+        className: o,
+        emptyLabel: u,
+        imageUrl: d,
+        screenshot: h
+      } = e;
+    if (null == d) {
+      let e, a, n, r = `${o} bg-fill-secondary-elevated text-text-tertiary flex flex-col items-center justify-center gap-2`;
+      return i[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(c.HatchIcon, {
+        icon: l.default,
+        size: 36,
+        className: "opacity-50"
+      }), i[0] = e) : e = i[0], i[1] !== u ? (a = null != u ? (0, t.jsx)("div", {
+        className: "text-caption",
+        children: u
+      }) : null, i[1] = u, i[2] = a) : a = i[2], i[3] !== r || i[4] !== a ? (n = (0, t.jsxs)("div", {
+        className: r,
+        children: [e, a]
+      }), i[3] = r, i[4] = a, i[5] = n) : n = i[5], n
+    }
+    let p = h?.width ?? 800,
+      m = h?.height ?? 450;
+    i[6] === Symbol.for("react.memo_cache_sentinel") ? (n = s.fbs._("Browser snapshot", null, {
+      hk: "2uXBmR"
+    }), i[6] = n) : n = i[6];
+    let f = `${o} bg-bg-secondary object-cover`;
+    return i[7] !== d || i[8] !== p || i[9] !== m || i[10] !== f ? (r = (0, t.jsx)("img", {
+      src: d,
+      width: p,
+      height: m,
+      alt: n,
+      className: f
+    }), i[7] = d, i[8] = p, i[9] = m, i[10] = f, i[11] = r) : r = i[11], r
+  }
+
+  function b(e) {
+    let n, i, s, l, o, c = (0, a.c)(19),
+      {
+        actionId: u,
+        className: d,
+        emptyLabel: h,
+        screenshot: m
+      } = e,
+      {
+        ensureLiveConnection: _,
+        gatewayUrl: y,
+        isReady: A,
+        sendRequest: b
+      } = (0, v.useHatchRpc)(),
+      S = (0, f.useHatchGatewayFs)(),
+      w = y ?? "",
+      x = u ?? "";
+    c[0] !== w || c[1] !== x ? (n = ["browser-activity-snapshot", w, x], c[0] = w, c[1] = x, c[2] = n) : n = c[2];
+    let k = n;
+    c[3] !== u || c[4] !== _ || c[5] !== S || c[6] !== A || c[7] !== b ? (i = async () => {
+      if (null == u) return null;
+      A || await _();
+      let e = await S.rawFetch(`/workspace/.hatch-browser/${u}.webp`);
+      return e.ok ? e.data : b("browser_activity.snapshot", {
+        action_id: u
+      })
+    }, c[3] = u, c[4] = _, c[5] = S, c[6] = A, c[7] = b, c[8] = i) : i = c[8];
+    let T = null != u && w.length > 0;
+    c[9] === Symbol.for("react.memo_cache_sentinel") ? (s = {
+      sentrySurface: g.HATCH_SENTRY_SURFACES.BROWSER_SESSION
+    }, c[9] = s) : s = c[9], c[10] !== k || c[11] !== i || c[12] !== T ? (l = {
+      queryKey: k,
+      queryFn: i,
+      enabled: T,
+      staleTime: 1 / 0,
+      gcTime: 18e5,
+      retry: 1,
+      meta: s
+    }, c[10] = k, c[11] = i, c[12] = T, c[13] = l) : l = c[13];
+    let {
+      data: E
+    } = (0, r.useQuery)(l), R = (0, p.useBlobUrl)(E ?? null);
+    return c[14] !== d || c[15] !== h || c[16] !== R || c[17] !== m ? (o = (0, t.jsx)(C, {
+      className: d,
+      emptyLabel: h,
+      imageUrl: R,
+      screenshot: m
+    }), c[14] = d, c[15] = h, c[16] = R, c[17] = m, c[18] = o) : o = c[18], o
+  }
+
+  function S(e) {
+    let n, s, l, o, c, h = (0, a.c)(22),
+      {
+        className: f,
+        emptyLabel: _,
+        preview: y,
+        screenshot: A
+      } = e,
+      {
+        ensureLiveConnection: b,
+        gatewayUrl: S,
+        isReady: w,
+        sendRequest: x
+      } = (0, v.useHatchRpc)(),
+      {
+        targetKey: k
+      } = (0, m.useGatewayQueryContext)(),
+      T = (0, i.useQueryClient)(),
+      E = S ?? "";
+    h[0] !== y.sha256 || h[1] !== y.taskId || h[2] !== E ? (n = ["computer-preview", E, y.taskId, y.sha256], h[0] = y.sha256, h[1] = y.taskId, h[2] = E, h[3] = n) : n = h[3];
+    let R = n;
+    h[4] !== b || h[5] !== w || h[6] !== y.sha256 || h[7] !== y.taskId || h[8] !== T || h[9] !== x || h[10] !== k ? (s = async () => {
+      w || await b();
+      try {
+        return await x("computer.preview", {
+          task_id: y.taskId,
+          sha256: y.sha256
+        })
+      } catch (e) {
+        if ((0, u.isGatewayNotFoundError)(e)) return d.computerContextQuery.invalidate(T, {
+          targetKey: k
+        }), null;
+        throw e
+      }
+    }, h[4] = b, h[5] = w, h[6] = y.sha256, h[7] = y.taskId, h[8] = T, h[9] = x, h[10] = k, h[11] = s) : s = h[11];
+    let I = E.length > 0;
+    h[12] === Symbol.for("react.memo_cache_sentinel") ? (l = {
+      sentrySurface: g.HATCH_SENTRY_SURFACES.STATUS_COMPUTER
+    }, h[12] = l) : l = h[12], h[13] !== R || h[14] !== s || h[15] !== I ? (o = {
+      queryKey: R,
+      queryFn: s,
+      enabled: I,
+      staleTime: 1 / 0,
+      gcTime: 18e5,
+      retry: 1,
+      meta: l
+    }, h[13] = R, h[14] = s, h[15] = I, h[16] = o) : o = h[16];
+    let {
+      data: j
+    } = (0, r.useQuery)(o), H = (0, p.useBlobUrl)(j instanceof Blob ? j : null);
+    return h[17] !== f || h[18] !== _ || h[19] !== H || h[20] !== A ? (c = (0, t.jsx)(C, {
+      className: f,
+      emptyLabel: _,
+      imageUrl: H,
+      screenshot: A
+    }), h[17] = f, h[18] = _, h[19] = H, h[20] = A, h[21] = c) : c = h[21], c
+  }
+
+  function w(e) {
+    let r, i = (0, a.c)(5),
+      {
+        className: s,
+        emptyLabel: l,
+        screenshot: o
+      } = e,
+      {
+        imageUrl: c
+      } = function(e) {
+        let t, r, i, s, l = (0, a.c)(9),
+          o = e?.url ?? null,
+          c = null != e;
+        l[0] !== o || l[1] !== c ? (t = {
+          sourceUrl: o,
+          usage: "full",
+          enabled: c
+        }, l[0] = o, l[1] = c, l[2] = t) : t = l[2];
+        let u = (0, _.useResolvedHatchImageMedia)(t),
+          [d, h] = (0, n.useState)(null);
+        l[3] !== u.src ? (r = () => {
+          null != u.src && h(u.src)
+        }, i = [u.src], l[3] = u.src, l[4] = r, l[5] = i) : (r = l[4], i = l[5]), (0, n.useEffect)(r, i);
+        let p = u.src ?? d,
+          m = "loading" === u.resolutionStatus;
+        return l[6] !== p || l[7] !== m ? (s = {
+          imageUrl: p,
+          isLoading: m
+        }, l[6] = p, l[7] = m, l[8] = s) : s = l[8], s
+      }(o);
+    return i[0] !== s || i[1] !== l || i[2] !== c || i[3] !== o ? (r = (0, t.jsx)(C, {
+      className: s,
+      emptyLabel: l,
+      imageUrl: c,
+      screenshot: o
+    }), i[0] = s, i[1] = l, i[2] = c, i[3] = o, i[4] = r) : r = i[4], r
+  }
+  e.s(["HatchBrowserSnapshotImage", 0, function(e) {
+    let r, i, s, l, c, u = (0, a.c)(21),
+      {
+        className: d,
+        emptyLabel: p,
+        screenshot: m
+      } = e,
+      f = m?.url;
+    u[0] !== f ? (r = function(e) {
+      let t = e?.trim().match(h);
+      if (null == t) return null;
+      try {
+        let e = decodeURIComponent(t[1] ?? ""),
+          a = decodeURIComponent(t[2] ?? ""),
+          n = e => e.length > 0 && e.length <= 256 && !e.includes("/") && !e.includes("\\");
+        return n(e) && n(a) ? {
+          taskId: e,
+          sha256: a
+        } : null
+      } catch {
+        return null
+      }
+    }(f), u[0] = f, u[1] = r) : r = u[1];
+    let v = r;
+    u[2] !== m ? (i = function(e) {
+      let t, a = e?.url.trim(),
+        n = e?.actionId;
+      if (null == a || 0 === a.length || null == n) return {
+        kind: "standard"
+      };
+      try {
+        t = new URL(a, "https://browser-snapshot.invalid")
+      } catch {
+        return {
+          kind: "standard"
+        }
+      }
+      if (!a.startsWith("/") && !(0, o.isHatchVmGatewayHostname)(t.hostname) || !t.pathname.startsWith("/api/browser-activity/")) return {
+        kind: "standard"
+      };
+      let r = t.pathname.match(/^\/api\/browser-activity\/actions\/([^/]+)\/snapshot$/);
+      if (null == r) return A("invalid_route");
+      try {
+        let e = decodeURIComponent(r[1] ?? "");
+        if (0 === e.length || e.length > 256 || e.includes("/") || e.includes("\\")) return A("invalid_action_id");
+        if (e !== n) return A("action_id_mismatch");
+        return {
+          kind: "legacy",
+          actionId: e
+        }
+      } catch {
+        return A("invalid_action_id")
+      }
+    }(m), u[2] = m, u[3] = i) : i = u[3];
+    let _ = i,
+      C = "blocked_legacy" === _.kind ? _.reason : null;
+    if (u[4] !== C ? (s = () => {
+        null != C && (y || (y = !0, (0, g.captureHatchMessage)(g.HATCH_SENTRY_SURFACES.BROWSER_SESSION, "Legacy browser snapshot URL was rejected", {
+          level: "warning",
+          tags: {
+            reason: C
+          }
+        })))
+      }, l = [C], u[4] = C, u[5] = s, u[6] = l) : (s = u[5], l = u[6]), (0, n.useEffect)(s, l), null != v && null != m) {
+      let e;
+      return u[7] !== d || u[8] !== v || u[9] !== p || u[10] !== m ? (e = (0, t.jsx)(S, {
+        className: d,
+        emptyLabel: p,
+        preview: v,
+        screenshot: m
+      }), u[7] = d, u[8] = v, u[9] = p, u[10] = m, u[11] = e) : e = u[11], e
+    }
+    if ("standard" !== _.kind && null != m) {
+      let e, a = "legacy" === _.kind ? _.actionId : null;
+      return u[12] !== d || u[13] !== p || u[14] !== m || u[15] !== a ? (e = (0, t.jsx)(b, {
+        actionId: a,
+        className: d,
+        emptyLabel: p,
+        screenshot: m
+      }), u[12] = d, u[13] = p, u[14] = m, u[15] = a, u[16] = e) : e = u[16], e
+    }
+    return u[17] !== d || u[18] !== p || u[19] !== m ? (c = (0, t.jsx)(w, {
+      className: d,
+      emptyLabel: p,
+      screenshot: m
+    }), u[17] = d, u[18] = p, u[19] = m, u[20] = c) : c = u[20], c
+  }], 355804)
+}, 538529, e => {
+  "use strict";
+  let t = {
+    APP_SETTINGS: "nme_gai_hatch_app_settings",
+    CHAT: "nme_gai_hatch_chat",
+    CREDITS_SCREEN: "nme_gai_hatch_credits_screen",
+    STATUS: "hatch_status"
+  };
+  e.s(["AI_HUMAN_AGENT_CHECKOUT_PRODUCT_ID", 0, "25126427520318550", "CCV_PRODUCT_ID", 0, "766358168544755", "CCV_RECEIVER_ID", 0, "352501280694489", "CHECKOUT_PAYMENT_USER_ERROR_TYPE", 0, "urn:meta:hatch:checkout:payment-user-error", "CREDENTIAL_ACTION_LINK_CLASS", 0, "text-footnote text-text-primary-link cursor-pointer self-start bg-transparent p-0 hover:underline", "DEFAULT_CHECKOUT_COUNTRY_CODE", 0, "US", "DEFAULT_PAYMENT_CONTAINER_MODE", 0, "LIVE", "HATCH_GENAI_SUBS_RECEIVER_ID", 0, "5841838435908398", "HATCH_WEB_APP_ID", 0, "1302642031697155", "META_AI_CREDIT_PRODUCT_ID", 0, "25408185672189847", "META_AI_CREDIT_RECEIVER_ID", 0, "1321615999777276", "META_PAY_LEARN_MORE_URL", 0, "https://www.meta.com/help/meta-pay/315696271061805/", "META_PAY_SAVED_PAYMENT_INFO_URL", 0, "https://www.meta.com/help/meta-pay/saved-payment-info/", "NME_SUBSCRIPTION_PRODUCT_ID", 0, "916973309378211", "PAYPAL_LINK_RETURN_PATH", 0, "/checkout/paypal-return", "PAYPAL_LOCAL_TEST", 0, !1, "PRIVACY_POLICY_URL", 0, "https://www.facebook.com/privacy/policy", "PURCHASE_ENTRYPOINT", 0, t, "REDIRECT_CCV_RETURN_PATH", 0, "/checkout/ccv-return", "STRIPE_LINK_LEARN_MORE_URL", 0, "https://support.link.com/", "findSavedPayPalBa", 0, function(e) {
+    let t = e?.find(e => "PAYPAL_BA" === e.credentialType && null != e.credentialId);
+    return t?.credentialId != null ? {
+      credentialId: t.credentialId,
+      title: t.title,
+      subtitle: t.subtitle,
+      billingZip: t.billingZip,
+      billingCountryCode: t.billingCountryCode
+    } : null
+  }, "offersNewPayPalBa", 0, function(e) {
+    return e?.some(e => "NEW_PAYPAL_BA" === e.credentialType) ?? !1
+  }, "purchaseEntrypointToSurface", 0, function(e) {
+    switch (e) {
+      case t.APP_SETTINGS:
+        return "settings";
+      case t.CHAT:
+        return "chat";
+      case t.CREDITS_SCREEN:
+        return "credits";
+      case t.STATUS:
+        return "status";
+      default:
+        return "checkout"
+    }
+  }])
+}, 175681, e => {
+  "use strict";
+  var t = e.i(874514);
+
+  function a(e, t) {
+    if (!Number.isFinite(e.amount) || e.amount <= 0 || "" === e.currency) return null;
+    let a = t(e);
+    if ("" === a) return null;
+    let n = String(Math.trunc(e.amount));
+    return {
+      discounted_price: a,
+      undiscounted_price: a,
+      discounted_price_raw_amount: n,
+      undiscounted_price_raw_amount: n,
+      currency_code: e.currency,
+      total_discount_percentage: "0",
+      total_discount_amount: "0"
+    }
+  }
+  e.s(["MSO_SUBS_WATERFALL_EVENT", 0, {
+    PAYWALL_IMPRESSION: "hatch_subs_paywall_impression",
+    PAYWALL_PRICE_IMPRESSION: "hatch_subs_paywall_price_impression",
+    PAYWALL_TIER_PRICE_IMPRESSION: "hatch_subs_paywall_tier_price_impression",
+    PAYWALL_TIER_CARD_CLICK: "hatch_subs_paywall_tier_card_click",
+    PAYWALL_PAY_CLICK: "hatch_subs_paywall_pay_click",
+    PURCHASE_SUCCEEDED: "hatch_subs_purchase_succeeded",
+    PURCHASE_FAILED: "hatch_subs_purchase_failed",
+    TOPUP_PRICE_IMPRESSION: "hatch_subs_topup_price_impression",
+    CHECKOUT_PRICE_IMPRESSION: "hatch_subs_checkout_price_impression",
+    TOPUP_CHECKOUT_PRICE_IMPRESSION: "hatch_subs_topup_checkout_price_impression",
+    ENTRYPOINT_CLICK: "hatch_subs_entrypoint_click",
+    ENTRYPOINT_IMPRESSION: "hatch_subs_entrypoint_impression"
+  }, "checkoutPriceEventData", 0, function(e) {
+    if ("" === e.currency) return null;
+    let n = (0, t.majorUnitsStringToMinorUnits)(e.amount, e.currency);
+    return null == n || n <= 0 ? null : a({
+      amount: n,
+      currency: e.currency
+    }, t.formatStefiPrice)
+  }, "consumablePriceEventData", 0, function(e) {
+    let n = a(e.price, t.formatStefiPrice);
+    if (null == n || "" === e.productId) return null;
+    let r = {
+      dcp_consumable_product_id: e.productId,
+      ...n
+    };
+    return null != e.productType && "" !== e.productType && (r.dcp_product_type = e.productType), r
+  }, "logMsoSubsWaterfallEvent", 0, function(e, t, a, n) {
+    e({
+      eventName: t,
+      actionTarget: t,
+      actionType: "click",
+      metadata: {
+        ... function(e) {
+          let t = {};
+          for (let [a, n] of Object.entries(e)) "string" == typeof n && "" !== n && (t[a] = n);
+          return t
+        }(a),
+        entry_point: n
+      }
+    })
+  }, "subscriptionPriceEventData", 0, function(e) {
+    let n = a(e.localPrice, t.formatStefiPrice);
+    if (null == n || "" === e.productId) return null;
+    let r = {
+      dcp_tier_id: e.productId,
+      ...n
+    };
+    return null != e.billingPeriod && "" !== e.billingPeriod && (r.regular_billing_period = e.billingPeriod), null != e.periodCount && e.periodCount > 0 && (r.regular_billing_length = String(e.periodCount)), r
+  }])
+}, 906214, e => {
+  "use strict";
+  var t = e.i(863641),
+    a = e.i(221988),
+    n = e.i(925301),
+    r = e.i(335004);
+
+  function i(e) {
+    return "object" == typeof e && null != e && !Array.isArray(e) && null != (0, a.extractBrowserTaskData)(e)
+  }
+
+  function s(e) {
+    if ((0, n.isGatewayRequestError)(e) && "computer_disabled" === e.code) return !0;
+    let t = (0, r.toHatchGatewayError)(e);
+    if (t?.kind !== "not_found") return !1;
+    let a = t.message.toLowerCase();
+    return a.includes("route not found") || a.includes("no route") || a.includes("route missing")
+  }
+
+  function l(e) {
+    if (null == e || "object" != typeof e || !("tasks" in e) || !Array.isArray(e.tasks)) throw Error("Invalid Computer context response");
+    let a = e.tasks.filter(i);
+    return a.length < e.tasks.length && (0, t.captureHatchMessage)(t.HATCH_SENTRY_SURFACES.STATUS_COMPUTER, "Computer context dropped unreadable browser tasks", {
+      level: "warning",
+      extra: {
+        receivedCount: e.tasks.length,
+        keptCount: a.length
+      }
+    }), {
+      available: !0,
+      tasks: a
+    }
+  }
+  async function o(e, t) {
+    let a = e.targetKey;
+    e.isReady || await e.waitForTransport();
+    let n = await e.sendRequest("browser.lease", {
+      lease_id: t
+    }, {
+      expectedGatewayTargetKey: a
+    });
+    if (!i(n)) throw Error("Invalid browser lease response");
+    return {
+      task: n,
+      requestTargetKey: a
+    }
+  }
+  let c = (0, e.i(790170).createGatewayQuery)({
+    id: "computer.context",
+    queryKey: ({
+      targetKey: e
+    }) => ["computer-context", e],
+    noiseFn: async e => {
+      try {
+        return l(await e.sendRequest("computer.context", {}, {
+          expectedGatewayTargetKey: e.targetKey
+        }))
+      } catch (e) {
+        if (s(e)) return {
+          available: !1,
+          tasks: []
+        };
+        throw e
+      }
+    },
+    staleTime: 0,
+    meta: {
+      sentrySurface: t.HATCH_SENTRY_SURFACES.STATUS_COMPUTER
+    }
+  });
+  e.s(["computerContextQuery", 0, c, "isComputerUnavailableError", 0, s, "leaseComputerBrowser", 0, o, "normalizeComputerContext", 0, l, "upsertComputerContextTask", 0, function(e, t) {
+    let n = (0, a.extractBrowserTaskData)(t)?.browserTaskId,
+      r = e?.tasks ?? [],
+      i = r.findIndex(e => (0, a.extractBrowserTaskData)(e)?.browserTaskId === n);
+    return i < 0 ? {
+      available: !0,
+      tasks: [...r, t]
+    } : {
+      available: !0,
+      tasks: r.map((e, a) => a === i ? t : e)
+    }
+  }])
+}, 243391, e => {
+  "use strict";
+  var t = e.i(722099),
+    a = e.i(672495),
+    n = e.i(134348),
+    r = e.i(891387);
+  let i = new Set(["responding", "composing", "working", "making_something"]),
+    s = new Set(["responding", "composing", "working", "making_something", "waiting_for_subagents", "compacting"]);
+
+  function l(e, t) {
+    if (t?.kind === "draft" || t?.kind === "invalid_thread") return null;
+    let a = e.currentChatRootAgentId;
+    if (null != a) {
+      let t = e.agentActivitiesByRootAgentId[a];
+      if (null != t) return t;
+      if (null != e.agentActivityRootAgentId && e.agentActivityRootAgentId !== a) return null
+    }
+    return {
+      agentActivityCode: e.agentActivityCode,
+      agentActivityText: e.agentActivityText,
+      agentActivityEmoji: e.agentActivityEmoji ?? null,
+      agentActivityCta: e.agentActivityCta ?? null,
+      agentSubagentCount: e.agentSubagentCount
+    }
+  }
+  let o = e => e.agentActivityCode;
+
+  function c(e, t) {
+    return l(e, t)?.agentActivityCode ?? null
+  }
+  let u = e => Object.values(e.taskStatusesByTaskId).some(e => (0, n.isPendingApprovalStatus)(e)),
+    d = e => (0, n.countPendingApprovalNotifications)(e),
+    h = e => {
+      var t;
+      return !!e.chat.isStreaming || !!e.chat.isExpectingBotResponse || null != (t = e.activity.agentActivityCode) && s.has(t)
+    };
+  e.s(["useAgentActivityCode", 0, function() {
+    return (0, a.useHatchActivitySelector)(o)
+  }, "useAgentActivityCodeForChatRoute", 0, function(e) {
+    let n, r = (0, t.c)(2);
+    return r[0] !== e ? (n = t => c(t, e), r[0] = e, r[1] = n) : n = r[1], (0, a.useHatchActivitySelector)(n)
+  }, "useAgentActivityCodeForRootAgent", 0, function(e) {
+    let n, r = (0, t.c)(2);
+    return r[0] !== e ? (n = t => (function(e, t) {
+      if (null == t) return e.agentActivityCode;
+      let a = e.agentActivityRootAgentId;
+      if (((null == a ? null : e.companionRootAgentIdsByAgentId[a]) ?? a) === t) return e.agentActivityCode;
+      let n = e.agentActivitiesByRootAgentId[t];
+      if (null != n) return n.agentActivityCode;
+      for (let [a, n] of Object.entries(e.companionRootAgentIdsByAgentId)) {
+        if (n !== t) continue;
+        let r = e.agentActivitiesByRootAgentId[a];
+        if (null != r) return r.agentActivityCode
+      }
+      return null
+    })(t, e), r[0] = e, r[1] = n) : n = r[1], (0, a.useHatchActivitySelector)(n)
+  }, "useAgentActivityCtaForChatRoute", 0, function(e) {
+    let n, r = (0, t.c)(2);
+    return r[0] !== e ? (n = t => l(t, e)?.agentActivityCta ?? null, r[0] = e, r[1] = n) : n = r[1], (0, a.useHatchActivitySelector)(n)
+  }, "useAgentActivityEmojiForChatRoute", 0, function(e) {
+    let n, r = (0, t.c)(2);
+    return r[0] !== e ? (n = t => l(t, e)?.agentActivityEmoji ?? null, r[0] = e, r[1] = n) : n = r[1], (0, a.useHatchActivitySelector)(n)
+  }, "useAgentActivityTextForChatRoute", 0, function(e) {
+    let n, r = (0, t.c)(2);
+    return r[0] !== e ? (n = t => l(t, e)?.agentActivityText ?? null, r[0] = e, r[1] = n) : n = r[1], (0, a.useHatchActivitySelector)(n)
+  }, "useHasBackgroundPendingUserConfirmationForChatRoute", 0, function(e) {
+    let n, i = (0, t.c)(2);
+    return i[0] !== e ? (n = t => (0, r.hasBackgroundApprovalForChatRoute)(t.taskStatusesByTaskId, t.liveTaskScopesByTaskId, e, {
+      companionRootAgentIdsByAgentId: t.companionRootAgentIdsByAgentId,
+      currentChatRootAgentId: t.currentChatRootAgentId,
+      currentChatRouteKey: t.currentChatRouteKey,
+      currentChatSessionId: t.currentChatSessionId,
+      requireSnapshotMatch: !0,
+      resolvedApprovalIdsById: t.resolvedApprovalIdsById,
+      snapshotPendingApprovalBackgroundOnlyById: t.snapshotPendingApprovalBackgroundOnlyById,
+      snapshotPendingApprovalsById: t.snapshotPendingApprovalsById,
+      snapshotPendingApprovalScopesById: t.snapshotPendingApprovalScopesById
+    }), i[0] = e, i[1] = n) : n = i[1], (0, a.useHatchActivitySelector)(n)
+  }, "useHasBlockingPendingUserConfirmationForChatRoute", 0, function(e) {
+    let n, i = (0, t.c)(2);
+    return i[0] !== e ? (n = t => (0, r.hasBlockingApprovalForChatRoute)(t.taskStatusesByTaskId, t.liveTaskScopesByTaskId, e, {
+      companionRootAgentIdsByAgentId: t.companionRootAgentIdsByAgentId,
+      currentChatRootAgentId: t.currentChatRootAgentId,
+      currentChatRouteKey: t.currentChatRouteKey,
+      currentChatSessionId: t.currentChatSessionId,
+      includeTasklessSnapshotKey: !0,
+      requireSnapshotMatch: !0,
+      resolvedApprovalIdsById: t.resolvedApprovalIdsById,
+      snapshotPendingApprovalBackgroundOnlyById: t.snapshotPendingApprovalBackgroundOnlyById,
+      snapshotPendingApprovalsById: t.snapshotPendingApprovalsById,
+      snapshotPendingApprovalScopesById: t.snapshotPendingApprovalScopesById
+    }), i[0] = e, i[1] = n) : n = i[1], (0, a.useHatchActivitySelector)(n)
+  }, "useHasCancelableActiveRun", 0, function() {
+    return (0, a.useHatchSelector)(h)
+  }, "useHasPendingUserConfirmation", 0, function() {
+    return (0, a.useHatchActivitySelector)(u)
+  }, "useIsAgentBusyForChatRoute", 0, function(e) {
+    let n, r = (0, t.c)(2);
+    return r[0] !== e ? (n = t => ((e, t) => {
+      if (e.chat.isStreaming || e.chat.isExpectingBotResponse) return !0;
+      let a = c(e.activity, t);
+      return null != a && i.has(a)
+    })(t, e), r[0] = e, r[1] = n) : n = r[1], (0, a.useHatchSelector)(n)
+  }, "usePendingApprovalNotificationCount", 0, function() {
+    return (0, a.useHatchActivitySelector)(d)
+  }])
+}, 650726, e => {
+  "use strict";
+  var t = e.i(672495);
+  let a = e => e.imageUrl,
+    n = e => e.videoUrlsByVariant,
+    r = e => e.resolution,
+    i = e => e.milestoneVideoUrl;
+  e.s(["useAvatarImageUrl", 0, function() {
+    return (0, t.useHatchAvatarSelector)(a)
+  }, "useAvatarMilestoneVideoUrl", 0, function() {
+    return (0, t.useHatchAvatarSelector)(i)
+  }, "useAvatarResolution", 0, function() {
+    return (0, t.useHatchAvatarSelector)(r)
+  }, "useAvatarVideoUrls", 0, function() {
+    return (0, t.useHatchAvatarSelector)(n)
+  }])
+}, 696254, e => {
+  "use strict";
+  var t = e.i(672495);
+  let a = e => e,
+    n = e => e.name,
+    r = e => e.avatar.trim().length > 0,
+    i = e => e.name.length > 0,
+    s = e => e.identitySource;
+
+  function l(e) {
+    var t, a;
+    let n;
+    return t = e.name, a = e.hasCustomName, n = t?.trim() ?? "", a && n.length > 0 ? n : null
+  }
+  e.s(["useHatchAssistantCustomName", 0, function() {
+    return (0, t.useHatchIdentitySelector)(l)
+  }, "useIdentity", 0, function() {
+    return (0, t.useHatchIdentitySelector)(a)
+  }, "useIdentityHasAvatar", 0, function() {
+    return (0, t.useHatchIdentitySelector)(r)
+  }, "useIdentityIsLoaded", 0, function() {
+    return (0, t.useHatchIdentitySelector)(i)
+  }, "useIdentityName", 0, function() {
+    return (0, t.useHatchIdentitySelector)(n)
+  }, "useIdentitySource", 0, function() {
+    return (0, t.useHatchSelector)(s)
+  }], 696254)
+}, 931821, e => {
+  "use strict";
+  class t {
+    constructor(e) {
+      this.stop = () => this.runAll("stop"), this.animations = e.filter(Boolean)
+    }
+    get finished() {
+      return Promise.all(this.animations.map(e => e.finished))
+    }
+    getAll(e) {
+      return this.animations[0][e]
+    }
+    setAll(e, t) {
+      for (let a = 0; a < this.animations.length; a++) this.animations[a][e] = t
+    }
+    attachTimeline(e) {
+      let t = this.animations.map(t => t.attachTimeline(e));
+      return () => {
+        t.forEach((e, t) => {
+          e && e(), this.animations[t].stop()
+        })
+      }
+    }
+    get time() {
+      return this.getAll("time")
+    }
+    set time(e) {
+      this.setAll("time", e)
+    }
+    get speed() {
+      return this.getAll("speed")
+    }
+    set speed(e) {
+      this.setAll("speed", e)
+    }
+    get state() {
+      return this.getAll("state")
+    }
+    get startTime() {
+      return this.getAll("startTime")
+    }
+    get duration() {
+      return a(this.animations, "duration")
+    }
+    get iterationDuration() {
+      return a(this.animations, "iterationDuration")
+    }
+    runAll(e) {
+      this.animations.forEach(t => t[e]())
+    }
+    play() {
+      this.runAll("play")
+    }
+    pause() {
+      this.runAll("pause")
+    }
+    cancel() {
+      this.runAll("cancel")
+    }
+    complete() {
+      this.runAll("complete")
+    }
+  }
+
+  function a(e, t) {
+    let a = 0;
+    for (let n = 0; n < e.length; n++) {
+      let r = e[n][t];
+      null !== r && r > a && (a = r)
+    }
+    return a
+  }
+  class n extends t {
+    then(e, t) {
+      return this.finished.finally(e).then(() => {})
+    }
+  }
+  var r = e.i(133639),
+    i = e.i(798520),
+    s = e.i(538305),
+    l = e.i(668617),
+    o = e.i(161),
+    c = e.i(196239),
+    u = e.i(91649),
+    d = e.i(747113),
+    h = e.i(667327),
+    p = e.i(348367),
+    m = e.i(520085);
+
+  function f(e, t) {
+    var a;
+    let n;
+    return (0, m.isEasingArray)(e) ? e[a = e.length, ((t - 0) % (n = a - 0) + n) % n + 0] : e
+  }
+  var v = e.i(369710);
+
+  function _(e) {
+    return "object" == typeof e && !Array.isArray(e)
+  }
+
+  function g(e, t, a, n) {
+    return "string" == typeof e && _(t) ? (0, v.resolveElements)(e, a, n) : e instanceof NodeList ? Array.from(e) : Array.isArray(e) ? e : [e]
+  }
+
+  function y(e, t, a, n) {
+    return "number" == typeof t ? t : t.startsWith("-") || t.startsWith("+") ? Math.max(0, e + parseFloat(t)) : "<" === t ? a : t.startsWith("<") ? Math.max(0, a + parseFloat(t.slice(1))) : n.get(t) ?? e
+  }
+  var A = e.i(647480);
+
+  function C(e, t) {
+    return e.at !== t.at ? e.at - t.at : null === e.value ? 1 : null === t.value ? -1 : 0
+  }
+
+  function b(e, t) {
+    return t.has(e) || t.set(e, {}), t.get(e)
+  }
+
+  function S(e, t) {
+    return t[e] || (t[e] = []), t[e]
+  }
+  let w = e => "number" == typeof e,
+    x = e => e.every(w);
+  var k = e.i(663616),
+    T = e.i(872598),
+    E = e.i(361979),
+    R = e.i(637165),
+    I = e.i(596854),
+    j = e.i(455277),
+    H = e.i(364141);
+  class M extends H.VisualElement {
+    constructor() {
+      super(...arguments), this.type = "object"
+    }
+    readValueFromInstance(e, t) {
+      if (t in e) {
+        let a = e[t];
+        if ("string" == typeof a || "number" == typeof a) return a
+      }
+    }
+    getBaseTargetFromProps() {}
+    removeValueFromRenderState(e, t) {
+      delete t.output[e]
+    }
+    measureInstanceViewportBox() {
+      return (0, j.createBox)()
+    }
+    build(e, t) {
+      Object.assign(e.output, t)
+    }
+    renderInstance(e, {
+      output: t
+    }) {
+      Object.assign(e, t)
+    }
+    sortInstanceNodePosition() {
+      return 0
+    }
+  }
+  var N = e.i(428368);
+
+  function L(e) {
+    let t = {
+        presenceContext: null,
+        props: {},
+        visualState: {
+          renderState: {
+            transform: {},
+            transformOrigin: {},
+            style: {},
+            vars: {},
+            attrs: {}
+          },
+          latestValues: {}
+        }
+      },
+      a = (0, E.isSVGElement)(e) && !(0, R.isSVGSVGElement)(e) ? new N.SVGVisualElement(t) : new I.HTMLVisualElement(t);
+    a.mount(e), k.visualElementStore.set(e, a)
+  }
+
+  function P(e) {
+    let t = new M({
+      presenceContext: null,
+      props: {},
+      visualState: {
+        renderState: {
+          output: {}
+        },
+        latestValues: {}
+      }
+    });
+    t.mount(e), k.visualElementStore.set(e, t)
+  }
+  var B = e.i(160411);
+
+  function O(e, t, a, n) {
+    let r = [];
+    if ((0, s.isMotionValue)(e) || "number" == typeof e || "string" == typeof e && !_(t)) r.push((0, B.animateSingleValue)(e, _(t) && t.default || t, a && a.default || a));
+    else {
+      let i = g(e, t, n),
+        s = i.length;
+      (0, p.invariant)(!!s, "No valid elements provided.", "no-valid-elements");
+      for (let e = 0; e < s; e++) {
+        let n = i[e];
+        (0, p.invariant)(null !== n, "You're trying to perform an animation on null. Ensure that selectors are correctly finding elements and refs are correctly hydrated.", "animate-null");
+        let l = n instanceof Element ? L : P;
+        k.visualElementStore.has(n) || l(n);
+        let o = k.visualElementStore.get(n),
+          c = {
+            ...a
+          };
+        "delay" in c && "function" == typeof c.delay && (c.delay = c.delay(e, s)), r.push(...(0, T.animateTarget)(o, {
+          ...t,
+          transition: c
+        }, {}))
+      }
+    }
+    return r
+  }
+
+  function U(e) {
+    return function(t, a, m) {
+      let v, _ = [];
+      if (Array.isArray(t) && t.some(Array.isArray)) {
+        let n;
+        n = [], (function(e, {
+          defaultTransition: t = {},
+          ...a
+        } = {}, n, i) {
+          let m = t.duration || .3,
+            v = new Map,
+            _ = new Map,
+            w = {},
+            k = new Map,
+            T = 0,
+            E = 0,
+            R = 0;
+          for (let a = 0; a < e.length; a++) {
+            let d = e[a];
+            if ("string" == typeof d) {
+              k.set(d, E);
+              continue
+            }
+            if (!Array.isArray(d)) {
+              k.set(d.name, y(E, d.at, T, k));
+              continue
+            }
+            let [v, C, H = {}] = d;
+            void 0 !== H.at && (E = y(E, H.at, T, k));
+            let M = 0,
+              N = (e, a, n, s = 0, d = 0) => {
+                var v;
+                let _ = Array.isArray(v = e) ? v : [v],
+                  {
+                    delay: g = 0,
+                    times: y = (0, l.defaultOffset)(_),
+                    type: C = "keyframes",
+                    repeat: b,
+                    repeatType: S,
+                    repeatDelay: w = 0,
+                    ...k
+                  } = a,
+                  {
+                    ease: T = t.ease || "easeOut",
+                    duration: I
+                  } = a,
+                  j = "function" == typeof g ? g(s, d) : g,
+                  H = _.length,
+                  N = (0, o.isGenerator)(C) ? C : i?.[C || "keyframes"];
+                if (H <= 2 && N) {
+                  let e = 100;
+                  2 === H && x(_) && (e = Math.abs(_[1] - _[0]));
+                  let t = {
+                    ...k
+                  };
+                  void 0 !== I && (t.duration = (0, h.secondsToMilliseconds)(I));
+                  let a = (0, c.createGeneratorEasing)(t, e, N);
+                  T = a.ease, I = a.duration
+                }
+                I ?? (I = m);
+                let L = E + j;
+                1 === y.length && 0 === y[0] && (y[1] = 1);
+                let P = y.length - _.length;
+                if (P > 0 && (0, u.fillOffset)(y, P), 1 === _.length && _.unshift(null), b) {
+                  (0, p.invariant)(b < 20, "Repeat count too high, must be less than 20", "repeat-count-high"), I *= b + 1;
+                  let e = [..._],
+                    t = [...y],
+                    a = [...T = Array.isArray(T) ? [...T] : [T]];
+                  for (let n = 0; n < b; n++) {
+                    _.push(...e);
+                    for (let r = 0; r < e.length; r++) y.push(t[r] + (n + 1)), T.push(0 === r ? "linear" : f(a, r - 1))
+                  }
+                  for (let e = 0; e < y.length; e++) y[e] = y[e] / (b + 1)
+                }
+                let B = L + I;
+                ! function(e, t, a, n, i, s) {
+                  for (let t = 0; t < e.length; t++) {
+                    let a = e[t];
+                    a.at > i && a.at < s && ((0, r.removeItem)(e, a), t--)
+                  }
+                  for (let r = 0; r < t.length; r++) e.push({
+                    value: t[r],
+                    at: (0, A.mixNumber)(i, s, n[r]),
+                    easing: f(a, r)
+                  })
+                }(n, _, T, y, L, B), M = Math.max(j + I, M), R = Math.max(B, R)
+              };
+            if ((0, s.isMotionValue)(v)) N(C, H, S("default", b(v, _)));
+            else {
+              let e = g(v, C, n, w),
+                t = e.length;
+              for (let a = 0; a < t; a++) {
+                let n = b(e[a], _);
+                for (let e in C) {
+                  var I, j;
+                  N(C[e], (I = H, j = e, I && I[j] ? {
+                    ...I,
+                    ...I[j]
+                  } : {
+                    ...I
+                  }), S(e, n), a, t)
+                }
+              }
+            }
+            T = E, E += M
+          }
+          return _.forEach((e, n) => {
+            for (let r in e) {
+              let i = e[r];
+              i.sort(C);
+              let s = [],
+                l = [],
+                o = [];
+              for (let e = 0; e < i.length; e++) {
+                let {
+                  at: t,
+                  value: a,
+                  easing: n
+                } = i[e];
+                s.push(a), l.push((0, d.progress)(0, R, t)), o.push(n || "easeOut")
+              }
+              0 !== l[0] && (l.unshift(0), s.unshift(s[0]), o.unshift("easeInOut")), 1 !== l[l.length - 1] && (l.push(1), s.push(null)), v.has(n) || v.set(n, {
+                keyframes: {},
+                transition: {}
+              });
+              let c = v.get(n);
+              c.keyframes[r] = s, c.transition[r] = {
+                ...t,
+                duration: R,
+                ease: o,
+                times: l,
+                ...a
+              }
+            }
+          }), v
+        })(t, a, e, {
+          spring: i.spring
+        }).forEach(({
+          keyframes: e,
+          transition: t
+        }, a) => {
+          n.push(...O(a, e, t))
+        }), _ = n
+      } else {
+        let {
+          onComplete: n,
+          ...r
+        } = m || {};
+        "function" == typeof n && (v = n), _ = O(t, a, r, e)
+      }
+      let w = new n(_);
+      return v && w.finished.then(v), e && (e.animations.push(w), w.finished.then(() => {
+        (0, r.removeItem)(e.animations, w)
+      })), w
+    }
+  }
+  let V = U();
+  e.s(["animate", 0, V, "createScopedAnimate", 0, U], 931821)
+}, 445492, 899185, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function n(e) {
+    let n, r, i, s, l, o = (0, a.c)(10);
+    o[0] !== e ? ({
+      size: r,
+      ...n
+    } = e, o[0] = e, o[1] = n, o[2] = r) : (n = o[1], r = o[2]);
+    let c = void 0 === r ? 32 : r;
+    return o[3] !== n.title ? (i = null != n.title && (0, t.jsx)("title", {
+      children: n.title
+    }), o[3] = n.title, o[4] = i) : i = o[4], o[5] === Symbol.for("react.memo_cache_sentinel") ? (s = (0, t.jsx)("path", {
+      d: "M12.628 5.757A1.25 1.25 0 0 1 13.75 7v18c0 .69-.56 1.25-1.25 1.25h-3a1.25 1.25 0 0 1-1.243-1.122L8.25 25V7c0-.69.56-1.25 1.25-1.25h3l.128.007zm10 0A1.25 1.25 0 0 1 23.75 7v18c0 .69-.56 1.25-1.25 1.25h-3a1.25 1.25 0 0 1-1.243-1.122L18.25 25V7c0-.69.56-1.25 1.25-1.25h3l.128.007z",
+      fill: "currentColor"
+    }), o[5] = s) : s = o[5], o[6] !== n || o[7] !== c || o[8] !== i ? (l = (0, t.jsxs)("svg", {
+      viewBox: "0 0 32 32",
+      fill: "none",
+      width: c,
+      height: c,
+      ...n,
+      children: [i, s]
+    }), o[6] = n, o[7] = c, o[8] = i, o[9] = l) : l = o[9], l
+  }
+
+  function r(e) {
+    let n, r, i, s, l, o = (0, a.c)(10);
+    o[0] !== e ? ({
+      size: r,
+      ...n
+    } = e, o[0] = e, o[1] = n, o[2] = r) : (n = o[1], r = o[2]);
+    let c = void 0 === r ? 32 : r;
+    return o[3] !== n.title ? (i = null != n.title && (0, t.jsx)("title", {
+      children: n.title
+    }), o[3] = n.title, o[4] = i) : i = o[4], o[5] === Symbol.for("react.memo_cache_sentinel") ? (s = (0, t.jsx)("path", {
+      d: "M8.125 8.111c0-1.833 1.988-2.974 3.571-2.05l13.524 7.887c1.57.917 1.57 3.187 0 4.104l-13.524 7.887c-1.583.924-3.57-.218-3.571-2.05V8.11z",
+      fill: "currentColor"
+    }), o[5] = s) : s = o[5], o[6] !== n || o[7] !== c || o[8] !== i ? (l = (0, t.jsxs)("svg", {
+      viewBox: "0 0 32 32",
+      fill: "none",
+      width: c,
+      height: c,
+      ...n,
+      children: [i, s]
+    }), o[6] = n, o[7] = c, o[8] = i, o[9] = l) : l = o[9], l
+  }
+  n._isSVG = !0, n._viewBox = 32, e.s(["default", 0, n], 445492), r._isSVG = !0, r._viewBox = 32, e.s(["default", 0, r], 899185)
+}, 931054, 632105, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function n(e) {
+    let n, r, i, s, l = (0, a.c)(9);
+    return l[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), l[0] = e.title, l[1] = n) : n = l[1], l[2] !== e.children ? (r = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), l[2] = e.children, l[3] = r) : r = l[3], l[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1 1 5.925 1 12s4.925 11 11 11zm.83-2.473c-.36.381-.641.473-.83.473-.189 0-.47-.091-.83-.473-.363-.384-.736-.992-1.07-1.827-.417-1.043-.743-2.361-.929-3.856.904.102 1.853.156 2.829.156.976 0 1.925-.054 2.829-.156-.186 1.495-.512 2.813-.929 3.856-.334.835-.707 1.444-1.07 1.827zm2.156-7.717c-.933.123-1.937.19-2.986.19-1.049 0-2.053-.067-2.987-.19A24.277 24.277 0 0 1 9 12c0-2.667.434-5.035 1.1-6.7.334-.835.707-1.443 1.07-1.827.36-.381.641-.473.83-.473.189 0 .47.091.83.473.363.384.736.992 1.07 1.827.666 1.665 1.1 4.033 1.1 6.7 0 .273-.005.544-.014.81zm1.891 1.706c-.185 1.87-.575 3.563-1.12 4.926-.128.32-.267.627-.416.918a9.009 9.009 0 0 0 5.603-7.35c-.598.372-1.3.692-2.071.959a16.62 16.62 0 0 1-1.996.547zm3.986-4.088c-.123.203-.344.446-.71.707-.47.337-1.12.662-1.935.944-.379.132-.788.252-1.222.359C17 12.292 17 12.146 17 12c0-2.856-.461-5.488-1.243-7.442-.128-.32-.267-.627-.416-.918a9.014 9.014 0 0 1 5.522 6.788zm-13.86 2.01A26.392 26.392 0 0 1 7 12c0-2.856.461-5.488 1.243-7.442.128-.32.267-.627.416-.918a9.014 9.014 0 0 0-5.522 6.788l.019.03c.36.56 1.33 1.22 2.97 1.735.28.088.572.17.878.245zm-3.947.573A9.009 9.009 0 0 0 8.66 20.36c-.15-.29-.288-.598-.416-.918-.545-1.363-.935-3.057-1.12-4.926a17.221 17.221 0 0 1-1.596-.415c-.908-.285-1.758-.647-2.47-1.09z"
+    }), l[4] = i) : i = l[4], l[5] !== e || l[6] !== n || l[7] !== r ? (s = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, r, i]
+    }), l[5] = e, l[6] = n, l[7] = r, l[8] = s) : s = l[8], s
+  }
+  n._isSVG = !0, e.s(["default", 0, n], 931054);
+  var r = e.i(519172);
+  let i = new Map,
+    s = new Set,
+    l = new Set,
+    o = new Map,
+    c = o;
+
+  function u({
+    messageId: e,
+    widgetId: t
+  }) {
+    return null == e ? null : `${e}\u0000${t}`
+  }
+
+  function d(e) {
+    switch (e) {
+      case "visible":
+        return 3;
+      case "pending":
+        return 2;
+      case "hidden":
+        return 1;
+      case "unknown":
+        return 0
+    }
+  }
+
+  function h() {
+    let e = new Map;
+    for (let t of s) e.set(t, "hidden");
+    for (let t of i.values()) {
+      let a = e.get(t.key) ?? "unknown";
+      d(t.state) > d(a) && e.set(t.key, t.state)
+    }
+    if (!(e.size === c.size && [...e].every(([e, t]) => c.get(e) === t)))
+      for (let t of (c = e, l)) t()
+  }
+
+  function p(e, t) {
+    let a = i.get(e);
+    if (a?.key === t) {
+      if (i.delete(e), ![...i.values()].some(e => e.key === t))
+        for (s.delete(t), s.add(t); s.size > 64;) {
+          let e = s.values().next().value;
+          if (null == e) break;
+          s.delete(e)
+        }
+      h()
+    }
+  }
+
+  function m(e) {
+    return l.add(e), () => l.delete(e)
+  }
+
+  function f() {
+    return c
+  }
+
+  function v() {
+    return o
+  }
+  e.s(["useBrowserTaskWidgetViewportRef", 0, function(e) {
+    let t, n, l = (0, a.c)(6),
+      {
+        messageId: o,
+        widgetId: c
+      } = e,
+      d = (0, r.useRef)(null),
+      m = (0, r.useRef)(null);
+    if (null == d.current) {
+      let e;
+      l[0] === Symbol.for("react.memo_cache_sentinel") ? (e = Symbol("browser-task-widget-viewport"), l[0] = e) : e = l[0], d.current = e
+    }
+    let f = d.current;
+    l[1] !== o || l[2] !== c ? (t = u({
+      messageId: o,
+      widgetId: c
+    }), l[1] = o, l[2] = c, l[3] = t) : t = l[3];
+    let v = t;
+    return l[4] !== v ? (n = e => {
+      if (m.current?.disconnect(), m.current = null, null == v) return;
+      if (null == e) return void p(f, v);
+      if (s.delete(v), i.set(f, {
+          key: v,
+          state: "pending"
+        }), h(), "u" < typeof IntersectionObserver) return () => p(f, v);
+      let t = new IntersectionObserver(t => {
+        let a = t.find(t => t.target === e);
+        if (null != a) {
+          var n;
+          let e;
+          n = a.isIntersecting ? "visible" : "hidden", e = i.get(f), e?.key === v && e.state !== n && (i.set(f, {
+            key: v,
+            state: n
+          }), h())
+        }
+      }, {
+        root: e.closest("#hatch-chat-scroll"),
+        threshold: 0
+      });
+      return m.current = t, t.observe(e), () => {
+        m.current === t && (m.current = null), t.disconnect(), p(f, v)
+      }
+    }, l[4] = v, l[5] = n) : n = l[5], n
+  }, "useBrowserTaskWidgetViewportState", 0, function(e) {
+    let t, n = (0, a.c)(4),
+      {
+        messageId: i,
+        widgetId: s
+      } = e,
+      l = (0, r.useSyncExternalStore)(m, f, v);
+    if (n[0] !== i || n[1] !== l || n[2] !== s) {
+      let e = u({
+        messageId: i,
+        widgetId: s
+      });
+      t = null == e ? "unknown" : l.get(e) ?? "unknown", n[0] = i, n[1] = l, n[2] = s, n[3] = t
+    } else t = n[3];
+    return t
+  }], 632105)
+}, 965602, 129491, 77585, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function n(e) {
+    let n, r, i, s, l, o, c = (0, a.c)(11);
+    return c[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), c[0] = e.title, c[1] = n) : n = c[1], c[2] !== e.children ? (r = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), c[2] = e.children, c[3] = r) : r = c[3], c[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      d: "M12 2a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1z"
+    }), s = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M2 16h4.803a6 6 0 1 1 10.395 0H22a1 1 0 1 1 0 2H2a1 1 0 1 1 0-2zm12.646 0a4 4 0 1 0-5.292 0h5.292z"
+    }), l = (0, t.jsx)("path", {
+      d: "M2 12a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H2zM19 13a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1zM5.636 5.222a1 1 0 1 0-1.414 1.414L5.636 8.05A1 1 0 0 0 7.05 6.636L5.636 5.222zM16.95 8.05a1 1 0 0 1 0-1.414l1.414-1.414a1 1 0 1 1 1.414 1.414L18.364 8.05a1 1 0 0 1-1.414 0zM5 20a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2H5z"
+    }), c[4] = i, c[5] = s, c[6] = l) : (i = c[4], s = c[5], l = c[6]), c[7] !== e || c[8] !== n || c[9] !== r ? (o = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, r, i, s, l]
+    }), c[7] = e, c[8] = n, c[9] = r, c[10] = o) : o = c[10], o
+  }
+
+  function r(e) {
+    let n, r, i, s, l = (0, a.c)(9);
+    return l[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), l[0] = e.title, l[1] = n) : n = l[1], l[2] !== e.children ? (r = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), l[2] = e.children, l[3] = r) : r = l[3], l[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      d: "M13.17 8.5c-.11-.38-.17-.7-.17-1C13 5.57 14.57 4 16.5 4h.08l-1.79 1.79a1 1 0 0 0-.29.71c0 .27.11.52.29.71l2 2c.39.39 1.02.39 1.41 0l1.79-1.79v.08a3.5 3.5 0 0 1-2.07 3.19l1.47 1.47a5.49 5.49 0 0 0 2.6-4.66c0-.84-.2-1.67-.6-2.46a.99.99 0 0 0-.73-.54c-.32-.05-.64.05-.87.28l-2.3 2.3-.59-.59 2.3-2.3c.23-.23.33-.55.28-.87a.97.97 0 0 0-.54-.73c-.79-.4-1.62-.6-2.46-.6-2.8 0-5.11 2.1-5.45 4.81l2.14 2.14c.02-.15.02-.3-.02-.44zM5.89 19.69c-.42.42-1.16.42-1.59 0-.44-.44-.44-1.15 0-1.59l4.78-4.78-1.41-1.41-4.78 4.78a3.114 3.114 0 0 0 2.21 5.32c.84 0 1.62-.32 2.21-.91l3.27-3.27c-.51-.51-.84-1.13-1.02-1.81zM4.38 6.99h.12c.26 0 .52-.1.71-.29l.04-.04 6.84 6.84-.09.09c-.38.38-.59.88-.59 1.42s.21 1.04.59 1.42l1.89 1.88c.25.25.62.68.77.91l.86 1.38a2.97 2.97 0 0 0 2.54 1.41c.79 0 1.55-.31 2.12-.88l.95-.95a3 3 0 0 0 .86-2.46c-.1-.91-.61-1.72-1.39-2.21l-1.38-.87c-.26-.16-.5-.35-.71-.56L16.43 12c-.78-.78-2.04-.78-2.82 0l-.09.09-6.84-6.84.04-.04c.22-.22.32-.52.29-.83a1 1 0 0 0-.48-.74L4.07 2.16l-.04-.02c-.39-.23-.9-.17-1.22.15l-.5.5c-.32.32-.39.83-.15 1.22l.02.04 1.48 2.46c.16.26.43.44.74.48zm10.63 6.43 2.08 2.08c.32.32.68.6 1.06.85l1.39.87c.26.16.43.43.46.73s-.07.6-.29.82l-.95.95c-.22.22-.52.32-.82.29s-.57-.2-.73-.46l-.86-1.38c-.27-.43-.78-.99-1.05-1.27l-1.89-1.88 1.6-1.59z"
+    }), l[4] = i) : i = l[4], l[5] !== e || l[6] !== n || l[7] !== r ? (s = (0, t.jsxs)("svg", {
+      fill: "currentColor",
+      viewBox: "0 0 24 24",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, r, i]
+    }), l[5] = e, l[6] = n, l[7] = r, l[8] = s) : s = l[8], s
+  }
+
+  function i(e) {
+    let n, r, i, s, l, o, c, u, d = (0, a.c)(13);
+    return d[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), d[0] = e.title, d[1] = n) : n = d[1], d[2] !== e.children ? (r = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), d[2] = e.children, d[3] = r) : r = d[3], d[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      d: "M15.13 18.84L11.71 23.52C11.47 23.84 11.05 23.96 10.68 23.82C10.32 23.67 10.09 23.3 10.13 22.91L10.98 14.7L15.13 18.84Z"
+    }), s = (0, t.jsx)("path", {
+      d: "M2.38 2.38C2.72 2.04 3.28 2.04 3.62 2.38L21.62 20.38C21.96 20.72 21.96 21.28 21.62 21.62C21.28 21.96 20.72 21.96 20.38 21.62L2.38 3.62C2.04 3.28 2.04 2.72 2.38 2.38Z"
+    }), l = (0, t.jsx)("path", {
+      d: "M19.79 10.12C20.11 10.13 20.42 10.31 20.57 10.6C20.71 10.9 20.69 11.25 20.49 11.52L18.27 14.55L13.84 10.12H19.79Z"
+    }), o = (0, t.jsx)("path", {
+      d: "M10.16 13.87H4.21C3.88 13.87 3.58 13.69 3.43 13.4C3.28 13.1 3.31 12.75 3.51 12.48L5.73 9.45L10.16 13.87Z"
+    }), c = (0, t.jsx)("path", {
+      d: "M12.29 0.48C12.53 0.16 12.95 0.04 13.31 0.18C13.68 0.33 13.91 0.7 13.87 1.09L13.01 9.3L8.87 5.16L12.29 0.48Z"
+    }), d[4] = i, d[5] = s, d[6] = l, d[7] = o, d[8] = c) : (i = d[4], s = d[5], l = d[6], o = d[7], c = d[8]), d[9] !== e || d[10] !== n || d[11] !== r ? (u = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, r, i, s, l, o, c]
+    }), d[9] = e, d[10] = n, d[11] = r, d[12] = u) : u = d[12], u
+  }
+  n._isSVG = !0, e.s(["default", 0, n], 965602), r._isSVG = !0, e.s(["default", 0, r], 129491), i._isSVG = !0, e.s(["default", 0, i], 77585)
+}, 133421, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function n(e) {
+    let n, r, i, s, l, o, c = (0, a.c)(11);
+    return c[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), c[0] = e.title, c[1] = n) : n = c[1], c[2] !== e.children ? (r = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), c[2] = e.children, c[3] = r) : r = c[3], c[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      d: "M8.63 18C8.63 16.55 7.45 15.38 6 15.38C4.55 15.38 3.38 16.55 3.38 18C3.38 19.45 4.55 20.63 6 20.63C7.45 20.63 8.63 19.45 8.63 18ZM10.38 18C10.38 20.42 8.42 22.38 6 22.38C3.58 22.38 1.63 20.42 1.63 18C1.63 15.58 3.58 13.63 6 13.63C8.42 13.63 10.38 15.58 10.38 18Z"
+    }), s = (0, t.jsx)("path", {
+      d: "M20.63 6C20.63 4.55 19.45 3.38 18 3.38C16.55 3.38 15.38 4.55 15.38 6C15.38 7.45 16.55 8.63 18 8.63C19.45 8.63 20.63 7.45 20.63 6ZM22.38 6C22.38 8.42 20.42 10.38 18 10.38C15.58 10.38 13.63 8.42 13.63 6C13.63 3.58 15.58 1.63 18 1.63C20.42 1.63 22.38 3.58 22.38 6Z"
+    }), l = (0, t.jsx)("path", {
+      d: "M6 1.63C8.42 1.63 10.38 3.58 10.38 6C10.38 6.46 10.3 6.9 10.18 7.31C9.96 7.99 10.01 8.77 10.52 9.28L14.72 13.48C15.23 13.99 16.01 14.04 16.69 13.82C17.1 13.69 17.54 13.63 18 13.63C20.42 13.63 22.38 15.58 22.38 18C22.38 20.42 20.42 22.38 18 22.38C15.58 22.38 13.63 20.42 13.63 18C13.63 17.54 13.69 17.1 13.82 16.69C14.04 16.01 13.99 15.23 13.48 14.72L9.28 10.52C8.77 10.01 7.99 9.96 7.31 10.18C6.9 10.3 6.46 10.38 6 10.38C3.58 10.38 1.63 8.42 1.63 6C1.63 3.58 3.58 1.63 6 1.63ZM18 15.38C16.55 15.38 15.38 16.55 15.38 18C15.38 19.45 16.55 20.63 18 20.63C19.45 20.63 20.63 19.45 20.63 18C20.63 16.55 19.45 15.38 18 15.38ZM6 3.38C4.55 3.38 3.38 4.55 3.38 6C3.38 7.45 4.55 8.63 6 8.63C7.45 8.63 8.63 7.45 8.63 6C8.63 4.55 7.45 3.38 6 3.38Z"
+    }), c[4] = i, c[5] = s, c[6] = l) : (i = c[4], s = c[5], l = c[6]), c[7] !== e || c[8] !== n || c[9] !== r ? (o = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, r, i, s, l]
+    }), c[7] = e, c[8] = n, c[9] = r, c[10] = o) : o = c[10], o
+  }
+  n._isSVG = !0, e.s(["default", 0, n])
+}, 48334, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function n(e) {
+    let n, r, i, s, l = (0, a.c)(9);
+    return l[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), l[0] = e.title, l[1] = n) : n = l[1], l[2] !== e.children ? (r = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), l[2] = e.children, l[3] = r) : r = l[3], l[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M12 1.13C18.01 1.13 22.88 5.99 22.88 12C22.88 18.01 18.01 22.88 12 22.88C5.99 22.88 1.13 18.01 1.13 12C1.13 5.99 5.99 1.13 12 1.13ZM12 15.47C11.59 15.47 11.25 15.59 11 15.82C10.74 16.05 10.62 16.36 10.62 16.74C10.62 17.12 10.74 17.42 11 17.65C11.25 17.88 11.59 18 12 18C12.41 18 12.75 17.88 13 17.65C13.26 17.42 13.39 17.12 13.39 16.74C13.39 16.36 13.26 16.05 13 15.82C12.75 15.59 12.41 15.47 12 15.47ZM12 6C11.36 6 10.84 6.53 10.86 7.17L11.06 13.28C11.07 13.79 11.49 14.19 12 14.19C12.51 14.19 12.93 13.79 12.95 13.28L13.14 7.17C13.16 6.53 12.65 6 12 6Z"
+    }), l[4] = i) : i = l[4], l[5] !== e || l[6] !== n || l[7] !== r ? (s = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, r, i]
+    }), l[5] = e, l[6] = n, l[7] = r, l[8] = s) : s = l[8], s
+  }
+  n._isSVG = !0, e.s(["default", 0, n])
+}, 861558, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function n(e) {
+    let n, r, i, s, l = (0, a.c)(9);
+    return l[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), l[0] = e.title, l[1] = n) : n = l[1], l[2] !== e.children ? (r = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), l[2] = e.children, l[3] = r) : r = l[3], l[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M12 1.13C18.01 1.13 22.88 5.99 22.88 12C22.88 18.01 18.01 22.88 12 22.88C5.99 22.88 1.13 18.01 1.13 12C1.13 5.99 5.99 1.13 12 1.13ZM12.6 5.3C12.28 5.18 11.93 5.28 11.73 5.56L6.93 12.1C6.77 12.33 6.74 12.63 6.87 12.88C7 13.14 7.26 13.3 7.54 13.3H10.98L10.49 17.92C10.46 18.26 10.65 18.58 10.97 18.7C11.29 18.82 11.64 18.72 11.84 18.44L16.64 11.9C16.8 11.67 16.83 11.37 16.7 11.12C16.57 10.86 16.31 10.7 16.03 10.7H12.6L13.08 6.08C13.11 5.74 12.92 5.42 12.6 5.3Z"
+    }), l[4] = i) : i = l[4], l[5] !== e || l[6] !== n || l[7] !== r ? (s = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, r, i]
+    }), l[5] = e, l[6] = n, l[7] = r, l[8] = s) : s = l[8], s
+  }
+  n._isSVG = !0, e.s(["default", 0, n])
+}, 498596, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function n(e) {
+    let n, r, i, s, l, o, c, u, d, h = (0, a.c)(14);
+    return h[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), h[0] = e.title, h[1] = n) : n = h[1], h[2] !== e.children ? (r = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), h[2] = e.children, h[3] = r) : r = h[3], h[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      d: "M2.5 16.5C3.33 16.5 4 17.17 4 18C4 18.83 3.33 19.5 2.5 19.5C1.67 19.5 1 18.83 1 18C1 17.17 1.67 16.5 2.5 16.5Z"
+    }), s = (0, t.jsx)("path", {
+      d: "M22 17.13C22.48 17.13 22.88 17.52 22.88 18C22.88 18.48 22.48 18.88 22 18.88H8C7.52 18.88 7.13 18.48 7.13 18C7.13 17.52 7.52 17.13 8 17.13H22Z"
+    }), l = (0, t.jsx)("path", {
+      d: "M2.5 10.5C3.33 10.5 4 11.17 4 12C4 12.83 3.33 13.5 2.5 13.5C1.67 13.5 1 12.83 1 12C1 11.17 1.67 10.5 2.5 10.5Z"
+    }), o = (0, t.jsx)("path", {
+      d: "M22 11.13C22.48 11.13 22.88 11.52 22.88 12C22.88 12.48 22.48 12.88 22 12.88H8C7.52 12.88 7.13 12.48 7.13 12C7.13 11.52 7.52 11.13 8 11.13H22Z"
+    }), c = (0, t.jsx)("path", {
+      d: "M2.5 4.5C3.33 4.5 4 5.17 4 6C4 6.83 3.33 7.5 2.5 7.5C1.67 7.5 1 6.83 1 6C1 5.17 1.67 4.5 2.5 4.5Z"
+    }), u = (0, t.jsx)("path", {
+      d: "M22 5.13C22.48 5.13 22.88 5.52 22.88 6C22.88 6.48 22.48 6.88 22 6.88H8C7.52 6.88 7.13 6.48 7.13 6C7.13 5.52 7.52 5.13 8 5.13H22Z"
+    }), h[4] = i, h[5] = s, h[6] = l, h[7] = o, h[8] = c, h[9] = u) : (i = h[4], s = h[5], l = h[6], o = h[7], c = h[8], u = h[9]), h[10] !== e || h[11] !== n || h[12] !== r ? (d = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, r, i, s, l, o, c, u]
+    }), h[10] = e, h[11] = n, h[12] = r, h[13] = d) : d = h[13], d
+  }
+  n._isSVG = !0, e.s(["default", 0, n])
+}, 759343, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function n(e) {
+    let n, r, i, s, l, o, c, u, d, h = (0, a.c)(14);
+    return h[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), h[0] = e.title, h[1] = n) : n = h[1], h[2] !== e.children ? (r = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), h[2] = e.children, h[3] = r) : r = h[3], h[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      d: "M12 14C13.1 14 14 14.9 14 16C14 17.1 13.1 18 12 18C10.9 18 10 17.1 10 16C10 14.9 10.9 14 12 14Z"
+    }), s = (0, t.jsx)("path", {
+      d: "M5 9.5C5.83 9.5 6.5 10.17 6.5 11C6.5 11.83 5.83 12.5 5 12.5C4.17 12.5 3.5 11.83 3.5 11C3.5 10.17 4.17 9.5 5 9.5Z"
+    }), l = (0, t.jsx)("path", {
+      d: "M8.5 6C9.33 6 10 6.67 10 7.5C10 8.33 9.33 9 8.5 9C7.67 9 7 8.33 7 7.5C7 6.67 7.67 6 8.5 6Z"
+    }), o = (0, t.jsx)("path", {
+      d: "M18 6C18.83 6 19.5 6.67 19.5 7.5C19.5 8.33 18.83 9 18 9C17.17 9 16.5 8.33 16.5 7.5C16.5 6.67 17.17 6 18 6Z"
+    }), c = (0, t.jsx)("path", {
+      d: "M13.25 5C14.08 5 14.75 5.67 14.75 6.5C14.75 7.33 14.08 8 13.25 8C12.42 8 11.75 7.33 11.75 6.5C11.75 5.67 12.42 5 13.25 5Z"
+    }), u = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M11.97 1.15C14.11 1.04 16.74 1.32 18.99 2.21C21.22 3.08 23.24 4.63 23.76 7.13C24.18 9.15 23.39 10.61 22.45 11.57C21.55 12.49 20.46 12.99 20.25 13.11C20.14 13.17 19.98 13.23 19.87 13.28C19.74 13.34 19.59 13.41 19.43 13.49C19.11 13.65 18.79 13.84 18.56 14.07C18.33 14.3 18.22 14.52 18.2 14.76C18.18 15 18.24 15.41 18.67 16.02C19.43 17.12 19.74 18.2 19.51 19.21C19.29 20.21 18.58 20.94 17.78 21.46C16.2 22.47 13.85 22.87 12.01 22.88C5.53 22.88 0.13 18.09 0.13 12.01C0.13 9.01 1.29 6.37 3.39 4.43C5.47 2.5 8.43 1.32 11.97 1.15ZM18.35 3.83C16.38 3.06 14.01 2.8 12.06 2.89C8.85 3.06 6.31 4.11 4.57 5.72C2.85 7.31 1.88 9.49 1.88 12.01C1.88 16.97 6.33 21.13 12.01 21.13C13.68 21.12 15.65 20.74 16.84 19.98C17.42 19.61 17.72 19.22 17.8 18.83C17.89 18.45 17.82 17.87 17.23 17.02C16.65 16.19 16.39 15.38 16.45 14.62C16.52 13.84 16.9 13.25 17.33 12.83C17.75 12.41 18.25 12.12 18.64 11.92C18.84 11.82 19.03 11.74 19.16 11.68C19.24 11.65 19.29 11.63 19.34 11.6C19.38 11.59 19.4 11.58 19.4 11.58C19.74 11.38 20.53 11.03 21.21 10.35C21.84 9.7 22.32 8.8 22.05 7.49C21.7 5.81 20.32 4.61 18.35 3.83Z"
+    }), h[4] = i, h[5] = s, h[6] = l, h[7] = o, h[8] = c, h[9] = u) : (i = h[4], s = h[5], l = h[6], o = h[7], c = h[8], u = h[9]), h[10] !== e || h[11] !== n || h[12] !== r ? (d = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, r, i, s, l, o, c, u]
+    }), h[10] = e, h[11] = n, h[12] = r, h[13] = d) : d = h[13], d
+  }
+  n._isSVG = !0, e.s(["default", 0, n])
+}, 367112, e => {
+  "use strict";
+  var t = e.i(984416),
+    a = e.i(722099);
+
+  function n(e) {
+    let n, r, i, s, l = (0, a.c)(9);
+    return l[0] !== e.title ? (n = null != e.title && (0, t.jsx)("title", {
+      children: e.title
+    }), l[0] = e.title, l[1] = n) : n = l[1], l[2] !== e.children ? (r = null != e.children && (0, t.jsx)("defs", {
+      children: e.children
+    }), l[2] = e.children, l[3] = r) : r = l[3], l[4] === Symbol.for("react.memo_cache_sentinel") ? (i = (0, t.jsx)("path", {
+      fillRule: "evenodd",
+      clipRule: "evenodd",
+      d: "M16.51 2.69C17.84 1.36 19.99 1.36 21.31 2.69C22.64 4.01 22.64 6.16 21.31 7.49L9.84 18.96C9.17 19.63 8.36 20.16 7.47 20.5L3.88 21.9C2.76 22.34 1.66 21.24 2.1 20.12L3.5 16.53C3.84 15.64 4.37 14.83 5.04 14.16L16.51 2.69ZM6.28 15.4C5.78 15.9 5.38 16.5 5.13 17.16L4.04 19.96L6.84 18.87C7.5 18.61 8.1 18.22 8.6 17.72L18.06 8.26C17.48 7.32 16.68 6.52 15.74 5.94L6.28 15.4ZM20.07 3.93C19.43 3.28 18.39 3.28 17.75 3.93L17 4.67C17.92 5.29 18.7 6.08 19.33 7L20.07 6.25C20.71 5.61 20.72 4.57 20.07 3.93Z"
+    }), l[4] = i) : i = l[4], l[5] !== e || l[6] !== n || l[7] !== r ? (s = (0, t.jsxs)("svg", {
+      viewBox: "0 0 24 24",
+      fill: "currentColor",
+      width: "1em",
+      height: "1em",
+      ...e,
+      children: [n, r, i]
+    }), l[5] = e, l[6] = n, l[7] = r, l[8] = s) : s = l[8], s
+  }
+  n._isSVG = !0, e.s(["default", 0, n])
+}]);
+
+//# debugId=4fdb0206-aa5e-ddcc-d477-a91c57ac6831
+//# sourceMappingURL=3f_ze_w0q0f19.js.map

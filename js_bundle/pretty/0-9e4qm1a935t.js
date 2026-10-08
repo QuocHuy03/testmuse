@@ -1,0 +1,1070 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "743ce74e-9c04-1d5d-94f9-927ba9f2da65")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 871127, e => {
+  "use strict";
+  var t = e.i(984416),
+    n = e.i(722099),
+    a = e.i(848048),
+    l = e.i(813280),
+    i = e.i(397649),
+    r = e.i(823173),
+    s = e.i(255772),
+    o = e.i(345717),
+    c = e.i(255859),
+    d = e.i(519172),
+    u = e.i(420297),
+    f = e.i(168538),
+    h = e.i(281539),
+    m = e.i(918340),
+    _ = e.i(986907),
+    x = e.i(301970),
+    p = e.i(224520),
+    b = e.i(514540),
+    g = e.i(867258),
+    I = e.i(99582),
+    S = e.i(314813),
+    E = e.i(621545),
+    k = e.i(646361),
+    y = e.i(957948),
+    v = e.i(543912),
+    j = e.i(75280),
+    T = e.i(996835),
+    C = e.i(942761),
+    R = e.i(863641);
+
+  function N(e) {
+    let l, i, s, c, d, u, f, m, _, x, p, b, g, I, S, N, A, H, w = (0, n.c)(74),
+      {
+        idea: D,
+        sectionId: L,
+        sectionTitle: P,
+        position: O,
+        totalCount: F,
+        isInstalled: U,
+        onOpen: M,
+        onPrefetch: B,
+        onDismiss: K
+      } = e,
+      z = (0, j.useHatchIdeaEngagement)("explore_feed"),
+      G = (0, j.useHatchIdeaLedgerImpressionRef)(D.id, "explore_feed");
+    w[0] !== D.id || w[1] !== O || w[2] !== L || w[3] !== F ? (l = {
+      eventName: h.HatchClickEvent.IDEA_GROUP_ROW_CLICK,
+      actionTarget: "idea_group_row",
+      actionType: "click",
+      metadata: {
+        idea_id: D.id,
+        section_id: L,
+        position: O,
+        total_count: F,
+        action: "open_card",
+        surface: "ideas"
+      }
+    }, w[0] = D.id, w[1] = O, w[2] = L, w[3] = F, w[4] = l) : l = w[4];
+    let W = l,
+      {
+        ref: Y,
+        onClick: Q
+      } = (0, a.useTrackedClickRef)(W);
+    w[5] !== D.id || w[6] !== O || w[7] !== L || w[8] !== F ? (i = {
+      eventName: r.HatchImpressionEvent.IDEA_GROUP_ROW_IMPRESSION,
+      actionTarget: "idea_group_row",
+      metadata: {
+        idea_id: D.id,
+        section_id: L,
+        position: O,
+        total_count: F,
+        surface: "ideas"
+      }
+    }, w[5] = D.id, w[6] = O, w[7] = L, w[8] = F, w[9] = i) : i = w[9], w[10] === Symbol.for("react.memo_cache_sentinel") ? (s = {
+      threshold: "50%"
+    }, w[10] = s) : s = w[10];
+    let {
+      ref: q
+    } = (0, a.useTrackedImpressionRef)(i, s), J = (0, v.useHatchIdeaColorIconsEnabled)();
+    w[11] !== D || w[12] !== B ? (c = null == B ? void 0 : () => B(D), w[11] = D, w[12] = B, w[13] = c) : c = w[13];
+    let V = c;
+    return w[14] !== J || w[15] !== D.iconUrl ? (d = (0, t.jsx)(T.HatchIdeaListIcon, {
+      iconUrl: D.iconUrl,
+      colorIcons: J,
+      surface: R.HATCH_SENTRY_SURFACES.IDEAS_GROUP_ROW
+    }), w[14] = J, w[15] = D.iconUrl, w[16] = d) : d = w[16], w[17] !== G || w[18] !== q || w[19] !== Y ? (u = (0, y.default)(Y, q, G), w[17] = G, w[18] = q, w[19] = Y, w[20] = u) : u = w[20], w[21] !== z || w[22] !== D || w[23] !== Q || w[24] !== M || w[25] !== O || w[26] !== L || w[27] !== P ? (f = () => {
+      Q(), z.recordClick(D.id), M(D, {
+        sectionId: L,
+        sectionTitle: P,
+        position: O
+      })
+    }, w[21] = z, w[22] = D, w[23] = Q, w[24] = M, w[25] = O, w[26] = L, w[27] = P, w[28] = f) : f = w[28], w[29] !== D.title ? (m = (0, t.jsx)("h3", {
+      title: D.title,
+      className: "text-text-primary text-body-medium line-clamp-4 text-pretty",
+      children: D.title
+    }), w[29] = D.title, w[30] = m) : m = w[30], w[31] !== D.description ? (_ = D.description.length > 0 && (0, t.jsx)("p", {
+      title: D.description,
+      className: "text-text-secondary text-subheadline line-clamp-4 text-pretty",
+      children: D.description
+    }), w[31] = D.description, w[32] = _) : _ = w[32], w[33] !== U ? (x = U && (0, t.jsx)("span", {
+      className: "sr-only",
+      children: o.fbt._("Installed", null, {
+        hk: "Rg0Jn"
+      })
+    }), w[33] = U, w[34] = x) : x = w[34], w[35] !== V || w[36] !== x || w[37] !== u || w[38] !== f || w[39] !== m || w[40] !== _ ? (p = (0, t.jsxs)("button", {
+      ref: u,
+      type: "button",
+      onClick: f,
+      onMouseEnter: V,
+      onFocus: V,
+      className: "rounded-16 focus-visible:ring-hatch-accent/40 flex min-w-0 flex-1 cursor-pointer flex-col gap-0.5 text-start after:absolute after:inset-0 focus:not-focus-visible:outline-none focus-visible:ring-2 focus-visible:outline-none",
+      children: [m, _, x]
+    }), w[35] = V, w[36] = x, w[37] = u, w[38] = f, w[39] = m, w[40] = _, w[41] = p) : p = w[41], w[42] !== O || w[43] !== L ? (b = {
+      section_id: L,
+      position: O
+    }, w[42] = O, w[43] = L, w[44] = b) : b = w[44], w[45] !== z || w[46] !== D || w[47] !== U || w[48] !== M || w[49] !== O || w[50] !== L || w[51] !== P ? (g = U ? void 0 : () => {
+      z.recordClick(D.id), M(D, {
+        sectionId: L,
+        sectionTitle: P,
+        position: O
+      })
+    }, w[45] = z, w[46] = D, w[47] = U, w[48] = M, w[49] = O, w[50] = L, w[51] = P, w[52] = g) : g = w[52], w[53] !== D || w[54] !== K || w[55] !== O || w[56] !== L || w[57] !== P ? (I = () => K(D, {
+      sectionId: L,
+      sectionTitle: P,
+      position: O
+    }), w[53] = D, w[54] = K, w[55] = O, w[56] = L, w[57] = P, w[58] = I) : I = w[58], w[59] !== D || w[60] !== W || w[61] !== b || w[62] !== g || w[63] !== I ? (S = (0, t.jsx)(C.HatchIdeaActionsMenu, {
+      idea: D,
+      surface: "ideas",
+      subsurface: "overflow_menu",
+      appearance: "row",
+      metadata: b,
+      letsDoItTracking: W,
+      onLetsDoIt: g,
+      onNotInterested: I
+    }), w[59] = D, w[60] = W, w[61] = b, w[62] = g, w[63] = I, w[64] = S) : S = w[64], w[65] !== U ? (N = U && (0, t.jsx)("span", {
+      className: "text-text-success pointer-events-none flex size-6 shrink-0 items-center justify-center",
+      children: (0, t.jsx)(k.HatchIcon, {
+        "aria-hidden": "true",
+        icon: E.default,
+        size: 16,
+        iconSize: 16,
+        className: "text-text-success"
+      })
+    }), w[65] = U, w[66] = N) : N = w[66], w[67] !== S || w[68] !== N ? (A = (0, t.jsxs)("div", {
+      className: "relative z-10 flex shrink-0 items-center",
+      children: [S, N]
+    }), w[67] = S, w[68] = N, w[69] = A) : A = w[69], w[70] !== p || w[71] !== A || w[72] !== d ? (H = (0, t.jsxs)("div", {
+      className: "group hover:bg-fill-secondary rounded-16 relative -mx-3 flex h-full items-start gap-3 px-3 py-3 transition-colors",
+      children: [d, p, A]
+    }), w[70] = p, w[71] = A, w[72] = d, w[73] = H) : H = w[73], H
+  }
+
+  function A(e) {
+    let t, a, l = (0, n.c)(4),
+      {
+        ideaId: i,
+        onRenderIdeaFailure: r
+      } = e;
+    return l[0] !== i || l[1] !== r ? (t = () => {
+      r(i)
+    }, a = [i, r], l[0] = i, l[1] = r, l[2] = t, l[3] = a) : (t = l[2], a = l[3]), (0, d.useEffect)(t, a), null
+  }
+
+  function H(e) {
+    let i, s, o, c, u, f, h, m, _, x, p, b, g, I, S = (0, n.c)(52),
+      {
+        sectionId: E,
+        sectionTitle: k,
+        ideas: y,
+        getActionState: v,
+        onOpen: j,
+        onPrefetch: T,
+        onDismiss: C,
+        dismissedIdeaIds: H,
+        heading: D,
+        subtitle: L,
+        ariaLabel: P
+      } = e;
+    S[0] !== E ? (i = {
+      eventName: r.HatchImpressionEvent.IDEA_GROUP_CARD_IMPRESSION,
+      actionTarget: "idea_group_card",
+      metadata: {
+        section_id: E,
+        surface: "ideas",
+        variant: "list"
+      }
+    }, S[0] = E, S[1] = i) : i = S[1], S[2] === Symbol.for("react.memo_cache_sentinel") ? (s = {
+      threshold: "50%"
+    }, S[2] = s) : s = S[2];
+    let {
+      ref: O
+    } = (0, a.useTrackedImpressionRef)(i, s), [F, U] = (0, d.useState)(w);
+    S[3] === Symbol.for("react.memo_cache_sentinel") ? (o = () => {
+      U(new Set)
+    }, S[3] = o) : o = S[3], S[4] !== y ? (c = [y], S[4] = y, S[5] = c) : c = S[5], (0, d.useEffect)(o, c), S[6] === Symbol.for("react.memo_cache_sentinel") ? (u = e => {
+      U(t => {
+        if (t.has(e)) return t;
+        let n = new Set(t);
+        return n.add(e), n
+      })
+    }, S[6] = u) : u = S[6];
+    let M = u;
+    if (S[7] !== P || S[8] !== H || S[9] !== F || S[10] !== v || S[11] !== D || S[12] !== y || S[13] !== O || S[14] !== C || S[15] !== j || S[16] !== T || S[17] !== E || S[18] !== k || S[19] !== L) {
+      m = Symbol.for("react.early_return_sentinel");
+      e: {
+        let e, n;S[27] !== H || S[28] !== F ? (e = e => !F.has(e.id) && !H.has(e.id), S[27] = H, S[28] = F, S[29] = e) : e = S[29];
+        let a = y.filter(e);
+        if (0 === a.length) {
+          m = null;
+          break e
+        }
+        let i = `hatch-idea-group-${E}`,
+          r = null != D;p = O,
+        b = r ? i : void 0,
+        f = r ? void 0 : P,
+        S[30] !== r || S[31] !== D || S[32] !== i || S[33] !== L ? (h = r && (0, t.jsxs)("div", {
+          className: "min-w-0 overflow-hidden pb-2",
+          children: [(0, t.jsx)("h2", {
+            id: i,
+            className: "text-text-primary text-title-3-emphasized text-pretty",
+            children: D
+          }), null != L && (0, t.jsx)("p", {
+            className: "text-text-secondary text-subheadline mt-0.5 text-pretty",
+            title: L,
+            children: L
+          })]
+        }), S[30] = r, S[31] = D, S[32] = i, S[33] = L, S[34] = h) : h = S[34],
+        _ = "list",
+        S[35] !== v || S[36] !== y.length || S[37] !== C || S[38] !== j || S[39] !== T || S[40] !== E || S[41] !== k ? (n = (e, n) => (0, t.jsx)(l.HatchErrorBoundary, {
+          surface: R.HATCH_SENTRY_SURFACES.IDEAS_GROUP_ROW,
+          resetKeys: [e],
+          fallback: () => (0, t.jsx)(A, {
+            ideaId: e.id,
+            onRenderIdeaFailure: M
+          }),
+          children: (0, t.jsx)("div", {
+            role: "listitem",
+            className: "h-full",
+            children: (0, t.jsx)(N, {
+              idea: e,
+              sectionId: E,
+              sectionTitle: k,
+              position: n,
+              totalCount: y.length,
+              isInstalled: "installed" === v(e),
+              onOpen: j,
+              onPrefetch: T,
+              onDismiss: C
+            })
+          })
+        }, e.id), S[35] = v, S[36] = y.length, S[37] = C, S[38] = j, S[39] = T, S[40] = E, S[41] = k, S[42] = n) : n = S[42],
+        x = a.map(n)
+      }
+      S[7] = P, S[8] = H, S[9] = F, S[10] = v, S[11] = D, S[12] = y, S[13] = O, S[14] = C, S[15] = j, S[16] = T, S[17] = E, S[18] = k, S[19] = L, S[20] = f, S[21] = h, S[22] = m, S[23] = _, S[24] = x, S[25] = p, S[26] = b
+    } else f = S[20], h = S[21], m = S[22], _ = S[23], x = S[24], p = S[25], b = S[26];
+    return m !== Symbol.for("react.early_return_sentinel") ? m : (S[43] !== _ || S[44] !== x ? (g = (0, t.jsx)("div", {
+      role: _,
+      children: x
+    }), S[43] = _, S[44] = x, S[45] = g) : g = S[45], S[46] !== f || S[47] !== h || S[48] !== g || S[49] !== p || S[50] !== b ? (I = (0, t.jsxs)("section", {
+      ref: p,
+      "aria-labelledby": b,
+      "aria-label": f,
+      children: [h, g]
+    }), S[46] = f, S[47] = h, S[48] = g, S[49] = p, S[50] = b, S[51] = I) : I = S[51], I)
+  }
+
+  function w() {
+    return new Set
+  }
+  var D = e.i(342847),
+    L = e.i(482129),
+    P = e.i(440802),
+    O = e.i(12336),
+    F = e.i(325814),
+    U = e.i(301720),
+    M = e.i(374785);
+  let B = [{
+    id: "not_relevant"
+  }, {
+    id: "too_repetitive"
+  }, {
+    id: "too_specific"
+  }, {
+    id: "dislike"
+  }, {
+    id: "hide"
+  }];
+
+  function K() {
+    let e, a = (0, n.c)(1);
+    return a[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(k.HatchIcon, {
+      icon: L.default,
+      size: 18,
+      className: "text-text-tertiary rtl:-scale-x-100"
+    }), a[0] = e) : e = a[0], e
+  }
+
+  function z(e) {
+    let l, i, r, s, c, f, m, _, x, p, b, g = (0, n.c)(31),
+      {
+        open: I,
+        onOpenChange: S,
+        idea: E,
+        sectionId: k,
+        position: y,
+        isEmployee: v,
+        onSubmitReason: j
+      } = e,
+      [T, C] = (0, d.useState)(""),
+      [R, N] = (0, d.useState)("reasons"),
+      A = (0, d.useRef)(null),
+      H = (0, d.useRef)(null),
+      w = (0, a.useInteractionLogger)(),
+      D = (b = {
+        not_relevant: o.fbs._("Not relevant", null, {
+          hk: "1GHWyk"
+        }),
+        too_repetitive: o.fbs._("Too repetitive", null, {
+          hk: "2q8fZg"
+        }),
+        too_specific: o.fbs._("Too specific", null, {
+          hk: "1bOmsA"
+        }),
+        dislike: o.fbs._("I don't like it", null, {
+          hk: "2cb9oT"
+        }),
+        hide: o.fbs._("I just want to hide it", null, {
+          hk: "kn8Q5"
+        })
+      }, B.map(e => ({
+        id: e.id,
+        label: b[e.id]
+      })));
+    g[0] !== I ? (l = () => {
+      I && (C(""), N("reasons"))
+    }, i = [I], g[0] = I, g[1] = l, g[2] = i) : (l = g[1], i = g[2]), (0, d.useEffect)(l, i);
+    let z = (0, d.useRef)(!1);
+    g[3] !== R ? (r = () => {
+      if ("note" === R) {
+        z.current = !0, A.current?.focus();
+        return
+      }
+      z.current && (z.current = !1, H.current?.focus())
+    }, s = [R], g[3] = R, g[4] = r, g[5] = s) : (r = g[4], s = g[5]), (0, d.useEffect)(r, s), g[6] !== T ? (c = T.trim(), g[6] = T, g[7] = c) : c = g[7];
+    let G = c;
+    g[8] !== E || g[9] !== v || g[10] !== w || g[11] !== S || g[12] !== j || g[13] !== y || g[14] !== k ? (f = (e, t) => {
+      var n;
+      if (0 === t.length) return;
+      let a = "custom" !== e;
+      (a || v) && w({
+        eventName: h.HatchClickEvent.IDEA_LABEL_SUBMIT_CLICK,
+        actionType: "click",
+        actionTarget: a ? "idea_feedback_preset" : "idea_feedback_note",
+        metadata: {
+          idea_id: (n = {
+            ideaId: E.id,
+            reasonId: e,
+            reasonLength: t.length,
+            sectionId: k,
+            position: y
+          }).ideaId,
+          ...null != n.sectionId && null != n.position ? {
+            section_id: n.sectionId,
+            position: n.position
+          } : {},
+          surface: "ideas",
+          feedback_reason: n.reasonId,
+          has_reason: n.reasonLength > 0,
+          reason_length: n.reasonLength
+        }
+      }), j(t), S(!1)
+    }, g[8] = E, g[9] = v, g[10] = w, g[11] = S, g[12] = j, g[13] = y, g[14] = k, g[15] = f) : f = g[15];
+    let W = f;
+    return g[16] !== R ? (m = "reasons" === R ? (0, t.jsx)(F.DialogHeader, {
+      children: (0, t.jsx)(F.DialogTitle, {
+        children: o.fbs._("Give feedback", null, {
+          hk: "4zgjuX"
+        })
+      })
+    }) : (0, t.jsxs)(t.Fragment, {
+      children: [(0, t.jsx)(P.IconButton, {
+        icon: L.default,
+        label: o.fbs._("Back", null, {
+          hk: "3PeXkS"
+        }),
+        size: "28",
+        variant: "elevated",
+        className: (0, M.cn)("rotate-180 rtl:rotate-0", "-ms-2"),
+        onClick: () => N("reasons")
+      }), (0, t.jsx)(F.DialogHeader, {
+        children: (0, t.jsx)(F.DialogTitle, {
+          children: o.fbs._("Write something", null, {
+            hk: "19Tp7y"
+          })
+        })
+      })]
+    }), g[16] = R, g[17] = m) : m = g[17], g[18] !== D || g[19] !== T || g[20] !== R || g[21] !== W || g[22] !== G ? (_ = "reasons" === R ? (0, t.jsxs)("div", {
+      className: "-mx-3 -mb-3 flex flex-col",
+      children: [D.map(e => (0, t.jsx)(O.EctoListCell, {
+        title: e.label,
+        addOnEnd: (0, t.jsx)(K, {}),
+        onClick: () => W(e.id, e.label)
+      }, e.id)), (0, t.jsx)(O.EctoListCell, {
+        ref: H,
+        title: o.fbs._("Write something", null, {
+          hk: "2eosaV"
+        }),
+        addOnEnd: (0, t.jsx)(K, {}),
+        onClick: () => N("note")
+      })]
+    }) : (0, t.jsxs)("div", {
+      className: "flex flex-col gap-5 pt-3",
+      children: [(0, t.jsx)(U.TextArea, {
+        ref: A,
+        "aria-label": o.fbs._("Idea feedback", null, {
+          hk: "1vgQKS"
+        }),
+        value: T,
+        rows: 4,
+        maxLength: 600,
+        placeholder: o.fbs._("What didn't work about this idea?", null, {
+          hk: "1POYvz"
+        }),
+        onChange: e => C(e.target.value)
+      }), (0, t.jsx)(u.Button, {
+        variant: "darkSolid",
+        fullWidth: !0,
+        disabled: 0 === G.length,
+        onClick: () => W("custom", G),
+        label: o.fbs._("Send", null, {
+          hk: "1s7or8"
+        })
+      })]
+    }), g[18] = D, g[19] = T, g[20] = R, g[21] = W, g[22] = G, g[23] = _) : _ = g[23], g[24] !== m || g[25] !== _ ? (x = (0, t.jsx)(F.DialogContent, {
+      header: m,
+      children: _
+    }), g[24] = m, g[25] = _, g[26] = x) : x = g[26], g[27] !== S || g[28] !== I || g[29] !== x ? (p = (0, t.jsx)(F.Dialog, {
+      open: I,
+      onOpenChange: S,
+      children: x
+    }), g[27] = S, g[28] = I, g[29] = x, g[30] = p) : p = g[30], p
+  }
+  var G = e.i(47247),
+    W = e.i(359783),
+    Y = e.i(175286);
+  let Q = (0, W.createClientLogger)("HatchIdeaDismissals");
+
+  function q() {
+    return new Set
+  }
+  var J = e.i(127643),
+    V = e.i(558416),
+    X = e.i(22338),
+    Z = e.i(508180),
+    $ = e.i(685231),
+    ee = e.i(669675),
+    et = e.i(767408);
+
+  function en(e) {
+    let i, r, s, c, E, k, y, v, j, T, C, N, A, w, L, P, O, F, U, M, B, K, W, en, es, ec, eu, ef, eh, em, e_, ex, ep, eb, eg, eI = (0, n.c)(121),
+      {
+        deepLinkIdeaId: eS
+      } = e,
+      {
+        data: eE,
+        packsPending: ek,
+        postsPending: ey,
+        hasNextPage: ev,
+        isFetchingNextPage: ej,
+        isFetchNextPageError: eT,
+        fetchNextPageError: eC,
+        fetchNextPage: eR,
+        isError: eN,
+        refetch: eA,
+        pageCount: eH
+      } = (0, b.useHatchExploreIdeasQuery)(),
+      ew = (0, a.useInteractionLogger)(),
+      eD = (0, b.usePrefetchExploreIdeaDetail)(),
+      {
+        previewScopeKey: eL,
+        isDeepLinkPreview: eP,
+        selectedIdea: eO,
+        detailOverride: eF,
+        selectedIdeaContext: eU,
+        openIdea: eM,
+        closeIdea: eB
+      } = function(e, t) {
+        let l, i, r, s, o, c, u, f, m, _, x = (0, n.c)(37),
+          {
+            gatewayScopeKey: p,
+            gatewayUrl: I
+          } = (0, Y.useHatchRpc)(),
+          S = p ?? I ?? "";
+        x[0] !== t || x[1] !== S ? (l = null == t ? null : JSON.stringify([S, t]), x[0] = t, x[1] = S, x[2] = l) : l = x[2];
+        let E = l,
+          [k, y] = (0, d.useState)(null),
+          [v, j] = (0, d.useState)(null),
+          T = null != E && E !== v,
+          C = (0, b.useHatchExploreIdeaPreviewQuery)(T ? t : null),
+          R = T ? C.data ?? null : null,
+          N = (0, a.useInteractionLogger)(),
+          A = (0, d.useRef)(null);
+        x[3] !== T || x[4] !== E || x[5] !== R || x[6] !== N || x[7] !== C.error || x[8] !== C.isError || x[9] !== C.isPending ? (i = () => {
+          if (null == E) {
+            A.current = null;
+            return
+          }
+          A.current?.key !== E && (A.current = {
+            key: E,
+            reported: !1
+          }), !T || C.isPending || A.current.reported || (A.current.reported = !0, N({
+            eventName: h.HatchClickEvent.IDEAS_DEEPLINK_ENTRY_CLICK,
+            actionTarget: "ideas_deeplink_entry",
+            actionType: "click",
+            metadata: {
+              surface: "ideas",
+              subsurface: "ideas_deeplink",
+              entry_point: "deeplink",
+              outcome: null != R ? "opened" : C.isError && !(0, g.isMissingIdeaError)(C.error) ? "error" : "not_found",
+              ...null != R ? {
+                idea_id: R.idea.id
+              } : {}
+            }
+          }))
+        }, r = [T, E, R, N, C.error, C.isError, C.isPending], x[3] = T, x[4] = E, x[5] = R, x[6] = N, x[7] = C.error, x[8] = C.isError, x[9] = C.isPending, x[10] = i, x[11] = r) : (i = x[10], r = x[11]), (0, d.useEffect)(i, r), x[12] !== T || x[13] !== E ? (s = () => {
+          null == E ? j(null) : T && y(null)
+        }, o = [T, E], x[12] = T, x[13] = E, x[14] = s, x[15] = o) : (s = x[14], o = x[15]), (0, d.useEffect)(s, o), x[16] !== t || x[17] !== E ? (c = function() {
+          j(E);
+          let e = new URL(window.location.href);
+          null != t && ("/ideas" === e.pathname || "/ideas/" === e.pathname) && (0, V.getHatchIdeaDeepLinkId)(e.searchParams) === t && (0, X.updateShellSearchParams)({
+            id: null,
+            idea_id: null
+          })
+        }, x[16] = t, x[17] = E, x[18] = c) : c = x[18];
+        let H = c,
+          w = k?.gatewayScopeKey === S ? k : null;
+        x[19] !== w?.ideaId || x[20] !== e || x[21] !== T || x[22] !== R?.idea ? (u = T ? R?.idea ?? null : e.find(e => e.id === w?.ideaId) ?? null, x[19] = w?.ideaId, x[20] = e, x[21] = T, x[22] = R?.idea, x[23] = u) : u = x[23];
+        let D = R?.detail,
+          L = T ? null : w?.context ?? null;
+        return x[24] !== H || x[25] !== S ? (f = (e, t) => {
+          H(), y({
+            gatewayScopeKey: S,
+            ideaId: e.id,
+            context: t
+          })
+        }, x[24] = H, x[25] = S, x[26] = f) : f = x[26], x[27] !== H ? (m = () => {
+          H(), y(null)
+        }, x[27] = H, x[28] = m) : m = x[28], x[29] !== T || x[30] !== S || x[31] !== m || x[32] !== u || x[33] !== D || x[34] !== L || x[35] !== f ? (_ = {
+          previewScopeKey: S,
+          isDeepLinkPreview: T,
+          selectedIdea: u,
+          detailOverride: D,
+          selectedIdeaContext: L,
+          openIdea: f,
+          closeIdea: m
+        }, x[29] = T, x[30] = S, x[31] = m, x[32] = u, x[33] = D, x[34] = L, x[35] = f, x[36] = _) : _ = x[36], _
+      }(eE.ideas, void 0 === eS ? null : eS),
+      eK = eO?.id ?? null;
+    eI[0] !== eB ? (i = {
+      onActivationStart: eB
+    }, eI[0] = eB, eI[1] = i) : i = eI[1];
+    let {
+      activateIdea: ez,
+      getActionState: eG
+    } = (0, J.useHatchIdeaActivation)(i);
+    eI[2] !== eK ? (r = () => {
+      (0, Z.setActivePanelSource)("idea", null != eK ? {
+        kind: "ideas",
+        resource_id: eK
+      } : null)
+    }, s = [eK], eI[2] = eK, eI[3] = r, eI[4] = s) : (r = eI[3], s = eI[4]), (0, d.useLayoutEffect)(r, s), eI[5] === Symbol.for("react.memo_cache_sentinel") ? (c = [], eI[5] = c) : c = eI[5], (0, d.useLayoutEffect)(er, c);
+    let eW = eE.ideas,
+      eY = eE.groups,
+      eQ = ek && ey;
+    eI[6] !== eA ? (E = () => void eA(), eI[6] = eA, eI[7] = E) : E = eI[7];
+    let {
+      dismissedIdeaIds: eq,
+      dismissIdea: eJ,
+      submitDismissalReason: eV
+    } = function(e) {
+      let t, a, l, i, r, s, c, u, f, h = (0, n.c)(17),
+        {
+          onOpenFeedbackDialog: m,
+          onStaleIdea: _
+        } = e,
+        {
+          sendRequest: x
+        } = (0, Y.useHatchRpc)(),
+        [p, b] = (0, d.useState)(q);
+      h[0] === Symbol.for("react.memo_cache_sentinel") ? (t = o.fbs._("Couldn't send feedback. Please try again.", null, {
+        hk: "4mZQc5"
+      }), h[0] = t) : t = h[0];
+      let I = t;
+      h[1] === Symbol.for("react.memo_cache_sentinel") ? (a = o.fbs._("Idea dismissed", null, {
+        hk: "24Om6A"
+      }), h[1] = a) : a = h[1];
+      let S = a;
+      h[2] === Symbol.for("react.memo_cache_sentinel") ? (l = o.fbs._("Give feedback", null, {
+        hk: "2RHWOJ"
+      }), h[2] = l) : l = h[2];
+      let E = l;
+      h[3] === Symbol.for("react.memo_cache_sentinel") ? (i = o.fbs._("Thanks for the feedback.", null, {
+        hk: "236pr8"
+      }), h[3] = i) : i = h[3];
+      let k = i;
+      h[4] === Symbol.for("react.memo_cache_sentinel") ? (r = o.fbs._("Couldn't send feedback. Please try again.", null, {
+        hk: "3aV9NP"
+      }), h[4] = r) : r = h[4];
+      let y = r;
+      h[5] === Symbol.for("react.memo_cache_sentinel") ? (s = e => {
+        b(t => {
+          if (!t.has(e)) return t;
+          let n = new Set(t);
+          return n.delete(e), n
+        })
+      }, h[5] = s) : s = h[5];
+      let v = s;
+      h[6] !== m || h[7] !== _ || h[8] !== x ? (c = (e, t) => {
+        let n = (0, G.captureHatchToast)();
+        b(t => {
+          let n = new Set(t);
+          return n.add(e.id), n
+        }), (0, g.recordExploreIdeaFeedback)(e.id, "down", x, {
+          source: "web_menu"
+        }).catch(t => {
+          (0, g.isMissingIdeaError)(t) ? _(): (Q.error({
+            error: t instanceof Error ? t : Error(String(t)),
+            ideaId: e.id,
+            tags: (0, R.hatchSentryTags)(R.HATCH_SENTRY_SURFACES.IDEAS_FEEDBACK)
+          }, "idea downvote failed"), v(e.id), n.error(I))
+        }), n.success(S, {
+          action: {
+            label: E,
+            onClick: () => m(e, t)
+          }
+        })
+      }, h[6] = m, h[7] = _, h[8] = x, h[9] = c) : c = h[9];
+      let j = c;
+      h[10] !== _ || h[11] !== x ? (u = (e, t) => {
+        let n = (0, G.captureHatchToast)();
+        (0, g.recordExploreIdeaFeedback)(e, "down", x, {
+          reason: t,
+          source: "web_feedback_dialog"
+        }).then(() => {
+          n.success(k)
+        }).catch(t => {
+          (0, g.isMissingIdeaError)(t) ? _(): (Q.error({
+            error: t instanceof Error ? t : Error(String(t)),
+            ideaId: e,
+            tags: (0, R.hatchSentryTags)(R.HATCH_SENTRY_SURFACES.IDEAS_FEEDBACK)
+          }, "idea dismissal reason failed"), n.error(y))
+        })
+      }, h[10] = _, h[11] = x, h[12] = u) : u = h[12];
+      let T = u;
+      return h[13] !== j || h[14] !== p || h[15] !== T ? (f = {
+        dismissedIdeaIds: p,
+        dismissIdea: j,
+        submitDismissalReason: T
+      }, h[13] = j, h[14] = p, h[15] = T, h[16] = f) : f = h[16], f
+    }({
+      onOpenFeedbackDialog: (e, t) => tn(e, t),
+      onStaleIdea: E
+    });
+    if (eI[8] !== eq || eI[9] !== eW) {
+      let e;
+      eI[11] !== eq ? (e = e => !eq.has(e.id), eI[11] = eq, eI[12] = e) : e = eI[12], k = eW.filter(e), eI[8] = eq, eI[9] = eW, eI[10] = k
+    } else k = eI[10];
+    let eX = k.length,
+      eZ = eW.length > 0 || eY.length > 0,
+      e$ = eN && !eZ;
+    (0, $.useReportShellPrimaryContent)("ideas", eQ ? null : e$ ? "error" : eZ ? "content" : "empty");
+    let e0 = (0, ee.useShellPostContentUnlocked)(),
+      e1 = (0, d.useRef)(null),
+      [e2, e3] = (0, d.useState)(!1),
+      e4 = null != eO;
+    eI[13] !== e4 || eI[14] !== e2 ? (y = () => {
+      if (!e4 || e2) return;
+      let e = document.querySelector("[data-hatch-route-surface-card]");
+      null != e && (e1.current = e, e3(!0))
+    }, v = [e4, e2], eI[13] = e4, eI[14] = e2, eI[15] = y, eI[16] = v) : (y = eI[15], v = eI[16]), (0, d.useEffect)(y, v), eI[17] !== eM || eI[18] !== eD ? (j = (e, t) => {
+      eD(e.id), eM(e, t ?? null)
+    }, eI[17] = eM, eI[18] = eD, eI[19] = j) : j = eI[19];
+    let e5 = j;
+    eI[20] !== eD ? (T = e => eD(e.id), eI[20] = eD, eI[21] = T) : T = eI[21];
+    let e6 = T,
+      [e8, e7] = (0, d.useState)(null),
+      [e9, te] = (0, d.useState)(!1),
+      tt = (0, p.useMcBool)("5e1fb489", !1),
+      tn = (e, t) => {
+        e7({
+          idea: e,
+          context: t
+        }), te(!0)
+      },
+      ta = (0, d.useRef)(null),
+      tl = (0, d.useRef)(null),
+      ti = (0, d.useRef)(!1);
+    eI[22] === Symbol.for("react.memo_cache_sentinel") ? (C = () => {
+      null != tl.current && (window.clearTimeout(tl.current), tl.current = null)
+    }, eI[22] = C) : C = eI[22];
+    let tr = C;
+    eI[23] === Symbol.for("react.memo_cache_sentinel") ? (N = e => {
+      tr();
+      let t = ta.current;
+      null != t && (ta.current = null, (0, _.endManualTrace)(t, e))
+    }, eI[23] = N) : N = eI[23];
+    let ts = N;
+    eI[24] !== ev || eI[25] !== eH ? (A = e => {
+      null != ta.current && (ta.current.annotate({
+        string: {
+          cancel_reason: "new_request"
+        }
+      }), ts("CANCEL"));
+      let t = (0, _.startManualInteraction)(x.EctoInteractionTracePolicy.IDEAS_PAGINATION, {
+        debugName: "ideas-pagination"
+      });
+      t.annotate({
+        string: {
+          trigger: e
+        },
+        int: {
+          page_number: eH + 1
+        },
+        bool: {
+          has_next_page: ev
+        }
+      }), ta.current = t, tr(), tl.current = window.setTimeout(() => {
+        tl.current = null;
+        let e = ta.current;
+        null != e && (e.annotate({
+          string: {
+            timeout_reason: "pagination_fetch_timeout"
+          }
+        }), ta.current = null, (0, _.endManualTrace)(e, "TIMEOUT"))
+      }, 3e4)
+    }, eI[24] = ev, eI[25] = eH, eI[26] = A) : A = eI[26];
+    let to = A;
+    eI[27] !== eC || eI[28] !== ev || eI[29] !== eT || eI[30] !== ej ? (w = () => {
+      let e = ti.current;
+      if (ti.current = ej, !e || ej) return;
+      let t = ta.current;
+      null != t && (eT ? (t.annotate({
+        string: {
+          error_class: (0, et.classifyErrorForTelemetry)(eC),
+          error_name: (0, et.errorNameForTelemetry)(eC)
+        },
+        int: {
+          error_length: (0, et.errorLengthForTelemetry)(eC)
+        }
+      }), ts("FAIL")) : (t.annotate({
+        bool: {
+          has_next_page_after: ev
+        }
+      }), ts("SUCCESS")))
+    }, L = [ej, eT, eC, ev, ts], eI[27] = eC, eI[28] = ev, eI[29] = eT, eI[30] = ej, eI[31] = w, eI[32] = L) : (w = eI[31], L = eI[32]), (0, d.useEffect)(w, L), eI[33] === Symbol.for("react.memo_cache_sentinel") ? (P = () => () => {
+      null != ta.current && (ta.current.annotate({
+        string: {
+          cancel_reason: "unmount"
+        }
+      }), ts("CANCEL"))
+    }, O = [ts], eI[33] = P, eI[34] = O) : (P = eI[33], O = eI[34]), (0, d.useEffect)(P, O), eI[35] !== eR || eI[36] !== ev || eI[37] !== eT || eI[38] !== ej || eI[39] !== e0 || eI[40] !== to ? (F = () => {
+      e0 && ev && !ej && !eT && (to("auto"), eR())
+    }, eI[35] = eR, eI[36] = ev, eI[37] = eT, eI[38] = ej, eI[39] = e0, eI[40] = to, eI[41] = F) : F = eI[41];
+    let tc = F;
+    eI[42] !== eR || eI[43] !== ev || eI[44] !== ej || eI[45] !== e0 || eI[46] !== to ? (U = () => {
+      e0 && ev && !ej && (to("manual"), eR())
+    }, eI[42] = eR, eI[43] = ev, eI[44] = ej, eI[45] = e0, eI[46] = to, eI[47] = U) : U = eI[47];
+    let td = U;
+    eI[48] !== tc ? (M = e => {
+      e && tc()
+    }, eI[48] = tc, eI[49] = M) : M = eI[49];
+    let tu = M;
+    eI[50] === Symbol.for("react.memo_cache_sentinel") ? (B = {
+      rootMargin: "600px"
+    }, eI[50] = B) : B = eI[50];
+    let tf = (0, m.useOnInView)(tu, B);
+    if (eI[51] !== eE.heroIdeaIds || eI[52] !== eW) {
+      let e;
+      eI[54] !== eW ? (e = e => eW.find(t => t.id === e) ?? null, eI[54] = eW, eI[55] = e) : e = eI[55], K = eE.heroIdeaIds.map(e).filter(ei).slice(0, g.EXPLORE_IDEAS_HERO_LIMIT), eI[51] = eE.heroIdeaIds, eI[52] = eW, eI[53] = K
+    } else K = eI[53];
+    let th = K;
+    eI[56] === Symbol.for("react.memo_cache_sentinel") ? (W = o.fbs._("Featured ideas", null, {
+      hk: "28qtRA"
+    }), eI[56] = W) : W = eI[56];
+    let tm = String(W);
+    eI[57] !== eE.showNullStateMessage || eI[58] !== eE.subtitle || eI[59] !== eQ ? (en = eQ ? (0, t.jsx)(S.HatchIdeasSubtitleSkeleton, {}) : eE.showNullStateMessage ? o.fbt._("I'm always thinking about new and different ways to help you. I'll surface my favorite ideas here.", null, {
+      hk: "1slbSb"
+    }) : eE.subtitle ?? (0, t.jsx)("span", {
+      "aria-hidden": "true",
+      className: "block h-[22px]"
+    }), eI[57] = eE.showNullStateMessage, eI[58] = eE.subtitle, eI[59] = eQ, eI[60] = en) : en = eI[60];
+    let t_ = en;
+    return eI[61] === Symbol.for("react.memo_cache_sentinel") ? (es = o.fbt._("Ideas", null, {
+      hk: "2tETx"
+    }), eI[61] = es) : es = eI[61], eI[62] === Symbol.for("react.memo_cache_sentinel") ? (ec = {
+      surface: "ideas"
+    }, eI[62] = ec) : ec = eI[62], eI[63] !== t_ ? (eu = (0, t.jsx)(I.HatchRouteLargeHeader, {
+      title: es,
+      description: t_,
+      showSideChatToggle: !0,
+      sideChatToggleMetadata: ec,
+      width: "content"
+    }), eI[63] = t_, eI[64] = eu) : eu = eI[64], eI[65] !== eZ || eI[66] !== e$ || eI[67] !== eQ ? (ef = eQ && !e$ && !eZ && (0, t.jsx)(S.HatchIdeasLoadingState, {}), eI[65] = eZ, eI[66] = e$, eI[67] = eQ, eI[68] = ef) : ef = eI[68], eI[69] !== eA || eI[70] !== e$ ? (eh = e$ && (0, t.jsx)(eo, {
+      onRetry: () => eA()
+    }), eI[69] = eA, eI[70] = e$, eI[71] = eh) : eh = eI[71], eI[72] !== eJ || eI[73] !== eq || eI[74] !== eG || eI[75] !== eY || eI[76] !== td || eI[77] !== e5 || eI[78] !== e6 || eI[79] !== ev || eI[80] !== eW || eI[81] !== eT || eI[82] !== ej || eI[83] !== tf || eI[84] !== ew || eI[85] !== ek || eI[86] !== ey || eI[87] !== eX || eI[88] !== e$ || eI[89] !== eQ || eI[90] !== th ? (em = !eQ && !e$ && (0, t.jsxs)(t.Fragment, {
+      children: [th.length > 0 && (0, t.jsx)(l.EctoErrorBoundary, {
+        surface: R.HATCH_SENTRY_SURFACES.IDEAS_FEATURED,
+        fallback: el,
+        children: (0, t.jsx)(H, {
+          sectionId: "featured",
+          sectionTitle: "Featured",
+          ideas: th,
+          getActionState: eG,
+          onOpen: e5,
+          onPrefetch: e6,
+          onDismiss: eJ,
+          dismissedIdeaIds: eq,
+          ariaLabel: tm
+        })
+      }), eY.map(e => {
+        let n = e.ideaIds.map(e => eW.find(t => t.id === e) ?? null).filter(ea);
+        return 0 === n.length ? null : (0, t.jsx)(l.EctoErrorBoundary, {
+          surface: R.HATCH_SENTRY_SURFACES.IDEAS_GROUP,
+          children: (0, t.jsx)(H, {
+            sectionId: e.id,
+            sectionTitle: e.title,
+            ideas: n,
+            getActionState: eG,
+            onOpen: e5,
+            onPrefetch: e6,
+            onDismiss: eJ,
+            dismissedIdeaIds: eq,
+            heading: e.title,
+            subtitle: e.subtitle
+          })
+        }, e.id)
+      }), ey && 0 === eY.length && (0, t.jsx)("div", {
+        role: "status",
+        "aria-live": "polite",
+        "aria-label": String(o.fbs._("Loading idea collections", null, {
+          hk: "26xhk3"
+        })),
+        children: (0, t.jsx)(S.HatchIdeaListSectionSkeleton, {})
+      }), ev && (0, t.jsxs)(t.Fragment, {
+        children: [ej && !eT ? (0, t.jsx)("div", {
+          role: "status",
+          "aria-live": "polite",
+          "aria-label": String(o.fbs._("Loading more ideas", null, {
+            hk: "25HgIg"
+          })),
+          children: (0, t.jsx)(S.HatchIdeaListSectionSkeleton, {})
+        }) : null, eT ? (0, t.jsx)("div", {
+          className: "flex justify-center pt-1",
+          children: (0, t.jsx)(u.Button, {
+            size: "36",
+            variant: "flat",
+            onClick: () => {
+              ew({
+                eventName: h.HatchClickEvent.IDEAS_LOAD_MORE_CLICKED,
+                actionTarget: "ideas_load_more",
+                actionType: "click",
+                metadata: {
+                  surface: "ideas",
+                  subsurface: "load_more"
+                }
+              }), td()
+            },
+            label: o.fbt._("Load more", null, {
+              hk: "3wit58"
+            })
+          })
+        }) : (0, t.jsx)("div", {
+          ref: tf,
+          "aria-hidden": "true",
+          className: "flex min-h-6 w-full items-center justify-center"
+        })]
+      }), !ek && !ey && 0 === eX && (0, t.jsx)(ed, {})]
+    }), eI[72] = eJ, eI[73] = eq, eI[74] = eG, eI[75] = eY, eI[76] = td, eI[77] = e5, eI[78] = e6, eI[79] = ev, eI[80] = eW, eI[81] = eT, eI[82] = ej, eI[83] = tf, eI[84] = ew, eI[85] = ek, eI[86] = ey, eI[87] = eX, eI[88] = e$, eI[89] = eQ, eI[90] = th, eI[91] = em) : em = eI[91], eI[92] !== ef || eI[93] !== eh || eI[94] !== em ? (e_ = (0, t.jsx)("div", {
+      className: "px-4 pb-8 md:px-16 md:pb-10",
+      children: (0, t.jsxs)("div", {
+        className: "@container/ideas mx-auto flex w-full max-w-[768px] flex-col gap-8 pt-2",
+        children: [ef, eh, em]
+      })
+    }), eI[92] = ef, eI[93] = eh, eI[94] = em, eI[95] = e_) : e_ = eI[95], eI[96] !== eu || eI[97] !== e_ ? (ex = (0, t.jsx)("main", {
+      className: "flex min-h-0 flex-1 flex-col overflow-hidden",
+      children: (0, t.jsxs)(f.default, {
+        vertical: !0,
+        horizontal: !1,
+        className: "min-h-0 flex-1",
+        scrollTracePolicy: x.EctoInteractionTracePolicy.IDEAS_SCROLL,
+        children: [eu, e_]
+      })
+    }), eI[96] = eu, eI[97] = e_, eI[98] = ex) : ex = eI[98], eI[99] !== eB || eI[100] !== eF || eI[101] !== eJ || eI[102] !== eG || eI[103] !== ez || eI[104] !== eP || eI[105] !== eL || eI[106] !== eO || eI[107] !== eU || eI[108] !== e4 || eI[109] !== e2 ? (ep = e2 && (0, t.jsx)(D.HatchIdeaPreviewDialog, {
+      surface: "ideas",
+      isDeepLink: eP,
+      idea: eO,
+      detailOverride: eF,
+      open: e4,
+      actionState: null != eO ? eG(eO) : "pending",
+      onOpenChange: e => {
+        e || eB()
+      },
+      onAction: ez,
+      onNotInterested: () => {
+        null != eO && (eB(), eJ(eO, eU))
+      },
+      containerRef: e1,
+      openContext: eU
+    }, eL), eI[99] = eB, eI[100] = eF, eI[101] = eJ, eI[102] = eG, eI[103] = ez, eI[104] = eP, eI[105] = eL, eI[106] = eO, eI[107] = eU, eI[108] = e4, eI[109] = e2, eI[110] = ep) : ep = eI[110], eI[111] !== e8 || eI[112] !== tt || eI[113] !== e9 || eI[114] !== te || eI[115] !== eV ? (eb = null != e8 && (0, t.jsx)(l.EctoErrorBoundary, {
+      surface: R.HATCH_SENTRY_SURFACES.IDEAS_FEEDBACK,
+      children: (0, t.jsx)(z, {
+        open: e9,
+        onOpenChange: te,
+        idea: e8.idea,
+        sectionId: e8.context?.sectionId ?? null,
+        position: e8.context?.position ?? null,
+        isEmployee: tt,
+        onSubmitReason: e => eV(e8.idea.id, e)
+      })
+    }), eI[111] = e8, eI[112] = tt, eI[113] = e9, eI[114] = te, eI[115] = eV, eI[116] = eb) : eb = eI[116], eI[117] !== ex || eI[118] !== ep || eI[119] !== eb ? (eg = (0, t.jsxs)(t.Fragment, {
+      children: [ex, ep, eb]
+    }), eI[117] = ex, eI[118] = ep, eI[119] = eb, eI[120] = eg) : eg = eI[120], eg
+  }
+
+  function ea(e) {
+    return null != e
+  }
+
+  function el() {
+    return (0, t.jsx)(ec, {})
+  }
+
+  function ei(e) {
+    return null != e
+  }
+
+  function er() {
+    return es
+  }
+
+  function es() {
+    return (0, Z.setActivePanelSource)("idea", null)
+  }
+
+  function eo(e) {
+    let l, i, r, s, c = (0, n.c)(7),
+      {
+        onRetry: d
+      } = e,
+      f = (0, a.useInteractionLogger)();
+    return c[0] === Symbol.for("react.memo_cache_sentinel") ? (l = (0, t.jsx)("p", {
+      className: "text-text-primary text-title-3-emphasized",
+      children: o.fbt._("Couldn't load ideas right now.", null, {
+        hk: "129tdm"
+      })
+    }), c[0] = l) : l = c[0], c[1] !== f || c[2] !== d ? (i = () => {
+      f({
+        eventName: h.HatchClickEvent.IDEAS_ERROR_RETRY_CLICKED,
+        actionTarget: "ideas_error_retry",
+        actionType: "click",
+        metadata: {
+          surface: "ideas",
+          subsurface: "error_state"
+        }
+      }), d()
+    }, c[1] = f, c[2] = d, c[3] = i) : i = c[3], c[4] === Symbol.for("react.memo_cache_sentinel") ? (r = o.fbs._("Try again", null, {
+      hk: "1b5E3F"
+    }), c[4] = r) : r = c[4], c[5] !== i ? (s = (0, t.jsxs)("div", {
+      role: "alert",
+      className: "border-fill-divider bg-fill-primary rounded-14 flex flex-col items-start gap-2 border p-4",
+      children: [l, (0, t.jsx)(u.Button, {
+        size: "36",
+        variant: "flat",
+        onClick: i,
+        label: r
+      })]
+    }), c[5] = i, c[6] = s) : s = c[6], s
+  }
+
+  function ec() {
+    let e, a = (0, n.c)(1);
+    return a[0] === Symbol.for("react.memo_cache_sentinel") ? (e = (0, t.jsx)(ed, {
+      title: o.fbt._("Featured ideas unavailable.", null, {
+        hk: "4folGI"
+      }),
+      body: o.fbt._("We're having trouble loading featured ideas right now.", null, {
+        hk: "2L473T"
+      })
+    }), a[0] = e) : e = a[0], e
+  }
+
+  function ed({
+    title: e = o.fbt._("No ideas yet.", null, {
+      hk: "2WL5cd"
+    }),
+    body: n = o.fbt._("New ideas show up here as {productShortName} learns about you.", [o.fbt._param("productShortName", c.PRODUCT_BRAND.shortName)], {
+      hk: "3AbU4Z"
+    })
+  }) {
+    return (0, t.jsxs)("div", {
+      className: "border-fill-divider bg-fill-primary rounded-14 flex flex-col items-start gap-1 border p-4",
+      children: [(0, t.jsx)("p", {
+        className: "text-text-primary text-title-3-emphasized",
+        children: e
+      }), (0, t.jsx)("p", {
+        className: "text-text-secondary text-subheadline",
+        children: n
+      })]
+    })
+  }
+  var eu = e.i(401605);
+
+  function ef(e) {
+    let {
+      error: n,
+      reset: a
+    } = e;
+    return (0, t.jsx)(i.HatchPageErrorFallback, {
+      error: n,
+      reset: a
+    })
+  }
+  e.s(["HatchIdeasRoute", 0, function() {
+    let e, i, o, c, d, u = (0, n.c)(8),
+      f = (0, eu.useShellRouteContext)(),
+      h = f.searchParams?.ideaId ?? null;
+    u[0] === Symbol.for("react.memo_cache_sentinel") ? (e = {
+      metadata: {
+        surface: "ideas",
+        screen: "ideas_main"
+      }
+    }, u[0] = e) : e = u[0], (0, a.useTimeSpent)(s.HatchTimeSpentEvent.IDEAS_PAGE, "ideas_page", e), u[1] === Symbol.for("react.memo_cache_sentinel") ? (i = {
+      eventName: r.HatchImpressionEvent.IDEAS_PAGE_IMPRESSION,
+      actionTarget: "ideas_page",
+      metadata: {
+        surface: "ideas",
+        screen: "ideas_main"
+      }
+    }, o = {
+      threshold: "50%"
+    }, u[1] = i, u[2] = o) : (i = u[1], o = u[2]);
+    let {
+      ref: m
+    } = (0, a.useTrackedImpressionRef)(i, o);
+    return u[3] !== h ? (c = (0, t.jsx)(en, {
+      deepLinkIdeaId: h
+    }), u[3] = h, u[4] = c) : c = u[4], u[5] !== m || u[6] !== c ? (d = (0, t.jsx)(l.EctoErrorBoundary, {
+      surface: R.HATCH_SENTRY_SURFACES.IDEAS,
+      fallback: ef,
+      children: (0, t.jsx)("div", {
+        ref: m,
+        className: "relative flex min-h-0 flex-1 flex-col overflow-hidden",
+        children: c
+      })
+    }), u[5] = m, u[6] = c, u[7] = d) : d = u[7], d
+  }], 871127)
+}]);
+
+//# debugId=743ce74e-9c04-1d5d-94f9-927ba9f2da65
+//# sourceMappingURL=3l5o5805h4_b4.js.map

@@ -1,0 +1,1166 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "02691a3d-9dc4-e317-5705-7c51415c6772")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 588639, e => {
+  "use strict";
+  class t extends Error {
+    kind;
+    constructor(e, r) {
+      super(r), this.name = "VerifyError", this.kind = e, Object.setPrototypeOf(this, t.prototype)
+    }
+  }
+  e.s(["VerifyError", 0, t])
+}, 538254, e => {
+  "use strict";
+  let t = (0, e.i(359783).createClientLogger)("NoiseCapture");
+  e.s(["emitCapturedWireMessage", 0, function(e, r, s, i) {
+    if (null != e) try {
+      if (null != r && !1 === r()) return;
+      e(s, function(e) {
+        let t, r = null,
+          s = !1;
+        null != e.binaryByteLength ? (r = `[binary ${e.binaryByteLength} bytes]`, s = !0) : null != e.bodyText && (r = e.bodyText());
+        let i = e.contentType;
+        if (null != e.headers && e.headers.length > 0) {
+          let r = function(e) {
+            let t, r = {};
+            for (let s of e) null != s && "string" == typeof s.key && (r[s.key] = s.value, "content-type" === s.key.toLowerCase() && (t = s.value));
+            return {
+              headers: r,
+              contentType: t
+            }
+          }(e.headers);
+          t = r.headers, i = i ?? r.contentType
+        }
+        let o = {
+          channel: e.channel
+        };
+        return null != e.streamId && (o.streamId = e.streamId), null != e.method && (o.method = e.method), null != e.path && (o.path = e.path), null != e.httpMethod && (o.httpMethod = e.httpMethod), null != e.status && (o.status = e.status), null != i && (o.contentType = i), null != t && (o.headers = t), null != e.wireBytes && (o.size = e.wireBytes), null != e.outcome && (o.outcome = e.outcome), o.body = r, s && (o.bodyElided = !0), JSON.stringify(o)
+      }(i), "ws", i.connId)
+    } catch {
+      t.retainForBugReport("warn", "noise capture emit failed; dropping record")
+    }
+  }])
+}, 759572, e => {
+  "use strict";
+  var t = e.i(359783),
+    r = e.i(863641),
+    s = e.i(499475),
+    i = e.i(207274),
+    o = e.i(925301),
+    n = e.i(204261),
+    a = e.i(736578),
+    d = e.i(123743),
+    c = e.i(274640),
+    u = e.i(171778),
+    l = e.i(538254),
+    h = e.i(707922);
+  let m = (0, t.createClientLogger)("NoiseChannel");
+  class p {
+    #e;
+    #t;
+    #r;
+    #s;
+    #i;
+    #o;
+    #n;
+    #a;
+    #d = Promise.resolve();
+    #c = Promise.resolve();
+    #u = !1;
+    #l = 0;
+    #h = performance.now();
+    constructor(e) {
+      this.#e = e.ws, this.#t = e.transport, this.#r = e.websocketConnectionID, this.#s = e.onRawMessage, this.#i = e.shouldCapture, this.#n = e.requestTimeoutMs ?? a.REQUEST_TIMEOUT_MS, this.#a = new u.NoiseStreamTable({
+        maxPendingRequests: 100,
+        maxPendingStreams: 128,
+        requestTimeoutMs: this.#n,
+        streamIdleTimeoutMs: 3e5,
+        maxSubscriptionRecordBytes: e.maxSubscriptionRecordBytes,
+        emitCapture: e => (0, l.emitCapturedWireMessage)(this.#s, this.#i, "receive", {
+          ...e,
+          channel: "main",
+          connId: this.#r
+        }),
+        handleGatewayMessage: e.handleGatewayMessage,
+        sendReset: (e, t, r, s) => this.sendReset(e, t, r, s),
+        onRequestTimeout: (t, r) => {
+          (!0 === e.closeOnRequestTimeout || "chat.subscribe" === r) && this.#m("chat.subscribe" === r ? 4008 : 4009, `request timeout: ${(0,h.noiseTelemetryMethod)(r)}`)
+        },
+        onAnySubscriptionTerminated: !0 === e.closeOnSubscriptionEnd ? (e, t, r) => this.#m(4010, `shared subscription ${r}`) : void 0,
+        onFatal: e => this.#m(4006, e),
+        validateSubscriptionMessage: e.validateSubscriptionMessage,
+        onInvalidSubscriptionRecord: null == e.validateSubscriptionMessage ? void 0 : e => this.#m(4011, e),
+        onSubscriptionTerminated: !0 === e.closeOnSubscriptionEnd ? void 0 : e => this.#m(4008, e)
+      }), this.#o = e.onFatal
+    }
+    isAlive() {
+      return !this.#u
+    }
+    dispose(e) {
+      this.#u || (this.#u = !0, this.#a.failAll(e))
+    }
+    sendHttpRequest(e, t, a) {
+      if (a?.signal?.aborted) return Promise.reject((0, i.createGatewayAbortError)());
+      if (this.#u) return Promise.reject((0, o.createGatewayTransportError)("Noise transport is resetting", {
+        deliveryState: "not_sent"
+      }));
+      if (!this.#a.hasPendingCapacity()) return Promise.reject((0, o.createGatewayTransportError)("Too many pending noise requests", {
+        deliveryState: "not_sent"
+      }));
+      let {
+        httpMethod: u,
+        path: p,
+        body: y,
+        headers: g
+      } = (0, s.buildNoiseRequestArgs)(t, a);
+      return new Promise((b, S) => {
+        let v = null,
+          T = !1,
+          f = !1,
+          R = a?.signal,
+          B = () => R?.removeEventListener("abort", w),
+          C = e => {
+            f || (f = !0, B(), b(e))
+          },
+          E = t => {
+            !f && (f = !0, B(), S(t), "chat.subscribe" === e && (0, n.isRetryableChatSubscriptionError)(t) && this.#m(4008, "chat subscription failed"))
+          },
+          w = () => {
+            T = !0;
+            let e = v;
+            null != e && this.#a.cancel(e) || E((0, i.createGatewayAbortError)())
+          };
+        R?.addEventListener("abort", w, {
+          once: !0
+        }), R?.aborted && w(), this.#d = this.#d.then(async () => {
+          if (T) return;
+          if (performance.now(), this.#e.readyState !== WebSocket.OPEN) return void E((0, o.createGatewayTransportError)("Gateway WebSocket closed before send", {
+            deliveryState: "not_sent"
+          }));
+          let {
+            streamId: r,
+            frames: i
+          } = await this.#t.encryptHttpRequest({
+            httpMethod: u,
+            path: p,
+            body: y,
+            service: t.route.service ?? "daemon",
+            headers: g
+          });
+          if (v = r, T) {
+            for (let e of i) {
+              if (this.#u || this.#e.readyState !== WebSocket.OPEN) return;
+              this.#e.send(e)
+            }
+            this.sendReset(r, t.route.service ?? "daemon", e, "client aborted request");
+            return
+          }
+          if (this.#u) return void E((0, o.createGatewayTransportError)("Noise transport is resetting", {
+            deliveryState: "not_sent"
+          }));
+          for (let s of (this.#a.registerPending({
+              streamId: r,
+              method: e,
+              service: t.route.service ?? "daemon",
+              requestTimeoutMs: (0, c.noiseRequestTimeoutMs)(t.route, this.#n),
+              responseType: t.route.responseType,
+              onStreamRecord: a?.onStreamRecord,
+              maxResponseBytes: (0, c.noiseResponseByteLimit)(t.route, g),
+              onResponseMeta: a?.onResponseMeta,
+              resolve: C,
+              reject: E
+            }), i)) {
+            if (this.#u || this.#e.readyState !== WebSocket.OPEN) {
+              this.#a.removePending(r), E((0, o.createGatewayTransportError)(this.#u ? "Noise transport is resetting" : "Gateway WebSocket closed during send"));
+              return
+            }
+            this.#e.send(s)
+          }
+          let n = r.toString();
+          (0, l.emitCapturedWireMessage)(this.#s, this.#i, "send", {
+            channel: "main",
+            connId: this.#r,
+            streamId: n,
+            method: e,
+            path: (0, h.noiseInspectorPath)(e, p),
+            httpMethod: u,
+            headers: g,
+            wireBytes: y.byteLength,
+            bodyText: () => (0, h.noiseInspectorBody)(e, y.length > 0 ? s.textDecoder.decode(y) : "")
+          }), (0, d.noiseDebugEnabled)(), (0, h.shouldReportNoiseMethod)(e) && m.retainForBugReport("info", "Sending HTTP request via noise")
+        }).catch(t => {
+          null != v && this.#a.removePending(v), this.#d = Promise.resolve(), (0, h.shouldReportNoiseMethod)(e) && m.error({
+            error: t instanceof Error ? t : Error(String(t)),
+            tags: (0, r.hatchSentryTags)(r.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+          }, "Noise encrypt error (HTTP request)"), E((0, o.createGatewayTransportError)("Noise encrypt error")), this.#m(4005, "noise encrypt error")
+        })
+      })
+    }
+    handleInboundBinary(e) {
+      if (!this.#u) {
+        if (e.byteLength > 4194304) {
+          m.error({
+            size: e.byteLength,
+            tags: (0, r.hatchSentryTags)(r.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+          }, "Rejecting oversized noise frame"), this.#m(4004, "frame too large");
+          return
+        }
+        this.#c = this.#c.then(async () => {
+          if (this.#u) return;
+          let t = await this.#t.decryptFrame(e);
+          t && !this.#u && (this.#l += 1, (0, d.noiseDebugEnabled)(), this.#a.dispatch(t))
+        }).catch(t => {
+          this.#c = Promise.resolve(), m.error({
+            error: t instanceof Error ? t : Error(String(t)),
+            framesDecoded: this.#l,
+            channelAgeMs: Math.round(performance.now() - this.#h),
+            frameBytes: e.byteLength,
+            closeCode: 4004,
+            tags: (0, r.hatchSentryTags)(r.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+          }, "Noise decrypt error"), this.#m(4004, "noise decrypt error")
+        })
+      }
+    }
+    sendReset(e, t, s, i) {
+      this.#u || this.#e.readyState !== WebSocket.OPEN || (this.#d = this.#d.then(async () => {
+        let r = await this.#t.encryptReset({
+          streamId: e,
+          service: t,
+          reason: i
+        });
+        if (!this.#u)
+          for (let e of r) {
+            if (this.#u || this.#e.readyState !== WebSocket.OPEN) return;
+            this.#e.send(e)
+          }
+      }).catch(t => {
+        (0, h.shouldReportNoiseMethod)(s) && m.error({
+          error: t instanceof Error ? t : Error(String(t)),
+          streamId: e.toString(),
+          method: (0, h.noiseTelemetryMethod)(s),
+          resetReason: i,
+          closeCode: 4005,
+          channelAgeMs: Math.round(performance.now() - this.#h),
+          tags: (0, r.hatchSentryTags)(r.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+        }, "Failed to send noise reset"), this.#m(4005, "noise reset error")
+      }))
+    }
+    #m(e, t) {
+      if (!this.#u) {
+        this.#u = !0, this.#a.failAll(t), this.#o?.(t);
+        try {
+          this.#e.close(e, t)
+        } catch {}
+      }
+    }
+  }
+  e.s(["NOISE_DECRYPT_ERROR_CLOSE_CODE", 0, 4004, "NOISE_INVALID_SUBSCRIPTION_RECORD_CLOSE_CODE", 0, 4011, "NOISE_RESPONSE_LIMIT_CLOSE_CODE", 0, 4006, "NOISE_SUBSCRIPTION_ENDED_CLOSE_CODE", 0, 4010, "NOISE_SUBSCRIPTION_LOST_CLOSE_CODE", 0, 4008, "NoiseChannel", 0, p])
+}, 934225, 543922, e => {
+  "use strict";
+  var t = e.i(359783),
+    r = e.i(588639),
+    s = e.i(32658);
+  let i = (0, t.createClientLogger)("SnpAttestationVerifier"),
+    o = null;
+
+  function n() {
+    return null === o && (o = Promise.all([e.A(124492), e.A(502901), e.A(297175)]).catch(e => {
+      throw o = null, e
+    })), o
+  }
+  class a {
+    #p;
+    #y;
+    constructor(e, t) {
+      this.#p = e, this.#y = t?.slice()
+    }
+    withExpectedChipIds(e) {
+      return new a(this.#p, e)
+    }
+    async prepare() {
+      await n()
+    }
+    verify(e) {
+      return d(this.#p, e, this.#y)
+    }
+  }
+  async function d(e, t, s) {
+    let {
+      attestationPayload: o,
+      serverStaticPublicKey: a,
+      clientNonce: d
+    } = t;
+    if (null === a) throw Error("Noise peer did not provide a static key for attestation");
+    let [{
+      Verifier: c
+    }, {
+      debugPolicy: u,
+      productionPolicy: l,
+      stagingPolicy: h
+    }, {
+      checkExpectedChipIds: m
+    }] = await n(), p = "prod" === e ? l() : "debug" === e ? u() : h();
+    try {
+      if (void 0 !== s && null == d) throw new r.VerifyError("NonceMissing", "owner attestation requires a handshake challenge");
+      let e = new c(p),
+        t = await (null === d ? e.verifyWithoutFreshness(o, a) : e.verifyWithNonce(o, a, d));
+      void 0 !== s && m(t.chipId, s)
+    } catch (s) {
+      let {
+        failureKind: e,
+        failureMessage: t
+      } = function(e) {
+        if (null != e && "object" == typeof e && "kind" in e) {
+          let t = e.kind;
+          if ("string" == typeof t && t.length > 0) {
+            let r = "message" in e ? e.message : null;
+            return {
+              failureKind: t,
+              failureMessage: "string" == typeof r && r.length > 0 ? r : null
+            }
+          }
+        }
+        return {
+          failureKind: e instanceof Error ? e.name : "unknown",
+          failureMessage: null
+        }
+      }(s), r = null === t ? e : `${e}: ${t}`;
+      throw i.retainForBugReport("warn", `SNP attestation verification rejected: ${r}`), s
+    }
+  }
+  let c = new a("staging"),
+    u = new a("debug"),
+    l = new a("prod");
+
+  function h(e) {
+    switch (e) {
+      case "prod":
+        return l;
+      case "debug":
+        return u;
+      case "staging":
+        return c;
+      case "off":
+        return
+    }
+  }
+  let m = null;
+  e.s(["PRODUCTION_ATTESTATION_VERIFIER", 0, l, "activeAttestationVerifier", 0, function() {
+    let e;
+    if (null !== m) e = m;
+    else {
+      let t = (0, s.readAttestationEnforcementOverride)();
+      e = "default" === t ? "off" : t
+    }
+    return h(e)
+  }, "attestationVerifierForTier", 0, h, "setActiveAttestationTier", 0, function(e) {
+    m = e, "off" !== e && n().catch(() => {})
+  }], 543922);
+  var p = e.i(385265),
+    y = e.i(427489);
+  async function g(e, t) {
+    e.prepareKeyDisclosure?.().catch(() => {});
+    let r = e("provisioned"),
+      s = r ?? e("unprovisioned");
+    if (s?.prepare == null) return;
+    let i = null == r ? t?.assertRecoveryKeyAvailable : null;
+    if (null == r && null == i) return;
+    let o = AbortSignal.timeout(5e3),
+      n = () => {},
+      a = new Promise(e => {
+        n = e, o.addEventListener("abort", n, {
+          once: !0
+        }), o.aborted && e()
+      }),
+      d = async () => {
+        await i?.(), o.aborted || await s.prepare?.()
+      };
+    try {
+      await Promise.race([d(), a])
+    } catch {} finally {
+      o.removeEventListener("abort", n)
+    }
+  }
+  e.s(["createNoiseCvmAttestationResolver", 0, function(t, r, s, i = y.isActiveNoiseCvmReplacementEnabled) {
+    let o = (0, y.resolveNoiseCvmEnvironmentId)(t, r),
+      n = (e, t, r, n) => {
+        let a = !t && (0, y.isInitialNoiseCvmEnrollment)(o),
+          d = t || i() && "unprovisioned" === e && !a ? s ?? l : "provisioned" === e ? s : void 0;
+        if (null != d) {
+          let e = "pinned" === r.kind ? d.withExpectedChipIds?.(r.candidateChipIds) : d;
+          return {
+            prepare: null == d.prepare ? void 0 : () => d.prepare(),
+            assertCurrent: n,
+            verify: async r => {
+              if (n(), t && null == r.clientNonce) throw new p.NoiseCvmReplacementPendingError("context_changed");
+              if (null == e) throw new p.NoiseCvmReplacementPendingError("claim_unavailable");
+              await e.verify(r), n()
+            }
+          }
+        }
+      },
+      a = e => {
+        let t = (0, y.readNoiseCvmReplacementTrust)(o);
+        return n(e, null != t, t?.authorization ?? {
+          kind: "standard"
+        }, (0, y.captureNoiseCvmReplacementContext)(o))
+      };
+    return a.captureContext = e => (0, y.captureNoiseCvmReplacementContext)(o, e), a.prepareKeyDisclosure = async () => {
+      (null != (0, y.readNoiseCvmReplacementTrust)(o) || i() && !(0, y.isInitialNoiseCvmEnrollment)(o)) && await e.A(295295)
+    }, a.authorizeKeyDisclosure = async (t, r) => {
+      if (null == (0, y.readNoiseCvmReplacementTrust)(o) && (!i() || (0, y.isInitialNoiseCvmEnrollment)(o))) return {
+        verifier: a(t),
+        assertCurrent: (0, y.captureNoiseCvmReplacementContext)(o)
+      };
+      let s = (0, y.captureNoiseCvmReplacementIdentity)(o),
+        {
+          authorizeNoiseCvmKeyDisclosure: d
+        } = await e.A(295295);
+      s();
+      let {
+        authorization: c,
+        isReplacement: u,
+        assertCurrent: l
+      } = await d(o, r);
+      return {
+        verifier: n(t, u, c, l),
+        assertCurrent: l
+      }
+    }, a
+  }, "prepareNoiseCvmAttestation", 0, g], 934225)
+}, 274640, e => {
+  "use strict";
+  e.s(["MAX_NOISE_BROWSER_EARLY_FRAME_BYTES", 0, 4194304, "MAX_NOISE_MAIN_BUFFERED_BYTES", 0, 0x4000000, "MAX_NOISE_STRUCTURED_RESPONSE_BYTES", 0, 0x1000000, "MAX_NOISE_SUBSCRIPTION_RECORD_BYTES", 0, 4194304, "MAX_SHARED_AGENT_NOISE_SUBSCRIPTION_RECORD_BYTES", 0, 8389632, "NoiseAggregateByteBudget", 0, class {
+    maxBytes;
+    #g;
+    constructor(e) {
+      this.maxBytes = e, this.#g = 0
+    }
+    tryReserve(e) {
+      return !(e < 0) && !(e > this.maxBytes - this.#g) && (this.#g += e, !0)
+    }
+    release(e) {
+      this.#g = Math.max(0, this.#g - e)
+    }
+    get usedBytes() {
+      return this.#g
+    }
+  }, "declaredContentLength", 0, function(e) {
+    let t = e.find(e => "content-length" === e.key.toLowerCase())?.value.trim();
+    if (null == t || !/^\d+$/.test(t)) return null;
+    let r = Number(t);
+    return Number.isSafeInteger(r) ? r : null
+  }, "nextSubscriptionRecordBytes", 0, function(e, t, r) {
+    let s = 0,
+      i = e;
+    for (;;) {
+      let e = t.indexOf(10, s),
+        o = (-1 === e ? t.byteLength : e) - s;
+      if (o > r - i) return null;
+      if (i += o, -1 === e) return i;
+      i = 0, s = e + 1
+    }
+  }, "noiseChannelBufferedByteLimit", 0, function(e) {
+    return "media" === e ? 0x10000000 : 0x4000000
+  }, "noiseRequestTimeoutMs", 0, function(e, t) {
+    return e.requestTimeoutMs ?? t
+  }, "noiseResponseByteLimit", 0, function(e, t = []) {
+    let r = e.maxResponseBytes ?? ("binary" !== e.responseType ? 0x1000000 : (e.channel, 0x4000000)),
+      s = function(e) {
+        let t = e.find(e => "range" === e.key.toLowerCase())?.value.trim(),
+          r = t?.match(/^bytes=(\d+)-(\d+)$/i);
+        if (null == r) return null;
+        let s = Number(r[1]),
+          i = Number(r[2]),
+          o = i - s + 1;
+        return Number.isSafeInteger(s) && Number.isSafeInteger(i) && i >= s && Number.isSafeInteger(o) ? o : null
+      }(t);
+    return null == s ? r : Math.min(r, Math.max(s, 0x1000000))
+  }])
+}, 171778, e => {
+  "use strict";
+  var t = e.i(359783),
+    r = e.i(859047),
+    s = e.i(85461),
+    i = e.i(207274),
+    o = e.i(736578),
+    n = e.i(925301),
+    a = e.i(123743),
+    d = e.i(707922),
+    c = e.i(274640),
+    u = e.i(863641);
+  let l = (0, t.createClientLogger)("NoiseStreamTable");
+
+  function h(e, t, r) {
+    if (!0 === e.ok && "result" in e) return e.result;
+    if ("res" === e.type && "ok" === e.status) return e.payload;
+    if (!1 === e.ok || "err" === e.status || "error" in e) throw function(e, t, r) {
+      let s = "string" == typeof e.code ? e.code : void 0,
+        i = "string" == typeof e.message && e.message.length > 0 ? e.message : t,
+        {
+          code: a,
+          message: d
+        } = (0, o.parseGatewayErrorPayload)(e, i);
+      return (0, n.createGatewayJarvisRejectionError)(a ?? s, d, {
+        cause: e.error ?? {
+          ...e,
+          status: r
+        }
+      })
+    }(e, t, r);
+    return e
+  }
+  let m = new TextDecoder;
+  class p {
+    #b = new Map;
+    #S = new Map;
+    #v;
+    #T;
+    #n;
+    #f;
+    #R;
+    #B;
+    #C;
+    #E;
+    #w;
+    #I;
+    #M;
+    #o;
+    #N;
+    #x;
+    #_;
+    constructor(e) {
+      this.#v = e.maxPendingRequests ?? 100, this.#T = e.maxPendingStreams ?? 128, this.#n = e.requestTimeoutMs ?? o.REQUEST_TIMEOUT_MS, this.#f = e.streamIdleTimeoutMs ?? 3e5, this.#R = new c.NoiseAggregateByteBudget(e.maxTotalBufferedResponseBytes ?? c.MAX_NOISE_MAIN_BUFFERED_BYTES), this.#B = e.maxSubscriptionRecordBytes ?? c.MAX_NOISE_SUBSCRIPTION_RECORD_BYTES, this.#C = e.emitCapture, this.#E = e.handleGatewayMessage, this.#w = e.sendReset, this.#I = e.onRequestTimeout, this.#M = e.onAnySubscriptionTerminated, this.#o = e.onFatal, this.#N = e.validateSubscriptionMessage, this.#x = e.onInvalidSubscriptionRecord, this.#_ = e.onSubscriptionTerminated
+    }
+    hasPendingCapacity() {
+      return this.#b.size < this.#v
+    }
+    registerPending(e) {
+      let t = setTimeout(() => {
+        let t = this.#b.get(e.streamId);
+        if (t) {
+          this.#b.delete(e.streamId), this.#C?.({
+            streamId: e.streamId.toString(),
+            method: e.method,
+            outcome: "timeout"
+          }), this.#w(e.streamId, t.service, t.method, "client request timeout"), t.reject((0, n.createGatewayTransportError)(`Gateway request timed out: ${(0,d.noiseTelemetryMethod)(t.method)}`)), this.#I?.(e.streamId, e.method);
+          return
+        }
+        let r = this.#S.get(e.streamId);
+        r?.mode !== "subscription" || !0 === r.ackResolved || (0, s.isResubscribableMethod)(r.method) || (this.#A(e.streamId), this.#C?.({
+          streamId: e.streamId.toString(),
+          method: r.method,
+          status: r.status || void 0,
+          outcome: "timeout"
+        }), this.#w(e.streamId, r.service, r.method, "client request timeout"), r.reject((0, n.createGatewayTransportError)(`Gateway subscription acknowledgement timed out: ${(0,d.noiseTelemetryMethod)(r.method)}`)), this.#I?.(e.streamId, e.method))
+      }, e.requestTimeoutMs ?? this.#n);
+      this.#b.set(e.streamId, {
+        method: e.method,
+        service: e.service,
+        responseType: e.responseType,
+        onStreamRecord: e.onStreamRecord,
+        maxResponseBytes: e.maxResponseBytes ?? c.MAX_NOISE_STRUCTURED_RESPONSE_BYTES,
+        onResponseMeta: e.onResponseMeta,
+        resolve: e.resolve,
+        reject: e.reject,
+        timer: t
+      })
+    }
+    removePending(e) {
+      let t = this.#b.get(e);
+      t && (clearTimeout(t.timer), this.#b.delete(e))
+    }
+    cancel(e) {
+      let t = this.#b.get(e);
+      if (t) return clearTimeout(t.timer), this.#b.delete(e), this.#w(e, t.service, t.method, "client aborted request"), t.reject((0, i.createGatewayAbortError)()), !0;
+      let r = this.#S.get(e);
+      return !!r && (this.#A(e), this.#w(e, r.service, r.method, "client aborted request"), r.reject((0, i.createGatewayAbortError)()), !0)
+    }
+    #A(e) {
+      let t = this.#S.get(e);
+      if (t) return clearTimeout(t.timer), this.#S.delete(e), this.#R.release(t.retainedBytes), t.retainedBytes = 0, t
+    }
+    #k(e) {
+      e.ackResolved = !0, clearTimeout(e.timer), e.timer = void 0
+    }
+    #O(e, t, r, s) {
+      let i = (0, n.createGatewayTransportError)(`Noise response exceeded ${t.maxResponseBytes}-byte limit for ${(0,d.noiseTelemetryMethod)(t.method)}`);
+      clearTimeout(t.timer), this.#b.delete(e), this.#C?.({
+        streamId: e.toString(),
+        method: t.method,
+        wireBytes: r,
+        outcome: "byte_limit"
+      }), s && this.#w(e, t.service, t.method, "client response byte limit"), t.reject(i), (0, d.shouldReportNoiseMethod)(t.method) && l.error({
+        error: i,
+        streamId: e.toString(),
+        method: (0, d.noiseTelemetryMethod)(t.method),
+        limitKind: "response",
+        receivedBytes: r,
+        limitBytes: t.maxResponseBytes,
+        tags: (0, u.hatchSentryTags)(u.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+      }, "Noise response exceeded byte limit")
+    }
+    #P(e, t, r, s, i = "response") {
+      let o = "subscription" === t.mode,
+        a = (0, n.createGatewayTransportError)(`Noise response exceeded ${s}-byte limit for ${(0,d.noiseTelemetryMethod)(t.method)}`);
+      this.#A(e), this.#C?.({
+        streamId: e.toString(),
+        method: t.method,
+        status: t.status || void 0,
+        contentType: t.contentType || void 0,
+        wireBytes: r,
+        outcome: "byte_limit"
+      }), o && null != this.#o || this.#w(e, t.service, t.method, "client response byte limit"), t.reject(a), (0, d.shouldReportNoiseMethod)(t.method) && l.error({
+        error: a,
+        streamId: e.toString(),
+        method: (0, d.noiseTelemetryMethod)(t.method),
+        limitKind: i,
+        receivedBytes: r,
+        limitBytes: s,
+        tags: (0, u.hatchSentryTags)(u.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+      }, "Noise response exceeded byte limit"), o && this.#o?.("subscription response byte limit")
+    }
+    #j(e, t, r) {
+      let s = t.accumulatedSize + r.byteLength,
+        i = Number.isFinite(t.maxResponseBytes);
+      return i && s > t.maxResponseBytes ? (this.#P(e, t, s, t.maxResponseBytes), !1) : i && !this.#R.tryReserve(r.byteLength) ? (this.#P(e, t, this.#R.usedBytes + r.byteLength, this.#R.maxBytes, "aggregate"), !1) : (t.bodyParts.push(r), t.accumulatedSize = s, i && (t.retainedBytes += r.byteLength), !0)
+    }
+    #L(e, t, r) {
+      let s = (0, c.nextSubscriptionRecordBytes)(t.pendingRecordBytes, r, this.#B);
+      return null == s ? (this.#P(e, t, t.pendingRecordBytes + r.byteLength, this.#B, "subscription_record"), !1) : (this.#R.release(t.retainedBytes), t.retainedBytes = 0, this.#R.tryReserve(s)) ? (t.pendingRecordBytes = s, t.retainedBytes = s, !0) : (t.pendingRecordBytes = 0, this.#P(e, t, this.#R.usedBytes + s, this.#R.maxBytes, "aggregate"), !1)
+    }
+    failAll(e) {
+      for (let [t, r] of this.#b) clearTimeout(r.timer), this.#C?.({
+        streamId: t.toString(),
+        method: r.method,
+        outcome: "closed"
+      }), r.reject((0, n.createGatewayTransportError)(e));
+      for (let [t, r] of(this.#b.clear(), [...this.#S])) this.#A(t), this.#C?.({
+        streamId: t.toString(),
+        method: r.method,
+        status: r.status || void 0,
+        outcome: "closed"
+      }), r.reject((0, n.createGatewayTransportError)(e))
+    }
+    dispatch(e) {
+      "response" === e.case ? this.#F(e) : "bodyChunk" === e.case ? this.#D(e) : "reset" === e.case && this.#G(e)
+    }
+    #q(e) {
+      let t = () => setTimeout(() => {
+        let r = this.#S.get(e);
+        if (r) {
+          if (Date.now() - r.lastActivityMs < this.#f) {
+            r.timer = t();
+            return
+          }
+          this.#A(e), this.#C?.({
+            streamId: e.toString(),
+            method: r.method,
+            status: r.status || void 0,
+            outcome: "idle_timeout"
+          }), this.#w(e, r.service, r.method, "client idle timeout"), r.reject((0, n.createGatewayTransportError)(`Stream idle timeout for ${(0,d.noiseTelemetryMethod)(r.method)}`)), (0, d.shouldReportNoiseMethod)(r.method) && l.retainForBugReport("warn", "Stream idle timeout")
+        }
+      }, this.#f);
+      return t()
+    }
+    #F(e) {
+      let t = e.streamId,
+        r = t.toString(),
+        i = this.#b.get(t);
+      if (!i) return void l.retainForBugReport("warn", "HTTP response for unknown request");
+      try {
+        i.onResponseMeta?.({
+          status: e.response.status,
+          headers: e.response.headers.map(e => ({
+            key: e.key,
+            value: e.value
+          }))
+        })
+      } catch {
+        l.retainForBugReport("warn", "onResponseMeta observer threw; ignoring")
+      }
+      let {
+        binary: a,
+        contentType: u
+      } = (0, o.isBinaryContentType)(e.response.headers), p = e.response.status, y = (0, s.isSubscriptionMethod)(i.method), g = (0, s.isRecordStreamMethod)(i.method), b = y || g, S = p >= 200 && p < 300, v = b && S && !e.response.endBody, T = g && S, f = b && S ? this.#B : p >= 400 ? Math.min(i.maxResponseBytes, c.MAX_NOISE_STRUCTURED_RESPONSE_BYTES) : i.maxResponseBytes, R = (0, c.declaredContentLength)(e.response.headers);
+      if (!v && !T && null != R && R > f) return void this.#O(t, {
+        ...i,
+        maxResponseBytes: f
+      }, R, !0);
+      if (e.response.endBody && !T && e.response.body.byteLength > f) return void this.#O(t, {
+        ...i,
+        maxResponseBytes: f
+      }, e.response.body.byteLength, !0);
+      if (!e.response.endBody) {
+        this.#b.delete(t);
+        let r = p >= 200 && p < 300,
+          o = y && r,
+          d = g && r,
+          c = o && !(0, s.isResubscribableMethod)(i.method);
+        if (this.#S.size >= this.#T) {
+          clearTimeout(i.timer), this.#w(t, i.service, i.method, "client stream capacity"), i.reject((0, n.createGatewayTransportError)("Too many pending noise streams"));
+          return
+        }
+        c || clearTimeout(i.timer);
+        let l = o ? void 0 : this.#q(t),
+          h = "binary" === i.responseType && r,
+          m = {
+            method: i.method,
+            service: i.service,
+            resolve: i.resolve,
+            reject: i.reject,
+            timer: c ? i.timer : l,
+            lastActivityMs: Date.now(),
+            mode: y ? r ? "subscription" : "buffer" : g ? r ? "records" : "buffer" : r && (a || h) ? "binary" : "buffer",
+            bodyParts: [],
+            accumulatedSize: 0,
+            retainedBytes: 0,
+            maxResponseBytes: f,
+            contentType: u,
+            headers: e.response.headers,
+            status: p,
+            streamDecoder: o || d ? new TextDecoder : void 0,
+            pendingRecordBytes: 0,
+            onStreamRecord: i.onStreamRecord
+          };
+        this.#S.set(t, m), (o || d) && e.response.body.length > 0 ? this.#D({
+          case: "bodyChunk",
+          streamId: e.streamId,
+          data: e.response.body,
+          endBody: e.response.endBody
+        }) : e.response.body.length > 0 && this.#j(t, m, e.response.body);
+        return
+      }
+      if (clearTimeout(i.timer), this.#b.delete(t), g) {
+        let s = e.response,
+          o = s.body.length > 0 ? m.decode(s.body) : null;
+        return p < 200 || p >= 300 ? void this.#$({
+          resolve: i.resolve,
+          reject: i.reject,
+          method: i.method,
+          status: p,
+          bodyText: o,
+          causeStatus: p
+        }) : null == (0, c.nextSubscriptionRecordBytes)(0, s.body, this.#B) ? void this.#O(t, {
+          ...i,
+          maxResponseBytes: this.#B
+        }, s.body.byteLength, !1) : null == o || this.#U(i.onStreamRecord, o, r) ? void i.resolve(void 0) : void i.reject((0, n.createGatewayTransportError)(`Invalid NDJSON record for ${(0,d.noiseTelemetryMethod)(i.method)}`))
+      }
+      if ((0, s.isSubscriptionMethod)(i.method)) {
+        let s = e.response,
+          o = p >= 200 && p < 300,
+          n = s.body.length > 0 ? m.decode(s.body) : null;
+        if (!o) {
+          this.#C?.({
+            streamId: r,
+            method: i.method,
+            status: p,
+            headers: s.headers,
+            bodyText: () => (0, d.noiseInspectorSubscriptionBody)(i.method, n),
+            outcome: "subscription_error"
+          }), this.#$({
+            resolve: i.resolve,
+            reject: i.reject,
+            method: i.method,
+            status: p,
+            bodyText: n,
+            causeStatus: p
+          });
+          return
+        }
+        let a = {};
+        if (n) {
+          let e = null;
+          try {
+            e = JSON.parse(n)
+          } catch {
+            a = {}
+          }
+          if (null != e) try {
+            a = h(e, `Gateway subscription ack failed for ${(0,d.noiseTelemetryMethod)(i.method)}`, p)
+          } catch (e) {
+            this.#C?.({
+              streamId: r,
+              method: i.method,
+              status: p,
+              headers: s.headers,
+              bodyText: () => (0, d.noiseInspectorSubscriptionBody)(i.method, n),
+              outcome: "subscription_error"
+            }), i.reject(e);
+            return
+          }
+        }
+        this.#C?.({
+          streamId: r,
+          method: i.method,
+          status: p,
+          headers: s.headers,
+          bodyText: () => (0, d.noiseInspectorSubscriptionBody)(i.method, n),
+          outcome: "subscription_ack"
+        }), i.resolve(a), this.#S.size < this.#T && this.#S.set(t, {
+          method: i.method,
+          service: i.service,
+          resolve: () => {},
+          reject: () => {},
+          timer: void 0,
+          lastActivityMs: Date.now(),
+          mode: "subscription",
+          bodyParts: [],
+          accumulatedSize: 0,
+          retainedBytes: 0,
+          maxResponseBytes: i.maxResponseBytes,
+          contentType: "",
+          status: s.status,
+          ackResolved: !0,
+          streamDecoder: new TextDecoder,
+          pendingRecordBytes: 0,
+          onStreamRecord: void 0
+        });
+        return
+      }
+      let B = e.response,
+        {
+          status: C
+        } = B,
+        E = C >= 200 && C < 300,
+        w = "binary" === i.responseType;
+      if ((a || w) && E) {
+        this.#C?.({
+          streamId: r,
+          method: i.method,
+          status: C,
+          headers: B.headers,
+          contentType: u || void 0,
+          binaryByteLength: B.body.byteLength
+        }), i.resolve(new Blob([B.body], {
+          type: w ? u || "application/octet-stream" : u
+        }));
+        return
+      }
+      let I = B.body.length > 0 ? m.decode(B.body) : null;
+      this.#C?.({
+        streamId: r,
+        method: i.method,
+        status: C,
+        headers: B.headers,
+        contentType: u || void 0,
+        wireBytes: B.body.byteLength,
+        bodyText: () => (0, d.noiseInspectorBody)(i.method, I)
+      }), this.#$({
+        resolve: i.resolve,
+        reject: i.reject,
+        method: i.method,
+        status: C,
+        bodyText: I,
+        causeStatus: C
+      })
+    }
+    #H(e, t, r) {
+      let {
+        status: s
+      } = e;
+      this.#C?.({
+        streamId: r.toString(),
+        method: e.method,
+        status: s,
+        headers: e.headers,
+        contentType: e.contentType || void 0,
+        wireBytes: e.accumulatedSize,
+        bodyText: () => (0, d.noiseInspectorBody)(e.method, t)
+      }), this.#$({
+        resolve: e.resolve,
+        reject: e.reject,
+        method: e.method,
+        status: s,
+        bodyText: t,
+        causeStatus: s
+      })
+    }
+    #$(e) {
+      let t = (0, d.noiseTelemetryMethod)(e.method),
+        r = `HTTP ${e.status} for ${t}`,
+        s = e.status >= 200 && e.status < 300,
+        i = null;
+      if (e.bodyText) try {
+        i = JSON.parse(e.bodyText)
+      } catch {}
+      if (s && i?.ok === !0) return void e.resolve("result" in i ? i.result : i);
+      if (s && null != i && void 0 === i.ok && !("error" in i)) return void e.resolve(i);
+      if (!i) return void(s ? e.resolve(void 0) : e.reject((0, n.createGatewayTransportError)(e.bodyText ? r : `Empty response body for ${t}`, {
+        requestMethod: e.method,
+        httpStatus: e.status
+      })));
+      let {
+        code: a,
+        message: c
+      } = (0, o.parseGatewayErrorPayload)(i, r);
+      e.reject((0, n.createGatewayJarvisRejectionError)(a, c, {
+        cause: i.error ?? {
+          code: a,
+          message: c,
+          status: e.causeStatus
+        },
+        httpStatus: e.status,
+        result: i.result
+      }))
+    }
+    #Y(e, t, r) {
+      let s;
+      if (0 === t.trim().length) return !0;
+      try {
+        s = JSON.parse(t)
+      } catch {
+        return l.retainForBugReport("warn", "Non-JSON record stream line"), !1
+      }
+      if ("object" != typeof s || null == s || Array.isArray(s)) return l.retainForBugReport("warn", "Non-object record stream line"), !1;
+      try {
+        e?.(s)
+      } catch (e) {
+        return l.retainForBugReport("warn", "Record stream handler failed"), !1
+      }
+      return !0
+    }
+    #U(e, t, r) {
+      for (let s of t.split("\n"))
+        if (!this.#Y(e, s, r)) return !1;
+      return !0
+    }
+    #J(e, t) {
+      let r = (e.pendingText ?? "").split("\n");
+      for (let s of (e.pendingText = r.pop() ?? "", r))
+        if (!this.#Y(e.onStreamRecord, s, t)) return !1;
+      return !0
+    }
+    #W(e, t, r) {
+      this.#A(e), r && this.#w(e, t.service, t.method, "client invalid record stream"), t.reject((0, n.createGatewayTransportError)(`Invalid NDJSON record for ${(0,d.noiseTelemetryMethod)(t.method)}`))
+    }
+    #z(e, t) {
+      let r = e.pendingText ?? "";
+      for (;;) {
+        var s;
+        let i, o = r.indexOf("\n"),
+          c = o >= 0,
+          u = c ? r.slice(0, o) : r;
+        if (0 === u.length && c) {
+          e.pendingText = r = r.slice(o + 1);
+          continue
+        }
+        if (0 === u.trim().length) {
+          if (!c) return "waiting";
+          e.pendingText = r = r.slice(o + 1);
+          continue
+        }
+        try {
+          i = JSON.parse(u)
+        } catch {
+          if (!c) return "waiting";
+          return this.#A(t), this.#C?.({
+            streamId: t.toString(),
+            method: e.method,
+            status: e.status || void 0,
+            outcome: "invalid_ack"
+          }), e.reject((0, n.createGatewayTransportError)(`Invalid subscription ack for ${(0,d.noiseTelemetryMethod)(e.method)}`)), (0, d.shouldReportNoiseMethod)(e.method) && l.retainForBugReport("warn", "Invalid subscription ack"), "done"
+        }
+        if (!("object" == typeof(s = i) && null != s && !Array.isArray(s))) {
+          if (null != this.#N) return this.#K(e, t, "invalid subscription message envelope"), "done";
+          throw this.#C?.({
+            streamId: t.toString(),
+            method: e.method,
+            status: e.status || void 0,
+            outcome: "invalid_ack"
+          }), Error(`Invalid subscription ack for ${(0,d.noiseTelemetryMethod)(e.method)}`)
+        }
+        if ("event" in i && "event" === i.type) return this.#k(e), e.resolve(void 0), e.pendingText = r, "ready";
+        this.#k(e), this.#X(e, t, `${u}
+`, i), (0, a.noiseDebugEnabled)();
+        try {
+          e.resolve(h(i, `Gateway subscription ack failed for ${(0,d.noiseTelemetryMethod)(e.method)}`, e.status))
+        } catch (r) {
+          return this.#A(t), e.reject(r), "done"
+        }
+        return e.pendingText = c ? r.slice(o + 1) : "", "ready"
+      }
+    }
+    #K(e, t, r) {
+      this.#C?.({
+        streamId: t.toString(),
+        method: e.method,
+        status: e.status || void 0,
+        outcome: "invalid_subscription_record"
+      }), l.error({
+        error: Error(r),
+        streamId: t.toString(),
+        method: (0, d.noiseTelemetryMethod)(e.method),
+        tags: (0, u.hatchSentryTags)(u.HATCH_SENTRY_SURFACES.CHAT_GATEWAY)
+      }, "Rejecting invalid subscription record"), this.#A(t), e.reject((0, n.createGatewayTransportError)(`Invalid subscription record for ${(0,d.noiseTelemetryMethod)(e.method)}`)), this.#x?.(r)
+    }
+    #X(e, t, r, s) {
+      this.#C?.({
+        streamId: t.toString(),
+        method: e.method,
+        status: e.status || void 0,
+        bodyText: () => (0, d.noiseInspectorSubscriptionRecord)(e.method, r, s)
+      })
+    }
+    #V(e, t) {
+      let r = t.toString(),
+        s = (e.pendingText ?? "").split("\n");
+      for (let i of (e.pendingText = s.pop() ?? "", s)) {
+        let s;
+        if (i) {
+          try {
+            s = JSON.parse(i)
+          } catch {
+            if (null != this.#N) return this.#K(e, t, "invalid subscription JSON record"), !1;
+            this.#C?.({
+              streamId: r,
+              method: e.method,
+              status: e.status || void 0,
+              outcome: "invalid_subscription_record"
+            }), l.retainForBugReport("warn", "Non-JSON body chunk");
+            continue
+          }
+          if (null != this.#N && !this.#N(s)) return this.#K(e, t, "invalid subscription message envelope"), !1;
+          this.#X(e, t, `${i}
+`, s), (0, a.noiseDebugEnabled)(), this.#E(s)
+        }
+      }
+      return !0
+    }
+    #G(e) {
+      let t = e.streamId,
+        r = t.toString(),
+        i = 0 !== e.reset.code ? `code=${e.reset.code}` : "",
+        o = e.reset.reason || "unknown",
+        a = `Stream reset (${[i,o].filter(Boolean).join(", ")})`,
+        c = this.#b.get(t);
+      if (c) {
+        clearTimeout(c.timer), this.#b.delete(t), this.#C?.({
+          streamId: r,
+          method: c.method,
+          outcome: "reset"
+        }), c.reject((0, n.createGatewayTransportError)(`${a} for ${(0,d.noiseTelemetryMethod)(c.method)}`));
+        return
+      }
+      let u = this.#S.get(t);
+      if (u) {
+        this.#A(t), this.#C?.({
+          streamId: r,
+          method: u.method,
+          status: u.status || void 0,
+          outcome: "reset"
+        }), u.reject((0, n.createGatewayTransportError)(`${a} for ${(0,d.noiseTelemetryMethod)(u.method)}`)), (0, d.shouldReportNoiseMethod)(u.method) && l.retainForBugReport("info", "Stream reset"), "subscription" === u.mode && this.#M?.(t, u.method, "reset"), "subscription" === u.mode && (0, s.isResubscribableMethod)(u.method) && this.#_?.("subscription stream reset");
+        return
+      }
+      l.retainForBugReport("warn", "Reset for unknown stream")
+    }
+    #D(e) {
+      let t = e.streamId,
+        i = t.toString(),
+        o = this.#S.get(t);
+      if ((0, a.noiseDebugEnabled)(), !o) return void l.retainForBugReport("warn", "BodyChunk for unknown stream");
+      if ("subscription" !== o.mode && (o.lastActivityMs = Date.now()), "binary" === o.mode) {
+        if (e.data.length > 0 && !this.#j(t, o, e.data)) return;
+        if (e.endBody) {
+          let e = o.accumulatedSize;
+          this.#A(t), this.#C?.({
+            streamId: i,
+            method: o.method,
+            status: o.status || void 0,
+            headers: o.headers,
+            contentType: o.contentType || void 0,
+            binaryByteLength: e
+          });
+          let r = new Blob(o.bodyParts, {
+            type: o.contentType || "application/octet-stream"
+          });
+          o.resolve(r)
+        }
+        return
+      }
+      if ("buffer" === o.mode) {
+        if (e.data.length > 0 && !this.#j(t, o, e.data)) return;
+        if (e.endBody) {
+          this.#A(t);
+          let e = o.accumulatedSize,
+            s = null;
+          if (e > 0) {
+            let e = 1 === o.bodyParts.length ? o.bodyParts[0] : (0, r.concat)(...o.bodyParts);
+            s = m.decode(e)
+          }
+          this.#H(o, s, t)
+        }
+        return
+      }
+      if ("records" === o.mode) {
+        let r = o.streamDecoder ?? m,
+          s = "";
+        if (e.data.length > 0) {
+          if (!this.#L(t, o, e.data)) return;
+          s = r.decode(e.data, {
+            stream: !e.endBody
+          })
+        } else e.endBody && (s = r.decode());
+        if (s.length > 0 && (this.#C?.({
+            streamId: i,
+            method: o.method,
+            bodyText: () => (0, d.noiseInspectorBody)(o.method, s)
+          }), o.pendingText = (o.pendingText ?? "") + s, !this.#J(o, i))) return void this.#W(t, o, !e.endBody);
+        if (e.endBody) {
+          let e = o.pendingText ?? "";
+          if (e.trim().length > 0 && !this.#Y(o.onStreamRecord, e, i)) return void this.#W(t, o, !1);
+          this.#A(t), o.resolve(void 0), (0, d.shouldReportNoiseMethod)(o.method) && l.retainForBugReport("info", "Record stream ended")
+        }
+        return
+      }
+      if (e.data.length > 0) {
+        if (!this.#L(t, o, e.data)) return;
+        let r = (o.streamDecoder ?? m).decode(e.data, {
+          stream: !0
+        });
+        if (o.pendingText = (o.pendingText ?? "") + r, !o.ackResolved) {
+          if ("ready" !== this.#z(o, t)) return;
+          "" === o.pendingText && o.pendingRecordBytes > 0 && (this.#R.release(o.retainedBytes), o.pendingRecordBytes = 0, o.retainedBytes = 0)
+        }
+        if (!this.#V(o, t)) return
+      }
+      if (e.endBody) {
+        let e = o.pendingText?.trim();
+        if (e) try {
+          let r = JSON.parse(e);
+          if (null != this.#N && !this.#N(r)) return void this.#K(o, t, "invalid trailing subscription message envelope");
+          this.#X(o, t, `${e}
+`, r), (0, a.noiseDebugEnabled)(), this.#E(r)
+        } catch {
+          if (l.retainForBugReport("warn", "Unparseable trailing text on stream end"), null != this.#N) return void this.#K(o, t, "invalid trailing subscription JSON record");
+          this.#C?.({
+            streamId: i,
+            method: o.method,
+            status: o.status || void 0,
+            outcome: "invalid_subscription_record"
+          })
+        }
+        if (this.#A(t), !o.ackResolved) {
+          let e = (0, n.createGatewayTransportError)(`Subscription ended before acknowledgement for ${(0,d.noiseTelemetryMethod)(o.method)}`);
+          this.#C?.({
+            streamId: i,
+            method: o.method,
+            status: o.status || void 0,
+            outcome: "subscription_ended_before_ack"
+          }), o.reject(e), (0, d.shouldReportNoiseMethod)(o.method) && l.retainForBugReport("warn", "Subscription ended before acknowledgement"), (0, s.isResubscribableMethod)(o.method) && this.#_?.("subscription ended before acknowledgement");
+          return
+        }(0, d.shouldReportNoiseMethod)(o.method) && l.retainForBugReport("info", "Stream ended"), "subscription" === o.mode && this.#M?.(t, o.method, "end"), o.ackResolved && (0, s.isResubscribableMethod)(o.method) && this.#_?.("subscription stream ended")
+      }
+    }
+  }
+  e.s(["NoiseStreamTable", 0, p])
+}]);
+
+//# debugId=02691a3d-9dc4-e317-5705-7c51415c6772
+//# sourceMappingURL=15iop_lsku2_y.js.map

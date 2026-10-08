@@ -1,0 +1,2334 @@
+;
+! function() {
+  try {
+    var e = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof global ? global : "undefined" != typeof window ? window : "undefined" != typeof self ? self : {},
+      n = (new e.Error).stack;
+    n && ((e._debugIds || (e._debugIds = {}))[n] = "d2e8090f-bf1b-4a4e-3bd0-92f2d890b269")
+  } catch (e) {}
+}();
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push(["object" == typeof document ? document.currentScript : void 0, 325814, e => {
+  "use strict";
+  var t = e.i(984416),
+    o = e.i(722099),
+    a = e.i(519172),
+    s = e.i(396817),
+    i = e.i(181959),
+    n = e.i(345717),
+    r = e.i(374785),
+    h = e.i(492049),
+    d = e.i(440802),
+    p = e.i(590328);
+  let c = ['iframe[name^="__privateStripe"]', 'iframe[name^="__stripeJSChallenge"]', 'iframe[src*="js.stripe.com"]', 'iframe[src*="stripe.network"]', 'iframe[src*="hooks.stripe.com"]'];
+
+  function l(e) {
+    let a, i, n = (0, o.c)(4);
+    return n[0] !== e ? ({
+      ...a
+    } = e, n[0] = e, n[1] = a) : a = n[1], n[2] !== a ? (i = (0, t.jsx)(s.Portal, {
+      "data-slot": "dialog-portal",
+      ...a
+    }), n[2] = a, n[3] = i) : i = n[3], i
+  }
+
+  function m(e) {
+    let a, i, n = (0, o.c)(4);
+    return n[0] !== e ? ({
+      ...a
+    } = e, n[0] = e, n[1] = a) : a = n[1], n[2] !== a ? (i = (0, t.jsx)(s.Close, {
+      "data-slot": "dialog-close",
+      ...a
+    }), n[2] = a, n[3] = i) : i = n[3], i
+  }
+
+  function u(e) {
+    let a, i, n, h, d = (0, o.c)(8);
+    return d[0] !== e ? ({
+      className: a,
+      ...i
+    } = e, d[0] = e, d[1] = a, d[2] = i) : (a = d[1], i = d[2]), d[3] !== a ? (n = (0, r.cn)("data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 bg-fill-dialog-overlay fixed inset-0 z-50 duration-1000 data-[state=closed]:pointer-events-none data-[state=open]:pointer-events-auto motion-reduce:animate-none", a), d[3] = a, d[4] = n) : n = d[4], d[5] !== i || d[6] !== n ? (h = (0, t.jsx)(s.Overlay, {
+      "data-slot": "dialog-overlay",
+      className: n,
+      ...i
+    }), d[5] = i, d[6] = n, d[7] = h) : h = d[7], h
+  }
+  e.s(["Dialog", 0, function(e) {
+    let i, n, r, d, p, l, m, u, g = (0, o.c)(17);
+    g[0] !== e ? ({
+      open: i,
+      defaultOpen: n,
+      onOpenChange: r,
+      ...d
+    } = e, g[0] = e, g[1] = i, g[2] = n, g[3] = r, g[4] = d) : (i = g[1], n = g[2], r = g[3], d = g[4]);
+    let [T, M] = a.useState(n ?? !1), y = void 0 !== i, f = y ? i : T;
+    g[5] !== y || g[6] !== r ? (p = e => {
+      r?.(e), y || M(e)
+    }, g[5] = y, g[6] = r, g[7] = p) : p = g[7];
+    let v = p;
+    return g[8] !== v ? (l = () => v(!1), g[8] = v, g[9] = l) : l = g[9], g[10] !== f || g[11] !== l ? (m = {
+      enabled: f,
+      onDismiss: l,
+      dismissOnPointerDownOutside: !1,
+      ignoreSelectors: c
+    }, g[10] = f, g[11] = l, g[12] = m) : m = g[12], (0, h.useDismissOnOutsideInteraction)(m), g[13] !== v || g[14] !== f || g[15] !== d ? (u = (0, t.jsx)(s.Root, {
+      "data-slot": "dialog",
+      open: f,
+      onOpenChange: v,
+      ...d
+    }), g[13] = v, g[14] = f, g[15] = d, g[16] = u) : u = g[16], u
+  }, "DialogClose", 0, m, "DialogContent", 0, function(e) {
+    let a, h, c, g, T, M, y, f, v, _, b, O, E, P, S, k, w, G, x, A, C, R = (0, o.c)(43);
+    R[0] !== e ? ({
+      className: c,
+      contentClassName: T,
+      backgroundClassName: a,
+      children: h,
+      showCloseButton: _,
+      closeButtonDisabled: b,
+      closeButtonRef: g,
+      onCloseButtonClick: y,
+      header: M,
+      onInteractOutside: f,
+      ...v
+    } = e, R[0] = e, R[1] = a, R[2] = h, R[3] = c, R[4] = g, R[5] = T, R[6] = M, R[7] = y, R[8] = f, R[9] = v, R[10] = _, R[11] = b) : (a = R[1], h = R[2], c = R[3], g = R[4], T = R[5], M = R[6], y = R[7], f = R[8], v = R[9], _ = R[10], b = R[11]);
+    let D = void 0 === _ || _,
+      j = void 0 !== b && b;
+    R[12] === Symbol.for("react.memo_cache_sentinel") ? (O = (0, t.jsx)(u, {}), R[12] = O) : O = R[12], R[13] !== c ? (E = !c?.includes("max-w") && "max-w-[calc(100%-2rem)] sm:max-w-lg", R[13] = c, R[14] = E) : E = R[14], R[15] !== c || R[16] !== E ? (P = (0, r.cn)("group/dialog-content data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 squircle-32 fixed top-[50%] left-[50%] z-50 flex max-h-[calc(100vh-4rem)] w-full translate-x-[-50%] translate-y-[-50%] flex-col gap-0 duration-150 outline-none data-[state=closed]:pointer-events-none data-[state=closed]:ease-in data-[state=open]:ease-out motion-reduce:animate-none", E, c), R[15] = c, R[16] = E, R[17] = P) : P = R[17], R[18] !== f ? (S = e => {
+      let t = e.detail.originalEvent.target;
+      t instanceof Element && null != t.closest("[data-ecto-logging-debug]") ? e.preventDefault() : f?.(e)
+    }, R[18] = f, R[19] = S) : S = R[19];
+    let q = null == a && "bg-bg-primary dark:bg-fill-primary";
+    return R[20] !== a || R[21] !== q ? (k = (0, r.cn)("squircle-32 shadow-blur-elevation-03 group-data-[state=open]/dialog-content:animate-in group-data-[state=closed]/dialog-content:animate-out group-data-[state=closed]/dialog-content:zoom-out-95 group-data-[state=open]/dialog-content:zoom-in-95 relative flex min-h-0 flex-1 flex-col overflow-hidden duration-150 group-data-[state=closed]/dialog-content:ease-in group-data-[state=open]/dialog-content:ease-out motion-reduce:animate-none", q, a), R[20] = a, R[21] = q, R[22] = k) : k = R[22], R[23] !== j || R[24] !== g || R[25] !== M || R[26] !== y || R[27] !== D ? (w = (M || D) && (0, t.jsxs)(p.Flexbox, {
+      direction: "row",
+      gap: 2,
+      alignItems: "start",
+      className: (0, r.cn)("shrink-0 ps-6 pe-4 pt-4 pb-4", null == M && "justify-end"),
+      children: [M, D && (0, t.jsx)(m, {
+        asChild: !0,
+        children: (0, t.jsx)(d.IconButton, {
+          ref: g,
+          "data-slot": "dialog-close",
+          icon: i.default,
+          label: n.fbs._("Close", null, {
+            hk: "UaJ3l"
+          }),
+          variant: "elevated",
+          size: "28",
+          disabled: j,
+          onClick: y
+        })
+      })]
+    }), R[23] = j, R[24] = g, R[25] = M, R[26] = y, R[27] = D, R[28] = w) : w = R[28], R[29] !== T ? (G = (0, r.cn)("min-h-0 flex-1 overflow-y-auto px-6 pb-6", T), R[29] = T, R[30] = G) : G = R[30], R[31] !== h || R[32] !== G ? (x = (0, t.jsx)("div", {
+      className: G,
+      children: h
+    }), R[31] = h, R[32] = G, R[33] = x) : x = R[33], R[34] !== x || R[35] !== k || R[36] !== w ? (A = (0, t.jsxs)("div", {
+      "data-slot": "dialog-surface",
+      className: k,
+      children: [w, x]
+    }), R[34] = x, R[35] = k, R[36] = w, R[37] = A) : A = R[37], R[38] !== v || R[39] !== A || R[40] !== P || R[41] !== S ? (C = (0, t.jsxs)(l, {
+      "data-slot": "dialog-portal",
+      children: [O, (0, t.jsx)(s.Content, {
+        "data-slot": "dialog-content",
+        className: P,
+        ...v,
+        onInteractOutside: S,
+        children: A
+      })]
+    }), R[38] = v, R[39] = A, R[40] = P, R[41] = S, R[42] = C) : C = R[42], C
+  }, "DialogContentPrimitive", 0, function(e) {
+    let a, i, n, h, d = (0, o.c)(8);
+    return d[0] !== e ? ({
+      className: a,
+      ...i
+    } = e, d[0] = e, d[1] = a, d[2] = i) : (a = d[1], i = d[2]), d[3] !== a ? (n = (0, r.cn)("data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed z-50 outline-none", a), d[3] = a, d[4] = n) : n = d[4], d[5] !== i || d[6] !== n ? (h = (0, t.jsx)(s.Content, {
+      "data-slot": "dialog-content-primitive",
+      className: n,
+      ...i
+    }), d[5] = i, d[6] = n, d[7] = h) : h = d[7], h
+  }, "DialogDescription", 0, function(e) {
+    let a, i, n, h, d = (0, o.c)(8);
+    return d[0] !== e ? ({
+      className: a,
+      ...i
+    } = e, d[0] = e, d[1] = a, d[2] = i) : (a = d[1], i = d[2]), d[3] !== a ? (n = (0, r.cn)("text-body text-text-secondary", a), d[3] = a, d[4] = n) : n = d[4], d[5] !== i || d[6] !== n ? (h = (0, t.jsx)(s.Description, {
+      "data-slot": "dialog-description",
+      className: n,
+      ...i
+    }), d[5] = i, d[6] = n, d[7] = h) : h = d[7], h
+  }, "DialogHeader", 0, function(e) {
+    let a, s, i, n, h = (0, o.c)(8);
+    return h[0] !== e ? ({
+      className: a,
+      ...s
+    } = e, h[0] = e, h[1] = a, h[2] = s) : (a = h[1], s = h[2]), h[3] !== a ? (i = (0, r.cn)("flex min-h-7 flex-1 justify-center gap-1 text-center has-data-[slot=dialog-description]:h-auto sm:text-start", a), h[3] = a, h[4] = i) : i = h[4], h[5] !== s || h[6] !== i ? (n = (0, t.jsx)(p.Flexbox, {
+      "data-slot": "dialog-header",
+      direction: "column",
+      gap: 1,
+      className: i,
+      ...s
+    }), h[5] = s, h[6] = i, h[7] = n) : n = h[7], n
+  }, "DialogOverlay", 0, u, "DialogPortal", 0, l, "DialogTitle", 0, function(e) {
+    let a, i, n, h, d = (0, o.c)(8);
+    return d[0] !== e ? ({
+      className: a,
+      ...i
+    } = e, d[0] = e, d[1] = a, d[2] = i) : (a = d[1], i = d[2]), d[3] !== a ? (n = (0, r.cn)("text-title-3-emphasized flex flex-col justify-center", a), d[3] = a, d[4] = n) : n = d[4], d[5] !== i || d[6] !== n ? (h = (0, t.jsx)(s.Title, {
+      "data-slot": "dialog-title",
+      className: n,
+      ...i
+    }), d[5] = i, d[6] = n, d[7] = h) : h = d[7], h
+  }, "DialogTrigger", 0, function(e) {
+    let a, i, n = (0, o.c)(4);
+    return n[0] !== e ? ({
+      ...a
+    } = e, n[0] = e, n[1] = a) : a = n[1], n[2] !== a ? (i = (0, t.jsx)(s.Trigger, {
+      asChild: !0,
+      "data-slot": "dialog-trigger",
+      ...a
+    }), n[2] = a, n[3] = i) : i = n[3], i
+  }])
+}, 870228, e => {
+  "use strict";
+  var t = e.i(984416),
+    o = e.i(722099),
+    a = e.i(420297),
+    s = e.i(590328),
+    i = e.i(430116),
+    n = e.i(848048),
+    r = e.i(823173),
+    h = e.i(180110),
+    d = e.i(770256),
+    p = e.i(345717),
+    c = e.i(646361),
+    l = e.i(224520);
+  e.s(["HatchContentErrorFallback", 0, function(e) {
+    let m, u, g, T, M, y, f, v, _, b, O, E, P = (0, o.c)(30),
+      {
+        error: S,
+        onRetry: k,
+        title: w,
+        alwaysShowRetry: G,
+        description: x,
+        hideTechnicalDetails: A,
+        secondaryAction: C
+      } = e,
+      R = void 0 !== G && G,
+      D = (0, l.useMcBool)("5e1fb489", !1),
+      j = !(void 0 !== A && A) && (D || !1);
+    P[0] === Symbol.for("react.memo_cache_sentinel") ? (m = {
+      eventName: r.HatchImpressionEvent.ERROR_CONTENT_IMPRESSION,
+      actionTarget: "content_error_fallback",
+      metadata: {
+        surface: "error",
+        subsurface: "content"
+      }
+    }, u = {
+      threshold: "50%"
+    }, P[0] = m, P[1] = u) : (m = P[0], u = P[1]);
+    let {
+      ref: q
+    } = (0, n.useTrackedImpressionRef)(m, u);
+    P[2] === Symbol.for("react.memo_cache_sentinel") ? (g = {
+      eventName: "error_try_again_click",
+      actionTarget: "content_error_fallback_try_again",
+      actionType: "click",
+      metadata: {
+        surface: "error",
+        subsurface: "content"
+      }
+    }, P[2] = g) : g = P[2];
+    let {
+      ref: H,
+      onClick: I
+    } = (0, n.useTrackedClickRef)(g);
+    P[3] !== S.message ? (T = "string" == typeof S.message && S.message.trim().length > 0 ? S.message : p.fbs._("No additional error details were provided.", null, {
+      hk: "ehaQo"
+    }), P[3] = S.message, P[4] = T) : T = P[4];
+    let L = T;
+    return P[5] === Symbol.for("react.memo_cache_sentinel") ? (M = (0, t.jsx)(c.HatchIcon, {
+      icon: d.default,
+      size: 48,
+      className: "text-text-destructive"
+    }), P[5] = M) : M = P[5], P[6] !== w ? (y = w ?? p.fbs._("Something went wrong", null, {
+      hk: "1H6aWS"
+    }), P[6] = w, P[7] = y) : y = P[7], P[8] !== y ? (f = (0, t.jsx)(i.Text, {
+      as: "h2",
+      variant: "title-3-emphasized",
+      children: y
+    }), P[8] = y, P[9] = f) : f = P[9], P[10] !== x ? (v = null != x && (0, t.jsx)(i.Text, {
+      variant: "body",
+      children: x
+    }), P[10] = x, P[11] = v) : v = P[11], P[12] !== L || P[13] !== j ? (_ = j && (0, t.jsx)(i.Text, {
+      variant: "footnote",
+      color: "secondary",
+      className: "max-w-full font-mono break-words",
+      children: L
+    }), P[12] = L, P[13] = j, P[14] = _) : _ = P[14], P[15] !== R || P[16] !== I || P[17] !== k || P[18] !== H || P[19] !== j ? (b = (j || R) && (0, t.jsx)(a.Button, {
+      ref: H,
+      variant: "primary",
+      size: "36",
+      leadingIcon: h.default,
+      label: p.fbs._("Try again", null, {
+        hk: "3G8Mqr"
+      }),
+      onClick: () => {
+        I(), k()
+      }
+    }), P[15] = R, P[16] = I, P[17] = k, P[18] = H, P[19] = j, P[20] = b) : b = P[20], P[21] !== C || P[22] !== v || P[23] !== _ || P[24] !== b || P[25] !== f ? (O = (0, t.jsxs)(s.Flexbox, {
+      direction: "column",
+      gap: 3,
+      alignItems: "center",
+      className: "w-full max-w-md text-center",
+      children: [M, f, v, _, b, C]
+    }), P[21] = C, P[22] = v, P[23] = _, P[24] = b, P[25] = f, P[26] = O) : O = P[26], P[27] !== q || P[28] !== O ? (E = (0, t.jsx)("div", {
+      ref: q,
+      role: "alert",
+      className: "flex h-full w-full items-center justify-center p-4 pb-24 md:p-6 md:pb-6",
+      children: O
+    }), P[27] = q, P[28] = O, P[29] = E) : E = P[29], E
+  }])
+}, 975740, e => {
+  "use strict";
+  var t = e.i(228750);
+  let o = new Map;
+
+  function a(e) {
+    return o.get(e) ?? null
+  }
+
+  function s(e, t) {
+    let a = o.get(e);
+    null != a && (null == t || a.promise === t) && o.delete(e)
+  }
+  e.s(["clearEarlyGatewayQueryPromise", 0, s, "getEarlyGatewayQueryPreload", 0, a, "getOrCreateEarlyGatewayQueryPromise", 0, function(e, i) {
+    let n = a(e.sourceKey);
+    if (null != n) return n.promise;
+    let r = i();
+    return o.set(e.sourceKey, {
+      descriptor: e,
+      promise: r
+    }), r.catch(() => {
+      s(e.sourceKey, r)
+    }), ! function() {
+      for (; o.size > t.HATCH_EARLY_GATEWAY_QUERY_LIMIT;) {
+        let e = o.keys().next().value;
+        if ("string" != typeof e) return;
+        o.delete(e)
+      }
+    }(), r
+  }])
+}, 14751, e => {
+  "use strict";
+  var t = e.i(359783),
+    o = e.i(207274),
+    a = e.i(707922),
+    s = e.i(535678),
+    i = e.i(986907),
+    n = e.i(301970),
+    r = e.i(767408),
+    h = e.i(85461);
+  let d = (0, t.createClientLogger)("GatewayTransport"),
+    p = new Map([
+      ["chat.history", "rpc_chat_history"],
+      ["chat.subscribe", "rpc_chat_subscribe"],
+      ["egress.approvals", "rpc_approval_snapshot"],
+      ["onboarding.pages.start", "rpc_onboarding"],
+      ["sessions.get", "rpc_thread_classification"]
+    ]);
+  e.s(["createInstrumentedSendRequest", 0, function(e) {
+    return async function(t, c, l) {
+      Date.now();
+      let m = l?.resolvedOverride == null && null != (0, h.resolveHttpRoute)(t) ? (0, a.noiseTelemetryMethod)(t) : "[FILTERED]",
+        u = (0, i.startManualInteraction)(n.EctoInteractionTracePolicy.GATEWAY_REQUEST, {
+          debugName: "gateway-request",
+          includeUri: !1
+        });
+      u.annotate({
+        string: {
+          method: m,
+          transport: "noise"
+        }
+      });
+      let g = p.get(t),
+        T = null == g ? null : (0, s.beginInitialLoadSpan)(g);
+      try {
+        let o = await e.wsSendRequest(t, c, l);
+        return (0, s.endInitialLoadSpan)(T, "success"), (0, i.endManualTrace)(u, "SUCCESS"), d.retainForBugReport("info", "Client gateway transport request completed"), o
+      } catch (n) {
+        let e = (0, o.isGatewayAbortError)(n);
+        throw (0, s.endInitialLoadSpan)(T, e ? "cancelled" : "error"), u.annotate({
+          string: {
+            error_class: (0, r.classifyErrorForTelemetry)(n),
+            error_name: (0, r.errorNameForTelemetry)(n)
+          }
+        }), (0, i.endManualTrace)(u, e ? "CANCEL" : "FAIL"), Date.now(), (0, a.isSensitiveNoiseMethod)(t) || (n instanceof Error ? n.message : String(n)), e ? d.retainForBugReport("debug", "Client gateway transport request cancelled") : d.retainForBugReport("warn", "Client gateway transport request failed"), n
+      }
+    }
+  }, "isMethodReadyForTransport", 0, function(e) {
+    return e.isWsReady
+  }])
+}, 707922, e => {
+  "use strict";
+  let t = new Set(["vault.luks_status"]),
+    o = new Set(["shared_agents.remote.open", "shared_agents.remote.send", "voice.calls.join"]),
+    a = ["peers.", "grants.", "circles."],
+    s = "[redacted]";
+
+  function i(e) {
+    return "object" == typeof e && null != e && !Array.isArray(e)
+  }
+
+  function n(e) {
+    return e.startsWith("credentials.")
+  }
+
+  function r(e) {
+    return a.some(t => e.startsWith(t))
+  }
+
+  function h(e) {
+    return e.startsWith("browser_task.clipboard.")
+  }
+
+  function d(e) {
+    return n(e) || r(e) || h(e) || o.has(e)
+  }
+
+  function p(e, t) {
+    return d(e) ? s : t
+  }
+
+  function c(e, t, o) {
+    let a = t.endsWith("\n") ? "\n" : "",
+      n = p(e, t);
+    return n !== t ? `${n??""}${a}` : "chat.subscribe" === e && function(e) {
+      if (!i(e)) return !0;
+      let t = "type" in e && "event" === e.type,
+        o = "event" in e,
+        a = o ? e.event : null;
+      return (!!t || !!o) && (!t || "string" != typeof a || 0 === a.length || !("payload" in e) || a.startsWith("peer."))
+    }(o) ? `${s}${a}` : t
+  }
+  e.s(["isSensitiveNoiseMethod", 0, d, "noiseInspectorBody", 0, p, "noiseInspectorPath", 0, function(e, t) {
+    return r(e) || h(e) ? "[FILTERED]" : n(e) ? t.split("?", 1)[0] ?? t : t
+  }, "noiseInspectorSubscriptionBody", 0, function(e, t) {
+    let o = p(e, t);
+    if (o !== t || null == t || "chat.subscribe" !== e) return o;
+    let a = t.split("\n"),
+      n = a.map((t, o) => {
+        let n, r = o < a.length - 1 ? "\n" : "";
+        if (0 === t.trim().length) return `${t}${r}`;
+        try {
+          n = JSON.parse(t)
+        } catch {
+          return `${s}${r}`
+        }
+        return i(n) ? c(e, `${t}${r}`, n) : `${s}${r}`
+      }).join("");
+    return n.length > 0 && !n.endsWith("\n") ? `${n}
+` : n
+  }, "noiseInspectorSubscriptionRecord", 0, c, "noiseTelemetryMethod", 0, function(e) {
+    return t.has(e) ? "[FILTERED]" : e
+  }, "shouldReportNoiseMethod", 0, function(e) {
+    return !t.has(e)
+  }])
+}, 396817, e => {
+  "use strict";
+  var t = e.i(519172),
+    o = e.i(543836),
+    a = e.i(271359),
+    s = e.i(855128),
+    i = e.i(296994),
+    n = e.i(803976),
+    r = e.i(698900),
+    h = e.i(546504),
+    d = e.i(778469),
+    p = e.i(312610),
+    c = e.i(942928),
+    l = e.i(235453),
+    m = e.i(714035),
+    u = e.i(621790),
+    g = e.i(73772),
+    T = e.i(792135),
+    M = e.i(984416),
+    y = Object.defineProperty,
+    f = (e, t) => y(e, "name", {
+      value: t,
+      configurable: !0
+    }),
+    v = "Dialog",
+    [_, b] = (0, s.createContextScope)(v),
+    [O, E] = _(v),
+    P = f(e => {
+      let {
+        __scopeDialog: o,
+        children: a,
+        open: s,
+        defaultOpen: r,
+        onOpenChange: h,
+        modal: d = !0
+      } = e, p = t.useRef(null), c = t.useRef(null), [l, m] = (0, n.useControllableState)({
+        prop: s,
+        defaultProp: r ?? !1,
+        onChange: h,
+        caller: v
+      }), [u, g] = t.useState(0), [T, y] = t.useState(0);
+      return (0, M.jsx)(O, {
+        scope: o,
+        triggerRef: p,
+        contentRef: c,
+        contentId: (0, i.useId)(),
+        titleId: (0, i.useId)(),
+        descriptionId: (0, i.useId)(),
+        titlePresent: u > 0,
+        descriptionPresent: T > 0,
+        setTitleCount: g,
+        setDescriptionCount: y,
+        open: l,
+        onOpenChange: m,
+        onOpenToggle: t.useCallback(() => m(e => !e), [m]),
+        modal: d,
+        children: a
+      })
+    }, "Dialog"),
+    S = t.forwardRef(f(function(e, t) {
+      let {
+        __scopeDialog: s,
+        ...i
+      } = e, n = E("DialogTrigger", s), r = (0, a.useComposedRefs)(t, n.triggerRef);
+      return (0, M.jsx)(c.Primitive.button, {
+        type: "button",
+        "aria-haspopup": "dialog",
+        "aria-expanded": n.open,
+        "aria-controls": n.open ? n.contentId : void 0,
+        "data-state": F(n.open),
+        ...i,
+        ref: r,
+        onClick: (0, o.composeEventHandlers)(e.onClick, n.onOpenToggle)
+      })
+    }, "DialogTrigger")),
+    k = "DialogPortal",
+    [w, G] = _(k, {
+      forceMount: void 0
+    }),
+    x = f(e => {
+      let {
+        __scopeDialog: o,
+        forceMount: a,
+        children: s,
+        container: i
+      } = e, n = E(k, o);
+      return (0, M.jsx)(w, {
+        scope: o,
+        forceMount: a,
+        children: t.Children.map(s, e => (0, M.jsx)(p.Presence, {
+          present: a || n.open,
+          children: (0, M.jsx)(d.Portal, {
+            asChild: !0,
+            container: i,
+            children: e
+          })
+        }))
+      })
+    }, "DialogPortal"),
+    A = "DialogOverlay",
+    C = t.forwardRef(f(function(e, t) {
+      let o = G(A, e.__scopeDialog),
+        {
+          forceMount: a = o.forceMount,
+          ...s
+        } = e,
+        i = E(A, e.__scopeDialog);
+      return i.modal ? (0, M.jsx)(p.Presence, {
+        present: a || i.open,
+        children: (0, M.jsx)(D, {
+          ...s,
+          ref: t
+        })
+      }) : null
+    }, "DialogOverlay")),
+    R = (0, T.createSlot)("DialogOverlay.RemoveScroll"),
+    D = t.forwardRef(f(function(e, t) {
+      let {
+        __scopeDialog: o,
+        ...s
+      } = e, i = E(A, o), n = (0, r.useDismissableLayerSurface)(), h = (0, a.useComposedRefs)(t, n);
+      return (0, M.jsx)(u.RemoveScroll, {
+        as: R,
+        allowPinchZoom: !0,
+        shards: [i.contentRef],
+        children: (0, M.jsx)(c.Primitive.div, {
+          "data-state": F(i.open),
+          ...s,
+          ref: h,
+          style: {
+            pointerEvents: "auto",
+            ...s.style
+          }
+        })
+      })
+    }, "DialogOverlayImpl")),
+    j = "DialogContent",
+    q = t.forwardRef(f(function(e, t) {
+      let o = G(j, e.__scopeDialog),
+        {
+          forceMount: a = o.forceMount,
+          ...s
+        } = e,
+        i = E(j, e.__scopeDialog);
+      return (0, M.jsx)(p.Presence, {
+        present: a || i.open,
+        children: i.modal ? (0, M.jsx)(H, {
+          ...s,
+          ref: t
+        }) : (0, M.jsx)(I, {
+          ...s,
+          ref: t
+        })
+      })
+    }, "DialogContent")),
+    H = t.forwardRef(f(function(e, s) {
+      let i = E(j, e.__scopeDialog),
+        n = t.useRef(null),
+        r = (0, a.useComposedRefs)(s, i.contentRef, n);
+      return t.useEffect(() => {
+        let e = n.current;
+        if (e) return (0, g.hideOthers)(e)
+      }, []), (0, M.jsx)(L, {
+        ...e,
+        ref: r,
+        trapFocus: i.open,
+        disableOutsidePointerEvents: i.open,
+        onCloseAutoFocus: (0, o.composeEventHandlers)(e.onCloseAutoFocus, e => {
+          e.preventDefault(), i.triggerRef.current?.focus()
+        }),
+        onPointerDownOutside: (0, o.composeEventHandlers)(e.onPointerDownOutside, e => {
+          let t = e.detail.originalEvent,
+            o = 0 === t.button && !0 === t.ctrlKey;
+          (2 === t.button || o) && e.preventDefault()
+        }),
+        onFocusOutside: (0, o.composeEventHandlers)(e.onFocusOutside, e => e.preventDefault())
+      })
+    }, "DialogContentModal")),
+    I = t.forwardRef(f(function(e, o) {
+      let a = E(j, e.__scopeDialog),
+        s = t.useRef(!1),
+        i = t.useRef(!1);
+      return (0, M.jsx)(L, {
+        ...e,
+        ref: o,
+        trapFocus: !1,
+        disableOutsidePointerEvents: !1,
+        onCloseAutoFocus: t => {
+          e.onCloseAutoFocus?.(t), t.defaultPrevented || (s.current || a.triggerRef.current?.focus(), t.preventDefault()), s.current = !1, i.current = !1
+        },
+        onInteractOutside: t => {
+          e.onInteractOutside?.(t), t.defaultPrevented || (s.current = !0, "pointerdown" === t.detail.originalEvent.type && (i.current = !0));
+          let o = t.target;
+          a.triggerRef.current?.contains(o) && t.preventDefault(), "focusin" === t.detail.originalEvent.type && i.current && t.preventDefault()
+        }
+      })
+    }, "DialogContentNonModal")),
+    L = t.forwardRef(f(function(e, t) {
+      let {
+        __scopeDialog: o,
+        trapFocus: a,
+        onOpenAutoFocus: s,
+        onCloseAutoFocus: i,
+        ...n
+      } = e, d = E(j, o);
+      return (0, l.useFocusGuards)(), (0, M.jsx)(M.Fragment, {
+        children: (0, M.jsx)(h.FocusScope, {
+          asChild: !0,
+          loop: !0,
+          trapped: a,
+          onMountAutoFocus: s,
+          onUnmountAutoFocus: i,
+          children: (0, M.jsx)(r.DismissableLayer, {
+            role: "dialog",
+            id: d.contentId,
+            "aria-describedby": d.descriptionPresent ? d.descriptionId : void 0,
+            "aria-labelledby": d.titlePresent ? d.titleId : void 0,
+            "data-state": F(d.open),
+            ...n,
+            ref: t,
+            deferPointerDownOutside: !0,
+            onDismiss: () => d.onOpenChange(!1)
+          })
+        })
+      })
+    }, "DialogContentImpl")),
+    N = t.forwardRef(f(function(e, t) {
+      let {
+        __scopeDialog: o,
+        ...a
+      } = e, s = E("DialogTitle", o), {
+        setTitleCount: i
+      } = s;
+      return (0, m.useLayoutEffect)(() => (i(e => e + 1), () => i(e => e - 1)), [i]), (0, M.jsx)(c.Primitive.h2, {
+        id: s.titleId,
+        ...a,
+        ref: t
+      })
+    }, "DialogTitle")),
+    K = t.forwardRef(f(function(e, t) {
+      let {
+        __scopeDialog: o,
+        ...a
+      } = e, s = E("DialogDescription", o), {
+        setDescriptionCount: i
+      } = s;
+      return (0, m.useLayoutEffect)(() => (i(e => e + 1), () => i(e => e - 1)), [i]), (0, M.jsx)(c.Primitive.p, {
+        id: s.descriptionId,
+        ...a,
+        ref: t
+      })
+    }, "DialogDescription")),
+    B = t.forwardRef(f(function(e, t) {
+      let {
+        __scopeDialog: a,
+        ...s
+      } = e, i = E("DialogClose", a);
+      return (0, M.jsx)(c.Primitive.button, {
+        type: "button",
+        ...s,
+        ref: t,
+        onClick: (0, o.composeEventHandlers)(e.onClick, () => i.onOpenChange(!1))
+      })
+    }, "DialogClose"));
+
+  function F(e) {
+    return e ? "open" : "closed"
+  }
+  f(F, "getState"), e.s(["Close", 0, B, "Content", 0, q, "Description", 0, K, "Overlay", 0, C, "Portal", 0, x, "Root", 0, P, "Title", 0, N, "Trigger", 0, S])
+}, 228750, 204523, e => {
+  "use strict";
+  let t = {
+      CHAT_ROUTE: "hatch.chat-route",
+      FEED_ROUTE: "hatch.feed-route",
+      GOALS_ROUTE: "hatch.goals-route",
+      IDEAS_ROUTE: "hatch.ideas-route"
+    },
+    o = new Set(Object.values(t));
+
+  function a(e) {
+    return "string" == typeof e && o.has(e)
+  }
+  e.s(["HATCH_EARLY_CLIENT_PRELOAD", 0, t, "HATCH_EARLY_CLIENT_PRELOAD_LIMIT", 0, 16, "isHatchEarlyClientPreloadKey", 0, a], 204523);
+  let s = "$hatch.activeGatewayUrl",
+    i = "$hatch.activeGatewayTargetKey";
+
+  function n(e) {
+    return null == e || "string" == typeof e || "number" == typeof e || "boolean" == typeof e || (Array.isArray(e) ? e.every(n) : "object" == typeof e && Object.values(e).every(n))
+  }
+
+  function r(e) {
+    if ("object" != typeof e || null == e || 1 !== e.version || !Array.isArray(e.queryKey) || e.queryKey.length > 32 || !n(e.queryKey) || "string" != typeof e.sourceKey || e.sourceKey.length > 4096 || e.sourceKey !== JSON.stringify(e.queryKey) || !Number.isFinite(e.staleTimeMs) || (e.staleTimeMs ?? -1) < 0 || "string" != typeof e.targetKey || null != e.clientPreloads && (!Array.isArray(e.clientPreloads) || e.clientPreloads.length > 16 || !e.clientPreloads.every(a)) || "object" != typeof e.request || null == e.request) return !1;
+    let t = e.request;
+    if ("string" != typeof t.method || 0 === t.method.length || t.method.length > 128 || "object" != typeof t.params || null == t.params || Array.isArray(t.params) || !n(t.params) || "raw" !== t.resultMode && "hatch_gateway_result" !== t.resultMode || null != t.clientParams && (!Array.isArray(t.clientParams) || t.clientParams.length > 8 || !t.clientParams.every(e => "object" == typeof e && null != e && "string" == typeof e.paramName && 0 !== e.paramName.length && "__proto__" !== e.paramName && "constructor" !== e.paramName && "prototype" !== e.paramName && ("browser_timezone" === e.kind || ("query_param_string" === e.kind ? "string" == typeof e.queryParam && e.queryParam.length > 0 && e.queryParam.length <= 64 && Array.isArray(e.allowedValues) && e.allowedValues.length > 0 && e.allowedValues.length <= 16 && e.allowedValues.every(e => "string" == typeof e && e.length > 0 && e.length <= 64) : "local_storage_string" === e.kind && "string" == typeof e.storageKey && (e.storageKey.startsWith("hatch:debug:") || e.storageKey.startsWith("hatch:preference:"))))))) return !1;
+    let o = e.dependency;
+    return null == o || "object" == typeof o && Array.isArray(o.queryKey) && o.queryKey.length <= 32 && n(o.queryKey) && "object" == typeof o.skipWhen && null != o.skipWhen && "string" == typeof o.skipWhen.field && o.skipWhen.field.length > 0 && n(o.skipWhen.equals)
+  }
+
+  function h(e, t, o) {
+    return e === s ? t : e === i ? o : Array.isArray(e) ? e.map(e => h(e, t, o)) : "object" == typeof e && null != e ? Object.fromEntries(Object.entries(e).map(([e, a]) => [e, h(a, t, o)])) : e
+  }
+  e.s(["HATCH_ACTIVE_GATEWAY_TARGET_KEY_PLACEHOLDER", 0, i, "HATCH_ACTIVE_GATEWAY_URL_PLACEHOLDER", 0, s, "HATCH_EARLY_GATEWAY_QUERIES_ATTRIBUTE", 0, "data-hatch-early-gateway-queries", "HATCH_EARLY_GATEWAY_QUERY_LIMIT", 0, 64, "bindHatchEarlyGatewayQueryDescriptor", 0, function(e, t, o) {
+    let a = e.queryKey.map(e => h(e, t, o));
+    return {
+      ...e,
+      queryKey: a,
+      sourceKey: JSON.stringify(a),
+      targetKey: e.targetKey === i ? o : e.targetKey,
+      request: {
+        ...e.request,
+        params: Object.fromEntries(Object.entries(e.request.params).map(([e, a]) => [e, h(a, t, o)]))
+      },
+      ...null == e.dependency ? {} : {
+        dependency: {
+          ...e.dependency,
+          queryKey: e.dependency.queryKey.map(e => h(e, t, o))
+        }
+      }
+    }
+  }, "buildOnboardingStartQueryKey", 0, function(e) {
+    return ["hatch", "onboarding-start", e]
+  }, "parseHatchEarlyGatewayQueryDescriptors", 0, function(e) {
+    return Array.isArray(e) && !(e.length > 64) && e.every(r) ? e : null
+  }, "serializeHatchEarlyGatewayQueryScript", 0, function(e) {
+    let t = JSON.stringify(e).replaceAll("<", "\\u003c").replaceAll(">", "\\u003e").replaceAll("&", "\\u0026").replaceAll("\u2028", "\\u2028").replaceAll("\u2029", "\\u2029");
+    return `window.__HATCH_GATEWAY_QUERY_QUEUE__??=[];window.__HATCH_GATEWAY_QUERY_QUEUE__.push(${t});window.__HATCH_GATEWAY_ON_QUERY__?.();`
+  }], 228750)
+}, 85461, e => {
+  "use strict";
+  let t = /(?:^|\/)api\/browser-task\/[^?#]*\/clipboard(?:\/|[?#]|$)/i,
+    o = "shared_space.callback";
+  class a extends Error {
+    status;
+    code;
+    constructor(e, t) {
+      super(`Missing required path parameter "${t}" for method ${e}`), this.name = "HttpRoutePathParamError", this.status = 400, this.code = "hatch_http_missing_path_param"
+    }
+  }
+  let s = [{
+      method: "chat.history",
+      httpMethod: "GET",
+      path: "/chat/history"
+    }, {
+      method: "professional_consent.resume",
+      httpMethod: "POST",
+      path: "/api/professional-consent/resume"
+    }, {
+      method: "chat.mark_seen",
+      httpMethod: "POST",
+      path: "/api/chat/{thread_id}/seen"
+    }, {
+      method: "chat.sxs.select",
+      httpMethod: "POST",
+      path: "/api/chat/sxs/select"
+    }, {
+      method: "sharing.eligibility",
+      httpMethod: "GET",
+      path: "/api/sharing/eligibility",
+      service: "daemon",
+      noiseOnly: !0,
+      requestTimeoutMs: 15e3
+    }, {
+      method: "sharing.attempt",
+      httpMethod: "POST",
+      path: "/api/sharing/attempt",
+      service: "daemon",
+      noiseOnly: !0,
+      requestTimeoutMs: 35e3
+    }, {
+      method: "activity.list",
+      httpMethod: "GET",
+      path: "/activity"
+    }, {
+      method: "activity.get",
+      httpMethod: "GET",
+      path: "/activity/{id}"
+    }, {
+      method: "tasks.list",
+      httpMethod: "GET",
+      path: "/tasks"
+    }, {
+      method: "tasks.runs",
+      httpMethod: "GET",
+      path: "/tasks/runs"
+    }, {
+      method: "tasks.delete",
+      httpMethod: "DELETE",
+      path: "/api/tasks/{job_id}",
+      requestBody: "empty"
+    }, {
+      method: "sessions.list",
+      httpMethod: "GET",
+      path: "/api/session/list"
+    }, {
+      method: "sessions.get",
+      httpMethod: "GET",
+      path: "/api/session/list/{id}"
+    }, {
+      method: "skills.list",
+      httpMethod: "GET",
+      path: "/skills"
+    }, {
+      method: "skills.disconnect",
+      httpMethod: "POST",
+      path: "/skills/disconnect"
+    }, {
+      method: "skills.set_disabled",
+      httpMethod: "POST",
+      path: "/skills/set-disabled"
+    }, {
+      method: "subagents.list",
+      httpMethod: "GET",
+      path: "/subagents"
+    }, {
+      method: "subagents.status",
+      httpMethod: "GET",
+      path: "/subagents/status"
+    }, {
+      method: "config.get",
+      httpMethod: "GET",
+      path: "/config"
+    }, {
+      method: "config.update",
+      httpMethod: "PATCH",
+      path: "/config"
+    }, {
+      method: "vm.health",
+      httpMethod: "GET",
+      path: "/health"
+    }, {
+      method: "bug_report_logs.create",
+      httpMethod: "POST",
+      path: "/api/debug/bug-report-logs",
+      noiseOnly: !0,
+      requestTimeoutMs: 9e5
+    }, {
+      method: "bug_report_logs.download",
+      httpMethod: "GET",
+      path: "/api/debug/bug-report-logs/{file_id}",
+      noiseOnly: !0,
+      responseType: "binary",
+      maxResponseBytes: 5242880,
+      requestTimeoutMs: 12e4,
+      channel: "media"
+    }, {
+      method: "home_link_bug_reports.collect",
+      httpMethod: "POST",
+      path: "/api/debug/home-link-bug-reports",
+      requestBody: "empty",
+      noiseOnly: !0,
+      requestTimeoutMs: 35e3
+    }, {
+      method: "dyi.export",
+      httpMethod: "POST",
+      path: "/api/dyi/export",
+      service: "daemon",
+      requestBody: "empty",
+      noiseOnly: !0,
+      responseType: "binary",
+      maxResponseBytes: 1 / 0,
+      requestTimeoutMs: 39e5,
+      responseIdleTimeoutMs: 39e5,
+      channel: "media"
+    }, {
+      method: "product_improvements.get",
+      httpMethod: "GET",
+      path: "/api/product-improvements",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "product_improvements.set",
+      httpMethod: "POST",
+      path: "/api/product-improvements",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "email.mailbox.get",
+      httpMethod: "GET",
+      path: "/api/email/mailbox",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "email.mailbox.setup",
+      httpMethod: "GET",
+      path: "/api/email/mailbox/setup",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "email.mailbox.create",
+      httpMethod: "POST",
+      path: "/api/email/mailbox",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "email.mailbox.delete",
+      httpMethod: "DELETE",
+      path: "/api/email/mailbox",
+      service: "daemon",
+      noiseOnly: !0,
+      requestBody: "empty"
+    }, {
+      method: "email.messages.get",
+      httpMethod: "GET",
+      path: "/api/email/messages/{message_id}",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "email.attachment.get",
+      httpMethod: "GET",
+      path: "/api/email/messages/{message_id}/attachments/{index}",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "email.threads.list",
+      httpMethod: "GET",
+      path: "/api/email/threads",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "email.threads.get",
+      httpMethod: "GET",
+      path: "/api/email/threads/{thread_id}",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "invite.badge.get",
+      httpMethod: "GET",
+      path: "/api/invite/badge",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "invite.badge.seen",
+      httpMethod: "POST",
+      path: "/api/invite/badge/seen",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.status",
+      httpMethod: "GET",
+      path: "/peers/status",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.list",
+      httpMethod: "GET",
+      path: "/peers",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.invites.list",
+      httpMethod: "GET",
+      path: "/peers/invites",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.disconnect",
+      httpMethod: "DELETE",
+      path: "/peers/{muse_id}?relationship_generation_id={relationship_generation_id}&relationship_revision={relationship_revision}&relationship_started_at_ms={relationship_started_at_ms}&request_expires_at_ms={request_expires_at_ms}",
+      requestBody: "empty",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.update",
+      httpMethod: "PATCH",
+      path: "/peers/{muse_id}",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.requests.list",
+      httpMethod: "GET",
+      path: "/peers/requests",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.invites.create",
+      httpMethod: "POST",
+      path: "/peers/invites",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.invites.accept",
+      httpMethod: "POST",
+      path: "/peers/invites/accept",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.invites.revoke",
+      httpMethod: "DELETE",
+      path: "/peers/invites/{invite_id}",
+      requestBody: "empty",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.requests.sas",
+      httpMethod: "GET",
+      path: "/peers/requests/{relationship_generation_id}/sas",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "peers.requests.sas.confirm",
+      httpMethod: "POST",
+      path: "/peers/requests/{relationship_generation_id}/sas/confirm",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "grants.list",
+      httpMethod: "GET",
+      path: "/grants",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "vm.enrollment_health",
+      httpMethod: "GET",
+      path: "/health/enrollment"
+    }, {
+      method: "vault.luks_status",
+      httpMethod: "GET",
+      path: "/luks/status",
+      service: "vault",
+      noiseOnly: !0
+    }, {
+      method: "voice.user_speech_started",
+      httpMethod: "POST",
+      path: "/api/voice/user-speech-started"
+    }, {
+      method: "voice.active_voice",
+      httpMethod: "GET",
+      path: "/api/voice/active-voice"
+    }, {
+      method: "voice.calls.media_endpoint",
+      httpMethod: "GET",
+      path: "/api/voice/calls/media-endpoint"
+    }, {
+      method: "voice.available_voices",
+      httpMethod: "GET",
+      path: "/api/voice/available-voices"
+    }, {
+      method: "voice.catalog",
+      httpMethod: "GET",
+      path: "/api/voice/catalog"
+    }, {
+      method: "voice.catalog_filters",
+      httpMethod: "GET",
+      path: "/api/voice/catalog/filters"
+    }, {
+      method: "voice.custom_voices.list",
+      httpMethod: "GET",
+      path: "/api/voice/custom-voices"
+    }, {
+      method: "voice.custom_voices.rename",
+      httpMethod: "PATCH",
+      path: "/api/voice/custom-voices/{saved_voice_id}"
+    }, {
+      method: "voice.custom_voices.delete",
+      httpMethod: "DELETE",
+      path: "/api/voice/custom-voices/{saved_voice_id}",
+      requestBody: "empty"
+    }, {
+      method: "voice.pipeline_profiles",
+      httpMethod: "GET",
+      path: "/api/voice/pipeline-profiles"
+    }, {
+      method: "voice.select_pipeline_profile",
+      httpMethod: "POST",
+      path: "/api/voice/pipeline-profile"
+    }, {
+      method: "voice.avatar_video.prepare",
+      httpMethod: "POST",
+      path: "/api/voice/avatar-video/prepare",
+      noiseOnly: !0,
+      requestTimeoutMs: 8e3
+    }, {
+      method: "voice.start_call",
+      httpMethod: "POST",
+      path: "/api/voice/start-call"
+    }, {
+      method: "voice.end_call",
+      httpMethod: "POST",
+      path: "/api/voice/end-call"
+    }, {
+      method: "voice.onboarding.reset",
+      httpMethod: "POST",
+      path: "/api/voice/onboarding/reset"
+    }, {
+      method: "messenger.fb-check",
+      httpMethod: "GET",
+      path: "/api/messenger/fb-check"
+    }, {
+      method: "messenger.pin_status",
+      httpMethod: "GET",
+      path: "/api/messenger_companion/pin-status"
+    }, {
+      method: "messenger_companion.unlock",
+      httpMethod: "POST",
+      path: "/api/messenger_companion/unlock"
+    }, {
+      method: "messenger-read.unlock",
+      httpMethod: "POST",
+      path: "/api/messenger-read/unlock"
+    }, {
+      method: "foa.accounts",
+      httpMethod: "GET",
+      path: "/api/foa/accounts"
+    }, {
+      method: "connectors.accounts",
+      httpMethod: "GET",
+      path: "/connectors/{id}/accounts"
+    }, {
+      method: "connectors.accounts_unlink",
+      httpMethod: "POST",
+      path: "/connectors/{id}/accounts/{account_id}/unlink"
+    }, {
+      method: "connectors.accounts_link",
+      httpMethod: "POST",
+      path: "/connectors/{id}/accounts/link"
+    }, {
+      method: "foa_auth.callback",
+      httpMethod: "POST",
+      path: "/api/foa_auth/callback",
+      service: "authd"
+    }, {
+      method: "channels.status",
+      httpMethod: "GET",
+      path: "/channels/status"
+    }, {
+      method: "channels.link",
+      httpMethod: "POST",
+      path: "/channels/link"
+    }, {
+      method: "channels.unlink",
+      httpMethod: "POST",
+      path: "/channels/unlink"
+    }, {
+      method: "shared_agents.list",
+      httpMethod: "GET",
+      path: "/shared-agents"
+    }, {
+      method: "shared_agents.capabilities",
+      httpMethod: "GET",
+      path: "/shared-agents/capabilities"
+    }, {
+      method: "shared_agents.detail",
+      httpMethod: "GET",
+      path: "/shared-agents/{shared_agent_id}"
+    }, {
+      method: "shared_agents.delete",
+      httpMethod: "DELETE",
+      path: "/shared-agents/{shared_agent_id}"
+    }, {
+      method: "shared_agents.state.update",
+      httpMethod: "PATCH",
+      path: "/shared-agents/{shared_agent_id}/state"
+    }, {
+      method: "shared_agents.identity.update",
+      httpMethod: "PATCH",
+      path: "/shared-agents/{shared_agent_id}/identity"
+    }, {
+      method: "shared_agents.definition",
+      httpMethod: "GET",
+      path: "/shared-agents/{shared_agent_id}/definition"
+    }, {
+      method: "shared_agents.create",
+      httpMethod: "POST",
+      path: "/shared-agents/create-idempotent"
+    }, {
+      method: "shared_agents.definition.update",
+      httpMethod: "PATCH",
+      path: "/shared-agents/{shared_agent_id}/definition"
+    }, {
+      method: "shared_agents.shares.list",
+      httpMethod: "GET",
+      path: "/shared-agents/{shared_agent_id}/shares"
+    }, {
+      method: "shared_agents.shares.create",
+      httpMethod: "POST",
+      path: "/shared-agents/{shared_agent_id}/shares"
+    }, {
+      method: "shared_agents.shares.conversation",
+      httpMethod: "GET",
+      path: "/shared-agents/{shared_agent_id}/shares/{share_id}/conversation"
+    }, {
+      method: "shared_agents.shares.revoke",
+      httpMethod: "POST",
+      path: "/shared-agents/{shared_agent_id}/shares/{share_id}/revoke"
+    }, {
+      method: "shared_agents.remote.open",
+      httpMethod: "POST",
+      path: "/api/shared-agents/remote/open",
+      noiseOnly: !0,
+      streamMode: "subscription",
+      connectionClass: "shared_agent"
+    }, {
+      method: "shared_agents.remote.send",
+      httpMethod: "POST",
+      path: "/api/shared-agents/remote/send",
+      noiseOnly: !0,
+      connectionClass: "shared_agent"
+    }, {
+      method: "memory.search",
+      httpMethod: "POST",
+      path: "/memory/search"
+    }, {
+      method: "memory.get",
+      httpMethod: "POST",
+      path: "/memory/get"
+    }, {
+      method: "memory.consolidate",
+      httpMethod: "POST",
+      path: "/memory/consolidate"
+    }, {
+      method: "memory.reindex",
+      httpMethod: "POST",
+      path: "/memory/reindex"
+    }, {
+      method: "bootstrap.reset",
+      httpMethod: "POST",
+      path: "/bootstrap/reset"
+    }, {
+      method: "subscription.callback",
+      httpMethod: "POST",
+      path: "/subscription/callback"
+    }, {
+      method: "subscription.redeem_complimentary",
+      httpMethod: "POST",
+      path: "/subscription/redeem-complimentary",
+      requestTimeoutMs: 9e4
+    }, {
+      method: "reactions.toggle",
+      httpMethod: "POST",
+      path: "/reactions/toggle"
+    }, {
+      method: "oauth.callback",
+      httpMethod: "POST",
+      path: "/oauth/callback",
+      service: "authd"
+    }, {
+      method: "ac_oauth.callback",
+      httpMethod: "POST",
+      path: "/ac_oauth/callback"
+    }, {
+      method: o,
+      httpMethod: "POST",
+      path: "/share/callback"
+    }, {
+      method: "api_key_auth.callback",
+      httpMethod: "POST",
+      path: "/api_key_auth/callback",
+      service: "authd"
+    }, {
+      method: "custom_connectors.register",
+      httpMethod: "POST",
+      path: "/v1/custom-connectors/register",
+      service: "authd",
+      aliases: ["custom_oauth_connector.register"]
+    }, {
+      method: "custom_connectors.list",
+      httpMethod: "POST",
+      path: "/v1/custom-connectors/list",
+      service: "authd"
+    }, {
+      method: "custom_connectors.delete",
+      httpMethod: "POST",
+      path: "/v1/custom-connectors/delete",
+      service: "authd"
+    }, {
+      method: "connectors.list",
+      httpMethod: "GET",
+      path: "/connectors"
+    }, {
+      method: "connectors.homepage",
+      httpMethod: "GET",
+      path: "/connectors/homepage"
+    }, {
+      method: "connectors.get",
+      httpMethod: "GET",
+      path: "/connectors/{id}"
+    }, {
+      method: "connectors.connect_info",
+      httpMethod: "GET",
+      path: "/connectors/{id}/connect/info"
+    }, {
+      method: "connectors.connect",
+      httpMethod: "POST",
+      path: "/connectors/{id}/connect"
+    }, {
+      method: "connectors.permissions",
+      httpMethod: "GET",
+      path: "/connectors/{id}/permissions"
+    }, {
+      method: "connectors.scope_link",
+      httpMethod: "POST",
+      path: "/connectors/{id}/scopes/{method}/link"
+    }, {
+      method: "connectors.disconnect",
+      httpMethod: "POST",
+      path: "/connectors/{id}/disconnect"
+    }, {
+      method: "consent_auth.callback",
+      httpMethod: "POST",
+      path: "/consent_auth/callback"
+    }, {
+      method: "username_password_auth.callback",
+      httpMethod: "POST",
+      path: "/username_password_auth/callback",
+      service: "authd"
+    }, {
+      method: "whatsapp.login",
+      httpMethod: "POST",
+      path: "/whatsapp/login"
+    }, {
+      method: "whatsapp.install",
+      httpMethod: "POST",
+      path: "/whatsapp/install"
+    }, {
+      method: "whatsapp_companion.link",
+      httpMethod: "POST",
+      path: "/whatsapp_companion/link"
+    }, {
+      method: "whatsapp_companion.status",
+      httpMethod: "GET",
+      path: "/whatsapp_companion/status"
+    }, {
+      method: "browser_stream.attach",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/websockify?mode=attach",
+      noiseOnly: !0
+    }, {
+      method: "browser_activity.snapshot",
+      httpMethod: "GET",
+      path: "/api/browser-activity/actions/{action_id}/snapshot",
+      responseType: "binary",
+      channel: "media"
+    }, {
+      method: "voice.dictation",
+      httpMethod: "POST",
+      path: "/api/voice/dictation?sample_rate_hz={sample_rate_hz}",
+      noiseOnly: !0
+    }, {
+      method: "browser_task.get",
+      httpMethod: "GET",
+      path: "/api/browser-task/{task_id}"
+    }, {
+      method: "browser_task.clipboard.readiness",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/clipboard/readiness",
+      noiseOnly: !0,
+      maxResponseBytes: 2048
+    }, {
+      method: "browser_task.clipboard.copy",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/clipboard/copy",
+      noiseOnly: !0,
+      maxResponseBytes: 370688
+    }, {
+      method: "browser_task.clipboard.paste",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/clipboard/paste",
+      noiseOnly: !0,
+      maxResponseBytes: 2048
+    }, {
+      method: "browser_task.takeover",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/takeover"
+    }, {
+      method: "browser_task.present",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/present"
+    }, {
+      method: "browser_task.viewer",
+      httpMethod: "PATCH",
+      path: "/api/browser-task/{task_id}/viewer",
+      service: "daemon",
+      noiseOnly: !0
+    }, {
+      method: "browser_task.heartbeat",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/heartbeat"
+    }, {
+      method: "browser_task.close",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/close"
+    }, {
+      method: "browser_task.release",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/release"
+    }, {
+      method: "browser_task.stop",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/stop"
+    }, {
+      method: "browser_task.refresh_environment",
+      httpMethod: "POST",
+      path: "/api/browser-task/{task_id}/refresh-environment",
+      requestTimeoutMs: 15e4
+    }, {
+      method: "browser.lease",
+      httpMethod: "POST",
+      path: "/api/browser/lease",
+      requestTimeoutMs: 12e4
+    }, {
+      method: "computer.context",
+      httpMethod: "GET",
+      path: "/api/computer/context"
+    }, {
+      method: "computer.preview",
+      httpMethod: "GET",
+      path: "/api/computer/previews/{task_id}/{sha256}",
+      responseType: "binary",
+      channel: "media"
+    }, {
+      method: "browser.local_testing.get",
+      httpMethod: "GET",
+      path: "/api/browser/local-testing",
+      noiseOnly: !0,
+      requestTimeoutMs: 9e4
+    }, {
+      method: "browser.local_testing.set",
+      httpMethod: "PATCH",
+      path: "/api/browser/local-testing",
+      noiseOnly: !0,
+      requestTimeoutMs: 9e4
+    }, {
+      method: "identity",
+      httpMethod: "GET",
+      path: "/identity"
+    }, {
+      method: "chat.themes",
+      httpMethod: "GET",
+      path: "/api/chat/themes"
+    }, {
+      method: "chat.themes.set",
+      httpMethod: "POST",
+      path: "/api/chat/themes/set"
+    }, {
+      method: "iframe.call",
+      httpMethod: "POST",
+      path: "/call"
+    }, {
+      method: "voice.calls.join",
+      httpMethod: "POST",
+      path: "/voice/calls/join"
+    }, {
+      method: "artifacts.share",
+      httpMethod: "POST",
+      path: "/artifacts/share"
+    }, {
+      method: "artifacts.remove",
+      httpMethod: "POST",
+      path: "/artifacts/remove"
+    }, {
+      method: "artifacts.fetch_url",
+      httpMethod: "GET",
+      path: "/artifacts/fetch_url"
+    }, {
+      method: "artifacts.list",
+      httpMethod: "GET",
+      path: "/api/artifacts"
+    }, {
+      method: "artifacts.pin",
+      httpMethod: "POST",
+      path: "/api/artifacts/pin",
+      noiseOnly: !0
+    }, {
+      method: "artifacts.slides.rebuild",
+      httpMethod: "POST",
+      path: "/api/artifacts/slides/rebuild",
+      noiseOnly: !0,
+      requestTimeoutMs: 18e4
+    }, {
+      method: "onboarding.variants",
+      httpMethod: "GET",
+      path: "/api/onboarding/variants"
+    }, {
+      method: "onboarding.pages.start",
+      httpMethod: "POST",
+      path: "/onboarding/pages"
+    }, {
+      method: "onboarding.complete",
+      httpMethod: "POST",
+      path: "/onboarding/complete"
+    }, {
+      method: "onboarding.reset",
+      httpMethod: "POST",
+      path: "/onboarding/reset"
+    }, {
+      method: "onboarding.tasks",
+      httpMethod: "GET",
+      path: "/onboarding/tasks"
+    }, {
+      method: "onboarding.identity",
+      httpMethod: "GET",
+      path: "/onboarding/identity"
+    }, {
+      method: "onboarding.identity.set",
+      httpMethod: "POST",
+      path: "/onboarding/identity"
+    }, {
+      method: "goal_prompt",
+      httpMethod: "POST",
+      path: "/goal_prompt"
+    }, {
+      method: "goals.list",
+      httpMethod: "GET",
+      path: "/goals"
+    }, {
+      method: "goals.get",
+      httpMethod: "GET",
+      path: "/goals/{id}"
+    }, {
+      method: "goals.update",
+      httpMethod: "PATCH",
+      path: "/goals/{id}"
+    }, {
+      method: "goals.reorder",
+      httpMethod: "PATCH",
+      path: "/goals/{id}/order"
+    }, {
+      method: "goals.delete",
+      httpMethod: "DELETE",
+      path: "/goals/{id}"
+    }, {
+      method: "podcasts.episodes.list",
+      httpMethod: "GET",
+      path: "/api/podcasts/episodes"
+    }, {
+      method: "podcasts.feed.get",
+      httpMethod: "GET",
+      path: "/api/podcasts/feed"
+    }, {
+      method: "podcasts.feeds.list",
+      httpMethod: "GET",
+      path: "/api/podcasts/feeds"
+    }, {
+      method: "podcasts.episode.delete",
+      httpMethod: "DELETE",
+      path: "/api/podcasts/episodes/{slug}"
+    }, {
+      method: "goals.suggestions.decide",
+      httpMethod: "POST",
+      path: "/goals/{goal_id}/suggestions/{suggestion_id}/decision"
+    }, {
+      method: "api.idea-cards.list",
+      httpMethod: "GET",
+      path: "/api/idea-cards"
+    }, {
+      method: "api.ideas.reset",
+      httpMethod: "POST",
+      path: "/api/ideas/reset"
+    }, {
+      method: "api.ideas.engagement",
+      httpMethod: "POST",
+      path: "/api/ideas/{id}/engagement"
+    }, {
+      method: "api.ideas.feedback",
+      httpMethod: "POST",
+      path: "/api/ideas/{id}/feedback"
+    }, {
+      method: "api.idea-cards.detail",
+      httpMethod: "GET",
+      path: "/api/idea-cards/{ideaCardId}"
+    }, {
+      method: "api.idea-cards.execute",
+      httpMethod: "POST",
+      path: "/api/idea-cards/{ideaCardId}/execute"
+    }, {
+      method: "api.idea-cards.share",
+      httpMethod: "POST",
+      path: "/api/idea-cards/{ideaCardId}/share"
+    }, {
+      method: "api.idea-cards.debug",
+      httpMethod: "GET",
+      path: "/api/idea-cards/{ideaCardId}/debug"
+    }, {
+      method: "shopping.product_details",
+      httpMethod: "GET",
+      path: "/api/shopping"
+    }, {
+      method: "shopping.cart",
+      httpMethod: "GET",
+      path: "/api/shopping/cart"
+    }, {
+      method: "shopping.events",
+      httpMethod: "POST",
+      path: "/api/shopping/events"
+    }, {
+      method: "ads.details",
+      httpMethod: "GET",
+      path: "/api/ads/details"
+    }, {
+      method: "feed.list",
+      httpMethod: "GET",
+      path: "/api/feed"
+    }, {
+      method: "feed.infinite",
+      httpMethod: "GET",
+      path: "/api/feed/infinite",
+      noiseOnly: !0,
+      streamMode: "records"
+    }, {
+      method: "feed.status",
+      httpMethod: "GET",
+      path: "/api/feed/status"
+    }, {
+      method: "feed.search",
+      httpMethod: "GET",
+      path: "/api/feed/search"
+    }, {
+      method: "feed.unit",
+      httpMethod: "GET",
+      path: "/api/feed/units/{unit_id}"
+    }, {
+      method: "feed.unit.delete",
+      httpMethod: "DELETE",
+      path: "/api/feed/units/{unit_id}"
+    }, {
+      method: "feed.unit.reaction",
+      httpMethod: "POST",
+      path: "/api/feed/units/{unit_id}/reaction"
+    }, {
+      method: "feed.unit.tap",
+      httpMethod: "POST",
+      path: "/api/feed/units/{unit_id}/tap"
+    }, {
+      method: "feed.units.seen",
+      httpMethod: "POST",
+      path: "/api/feed/units/seen"
+    }, {
+      method: "feed.reorder",
+      httpMethod: "POST",
+      path: "/api/feed/reorder"
+    }, {
+      method: "feed.regenerate",
+      httpMethod: "POST",
+      path: "/api/feed/regenerate"
+    }, {
+      method: "feed.prompt.get",
+      httpMethod: "GET",
+      path: "/api/feed/prompt"
+    }, {
+      method: "feed.prompt.update",
+      httpMethod: "PATCH",
+      path: "/api/feed/prompt"
+    }, {
+      method: "feed.prompts.delete",
+      httpMethod: "DELETE",
+      path: "/api/feed/prompts/{prompt_id}"
+    }, {
+      method: "feed.social_source_icon",
+      httpMethod: "GET",
+      path: "/api/feed/social-source-icon/{source}",
+      responseType: "binary",
+      channel: "media"
+    }, {
+      method: "feed.unit.media",
+      httpMethod: "GET",
+      path: "/api/feed/units/{unit_id}/media/{handle}",
+      responseType: "binary",
+      channel: "media"
+    }, {
+      method: "redteam.mocks.apply",
+      httpMethod: "POST",
+      path: "/redteam/mocks"
+    }, {
+      method: "redteam.mocks.clear",
+      httpMethod: "DELETE",
+      path: "/redteam/mocks"
+    }, {
+      method: "redteam.mocks.get",
+      httpMethod: "GET",
+      path: "/redteam/mocks"
+    }, {
+      method: "redteam.sidecar.tail",
+      httpMethod: "GET",
+      path: "/redteam/mocks/sidecar"
+    }, {
+      method: "check",
+      httpMethod: "GET",
+      path: "/check"
+    }, {
+      method: "session.start",
+      httpMethod: "POST",
+      path: "/session/start"
+    }, {
+      method: "session.archive",
+      httpMethod: "POST",
+      path: "/session/archive"
+    }, {
+      method: "session.unarchive",
+      httpMethod: "POST",
+      path: "/session/unarchive"
+    }, {
+      method: "session.pin",
+      httpMethod: "POST",
+      path: "/session/pin"
+    }, {
+      method: "session.unpin",
+      httpMethod: "POST",
+      path: "/session/unpin"
+    }, {
+      method: "session.rename",
+      httpMethod: "POST",
+      path: "/session/rename"
+    }, {
+      method: "session.delete",
+      httpMethod: "POST",
+      path: "/session/delete"
+    }, {
+      method: "chat.unread_count",
+      httpMethod: "GET",
+      path: "/chat/unread-count"
+    }, {
+      method: "chat.poke",
+      httpMethod: "POST",
+      path: "/chat/poke"
+    }, {
+      method: "onboarding.state",
+      httpMethod: "GET",
+      path: "/onboarding"
+    }, {
+      method: "onboarding.questions",
+      httpMethod: "GET",
+      path: "/onboarding/questions"
+    }, {
+      method: "spaces.list",
+      httpMethod: "GET",
+      path: "/spaces/v2"
+    }, {
+      method: "spaces.delete",
+      httpMethod: "DELETE",
+      path: "/spaces/v2/{slug}"
+    }, {
+      method: "spaces.saved.delete",
+      httpMethod: "DELETE",
+      path: "/spaces/v2/{slug}?source=saved_space"
+    }, {
+      method: "spaces.save",
+      httpMethod: "POST",
+      path: "/spaces/v2/{slug}/save"
+    }, {
+      method: "spaces.share.review",
+      httpMethod: "GET",
+      path: "/spaces/share/{slug}/review"
+    }, {
+      method: "spaces.share",
+      httpMethod: "POST",
+      path: "/spaces/share/{slug}",
+      requestTimeoutMs: 6e5
+    }, {
+      method: "spaces.share.status",
+      httpMethod: "GET",
+      path: "/spaces/share/{slug}"
+    }, {
+      method: "spaces.unshare",
+      httpMethod: "DELETE",
+      path: "/spaces/share/{slug}"
+    }, {
+      method: "spaces.share.fix",
+      httpMethod: "POST",
+      path: "/spaces/share/{slug}/fix"
+    }, {
+      method: "spaces.debug.summary",
+      httpMethod: "GET",
+      path: "/spaces/{slug}/debug/summary"
+    }, {
+      method: "spaces.debug.invocations",
+      httpMethod: "GET",
+      path: "/spaces/{slug}/debug/invocations"
+    }, {
+      method: "spaces.debug.invocation",
+      httpMethod: "GET",
+      path: "/spaces/{slug}/debug/invocations/{invocation_id}"
+    }, {
+      method: "spaces.debug.log",
+      httpMethod: "GET",
+      path: "/spaces/{slug}/debug/log"
+    }, {
+      method: "spaces.export_html",
+      httpMethod: "GET",
+      path: "/spaces/{slug}/export.html",
+      responseType: "binary",
+      channel: "media"
+    }, {
+      method: "spaces.cvm.render",
+      httpMethod: "GET",
+      path: "/spaces/cvm/{slug}/",
+      responseType: "binary",
+      channel: "media"
+    }, {
+      method: "spaces.cvm.get",
+      httpMethod: "GET",
+      path: "/spaces/cvm/{slug}/{*subpath}",
+      responseType: "binary",
+      channel: "media"
+    }, {
+      method: "spaces.cvm.post",
+      httpMethod: "POST",
+      path: "/spaces/cvm/{slug}/{*subpath}",
+      responseType: "binary"
+    }, {
+      method: "fs.stats",
+      httpMethod: "POST",
+      path: "/fs/stats"
+    }, {
+      method: "fs.list",
+      httpMethod: "POST",
+      path: "/fs/list"
+    }, {
+      method: "fs.stat",
+      httpMethod: "POST",
+      path: "/fs/stat"
+    }, {
+      method: "fs.read",
+      httpMethod: "POST",
+      path: "/fs/read"
+    }, {
+      method: "fs.reads",
+      httpMethod: "POST",
+      path: "/fs/reads"
+    }, {
+      method: "fs.write",
+      httpMethod: "POST",
+      path: "/fs/write"
+    }, {
+      method: "fs.delete",
+      httpMethod: "POST",
+      path: "/fs/delete"
+    }, {
+      method: "fs.rename",
+      httpMethod: "POST",
+      path: "/fs/rename"
+    }, {
+      method: "fs.mkdir",
+      httpMethod: "POST",
+      path: "/fs/mkdir"
+    }, {
+      method: "fs.library",
+      httpMethod: "POST",
+      path: "/fs/library"
+    }, {
+      method: "fs.export",
+      httpMethod: "POST",
+      path: "/fs/export",
+      responseType: "binary"
+    }, {
+      method: "fs.raw",
+      httpMethod: "GET",
+      path: "/fs/raw/{*path}",
+      responseType: "binary",
+      maxResponseBytes: 1 / 0,
+      channel: "media"
+    }, {
+      method: "idea-cards.media",
+      httpMethod: "GET",
+      path: "/api/idea-cards/media/{handle}",
+      responseType: "binary",
+      channel: "media"
+    }, {
+      method: "fs.search",
+      httpMethod: "POST",
+      path: "/fs/search"
+    }, {
+      method: "git.log",
+      httpMethod: "POST",
+      path: "/git/log"
+    }, {
+      method: "git.show_file",
+      httpMethod: "POST",
+      path: "/git/show_file"
+    }, {
+      method: "nodes.invoke_result",
+      httpMethod: "POST",
+      path: "/nodes/invoke-result"
+    }, {
+      method: "nodes.invoke_ack",
+      httpMethod: "POST",
+      path: "/nodes/invoke-ack"
+    }, {
+      method: "nodes.sync",
+      httpMethod: "POST",
+      path: "/nodes/sync"
+    }, {
+      method: "node.list",
+      httpMethod: "POST",
+      path: "/api/nodes/list",
+      aliases: ["/nodes/list"]
+    }, {
+      method: "node.register",
+      httpMethod: "POST",
+      path: "/api/nodes/register",
+      aliases: ["/nodes/register"]
+    }, {
+      method: "node.heartbeat",
+      httpMethod: "POST",
+      path: "/api/nodes/heartbeat",
+      aliases: ["/nodes/heartbeat"]
+    }, {
+      method: "node.unpair",
+      httpMethod: "POST",
+      path: "/api/nodes/unpair",
+      aliases: ["/nodes/unpair"]
+    }, {
+      method: "node.disconnect",
+      httpMethod: "POST",
+      path: "/api/nodes/disconnect",
+      aliases: ["/nodes/disconnect"]
+    }, {
+      method: "pin.update",
+      httpMethod: "POST",
+      path: "/api/pin-reminder/update"
+    }, {
+      method: "pin.reminder_confirm",
+      httpMethod: "POST",
+      path: "/api/pin-reminder/confirm"
+    }, {
+      method: "wallet.get",
+      httpMethod: "GET",
+      path: "/wallet"
+    }, {
+      method: "wallet.set",
+      httpMethod: "POST",
+      path: "/wallet"
+    }, {
+      method: "egress.approvals",
+      httpMethod: "GET",
+      path: "/approvals",
+      service: "sentinel"
+    }, {
+      method: "egress.approval",
+      httpMethod: "GET",
+      path: "/approvals/{approval_id}",
+      service: "sentinel"
+    }, {
+      method: "egress.approval.decide",
+      httpMethod: "POST",
+      path: "/approvals/{approval_id}/decide",
+      service: "sentinel"
+    }, {
+      method: "egress.approval.history",
+      httpMethod: "GET",
+      path: "/approvals/history",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions",
+      httpMethod: "GET",
+      path: "/permissions",
+      service: "sentinel"
+    }, {
+      method: "permissions.settings",
+      httpMethod: "GET",
+      path: "/permissions/settings",
+      service: "sentinel"
+    }, {
+      method: "permissions.inventory",
+      httpMethod: "GET",
+      path: "/permissions/inventory",
+      service: "daemon"
+    }, {
+      method: "permissions.settings.update",
+      httpMethod: "PATCH",
+      path: "/permissions/settings",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.hitl",
+      httpMethod: "PATCH",
+      path: "/permissions/hitl",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.hitl.snooze.delete",
+      httpMethod: "DELETE",
+      path: "/permissions/hitl/snooze",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.tproxy",
+      httpMethod: "PATCH",
+      path: "/permissions/tproxy",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.mitm",
+      httpMethod: "PATCH",
+      path: "/permissions/mitm",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.sni_rejection",
+      httpMethod: "PATCH",
+      path: "/permissions/sni-rejection",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.active",
+      httpMethod: "GET",
+      path: "/permissions/active",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.active.update",
+      httpMethod: "PATCH",
+      path: "/permissions/active",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.scoped",
+      httpMethod: "GET",
+      path: "/permissions/scopes/{scope_type}/{scope_id}",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.scoped.update",
+      httpMethod: "PATCH",
+      path: "/permissions/scopes/{scope_type}/{scope_id}",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.revoke",
+      httpMethod: "POST",
+      path: "/permissions/revoke",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.reset",
+      httpMethod: "POST",
+      path: "/permissions/reset",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.network_rules",
+      httpMethod: "PATCH",
+      path: "/permissions/network-rules",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.connector",
+      httpMethod: "PATCH",
+      path: "/permissions/connectors/{connector}",
+      service: "sentinel"
+    }, {
+      method: "egress.permissions.connector.reset",
+      httpMethod: "DELETE",
+      path: "/permissions/connectors/{connector}",
+      service: "sentinel"
+    }, {
+      method: "credentials.list",
+      httpMethod: "GET",
+      path: "/v1/credentials/list",
+      service: "authd"
+    }, {
+      method: "credentials.catalog",
+      httpMethod: "GET",
+      path: "/v1/credentials/catalog",
+      service: "authd",
+      noiseOnly: !0
+    }, {
+      method: "credentials.catalog.details",
+      httpMethod: "GET",
+      path: "/v1/credentials/catalog/details",
+      service: "authd",
+      noiseOnly: !0
+    }, {
+      method: "credentials.catalog.update",
+      httpMethod: "POST",
+      path: "/v1/credentials/catalog/update",
+      service: "authd",
+      noiseOnly: !0
+    }, {
+      method: "credentials.catalog.delete",
+      httpMethod: "POST",
+      path: "/v1/credentials/catalog/delete",
+      service: "authd",
+      noiseOnly: !0
+    }, {
+      method: "credentials.register",
+      httpMethod: "POST",
+      path: "/v1/credentials/register",
+      service: "authd"
+    }, {
+      method: "credentials.capture",
+      httpMethod: "POST",
+      path: "/v1/credentials/capture",
+      service: "authd",
+      noiseOnly: !0
+    }, {
+      method: "credentials.capture.external_provider.request",
+      httpMethod: "POST",
+      path: "/v1/credentials/capture/external-provider/request",
+      service: "authd",
+      noiseOnly: !0
+    }, {
+      method: "credentials.capture.external_provider.fulfill",
+      httpMethod: "POST",
+      path: "/v1/credentials/capture/external-provider/fulfill",
+      service: "authd",
+      noiseOnly: !0
+    }, {
+      method: "credentials.delete",
+      httpMethod: "POST",
+      path: "/v1/credentials/delete",
+      service: "authd"
+    }, {
+      method: "chat.history_window",
+      httpMethod: "GET",
+      path: "/chat/history-window",
+      noiseOnly: !0
+    }, {
+      method: "chat.cancel",
+      httpMethod: "POST",
+      path: "/chat/cancel",
+      noiseOnly: !0
+    }, {
+      method: "chat.delete_turn",
+      httpMethod: "POST",
+      path: "/api/chat/delete-turn",
+      noiseOnly: !0
+    }, {
+      method: "chat.message_get",
+      httpMethod: "GET",
+      path: "/chat/message",
+      noiseOnly: !0
+    }, {
+      method: "chat.search",
+      httpMethod: "GET",
+      path: "/chat/search",
+      noiseOnly: !0
+    }, {
+      method: "client.register_capabilities",
+      httpMethod: "POST",
+      path: "/client/register-capabilities",
+      noiseOnly: !0
+    }, {
+      method: "client.invoke.result",
+      httpMethod: "POST",
+      path: "/client/invoke-result",
+      noiseOnly: !0
+    }, {
+      method: "connection.ping",
+      httpMethod: "POST",
+      path: "/api/ping",
+      noiseOnly: !0
+    }, {
+      method: "model.get",
+      httpMethod: "GET",
+      path: "/model",
+      noiseOnly: !0
+    }, {
+      method: "model.set",
+      httpMethod: "POST",
+      path: "/model",
+      noiseOnly: !0
+    }, {
+      method: "widgets.state.set",
+      httpMethod: "POST",
+      path: "/widgets/state",
+      noiseOnly: !0
+    }, {
+      method: "widgets.state.patch",
+      httpMethod: "POST",
+      path: "/widgets/state/patch",
+      noiseOnly: !0
+    }, {
+      method: "navigation.subscribe",
+      httpMethod: "POST",
+      path: "/navigation/subscribe",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }, {
+      method: "navigation.recents.touch",
+      httpMethod: "POST",
+      path: "/navigation/recents/touch",
+      noiseOnly: !0
+    }, {
+      method: "navigation.pinned.set",
+      httpMethod: "POST",
+      path: "/navigation/pinned/set",
+      noiseOnly: !0
+    }, {
+      method: "chat.stream",
+      httpMethod: "POST",
+      path: "/chat/stream",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }, {
+      method: "chat.stream_events",
+      httpMethod: "POST",
+      path: "/chat/stream-events",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }, {
+      method: "chat.subscribe",
+      httpMethod: "POST",
+      path: "/chat/subscribe",
+      noiseOnly: !0,
+      streamMode: "subscription",
+      requestTimeoutMs: 3e4
+    }, {
+      method: "activity.subscribe",
+      httpMethod: "POST",
+      path: "/activity/subscribe",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }, {
+      method: "fs.subscribe",
+      httpMethod: "POST",
+      path: "/api/fs/subscribe",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }, {
+      method: "identity.subscribe",
+      httpMethod: "POST",
+      path: "/identity/subscribe",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }, {
+      method: "spaces.subscribe",
+      httpMethod: "POST",
+      path: "/spaces/subscribe",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }, {
+      method: "artifacts.subscribe",
+      httpMethod: "POST",
+      path: "/api/artifacts/subscribe",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }, {
+      method: "tasks.subscribe",
+      httpMethod: "POST",
+      path: "/tasks/subscribe",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }, {
+      method: "theme.subscribe",
+      httpMethod: "POST",
+      path: "/themes/subscribe",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }, {
+      method: "computer.subscribe",
+      httpMethod: "POST",
+      path: "/api/computer/subscribe",
+      noiseOnly: !0,
+      streamMode: "subscription"
+    }],
+    i = /\{(\*?[a-zA-Z0-9_]+)\}/g,
+    n = new Map;
+  for (let e of s)
+    for (let t of (n.set(e.method, e), e.aliases ?? [])) n.set(t, e);
+
+  function r(e) {
+    return n.get(e) ?? null
+  }
+
+  function h(e) {
+    let t = r(e);
+    return t?.streamMode === "subscription"
+  }
+  e.s(["BUG_REPORT_LOG_DOWNLOAD_MAX_BYTES", 0, 5242880, "HATCH_GATEWAY_HTTP_ROUTES", 0, s, "HttpRoutePathParamError", 0, a, "SHARED_SPACE_CALLBACK_METHOD", 0, o, "buildSyntheticResolvedRoute", 0, function(e) {
+    return ! function(e) {
+      let o = e;
+      for (let e = 0; e < 8; e += 1) {
+        let e = o.replace(/\\/g, "/").replace(/\/{2,}/g, "/");
+        if (t.test(e)) break;
+        try {
+          let e = decodeURIComponent(o);
+          if (e === o) return;
+          o = e
+        } catch {
+          break
+        }
+      }
+      throw Error("Browser clipboard requests require typed Noise methods")
+    }(e.path), {
+      route: {
+        method: e.label,
+        httpMethod: e.httpMethod,
+        path: e.path,
+        service: e.service,
+        channel: "main"
+      },
+      path: e.path,
+      params: e.params ?? {}
+    }
+  }, "isRecordStreamMethod", 0, function(e) {
+    let t = r(e);
+    return t?.streamMode === "records"
+  }, "isResubscribableMethod", 0, function(e) {
+    return h(e) && e.endsWith(".subscribe")
+  }, "isSharedAgentOnlyHttpRoute", 0, function(e) {
+    return r(e)?.connectionClass === "shared_agent"
+  }, "isSubscriptionMethod", 0, h, "resolveHttpRoute", 0, r, "resolveHttpRouteRequest", 0, function(e, t) {
+    let o = r(e);
+    if (null == o) return null;
+    let s = {
+        ...t
+      },
+      n = o.path;
+    return {
+      route: o,
+      path: n = n.replace(i, (t, o) => {
+        let i = o.startsWith("*"),
+          n = i ? o.slice(1) : o,
+          r = s[n];
+        if (null == r) throw new a(e, n);
+        return (delete s[n], i) ? String(r).split("/").map(encodeURIComponent).join("/") : encodeURIComponent(String(r))
+      }),
+      params: s
+    }
+  }], 85461)
+}]);
+
+//# debugId=d2e8090f-bf1b-4a4e-3bd0-92f2d890b269
+//# sourceMappingURL=2iw7r10e87egn.js.map
